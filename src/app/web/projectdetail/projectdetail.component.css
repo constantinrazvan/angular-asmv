@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+.project-details {
+    margin: 30px 30px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.project-details h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #038ED1;
+}

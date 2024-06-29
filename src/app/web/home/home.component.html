@@ -1,0 +1,114 @@
+<app-web-navbar></app-web-navbar>
+
+    <div class="text-center hero position-relative">
+        <span style="font-size: 12px;"> <b>BUN VENIT LA</b> </span>
+        <h1 class="display-5 fw-bold">Asociatia Medicilor Studentilor Voluntari</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Bun venit în comunitatea noastră de viitori medici! Ne concentrăm pe educație, inovare și conexiuni în domeniul medical. Alătură-te nouă pentru a-ți dezvolta abilitățile și pentru a contribui la construirea unui viitor mai sănătos și mai strălucitor în domeniul sănătății!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a style="font-size: 14px;" href="/haiInEchipa" type="button" class="btn btn-primary shadow-sm btn-lg px-4 gap-3 buttonHero text-white">Devino Voluntar!</a>
+                <a style="font-size: 14px;" href="/evenimente" type="button" class="btn btn-primary shadow-sm btn-lg px-4 buttonHero text-white">Vezi ce am facut!</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid fade-in" >
+        <div class="container mt-5 pt-5 my-5 py-5 px-5">
+            <div class="row align-items-center"> 
+                <div class="col-md-6">
+                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem noi?</b></h2>
+                    <p class="lead paragraphFirstSection">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum mauris at elit pellentesque, sed dictum quam tincidunt. Sed id dui ante. Phasellus id velit sit amet lacus egestas ornare eget vel odio. Cras eu nulla at odio fermentum commodo. Suspendisse a blandit felis, in eleifend arcu. Nullam cursus porta blandit. </p>
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dorinta</b> </span> <br />
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dedicare</b> </span> <br />
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Devotament</b> </span> <br />
+                </div>
+                <div class="col-md-6">
+                    <img src="../../../assets/heroBg.jpg" alt="hero" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid px-5 fade-in" >
+        <div class="container">
+            <h1 class="text-center"> Evenimente <b> ASMV </b></h1>
+            <p class="mx-5 text-center"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus amet vitae doloribus quibusdam nobis ut, neque vel quia iusto. Expedita sequi distinctio libero aliquam id vero culpa voluptates in ex?</p>
+            <div class="row">
+                <div *ngFor="let project of projects" class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{project.title}}</h5>
+                        <p class="card-text">{{project.description}}</p>
+                        <button class="btn btn-primary w-100" style="background-color: #038ED1;" (click)="goToProject(project.link)">Vezi mai multe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid fade-in" >
+        <div class="container mt-5 pt-5 my-5 py-5 px-5">
+            <div class="row align-items-center"> 
+                <div class="col-md-6">
+                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem noi?</b></h2>
+                    <p class="lead paragraphFirstSection">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum mauris at elit pellentesque, sed dictum quam tincidunt. Sed id dui ante. Phasellus id velit sit amet lacus egestas ornare eget vel odio. Cras eu nulla at odio fermentum commodo. Suspendisse a blandit felis, in eleifend arcu. Nullam cursus porta blandit. </p>
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dorinta</b> </span> <br />
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dedicare</b> </span> <br />
+                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Devotament</b> </span> <br />
+                </div>
+                <div class="col-md-6">
+                    <img src="../../../assets/heroBg.jpg" alt="hero" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid fade-in" >
+        <div class="container px-5 mt-5">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h1 id="testimonialsHeading" class="font-weight-bold mb-3">Asculta parerea voluntarilor actuali!</h1>
+                    <p class="text-muted testimonialsParagraph" style="text-align: justify; font-family:'DM Sans', sans-serif;">
+                        Opiniile membrilor activi sunt adesea o sursă valoroasă de încredere și inspirație. La ASMV, ne axăm pe părerea celor care fac parte din comunitatea noastră pentru a ne ghida în eforturile noastre de a oferi servicii de cea mai înaltă calitate. Ascultăm cu atenție feedback-ul și experiențele lor pentru a continua să ne îmbunătățim și să ne aliniem obiectivelor și valorilor noastre. Iată ce spun membrii noștri activi despre experiența lor cu ASMV.
+                    </p>
+                </div>
+                <div class="col-md-4" *ngFor="let testimonial of testimonials">
+                    <div class="card shadow" style="border-radius: 10px; border: none;">
+                        <div class="card-body">
+                            <i class="bi bi-quote" style="font-size: 40px; color: #038ED1;"></i>
+                            <h5 class="cardHeading mt-3" style="color: #038ED1"><b>{{ testimonial.title }}</b></h5>
+                            <p class="mb-4 cardDescription">{{ testimonial.description }}</p>
+                            <hr />
+                            <div class="d-flex align-items-center">
+                                <img [src]="logo" width="30" alt="logo" class="me-2">
+                                <span class="text-muted">{{ testimonial.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5 mt-5 text-white cta" style="background-color: #07AEFF; " >
+        <div class="row align-items-center justify-content-center" style="padding: 0px 10%;">
+          <div class="col-md-8 text-center text-md-start mb-4 mb-md-0">
+            <h6 class='pop'>ASMV</h6>
+            <h1 class='pop'>Aboneaza-te la<br/> Newsletter-ul nostru!</h1>
+            <p>Fii mereu la curent cu noutățile din lumea medicală! Abonează-te la newsletter-ul nostru pentru a primi informații proaspete despre evenimentele viitoare, resurse educative, oportunități de voluntariat și multe altele. Nu rata șansa de a fi la zi cu tot ce se întâmplă în asociația noastră și în domeniul sănătății. Înscrie-te acum și fii parte din comunitatea noastră de viitori medici pasionați!</p>
+          </div>
+          <div class="col-md-4 text-center text-md-start">
+            <div class="d-flex">
+              <input class="form-control me-2" style="height: 50px; width: 80%;" type="email" placeholder="Email">
+              <button class="btn btn-light" style="font-size: 25px;"><i class="bi bi-send-fill" style="color: #07AEFF;"></i></button>
+            </div>
+          </div>
+        </div>
+    </div>
+      
+    
+    
+
+<app-web-footer></app-web-footer>

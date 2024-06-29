@@ -1,0 +1,62 @@
+<app-web-navbar></app-web-navbar>
+
+<div class="container-fluid mt-5">
+    <div class="container text-center">
+        <div class="jumbotron text-center my-5" style="background-color: #038ED1; padding: 50px; color: white;">
+            <h1 class="display-4">Evenimente</h1>
+            <p class="lead" style="font-size: 15px;">Bine te-am gasit pe pagina noastra de evenimente! Aici vom posta diferite evenimente, mai exact proiecte sau cursuri.</p>
+            <p class="lead" style="font-size: 15px;"> Te invitam sa tragi un ochi peste lucrurile pe care le-am facut de-a lungul timpului! </p>
+        </div>
+        <ul class="nav nav-pills nav-fill gap-2 p-1 small rounded-5 shadow-sm" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" 
+                        [class.active]="activeTab === 'projects'" 
+                        (click)="activeTab = 'projects'" 
+                        type="button" 
+                        role="tab">Proiecte</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" 
+                        [class.active]="activeTab === 'courses'" 
+                        (click)="activeTab = 'courses'" 
+                        type="button" 
+                        role="tab">Cursuri</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Projects Section -->
+    <div class="row m-5" *ngIf="activeTab === 'projects'">
+        <div class="col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor="let project of projectsList">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h3 class="card-title" style="color: #038ED1;"><b>{{ project.name }}</b></h3>
+                    <p class="card-text">{{ project.summary }}</p>
+                    <button [routerLink]="['/project', project.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi curs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Courses Section -->
+    <div class="row m-5" *ngIf="activeTab === 'courses'">
+        <div class="col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor="let course of coursesList">
+            <div class="card h-100 text-center">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title" style="color: #038ED1;"><b>{{ course.title }}</b></h3>
+                    <p class="card-text">{{ course.summary }}</p>
+                    <p class="card-text" style="color: #038ED1;"><b>{{ course.instructor }}</b></p>
+                    <div class="mt-auto">
+                        <button [routerLink]="['/course', course.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi curs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+<app-web-footer></app-web-footer>

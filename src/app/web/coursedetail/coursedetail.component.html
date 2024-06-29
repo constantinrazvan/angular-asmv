@@ -1,0 +1,11 @@
+<app-web-navbar></app-web-navbar>
+
+<div *ngIf="course">
+  <h2>{{ course.title }}</h2>
+  <p>Instructor: {{ course.instructor }}</p>
+    <div>
+        <p>{{ course.description }}</p>
+    </div>
+</div>
+  
+<app-web-footer></app-web-footer>

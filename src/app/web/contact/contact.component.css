@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    font-family: 'DM Sans', sans-serif;
+}
+
+body, html {
+    scroll-behavior: smooth;
+}
+
+/* Initial style for larger screens */
+#form {
+    width: 100%; /* or another width, depending on your design needs */
+    max-width: 600px; /* Optional: set a max-width for larger screens */
+    margin: auto; /* Center the form */
+}
+
+/* Adjustments for screens smaller than or equal to 800px */
+@media screen and (max-width: 800px) {
+    #form {
+        width: 400px; /* Set width to 400px when the viewport is 800px or less */
+    }
+}

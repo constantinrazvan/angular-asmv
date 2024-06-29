@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    font-family: 'DM Sans', sans-serif;
+}
+
+a {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.371);
+}
+
+.button {
+    background-color: #038ED1;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+    a {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,27 @@
+<app-web-navbar></app-web-navbar>
+
+    <div class="container-fluid my-5">
+        <div id="form" style=" margin: auto; text-align: left;">
+            <div class="mb-3">
+                <h1 style="font-size: 30px; text-align: center;"><b>Contacteaza-ne!</b></h1>
+                <p class="text-center"> Lasa-ne un mesaj un mesaj folosind formularul de mai jos si noi vom reveni cu un mesaj in cel mai scurt timp!</p>
+            </div>
+            <form class="mt-5 mb-5" onsubmit="onSubmit()"> 
+              <div class="form-group mb-3">
+                <label for="fullName" style="text-align: left;">Nume Prenume</label>
+                <input type="text" [(ngModel)]="data.fullname" class="form-control" id="fullName" placeholder="Ion Ionescu">
+              </div>
+              <div class="form-group mb-3">
+                <label for="emailAddress">Email address</label>
+                <input type="email" [(ngModel)]="data.email" class="form-control" id="emailAddress" placeholder="email@exemplu.com">
+              </div>
+              <div class="form-group mb-3">
+                <label for="message">Mesaj</label>
+                <textarea type="text" [(ngModel)]="data.message" class="form-control" id="message" rows="3"></textarea>
+              </div>
+              <button class="btn w-100 text-white" style="background-color: #038ED1;" type="submit">Trimite</button>
+            </form>
+          </div>          
+    </div>
+
+<app-web-footer></app-web-footer>
