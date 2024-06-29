@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ContactService } from '../../core/services/contactService/contact.service';
 import { Route, Router } from '@angular/router';
-import { NotificationService } from '../../core/services/notification.service';
+import { NotificationService } from '../../core/services/notificationService/notification.service';
 
 @Component({
   selector: 'app-contact',
