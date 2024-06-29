@@ -23,6 +23,10 @@ a {
     font-family: 'DM Sans', sans-serif;
 }
 
+.nav-link.active-link {
+    color: #0392D6 !important;
+}
+
 @media screen and (max-width: 768px) {
     a {
         font-size: 14px;

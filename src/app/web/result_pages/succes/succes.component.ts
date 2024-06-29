@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../../core/services/notificationService/notification.service';
+import { WebNavbarComponent } from '../../../shared/web-navbar/web-navbar.component';
+import { WebFooterComponent } from '../../../shared/web-footer/web-footer.component';
 
 @Component({
   selector: 'app-succes',
   standalone: true,
-  imports: [],
+  imports: [WebNavbarComponent, WebFooterComponent],
   templateUrl: './succes.component.html',
   styleUrl: './succes.component.css'
 })

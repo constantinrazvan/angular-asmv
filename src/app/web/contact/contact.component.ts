@@ -17,7 +17,7 @@ import { NotificationService } from '../../core/services/notificationService/not
 })
 export class ContactComponent implements OnInit {
   data: ContactMessage = {} as ContactMessage;
-
+  error: string = "";
   constructor(
     private contactService: ContactService, 
     private notificationService: NotificationService,
@@ -33,6 +33,7 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.validator();
     this.contactService.sendMessage(this.data).subscribe({
       next: (res) => {
         console.log(res);
@@ -46,5 +47,16 @@ export class ContactComponent implements OnInit {
       }
     });
     this.data = {} as ContactMessage;
+  }
+
+  validator(): boolean {
+    if (this.data.fullname == '' || this.data.email == '' || this.data.message == '') {
+      this.error = "Pentru a trimite un mesaj, te rugam sa ne oferi toate datele solicitate!";
+      return false;
+    } else if (!this.data.email.includes("@")){
+      this.error = "Pentru a trimite un mesaj, te rugam sa oferi o adresa de email valida!";
+      return false;
+    }
+    return true;
   }
 }

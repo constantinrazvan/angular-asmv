@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs'; // Import 'of' from RxJS to create an observable
 
 @Injectable({
-  providedIn: 'root'})
-export class CourseServiceService {
+  providedIn: 'root'
+})
+export class CourseService {
+
   courses = [
     {
         id: 1,

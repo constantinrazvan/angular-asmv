@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     { path: '',
@@ -80,5 +81,50 @@ export const routes: Routes = [
                 (m) => m.ErrorComponent
             )
         }
+    }, 
+    {
+        path: 'blogs-management',
+        loadComponent: () => {
+            return import('./dashboard/blogs-management/blogs-management.component').then(
+                (m) => m.BlogsManagementComponent
+            )
+        },
+        // canActivate : [AuthGuard]
+    }, 
+    {
+        path: 'newsletter-management',
+        loadComponent:() => {
+            return import('./dashboard/newsletter-management/newsletter-management.component').then(
+                (m) => m.NewsletterManagementComponent
+            )
+        },
+        // canActivate : [AuthGuard]
+    },
+    {
+        path: 'contact-management', 
+        loadComponent: () => {
+            return import('./dashboard/contact-management/contact-management.component').then(
+                (m) => m.ContactManagementComponent
+            )
+        },
+        // canActivate : [AuthGuard]
+    }, 
+    {
+        path: 'events-management', 
+        loadComponent: () => {
+            return import('./dashboard/events-management/events-management.component').then(
+                (m) => m.EventsManagementComponent
+            )
+        },
+        // canActivate : [AuthGuard]
+    }, 
+    {
+        path: 'volunteers-management', 
+        loadComponent: () => {
+            return import('./dashboard/volunteers-management/volunteers-management.component').then(
+                (m) => m.VolunteersManagementComponent
+            )
+        },
+        // canActivate : [AuthGuard]
     }
 ];

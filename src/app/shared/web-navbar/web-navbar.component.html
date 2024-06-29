@@ -13,16 +13,16 @@
                 <!-- Navigation links in the center -->
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a [class]="activeRoute === '/' ? 'nav-link active' : 'nav-link'" class="nav-link px-2" aria-current="page" href="/">Acasa</a>
+                        <a [ngClass]="{'active-link': activeRoute === '/'}" class="nav-link px-2" aria-current="page" href="/">Acasa</a>
                     </li>
                     <li class="nav-item">
-                        <a [class]="activeRoute === '/evenimente' ? 'nav-link active' : 'nav-link'" class="nav-link px-2" href="/evenimente">Evenimente</a>
+                        <a [ngClass]="{'active-link': activeRoute === '/evenimente'}" class="nav-link px-2" href="/evenimente">Evenimente</a>
                     </li>
                     <li class="nav-item">
-                        <a [class]="activeRoute === '/blogs' ? 'nav-link active' : 'nav-link'" class="nav-link px-2" href="/blogs">Bloguri</a>
+                        <a [ngClass]="{'active-link': activeRoute === '/blogs'}" class="nav-link px-2" href="/blogs">Bloguri</a>
                     </li>
                     <li class="nav-item">
-                        <a [class]="activeRoute === '/contact' ? 'nav-link active' : 'nav-link'" class="nav-link px-2" href="/contact">Contact</a>
+                        <a [ngClass]="{'active-link': activeRoute === '/contact'}" class="nav-link px-2" href="/contact">Contact</a>
                     </li>
                 </ul>
                 

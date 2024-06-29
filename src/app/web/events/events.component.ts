@@ -3,8 +3,8 @@ import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CourseServiceService } from '../../core/services/courseService/course-service.service';
-import { ProjectServiceService } from '../../core/services/projectService/project-service.service';
+import { CourseService } from '../../core/services/courseService/course.service';
+import { ProjectService } from '../../core/services/projectService/project.service';
 
 @Component({
   selector: 'app-events',
@@ -25,8 +25,8 @@ export class EventsComponent implements OnInit {
   selectedCourse: any; // Ensure this is defined if used
 
   constructor(
-    private courseService: CourseServiceService,
-    private projectService: ProjectServiceService
+    private courseService: CourseService,
+    private projectService: ProjectService
   ) { }
 
   ngOnInit(): void {

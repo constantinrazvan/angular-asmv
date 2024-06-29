@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-web-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './web-navbar.component.html',
   styleUrl: './web-navbar.component.css'
 })

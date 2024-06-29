@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs'; // Ensure RxJS 'of' is imported
+import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'})
-export class ProjectServiceService {
-  
+  providedIn: 'root'
+})
+export class ProjectService {
+
   projects = [
     {
         id: 1,
