@@ -27,7 +27,7 @@ export const routes: Routes = [
         },
     }, 
     {
-        path: 'login', 
+        path: 'volunteers', 
         loadComponent:() => {
             return import('./web/volunteers/volunteers.component').then(
                 (m) => m.VolunteersComponent
@@ -126,5 +126,21 @@ export const routes: Routes = [
             )
         },
         // canActivate : [AuthGuard]
+    }, 
+    {
+        path: 'login',
+        loadComponent : () => {
+            return import('./dashboard/login/login.component').then(
+                (m) => m.LoginComponent
+            )
+        },
+    }, 
+    {
+        path: 'register',
+        loadComponent : () => {
+            return import('./dashboard/register/register.component').then(
+                (m) => m.RegisterComponent
+            )
+        },
     }
 ];
