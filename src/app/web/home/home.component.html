@@ -7,7 +7,7 @@
             <p class="lead mb-4">Bun venit în comunitatea noastră de viitori medici! Ne concentrăm pe educație, inovare și conexiuni în domeniul medical. Alătură-te nouă pentru a-ți dezvolta abilitățile și pentru a contribui la construirea unui viitor mai sănătos și mai strălucitor în domeniul sănătății!</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a style="font-size: 14px;" href="/haiInEchipa" type="button" class="btn btn-primary shadow-sm btn-lg px-4 gap-3 buttonHero text-white">Devino Voluntar!</a>
-                <a style="font-size: 14px;" href="/evenimente" type="button" class="btn btn-primary shadow-sm btn-lg px-4 buttonHero text-white">Vezi ce am facut!</a>
+                <a style="font-size: 14px;" href="/proiecte" type="button" class="btn btn-primary shadow-sm btn-lg px-4 buttonHero text-white">Vezi ce am facut!</a>
             </div>
         </div>
     </div>
@@ -16,50 +16,38 @@
         <div class="container mt-5 pt-5 my-5 py-5 px-5">
             <div class="row align-items-center"> 
                 <div class="col-md-6">
-                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem noi?</b></h2>
-                    <p class="lead paragraphFirstSection">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum mauris at elit pellentesque, sed dictum quam tincidunt. Sed id dui ante. Phasellus id velit sit amet lacus egestas ornare eget vel odio. Cras eu nulla at odio fermentum commodo. Suspendisse a blandit felis, in eleifend arcu. Nullam cursus porta blandit. </p>
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dorinta</b> </span> <br />
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dedicare</b> </span> <br />
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Devotament</b> </span> <br />
+                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem?</b></h2>
+                    <p class="lead paragraphFirstSection">Asociatia Studentilor si Medicilor Voluntari este o organizatie non-profit infiintata in 2007, la initiativa unor tineri medici si studenti care si-au propus dezvoltarea pe plan local a unui grup informativ, care sa promoveze sanatatea printre tineri si sa ajute la perfectionarea in domeniul pregatirii studentilor la medicina.</p>
                 </div>
                 <div class="col-md-6">
                     <img src="../../../assets/heroBg.jpg" alt="hero" class="img-fluid">
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid fade-in principii" style="background-color: #07AEFF; background-image: url('../../../assets/CurveLine.svg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
+        <div class="container">
+            <div class="text-center p-5">
+                <h2 class="section-heading display-5 mt-5 headingFirstSection text-white"><b>Principii ASMV</b></h2>
+                <p class="lead paragraphFirstSection text-white">Principii generale ASMV se adreseaza atat studentilor si cadrelor medicale, incercand sa faciliteze acumularea de cunostinte si experienta, cat si tinerilor din afara ariei medicale, prin campanii de informare si preventie. Alaturi de proiectele ce vizeaza sanatatea publica, ASMV sprijina actiunile de protectie a mediului si acorda suport moral si material celor in suferinta. ASMV promoveaza competenta si performanta. Prin actiunile organizate, ASMV doreste sa creasca calitatea educatiei medicale romanesti, in special a pregatirii individuale a studentului la medicina.
+                    <br/> Se promovează competenta si performanta, munca în echipă, ideea de familie si de dezvoltare prin acumularea de cunostinte noi în mod constant. Prin actiunile organizate, ASMV doreste să crească calitatea educatiei medicale românesti, în special a pregatirii individuale a studentului la medicină.
+                </p>
             </div>
         </div>
     </div>
     
-    <div class="container-fluid px-5 fade-in" >
-        <div class="container">
-            <h1 class="text-center"> Evenimente <b> ASMV </b></h1>
-            <p class="mx-5 text-center"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus amet vitae doloribus quibusdam nobis ut, neque vel quia iusto. Expedita sequi distinctio libero aliquam id vero culpa voluptates in ex?</p>
-            <div class="row">
-                <div *ngFor="let project of projects" class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">{{project.title}}</h5>
-                        <p class="card-text">{{project.description}}</p>
-                        <button class="btn btn-primary w-100" style="background-color: #038ED1;" (click)="goToProject(project.link)">Vezi mai multe</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <div class="container-fluid fade-in" >
         <div class="container mt-5 pt-5 my-5 py-5 px-5">
             <div class="row align-items-center"> 
                 <div class="col-md-6">
-                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem noi?</b></h2>
-                    <p class="lead paragraphFirstSection">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer interdum mauris at elit pellentesque, sed dictum quam tincidunt. Sed id dui ante. Phasellus id velit sit amet lacus egestas ornare eget vel odio. Cras eu nulla at odio fermentum commodo. Suspendisse a blandit felis, in eleifend arcu. Nullam cursus porta blandit. </p>
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dorinta</b> </span> <br />
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Dedicare</b> </span> <br />
-                    <span class="spanFirstSection" style="padding: 10px 0px"> <i class="bi bi-check-circle-fill" style="margin-right: 10px; font-size: 13px; padding-bottom: 10px;"></i> <b>Devotament</b> </span> <br />
+                    <img src="../../../assets/heroBg.jpg" alt="hero" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <img src="../../../assets/heroBg.jpg" alt="hero" class="img-fluid">
+                    <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Obiective</b></h2>
+                    <p class="lead paragraphFirstSection">Educaţie medicală în randul tinerilor şi perfectionarea în domeniul pregătirii profesionale a studenţilor. Acordarea de ajutoare materiale, de asistenţă şi sprijin moral persoanelor suferinde. Organizarea de manifestări ştiinţifice naţionale şi internationale, simpozioane, conferinţe, campanii informative şi alte evenimente pe teme medicale. Tiparirea de publicaţii şi materiale informative. Realizarea de proiecte ce vizeaza problemele de mediu. Colaborarea cu institutii medicale şi alte organizatii din ţara şi străinatate in vederea unor schimburi de experienţă şi a realizării scopurilor de mai sus. </p>
                 </div>
             </div>
         </div>
@@ -101,8 +89,8 @@
           </div>
           <div class="col-md-4 text-center text-md-start">
             <div class="d-flex">
-              <input class="form-control me-2" style="height: 50px; width: 80%;" type="email" placeholder="Email">
-              <button class="btn btn-light" style="font-size: 25px;"><i class="bi bi-send-fill" style="color: #07AEFF;"></i></button>
+              <input [(ngModel)]="email" class="form-control me-2" style="height: 50px; width: 80%;" type="email" placeholder="Email">
+              <button class="btn btn-light" style="font-size: 25px;"><i class="bi bi-send-fill" style="color: #07AEFF;" (click)="joinNewsletter()"></i></button>
             </div>
           </div>
         </div>

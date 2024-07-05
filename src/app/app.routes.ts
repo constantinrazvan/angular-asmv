@@ -11,14 +11,6 @@ export const routes: Routes = [
         },
     }, 
     {
-        path: 'evenimente', 
-        loadComponent: async () => {
-            return await import('./web/events/events.component').then(
-                (m) => m.EventsComponent
-            )
-        },
-    }, 
-    {
         path: 'contact', 
         loadComponent:() => {
             return import('./web/contact/contact.component').then(
@@ -90,6 +82,15 @@ export const routes: Routes = [
             )
         },
         // canActivate : [AuthGuard]
+    },
+    {
+        path: 'proiecte',
+        loadComponent: () => {
+            return import('./web/projects/projects.component').then(
+                (m) => m.ProjectsComponent
+            )
+        },
+        // canActivate : [AuthGuard]
     }, 
     {
         path: 'newsletter-management',
@@ -140,6 +141,14 @@ export const routes: Routes = [
         loadComponent : () => {
             return import('./dashboard/register/register.component').then(
                 (m) => m.RegisterComponent
+            )
+        },
+    }, 
+    {
+        path: 'proiect/:id',
+        loadComponent : () => {
+            return import('./web/projectdetail/projectdetail.component').then(
+                (m) => m.ProjectDetailComponent
             )
         },
     }

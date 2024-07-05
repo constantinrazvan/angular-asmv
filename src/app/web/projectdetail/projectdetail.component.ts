@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectServiceService } from '../../core/services/projectService/project-service.service';
+import { ProjectService } from '../../core/services/projectService/project.service';
 import { CommonModule } from '@angular/common';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
@@ -12,14 +12,13 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
   templateUrl: './projectdetail.component.html',
   styleUrls: ['./projectdetail.component.css']
 })
-
 export class ProjectDetailComponent implements OnInit {
   project: any;
 
   constructor(
     private route: ActivatedRoute,
-    private projectService: ProjectServiceService
-  ) { }
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

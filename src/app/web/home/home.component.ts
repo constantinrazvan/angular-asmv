@@ -4,6 +4,7 @@ import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapCheckCircleFill } from '@ng-icons/bootstrap-icons';
+import { FormsModule } from '@angular/forms';
 
 
 interface Project {
@@ -16,9 +17,9 @@ interface Project {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, WebNavbarComponent, WebFooterComponent, NgIconComponent], // Ensure these components are standalone
+  imports: [CommonModule, WebNavbarComponent, WebFooterComponent, NgIconComponent, FormsModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'], // Corrected from 'styleUrl' to 'styleUrls'
+  styleUrls: ['./home.component.css'],
   viewProviders: [provideIcons({
     bootstrapCheckCircleFill
   })]
@@ -100,5 +101,16 @@ export class HomeComponent implements AfterViewInit {
 
     const elements = this.el.nativeElement.querySelectorAll('.fade-in');
     elements.forEach((element: Element) => observer.observe(element));
+  }
+
+  email: string = "";
+  joinNewsletter() {
+    if(this.email == "") {
+      return; 
+    } else if (this.email.includes("@")) {
+      alert("Din pacate, in momentul actual nu functioneaza acest serviciu.");
+    } else {
+      alert("Te rugam sa oferi o adresa de email valida!");
+    }
   }
 }
