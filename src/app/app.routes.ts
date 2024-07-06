@@ -151,5 +151,13 @@ export const routes: Routes = [
                 (m) => m.ProjectDetailComponent
             )
         },
+    }, 
+    {
+        path: 'members', 
+        loadComponent : () => { 
+            return import("./web/members/members.component").then( 
+                (m) => m.MembersComponent
+            )
+        }
     }
 ];

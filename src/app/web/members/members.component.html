@@ -1,0 +1,72 @@
+<app-web-navbar></app-web-navbar>
+<div class="container-fluid my-5">
+    <div class="container">
+        <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
+            <h1 class="display-4">Membrii</h1>
+            <p class="lead" style="font-size: 15px;">Membrii ASMV aduc cea mai semnificativa valoare asociatiei noastre!</p>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="memberSection fade-in">
+            <h1 class="headingSection"><b>Membrii Adunarea Generala</b></h1>
+            <div class="row">
+                <div class="col-md-4 d-flex align-items-stretch fade-in" *ngFor="let member of membersAdunareGenerala">
+                    <div class="card mb-4 w-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <img src="{{ member.image }}" class="member-image" alt="member image">
+                            <h4 class="card-title mt-3">{{ member.name }}</h4>
+                            <p class="lead card-text memberFunction">{{ member.function }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memberSection fade-in">
+            <h1 class="headingSection"><b>Membrii Consiliu Directorial</b></h1>
+            <div class="row">
+                <div class="col-md-4 d-flex align-items-stretch fade-in" *ngFor="let member of membersConsiliuDirectorial">
+                    <div class="card mb-4 w-100 ">
+                        <div class="card-body d-flex flex-column text-center">
+                            <img src="{{ member.image }}" class="member-image" alt="member image">
+                            <h4 class="card-title mt-3">{{ member.name }}</h4>
+                            <p class="lead card-text memberFunction">{{ member.function }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memberSection fade-in">
+            <h1 class="headingSection"><b>Membrii de Onoare</b></h1>
+            <div class="row">
+                <div class="col-md-4 d-flex align-items-stretch fade-in" *ngFor="let member of membersDeOnoare">
+                    <div class="card mb-4 w-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <img src="{{ member.image }}" class="member-image" alt="member image">
+                            <h4 class="card-title mt-3">{{ member.name }}</h4>
+                            <p class="lead card-text memberFunction">{{ member.function }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memberSection fade-in">
+            <h1 class="headingSection"><b>Voluntari</b></h1>
+            <div class="row">
+                <div class="col-md-4 d-flex align-items-stretch fade-in" *ngFor="let member of membersVolunteers">
+                    <div class="card mb-4 w-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <img src="{{ member.image }}" class="member-image" alt="member image">
+                            <h4 class="card-title mt-3">{{ member.name }}</h4>
+                            <p class="lead card-text memberFunction">{{ member.function }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-web-footer></app-web-footer>

@@ -6,8 +6,8 @@
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
 }
 
-body, html {
-    font-family: 'DM Sans', sans-serif;
+* {
+    font-family: 'DM Sans';
 }
 
 .jumbotron {
@@ -16,6 +16,31 @@ body, html {
     background-size: cover;     
     background-position: center;
     color: white;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-title, .card-text {
+    margin: 0;
+}
+
+.memberFunction {
+    font-size: 13px;
+}
+
+.memberSection {
+    margin-bottom: 30px;
 }
 
 .fade-in {
@@ -27,8 +52,21 @@ body, html {
     opacity: 1;
 }
 
-.headingProject {
+.headingSection {
     font-family: 'DM Sans', sans-serif;
+    font-size: 48px;
     color: #038ED1;
     font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.member-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.memberFunction {
+    margin-top: 10px;
 }

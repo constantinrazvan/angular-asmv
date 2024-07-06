@@ -5,8 +5,9 @@
     src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
   }
+
 .project-details {
-    margin: 30px 30px;
+    padding: 50px 50px;
     font-family: 'DM Sans', sans-serif;
 }
 
@@ -14,4 +15,8 @@
     font-size: 2.5rem;
     font-weight: 600;
     color: #038ED1;
+}
+
+body, html { 
+    scroll-behavior: smooth;
 }

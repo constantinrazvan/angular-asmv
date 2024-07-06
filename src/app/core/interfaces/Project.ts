@@ -5,4 +5,5 @@ export interface Project {
     created_at: string;
     updated_at: string;
     image_path: string;
+    summary: string;
 }

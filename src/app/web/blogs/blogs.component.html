@@ -1,21 +1,21 @@
 <app-web-navbar></app-web-navbar>
-    <div class="container-fluid my-5">
-        <div class="container">
-            <div class="jumbotron text-center my-5" style="background-color: #038ED1; padding: 50px; color: white;">
-                <h1 class="display-4">Blogs</h1>
-                <p class="lead" style="font-size: 15px;">In sectiunea noastra de bloguri, vei gasi diferite ganduri, idei si noutati. Noutati atat despre lumea tech cat si despre lumea medicala!</p>
-              </div>
-            <div class="row">
-                <div class="col-md-4 col-12 mb-4" *ngFor="let blog of blogsList">
-                    <div class="card h-100 text-center">
-                        <div class="card-body">
-                            <h3 class="card-title" style="color: #038ED1;"><b>{{ blog.title }}</b></h3>
-                            <p class="card-text">{{ blog.summary }}</p>
-                            <button [routerLink]="['/blog', blog.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi curs</button>
-                        </div>
+<div class="container-fluid my-5">
+    <div class="container">
+        <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
+            <h1 class="display-4">Blogs</h1>
+            <p class="lead" style="font-size: 15px;">In sectiunea noastra de bloguri, vei gasi diferite ganduri, idei si noutati. Noutati atat despre lumea tech cat si despre lumea medicala!</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-12 mb-4 fade-in" *ngFor="let blog of blogsList">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ blog.title }}</b></h3>
+                        <p class="card-text">{{ blog.summary }}</p>
+                        <button [routerLink]="['/blog', blog.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi curs</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <app-web-footer></app-web-footer>
