@@ -2,77 +2,82 @@
 
 <div class="container-fluid">
     <div class="row justify-content-center gy-4">
-      <div class="col-md-4 mx-5 py-5">
-        <h1 style="width: 100%;">
-          <b>Completează formularul acesta și hai să faci parte din cea mai <i>cool</i> asociație!</b>
-        </h1>
-        <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus tempor metus, id aliquet elit accumsan id. Mauris tristique, quam ac scelerisque sagittis,
-          libero tellus porta sapien, vitae hendrerit tortor nulla a neque. Etiam augue mi, laoreet eu tellus eget, pretium finibus leo. Aenean eget dignissim diam, at blandit nisi.
-        </p>
-  
-        <div style="display: flex; align-items: center; margin-top: 20px;">
-          <!-- icon -->
-          <div style="margin-left: 10px; margin-top: 15px;">
-            <h5><b>Locatie</b></h5>
-            <p>Constanța, România</p>
-          </div>
-        </div>
-  
-        <div style="display: flex; align-items: center; margin-top: 20px;">
-          <!-- icon -->
-          <div style="margin-left: 10px; margin-top: 15px;">
-            <h5><b>Numărul de Telefon</b></h5>
-            <p>0712 345 678</p>
-          </div>
-        </div>
-  
-        <div style="display: flex; align-items: center; margin-top: 20px;">
-          <!-- icon -->
-          <div style="margin-left: 10px; margin-top: 15px;">
-            <h5><b>Adresa de Email</b></h5>
-            <p>{{asmvEmail}}</p>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
-        <h1> Hai in echipa</h1>
-        <span> Formular de inscriere online</span>
-        <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-        <form (submit)="handleSubmit($event)" style="margin-top: 50px;">
-          <div class="row mb-3">
-            <div class="col">
-              <label>Nume</label>
-              <input type="text" class="form-control" (input)="setName($event)" />
+        <div class="col-md-4 mx-5 py-5">
+            <h1 style="width: 100%;">
+                <b>Completează formularul acesta și hai să faci parte din cea mai <i>cool</i> asociație!</b>
+            </h1>
+            <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus tempor metus, id aliquet elit accumsan id. Mauris tristique, quam ac scelerisque sagittis,
+                libero tellus porta sapien, vitae hendrerit tortor nulla a neque. Etiam augue mi, laoreet eu tellus eget, pretium finibus leo. Aenean eget dignissim diam, at blandit nisi.
+            </p>
+
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <!-- icon -->
+                <div style="margin-left: 10px; margin-top: 15px;">
+                    <h5><b>Locatie</b></h5>
+                    <p>Constanța, România</p>
+                </div>
             </div>
-            <div class="col">
-              <label>Prenume</label>
-              <input type="text" class="form-control" (input)="setLastname($event)" />
+
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <!-- icon -->
+                <div style="margin-left: 10px; margin-top: 15px;">
+                    <h5><b>Numărul de Telefon</b></h5>
+                    <p>0712 345 678</p>
+                </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Email</label>
-            <input type="email" class="form-control" (input)="setEmail($event)" />
-          </div>
-          <div class="mb-3">
-            <label>Facultate</label>
-            <input type="text" class="form-control" (input)="setFaculty($event)" />
-          </div>
-          <div class="mb-3">
-            <label>Număr Telefon</label>
-            <input type="text" class="form-control" (input)="setPhone($event)" />
-          </div>
-          <div class="mb-3">
-            <label>De ce vrei să fii voluntar?</label>
-            <textarea rows="3" class="form-control" (input)="setReason($event)"></textarea>
-          </div>
-          <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white; color: #038ED1">
-            {{ formSent ? 'Trimis' : 'Trimite' }} <i class="bi bi-send-fill"></i>
-          </button>
-        </form>
-      </div>
+
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <!-- icon -->
+                <div style="margin-left: 10px; margin-top: 15px;">
+                    <h5><b>Adresa de Email</b></h5>
+                    <p>{{asmvEmail}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
+            <h1> Hai in echipa</h1>
+            <span> Formular de inscriere online</span>
+            <form (submit)="handleSubmit($event)" style="margin-top: 50px;">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label>Nume</label>
+                        <input type="text" class="form-control" [(ngModel)]="name" />
+                        <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                    </div>
+                    <div class="col">
+                        <label>Prenume</label>
+                        <input type="text" class="form-control" [(ngModel)]="lastname" />
+                        <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="email" />
+                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                </div>
+                <div class="mb-3">
+                    <label>Facultate</label>
+                    <input type="text" class="form-control" [(ngModel)]="faculty" />
+                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                </div>
+                <div class="mb-3">
+                    <label>Număr Telefon</label>
+                    <input type="text" class="form-control" [(ngModel)]="phone" />
+                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                </div>
+                <div class="mb-3">
+                    <label>De ce vrei să fii voluntar?</label>
+                    <textarea rows="3" class="form-control" [(ngModel)]="reason"></textarea>
+                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
+                </div>
+                <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white;">
+                    {{ formSent ? 'Trimis' : 'Trimite' }}<i style=" color: #038ED1" class="bi bi-send-fill"></i>
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
-  
+</div>
+
 <app-web-footer></app-web-footer>

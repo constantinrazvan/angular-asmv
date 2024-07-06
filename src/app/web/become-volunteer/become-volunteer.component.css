@@ -1,11 +1,13 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 @font-face {
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 400;
     src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
-  }
-  
+}
+
 * {
     font-family: 'DM Sans', sans-serif;
 }
@@ -22,7 +24,12 @@ body, html {
     padding: 30px;
     transform: rotate(-5deg);
     width: 100%;
-    max-width: 500px; /* Max width for larger screens */
+    max-width: 500px; 
+}
+
+#colForm .btn {
+    color: blue !important; 
+    background-color: white !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -30,8 +37,8 @@ body, html {
         transform: rotate(-5deg);
         padding: 20px;
         margin: 20px 10px;
-        width: 90%; /* Adjust width for smaller screens */
-        max-width: 400px; /* Max width for smaller screens */
-        font-size: 0.9em; /* Adjust font size for smaller screens */
+        width: 90%; 
+        max-width: 400px; 
+        font-size: 0.9em; 
     }
 }

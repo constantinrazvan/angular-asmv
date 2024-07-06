@@ -4,10 +4,14 @@
     font-weight: 400;
     src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
-  }
+}
+
+* {
+    font-family: 'DM Sans', sans-serif;
+}
 
 .project-details {
-    padding: 50px 50px;
+    padding: 0px 50px;
     font-family: 'DM Sans', sans-serif;
 }
 
@@ -19,4 +23,12 @@
 
 body, html { 
     scroll-behavior: smooth;
+}
+
+.jumbotron {
+    background-color: #038ED1; 
+    background-image: url('../../../assets/heroBg.jpg'); 
+    background-size: cover;     
+    background-position: center;
+    color: white;
 }

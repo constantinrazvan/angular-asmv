@@ -4,13 +4,14 @@ import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { bootstrapTelephoneFill, bootstrapEnvelopeFill, bootstrapGeoAltFill } from '@ng-icons/bootstrap-icons'
 import { provideIcons } from '@ng-icons/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-become-volunteer',
   standalone: true,
   templateUrl: './become-volunteer.component.html',
   styleUrls: ['./become-volunteer.component.css'], 
-  imports: [CommonModule, WebNavbarComponent, WebFooterComponent],
+  imports: [CommonModule, FormsModule, WebNavbarComponent, WebFooterComponent],
   providers: [provideIcons({bootstrapTelephoneFill, bootstrapEnvelopeFill, bootstrapGeoAltFill})]
 })
 export class BecomeVolunteerComponent implements OnInit {
@@ -85,30 +86,4 @@ export class BecomeVolunteerComponent implements OnInit {
       this.postRequest();
     }
   }
-
-  setEmail(event : Event): void {
-    this.email = (event.target as HTMLInputElement).value;
-  }
-
-  setName(event: Event): void {
-    this.name = (event.target as HTMLInputElement).value;
-  }
-
-  setLastname(event: Event): void {
-    this.lastname = (event.target as HTMLInputElement).value;
-  }
-
-  setFaculty(event: Event): void {
-    this.faculty = (event.target as HTMLInputElement).value;
-  }
-
-  setPhone(event: Event): void {
-    this.phone = (event.target as HTMLInputElement).value;
-  }
-
-  setReason(event: Event): void {
-    this.reason = (event.target as HTMLInputElement).value;
-  }
-
-
 }

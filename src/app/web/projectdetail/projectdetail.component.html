@@ -1,8 +1,12 @@
 <app-web-navbar></app-web-navbar>
 
-<div *ngIf="project" class="project-details">
-    <h2><b>{{ project.name }}</b></h2>
-    <p>{{ project.description }}</p>
+<div class="container my-5">
+    <div *ngIf="project" class="project-details">
+        <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
+            <h1 class="display-4">{{project.name}}</h1>
+        </div>
+        <p>{{ project.description }}</p>
+    </div>
 </div>
   
 <app-web-footer></app-web-footer>
