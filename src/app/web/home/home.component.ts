@@ -54,16 +54,16 @@ export class HomeComponent implements AfterViewInit {
 
   testimonials = [
     {
-        title: 'Experiență extraordinară!',
-        description: 'ASMV mi-a schimbat complet perspectiva asupra educației online. Cursurile lor sunt interactive și ușor de înțeles. Recomand cu încredere!',
+        title: 'O experiență valoroasă în ASMV',
+        description: 'Participarea în ASMV a fost o oportunitate extraordinară de a învăța și de a practica tehnici de prim ajutor. M-a ajutat să îmi dezvolt abilitățile clinice și să colaborez eficient cu colegii mei. Recomand cu căldură această asociație tuturor studenților la medicină si nu numai.',
         logo: 'path_to_logo_image',
-        name: 'Nume'
+        name: 'Güneș Berkant'
     },
     {
       title: 'Experiență extraordinară!',
-      description: 'ASMV mi-a schimbat complet perspectiva asupra educației online. Cursurile lor sunt interactive și ușor de înțeles. Recomand cu încredere!',
-      logo: 'path_to_logo_image',
-      name: 'Nume'
+      description: 'ASMV mi-a oferit oportunitatea de a mă dezvoltă exact pe domeniul pe care mi l-am dorit! Este prima asociație unde fac voluntariat și mă bucur că am întâlnit oameni minunați! Primirea a fost caldă și proiectele lor sunt super geniale! Recomand tuturor doritorilor această asociație!',
+      logo: 'Răzvan Constantin',
+      name: 'Răzvan Constantin'
   },
   {
     title: 'Experiență extraordinară!',

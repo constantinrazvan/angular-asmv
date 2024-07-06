@@ -6,9 +6,7 @@ import { Project } from '../../interfaces/Project';
   providedIn: 'root'
 })
 export class ProjectService {
-  projects: Project[] = [
-    // (Projects array remains unchanged)
-  ];
+  projects: Project[] = [];
 
   constructor() {}
 
