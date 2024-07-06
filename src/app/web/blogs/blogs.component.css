@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
+@font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
+         url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
+  }
 * {
     font-family: 'DM Sans', sans-serif;
 }
