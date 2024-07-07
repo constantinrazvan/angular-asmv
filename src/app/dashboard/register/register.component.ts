@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   confirmPassword : string = '';
   confirmEmail: string = '';
   user: User = {} as User;
+  key: string = '';
 
   constructor(
     private authservice: AuthService
@@ -32,10 +33,11 @@ export class RegisterComponent implements OnInit {
       this.user.password = '';
       this.user.role = '';
       this.error = '';
+      this.key = '';
   }
 
   private validator(): boolean {
-    if(this.user.firstname == '' || this.user.lastname == '' || this.user.email == '' || this.confirmEmail == '' || this.user.password == '') {
+    if(this.user.firstname == '' || this.user.lastname == '' || this.user.email == '' || this.confirmEmail == '' || this.user.password == '' || this.key == '') {
       this.error = 'Toate campurile trebuie completate';
       return false; 
     } else if (this.user.email != this.confirmEmail) {
@@ -56,17 +58,24 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  register() : void {
-    if(this.validator() == true) {
-      let newUser: User = {
-        firstname: this.user.firstname,
-        lastname: this.user.lastname,
-        email: this.user.email,
-        password: this.user.password,
-        role: this.user.role
+  register(): void {
+    if (this.key !== process.env['KEY_FOR_REGISTER']) {
+      this.error = "Cheie gresita!";
+    } else {
+      if (this.validator()) {
+        const newUser: User = {
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          email: this.user.email,
+          password: this.user.password,
+          role: this.user.role
+        };
+        console.log('New User:', newUser);
+        this.authservice.register(newUser);
+      } else {
+        this.error = "Validation failed";
       }
-      console.log('New User:', newUser);
-      this.authservice.register(newUser);
     }
-  }
+  }  
 }
+  
