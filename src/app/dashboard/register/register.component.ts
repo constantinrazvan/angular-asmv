@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    if (this.key !== process.env['KEY_FOR_REGISTER']) {
+    if (this.key !== 'asmvKey2024Platform') {
       this.error = "Cheie gresita!";
     } else {
       if (this.validator()) {
