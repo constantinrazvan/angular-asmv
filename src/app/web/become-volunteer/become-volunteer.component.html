@@ -39,37 +39,37 @@
         <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
             <h1> Hai in echipa</h1>
             <span> Formular de inscriere online</span>
-            <form (submit)="handleSubmit($event)" style="margin-top: 50px;">
+            <form (submit)="handleSubmit()" style="margin-top: 50px;">
                 <div class="row mb-3">
                     <div class="col">
                         <label>Nume</label>
-                        <input type="text" class="form-control" [(ngModel)]="name" />
+                        <input type="text" class="form-control" name="name" [(ngModel)]="name" />
                         <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                     </div>
                     <div class="col">
                         <label>Prenume</label>
-                        <input type="text" class="form-control" [(ngModel)]="lastname" />
+                        <input type="text" class="form-control" name="lastname" [(ngModel)]="lastname" />
                         <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" class="form-control" [(ngModel)]="email" />
+                    <input type="email" class="form-control" name="email" [(ngModel)]="email" />
                     <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                 </div>
                 <div class="mb-3">
                     <label>Facultate</label>
-                    <input type="text" class="form-control" [(ngModel)]="faculty" />
+                    <input type="text" class="form-control" name="faculty" [(ngModel)]="faculty" />
                     <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                 </div>
                 <div class="mb-3">
                     <label>Număr Telefon</label>
-                    <input type="text" class="form-control" [(ngModel)]="phone" />
+                    <input type="text" class="form-control" name="phone" [(ngModel)]="phone" />
                     <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                 </div>
                 <div class="mb-3">
                     <label>De ce vrei să fii voluntar?</label>
-                    <textarea rows="3" class="form-control" [(ngModel)]="reason"></textarea>
+                    <textarea rows="3" class="form-control" name="reason" [(ngModel)]="reason"></textarea>
                     <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
                 </div>
                 <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white;">

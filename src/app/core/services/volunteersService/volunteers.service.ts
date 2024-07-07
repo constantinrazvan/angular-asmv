@@ -13,9 +13,9 @@ export class VolunteersService {
     private http: HttpClient
   ) { }
 
-  becomeVolunteer(firstname: string, lastname: string, email: string, phone: string, reason: string): Observable<any> {
-    return this.http.post<void>(`${environment.api_base_url}${environment.becomevolunteer_endpoint}`, 
-      {firstname, lastname, email, phone, reason}, 
+  becomeVolunteer(firstname: string, lastname: string, email: string, faculty: string, phone: string, reason: string): Observable<any> {
+    return this.http.post<Volunteer>(`${environment.api_base_url}${environment.becomevolunteer_endpoint}`, 
+      {firstname, lastname, email, faculty, phone, reason}, 
       {responseType: 'text' as 'json'});
   }
 

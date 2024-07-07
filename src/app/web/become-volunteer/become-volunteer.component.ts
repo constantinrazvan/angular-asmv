@@ -5,6 +5,8 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { bootstrapTelephoneFill, bootstrapEnvelopeFill, bootstrapGeoAltFill } from '@ng-icons/bootstrap-icons'
 import { provideIcons } from '@ng-icons/core';
 import { FormsModule } from '@angular/forms';
+import { VolunteersService } from '../../core/services/volunteersService/volunteers.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-become-volunteer',
@@ -29,7 +31,10 @@ export class BecomeVolunteerComponent implements OnInit {
   showDangerAlert: boolean = false;
   formSent: boolean = false;
 
-  constructor() { }
+  constructor(
+    private volunteerService: VolunteersService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     document.title = "ASMV";
@@ -40,47 +45,22 @@ export class BecomeVolunteerComponent implements OnInit {
   }
 
   async postRequest(): Promise<void> {
+    let succesRoute: string = "";
     try {
-      const payload = {
-        name: this.name,
-        lastName: this.lastname,
-        email: this.email,
-        faculty: this.faculty,
-        phone: this.phone,
-        reasonForVolunteering: this.reason
-      };
-
-      const response = await fetch("http://localhost:9090/volunteer/newVolunteer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+      await this.volunteerService.becomeVolunteer(this.name, this.lastname, this.email, this.faculty, this.phone, this.reason).subscribe({
+        next: (res) => { 
+          this.router.navigate(['/']);  
+        } 
       });
-
-      if (!response.ok) {
-        this.showDangerAlert = true;
-        setTimeout(() => this.showDangerAlert = false, 60000);
-      } else {
-        this.showAlert = true;
-        setTimeout(() => this.showAlert = false, 12000);
-        this.formSent = true;
-        setTimeout(() => this.refreshWeb(), 3000);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log("Error creating new volunteer: ", error.message);
-      } else {
-        console.log("An unexpected error occurred:", error);
-      }
-      this.showDangerAlert = true;
-      setTimeout(() => this.showDangerAlert = false, 15000);
+    } catch (error: any) {
+      console.log(error);
     }
   }
 
-  handleSubmit(event: Event): void {
-    event.preventDefault();
-    if (!this.name.length || !this.lastname.length || !this.email.length || !this.faculty.length || !this.phone.length || !this.reason.length) {
+  handleSubmit(): void {
+    if (this.name === '' || this.lastname === '' || this.email === '' || this.faculty === '' || this.phone === '' || this.reason === '') {
       this.error = "Te rog sa completezi toate campurile!";
-    } else if (!this.email.includes("@")) {
+    } else if (this.email.includes("@") === false) {
       this.error = "Te rog sa oferi o adresa de email valida!";
     } else {
       this.postRequest();
