@@ -61,7 +61,7 @@ export class HomeComponent implements AfterViewInit {
     },
     {
       title: 'Experiență extraordinară!',
-      description: 'ASMV mi-a oferit oportunitatea de a mă dezvoltă exact pe domeniul pe care mi l-am dorit! Este prima asociație unde fac voluntariat și mă bucur că am întâlnit oameni minunați! Primirea a fost caldă și proiectele lor sunt super geniale! Recomand această asociație tuturor studenților și nu numai!',
+      description: 'ASMV mi-a oferit oportunitatea de a mă dezvoltă exact pe domeniul pe care mi l-am dorit! Este prima asociație unde fac voluntariat și mă bucur că am întâlnit oameni minunați! Primirea a fost caldă și proiectele lor sunt super geniale! Recomand această asociație tuturor!',
       logo: 'Răzvan Constantin',
       name: 'Răzvan Constantin'
   },
