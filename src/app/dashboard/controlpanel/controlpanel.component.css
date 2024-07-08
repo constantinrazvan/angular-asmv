@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
+       url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
+}
+
+* {
+  font-family: 'DM Sans', sans-serif;
+}
+
 .card-stats {
     background: #fff;
     border-radius: 8px;

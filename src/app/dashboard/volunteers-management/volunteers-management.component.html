@@ -1,1 +1,119 @@
-<h1> voluntari </h1>
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="dm">Gestionare Membri</h2>
+        <button mat-flat-button color="primary" (click)="openAddMemberDialog()">Adaugă Membru</button>
+        
+        <div class="filters mt-4">
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Filtrează după Vârstă</mat-label>
+            <input matInput [(ngModel)]="ageFilter" (ngModelChange)="applyFilter()" placeholder="Introdu vârsta">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Filtrează după Status Membru</mat-label>
+            <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilter()">
+              <mat-option value="">Toate</mat-option>
+              <mat-option value="Membru Adunarea Generală">Membru Adunarea Generală</mat-option>
+              <mat-option value="Consiliu Directorial">Membru Consiliu Directorial</mat-option>
+              <mat-option value="de Onoare">Membru de Onoare</mat-option>
+              <mat-option value="Voluntar">Membru Voluntar</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Filtrează după Localitate</mat-label>
+            <input matInput [(ngModel)]="localityFilter" (ngModelChange)="applyFilter()" placeholder="Introdu localitatea">
+          </mat-form-field>
+        </div>
+        
+        <div class="table-responsive mt-4">
+          <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z0" matSort>
+            <ng-container matColumnDef="nume">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Nume</th>
+              <td mat-cell *matCellDef="let element">{{element.nume}}</td>
+            </ng-container>
+            <ng-container matColumnDef="prenume">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Prenume</th>
+              <td mat-cell *matCellDef="let element">{{element.prenume}}</td>
+            </ng-container>
+            <ng-container matColumnDef="facultate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Facultate</th>
+              <td mat-cell *matCellDef="let element">{{element.facultate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="joinDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Data Aderării</th>
+              <td mat-cell *matCellDef="let element">{{element.joinDate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="statusMembru">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Status Membru</th>
+              <td mat-cell *matCellDef="let element">{{element.statusMembru}}</td>
+            </ng-container>
+            <ng-container matColumnDef="varsta">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Vârstă</th>
+              <td mat-cell *matCellDef="let element">{{element.varsta}}</td>
+            </ng-container>
+            <ng-container matColumnDef="localitate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="dm">Localitate</th>
+              <td mat-cell *matCellDef="let element">{{element.localitate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="dm">Acțiuni</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="accent" (click)="editMember(element)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="toggleCititStatus(element)">
+                  <mat-icon>done</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #dialogTemplate>
+      <h2 class="dm" mat-dialog-title>{{isEditMode ? 'Editează' : 'Adaugă'}} Membru</h2>
+      <mat-dialog-content class="dialog-content">
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Nume</mat-label>
+          <input matInput [(ngModel)]="member.nume">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Prenume</mat-label>
+          <input matInput [(ngModel)]="member.prenume">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Facultate</mat-label>
+          <input matInput [(ngModel)]="member.facultate">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Data Aderării</mat-label>
+          <input matInput [(ngModel)]="member.joinDate">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Status Membru</mat-label>
+          <mat-select [(ngModel)]="member.statusMembru">
+            <mat-option value="Membru Adunarea Generală">Membru Adunarea Generală</mat-option>
+            <mat-option value="Consiliu Directorial">Consiliu Directorial</mat-option>
+            <mat-option value="de Onoare">de Onoare</mat-option>
+            <mat-option value="Voluntar">Voluntar</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Vârstă</mat-label>
+          <input matInput [(ngModel)]="member.varsta">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label class="dm">Localitate</mat-label>
+          <input matInput [(ngModel)]="member.localitate">
+        </mat-form-field>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-flat-button color="warn" mat-dialog-close>Anulează</button>
+        <button mat-flat-button color="primary" (click)="saveMember()">{{isEditMode ? 'Salvează' : 'Adaugă'}}</button>
+      </mat-dialog-actions>
+    </ng-template>
+  </div>

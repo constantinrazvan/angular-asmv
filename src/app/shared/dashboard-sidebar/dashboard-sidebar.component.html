@@ -1,68 +1,72 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard/panou-control" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/panou-control']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>dashboard</mat-icon>
-          <span>Dashboard</span>
+          <span class="dm">Dashboard</span>
         </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/blogs-management" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/blogs-management']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>article</mat-icon>
-          <span>Bloguri</span>
+          <span class="dm">Bloguri</span>
         </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/volunteers-management" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/volunteers-management']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>group</mat-icon>
-          <span>Membri</span>
+          <span class="dm">Membri</span>
         </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/projects-management" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/projects-management']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>assignment</mat-icon>
-          <span>Proiecte</span>
+          <span class="dm">Proiecte</span>
         </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/newsletter-management" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/newsletter-management']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>mail</mat-icon>
-          <span>Newsletter</span>
+          <span class="dm">Newsletter</span>
         </span>
       </a>
-      <a mat-list-item routerLink="/dashboard/messages-management" routerLinkActive="tab-active">
+      <a mat-list-item [routerLink]="['/dashboard/messages-management']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <mat-icon>message</mat-icon>
-          <span>Mesaje</span>
+          <span class="dm">Mesaje</span>
+        </span>
+      </a>
+      <a mat-list-item [routerLink]="['/dashboard/cereri-voluntariat']" routerLinkActive="tab-active">
+        <span class="mat-list-item-content">
+          <mat-icon>group</mat-icon>
+          <span class="dm">Cereri Voluntariat</span>
         </span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar>
-        <button mat-icon-button  style="border: none; background-color: white; display: flex; align-items: center; justify-content: center;" (click)="toggleSidenav()">
-          <mat-icon>{{ opened ? 'menu_open' : 'menu' }}</mat-icon>
-          <span style="color: black;">Dashboard</span>
-        </button>
+      <button mat-icon-button style="border: none; background-color: white; display: flex; align-items: center; justify-content: center;" (click)="toggleSidenav()">
+        <mat-icon>{{ opened ? 'menu_open' : 'menu' }}</mat-icon>
+        <span style="color: black;" class="dm">Dashboard</span>
+      </button>
       <span class="spacer"></span>
       <div class="user-menu">
         <button style="border: none; background-color: white; display: flex; align-items: center; justify-content: center;" mat-icon-button [matMenuTriggerFor]="userMenu">
           <mat-icon style="margin-right: 8px;">account_circle</mat-icon>
-          <span style="font-size: 15px;"> Username </span>
-        </button>        
+          <span style="font-size: 15px;" class="dm"> Username </span>
+        </button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item>
-            <mat-icon>account_box</mat-icon>
-            <span>Profile</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
+            <a class="nav-link text-decoration-none" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active" >
+              <mat-icon>account_box</mat-icon>
+              <span class="dm">Profile</span>
+            </a>
           </button>
           <button mat-menu-item>
             <mat-icon>logout</mat-icon>
-            <span>Logout</span>
+            <span class="dm">Logout</span>
           </button>
         </mat-menu>
       </div>

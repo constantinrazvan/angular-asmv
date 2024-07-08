@@ -136,37 +136,48 @@ export const routes: Routes = [
           {
             path: 'panou-control',
             loadComponent: () => import('./dashboard/controlpanel/controlpanel.component').then(m => m.ControlpanelComponent),
-            title: 'ASMV - Panou de control',
+            title: 'Panou de control',
             // canActivate: [AuthGuard]
           },
           {
             path: 'projects-management',
             loadComponent: () => import('./dashboard/events-management/events-management.component').then(m => m.EventsManagementComponent),
-            title: 'ASMV - Proiecte',
+            title: 'Proiecte',
             // canActivate: [AuthGuard]
           },
           {
             path: 'blogs-management',
             loadComponent: () => import('./dashboard/blogs-management/blogs-management.component').then(m => m.BlogsManagementComponent),
-            title: 'ASMV - Bloguri',
+            title: 'Bloguri',
             // canActivate: [AuthGuard]
           },
           {
             path: 'messages-management',
             loadComponent: () => import('./dashboard/contact-management/contact-management.component').then(m => m.ContactManagementComponent),
-            title: 'ASMV - Contact',
+            title: 'Contact',
             // canActivate: [AuthGuard]
           },
           {
             path: 'newsletter-management',
             loadComponent: () => import('./dashboard/newsletter-management/newsletter-management.component').then(m => m.NewsletterManagementComponent),
-            title: 'ASMV - Newsletter',
+            title: 'Newsletter',
             // canActivate: [AuthGuard]
           },
           {
             path: 'volunteers-management',
             loadComponent: () => import('./dashboard/volunteers-management/volunteers-management.component').then(m => m.VolunteersManagementComponent),
-            title: 'ASMV - Voluntari',
+            title: 'Voluntari',
+            // canActivate: [AuthGuard]
+          }, 
+          {
+            path: 'cereri-voluntariat',
+            loadComponent: () => import('./dashboard/volunteer-requests/volunteer-requests.component').then(m => m.VolunteerRequestsComponent),
+            title: 'Cereri Voluntari',
+            // canActivate: [AuthGuard]
+          }, 
+          {
+            path: 'profile', 
+            loadComponent: () => import('./dashboard/profile-user/profile-user.component').then(m => m.ProfileUserComponent),
             // canActivate: [AuthGuard]
           }
         ]

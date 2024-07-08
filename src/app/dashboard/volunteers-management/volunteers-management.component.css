@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
+         url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
+}
+
+.dm {
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+  }
+  
+  .dialog-content mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .filter-field {
+    flex: 1;
+  }

@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../../interfaces/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment';
+import { jwtDecode, JwtDecodeOptions } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,28 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  getUser(): string | null {
+
+    /* 
+      Structura JWT: 
+        - id 
+        - username 
+        - email 
+    */
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const user: any = jwtDecode(token);
+        return user.username;
+      } catch (error) {
+        console.error('Invalid token:', error);
+        return null;
+      }
+    }
+    return null;
   }
 
   logout() {

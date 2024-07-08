@@ -6,6 +6,10 @@
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
 }
 
+* {
+    font-family: 'DM Sans', sans-serif;
+}
+
 body, html {
     font-family: 'DM Sans', sans-serif;
 }
