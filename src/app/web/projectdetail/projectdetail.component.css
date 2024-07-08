@@ -27,7 +27,6 @@ body, html {
 
 .jumbotron {
     background-color: #038ED1; 
-    background-image: url('../../../assets/heroBg.jpg'); 
     background-size: cover;     
     background-position: center;
     color: white;
