@@ -1,0 +1,20 @@
+.card-stats {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .card-stats h6 {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 10px;
+  }
+  
+  .card-stats h2 {
+    font-size: 36px;
+    color: #343a40;
+  }
+  

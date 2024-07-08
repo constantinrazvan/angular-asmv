@@ -3,59 +3,54 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/dashboard/panou-control" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">dashboard</mat-icon>
+          <mat-icon>dashboard</mat-icon>
           <span>Dashboard</span>
         </span>
       </a>
       <a mat-list-item routerLink="/dashboard/blogs-management" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">article</mat-icon>
+          <mat-icon>article</mat-icon>
           <span>Bloguri</span>
         </span>
       </a>
       <a mat-list-item routerLink="/dashboard/volunteers-management" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">group</mat-icon>
+          <mat-icon>group</mat-icon>
           <span>Membri</span>
         </span>
       </a>
       <a mat-list-item routerLink="/dashboard/projects-management" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">assignment</mat-icon>
+          <mat-icon>assignment</mat-icon>
           <span>Proiecte</span>
         </span>
       </a>
       <a mat-list-item routerLink="/dashboard/newsletter-management" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">mail</mat-icon>
+          <mat-icon>mail</mat-icon>
           <span>Newsletter</span>
         </span>
       </a>
       <a mat-list-item routerLink="/dashboard/messages-management" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">message</mat-icon>
+          <mat-icon>message</mat-icon>
           <span>Mesaje</span>
         </span>
       </a>
-      <!-- <a mat-list-item routerLink="#" routerLinkActive="tab-active">
-        <span class="mat-list-item-content">
-          <mat-icon style="margin-right: 5px;">settings</mat-icon>
-          <span>Setări</span>
-        </span>
-      </a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar>
-      <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>{{ opened ? 'menu_open' : 'menu' }}</mat-icon>
-      </button>
-      <span>My Application</span>
+        <button mat-icon-button  style="border: none; background-color: white; display: flex; align-items: center; justify-content: center;" (click)="toggleSidenav()">
+          <mat-icon>{{ opened ? 'menu_open' : 'menu' }}</mat-icon>
+          <span style="color: black;">Dashboard</span>
+        </button>
       <span class="spacer"></span>
       <div class="user-menu">
-        <button mat-icon-button [matMenuTriggerFor]="userMenu">
-          <mat-icon>account_circle</mat-icon>
-        </button>
+        <button style="border: none; background-color: white; display: flex; align-items: center; justify-content: center;" mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon style="margin-right: 8px;">account_circle</mat-icon>
+          <span style="font-size: 15px;"> Username </span>
+        </button>        
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item>
             <mat-icon>account_box</mat-icon>
@@ -64,7 +59,7 @@
           <button mat-menu-item>
             <mat-icon>settings</mat-icon>
             <span>Settings</span>
-          </button> <!-- Acesta era tag-ul deschis -->
+          </button>
           <button mat-menu-item>
             <mat-icon>logout</mat-icon>
             <span>Logout</span>

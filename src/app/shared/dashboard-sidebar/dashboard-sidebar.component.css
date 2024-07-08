@@ -5,9 +5,9 @@
 }
 
 mat-sidenav {
-  width: 250px;
-  background-color: #2c3e50; /* Fundal întunecat */
-  color: #ecf0f1; /* Text deschis */
+  width: 220px; /* Adjusted width */
+  background-color: #ffffff; /* White background */
+  color: #2c3e50; /* Dark text */
 }
 
 mat-sidenav-content {
@@ -18,8 +18,10 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #34495e; /* Fundal pentru toolbar */
-  color: #ecf0f1; /* Text deschis */
+  background-color: #ffffff; /* White background */
+  color: #2c3e50; /* Dark text */
+  height: 64px; /* Adjusted height for better alignment */
+  border-bottom: solid 1px #e0e0e0;
 }
 
 mat-toolbar .spacer {
@@ -31,14 +33,14 @@ mat-toolbar .spacer {
   align-items: center;
 }
 
-.content {
-  padding: 16px;
-}
-
 button.mat-icon-button {
   border: none;
   outline: none;
   box-shadow: none;
+  display: flex;
+  align-items: center; /* Center the icon vertically */
+  justify-content: center; /* Center the icon horizontally */
+  height: 100%; /* Ensure the button takes the full height of the toolbar */
 }
 
 button.mat-icon-button:hover {
@@ -48,32 +50,38 @@ button.mat-icon-button:hover {
 .mat-list-item {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  color: inherit; /* Preia culoarea textului din părinți */
+  padding: 10px 16px; /* Adjusted padding */
+  color: inherit; /* Inherit text color */
   text-decoration: none;
 }
 
 .mat-list-item mat-icon {
-  font-size: 15px; /* Dimensiunea pictogramei */
-  margin-right: 8px; /* Spațiu între pictogramă și text */
-  vertical-align: middle; /* Aliniază pictograma la mijloc */
+  font-size: 20px; /* Icon size */
+  margin-right: 10px; /* Space between icon and text */
+  vertical-align: middle; /* Align icon to middle */
 }
 
 .mat-list-item span {
-  line-height: 1; /* Asigură alinierea verticală corectă */
+  line-height: 1; /* Ensure correct vertical alignment */
+  display: flex;
+  align-items: center; /* Center text vertically */
 }
 
 .mat-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Fundal pentru hover */
+  background-color: rgba(0, 0, 0, 0.1); /* Hover background with dark shade */
 }
 
 .tab-active {
-  background-color: rgba(255, 255, 255, 0.2); /* Fundal pentru tab-ul activ */
-  border-left: 4px solid #3498db; /* Bordura pentru tab-ul activ */
+  background-color: rgba(0, 0, 0, 0.2); /* Active tab background with dark shade */
 }
 
 .mat-list-item-content {
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: start; /* Ensure content starts from the left */
+}
+
+.content {
+  padding: 16px; /* Padding for the content area */
 }
