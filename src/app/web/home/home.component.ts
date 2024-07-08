@@ -69,9 +69,9 @@ export class HomeComponent implements AfterViewInit {
   },
   {
     title: 'Experiență extraordinară!',
-    description: 'ASMV mi-a schimbat complet perspectiva asupra educației online. Cursurile lor sunt interactive și ușor de înțeles. Recomand cu încredere!',
+    description: 'Participarea în ASMV mi-a oferit oportunități excelente de dezvoltare personală și profesională. Am învățat cum să comunic mai eficient cu copii de diferite vârste și am dezvoltat abilități importante de predare și organizare. Este minunat să văd că eforturile noastre au un impact real și pozitiv asupra comunității, scopul nostru principal fiind promovarea educației medicale. Familia ASMV se bazează pe educație, respect, loialitate și vă recomand cu căldură această ascoiație. ',
     logo: 'path_to_logo_image',
-    name: 'Nume'
+    name: 'Ionașcu Ana-Maria'
   },
   {
     title: 'Experiență extraordinară!',
