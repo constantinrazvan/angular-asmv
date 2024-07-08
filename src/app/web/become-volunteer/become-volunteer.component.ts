@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class BecomeVolunteerComponent implements OnInit {
 
+  title = "ASMV - Devino Voluntar";
+
   asmvEmail: string = 'asmv.ct@gmail.com';
 
   name: string = '';

@@ -16,6 +16,9 @@ import { NotificationService } from '../../core/services/notificationService/not
   styleUrl: './contact.component.css'
 })
 export class ContactComponent implements OnInit {
+
+  title = "ASMV - Contact";
+
   data: ContactMessage = {} as ContactMessage;
   error: string = "";
   constructor(

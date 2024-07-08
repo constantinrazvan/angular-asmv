@@ -15,6 +15,8 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 export class ProjectDetailComponent implements OnInit {
   project: any;
 
+  title = `ASMV - Proiect`;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService

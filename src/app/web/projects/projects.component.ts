@@ -13,6 +13,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit, AfterViewInit {
+
+  title = "ASMV - Proiecte";
+
   projectSelected: number = 0;
   projectsList: Project[] = [];
   error: string = '';

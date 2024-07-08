@@ -18,6 +18,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
   membersConsiliuDirectorial: Member[] = [];
   membersVolunteers: Member[] = [];
 
+  title = "ASMV - Membri";
+
   constructor(private membersService: MembersService) {}
 
   ngOnInit(): void {

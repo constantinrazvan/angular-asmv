@@ -13,6 +13,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './blogdetail.component.css'
 })
 export class BlogdetailComponent implements OnInit{
+
+  title = "ASMV - Blog";
+
   blog: any;
 
   constructor(

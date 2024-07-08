@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 })
 export class BlogsComponent implements OnInit, AfterViewInit {
 
-  title = "Blogs";
+  title = "ASMV - Bloguri";
 
   private readonly blogsService: BlogsService;
 

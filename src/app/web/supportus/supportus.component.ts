@@ -11,5 +11,6 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
   styleUrl: './supportus.component.css'
 })
 export class SupportusComponent {
+  title = "ASMV - Support";
   revolutLogo: string = "";
 }

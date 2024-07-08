@@ -9,6 +9,7 @@ export const routes: Routes = [
                 (m) => m.HomeComponent
             )
         },
+        title: 'ASMV - Acasa'
     }, 
     {
         path: 'contact', 
@@ -16,7 +17,8 @@ export const routes: Routes = [
             return import('./web/contact/contact.component').then(
                 (m) => m.ContactComponent
             )
-        },
+        }, 
+        title: 'ASMV - Contact'
     }, 
     {
         path: 'volunteers', 
@@ -25,6 +27,7 @@ export const routes: Routes = [
                 (m) => m.VolunteersComponent
             )
         },
+        title: 'ASMV - Voluntari'
     }, 
     {
         path: 'haiInEchipa', 
@@ -33,6 +36,7 @@ export const routes: Routes = [
                 (m) => m.BecomeVolunteerComponent
             )
         },
+        title: 'ASMV - Hai in echipa'
     }, 
     {
         path: 'blogs',
@@ -41,6 +45,7 @@ export const routes: Routes = [
                 (m) => m.BlogsComponent
             )
         },
+        title: 'ASMV - Bloguri'
     }, 
     {
         path: 'blogs/:id', 
@@ -49,6 +54,7 @@ export const routes: Routes = [
                 (m) => m.BlogdetailComponent
             )
         },
+        title: 'ASMV - Blog'
     }, 
     {
         path: 'supportUs', 
@@ -56,7 +62,8 @@ export const routes: Routes = [
             return import('./web/supportus/supportus.component').then(
                 (m) => m.SupportusComponent
             )
-        }
+        },
+        title: 'ASMV - Sponsorizeaza-ne!'
     }, 
     {
         path: 'succes', 
@@ -64,7 +71,8 @@ export const routes: Routes = [
             return import('./web/result_pages/succes/succes.component').then(
                 (m) => m.SuccesComponent
             )
-        }
+        }, 
+        title: 'ASMV - Succes'
     },
     {
         path: 'error', 
@@ -72,7 +80,8 @@ export const routes: Routes = [
             return import('./web/result_pages/error/error.component').then(
                 (m) => m.ErrorComponent
             )
-        }
+        }, 
+        title: 'ASMV - Eroare'
     }, 
     {
         path: 'blogs-management',
@@ -81,7 +90,8 @@ export const routes: Routes = [
                 (m) => m.BlogsManagementComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard],
+        title: 'ASMV - Gestionare bloguri'
     },
     {
         path: 'proiecte',
@@ -90,7 +100,8 @@ export const routes: Routes = [
                 (m) => m.ProjectsComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard], 
+        title: 'ASMV - Proiecte'
     }, 
     {
         path: 'newsletter-management',
@@ -99,7 +110,8 @@ export const routes: Routes = [
                 (m) => m.NewsletterManagementComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard],
+        title: 'ASMV - Gestionare newsletter'
     },
     {
         path: 'contact-management', 
@@ -108,7 +120,8 @@ export const routes: Routes = [
                 (m) => m.ContactManagementComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard], 
+        title: 'ASMV - Gestionare contacte'
     }, 
     {
         path: 'events-management', 
@@ -117,7 +130,8 @@ export const routes: Routes = [
                 (m) => m.EventsManagementComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard], 
+        title: 'ASMV - Gestionare evenimente'
     }, 
     {
         path: 'volunteers-management', 
@@ -126,7 +140,8 @@ export const routes: Routes = [
                 (m) => m.VolunteersManagementComponent
             )
         },
-        // canActivate : [AuthGuard]
+        // canActivate : [AuthGuard], 
+        title: 'ASMV - Gestionare voluntari'
     }, 
     {
         path: 'login',
@@ -135,6 +150,7 @@ export const routes: Routes = [
                 (m) => m.LoginComponent
             )
         },
+        title: 'ASMV - Login'
     }, 
     {
         path: 'register',
@@ -143,6 +159,7 @@ export const routes: Routes = [
                 (m) => m.RegisterComponent
             )
         },
+        title: 'ASMV - Register'
     }, 
     {
         path: 'proiect/:id',
@@ -151,6 +168,7 @@ export const routes: Routes = [
                 (m) => m.ProjectDetailComponent
             )
         },
+        title: 'ASMV - Proiect'
     }, 
     {
         path: 'members', 
@@ -158,6 +176,7 @@ export const routes: Routes = [
             return import("./web/members/members.component").then( 
                 (m) => m.MembersComponent
             )
-        }
+        }, 
+        title: 'ASMV - Membri'
     }
 ];

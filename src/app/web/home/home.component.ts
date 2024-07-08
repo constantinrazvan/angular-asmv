@@ -27,6 +27,8 @@ interface Project {
 
 export class HomeComponent implements AfterViewInit {
 
+  title = "ASMV - Acasa";
+
   logo = "../../assets/logoFooter.jpg";
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
