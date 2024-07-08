@@ -2,7 +2,6 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { DashboardSidebarComponent } from '../../shared/dashboard-sidebar/dashboard-sidebar.component';
 
 export interface PeriodicElement {
   name: string;
@@ -27,7 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-blogs-management',
   standalone: true,
-  imports: [MatTableModule, MatCheckboxModule, DashboardSidebarComponent],
+  imports: [MatTableModule, MatCheckboxModule],
   templateUrl: './blogs-management.component.html',
   styleUrl: './blogs-management.component.css'
 })

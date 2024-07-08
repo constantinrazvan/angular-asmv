@@ -2,3 +2,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+mat-icon-button {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  mat-icon-button:hover {
+    background: none !important;
+  }

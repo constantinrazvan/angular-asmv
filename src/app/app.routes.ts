@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { DashboardLayoutComponent } from './dashboard/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
     { path: '',
@@ -84,64 +85,13 @@ export const routes: Routes = [
         title: 'ASMV - Eroare'
     }, 
     {
-        path: 'blogs-management',
-        loadComponent: () => {
-            return import('./dashboard/blogs-management/blogs-management.component').then(
-                (m) => m.BlogsManagementComponent
-            )
-        },
-        // canActivate : [AuthGuard],
-        title: 'ASMV - Gestionare bloguri'
-    },
-    {
         path: 'proiecte',
         loadComponent: () => {
             return import('./web/projects/projects.component').then(
                 (m) => m.ProjectsComponent
             )
         },
-        // canActivate : [AuthGuard], 
         title: 'ASMV - Proiecte'
-    }, 
-    {
-        path: 'newsletter-management',
-        loadComponent:() => {
-            return import('./dashboard/newsletter-management/newsletter-management.component').then(
-                (m) => m.NewsletterManagementComponent
-            )
-        },
-        // canActivate : [AuthGuard],
-        title: 'ASMV - Gestionare newsletter'
-    },
-    {
-        path: 'contact-management', 
-        loadComponent: () => {
-            return import('./dashboard/contact-management/contact-management.component').then(
-                (m) => m.ContactManagementComponent
-            )
-        },
-        // canActivate : [AuthGuard], 
-        title: 'ASMV - Gestionare contacte'
-    }, 
-    {
-        path: 'events-management', 
-        loadComponent: () => {
-            return import('./dashboard/events-management/events-management.component').then(
-                (m) => m.EventsManagementComponent
-            )
-        },
-        // canActivate : [AuthGuard], 
-        title: 'ASMV - Gestionare evenimente'
-    }, 
-    {
-        path: 'volunteers-management', 
-        loadComponent: () => {
-            return import('./dashboard/volunteers-management/volunteers-management.component').then(
-                (m) => m.VolunteersManagementComponent
-            )
-        },
-        // canActivate : [AuthGuard], 
-        title: 'ASMV - Gestionare voluntari'
     }, 
     {
         path: 'login',
@@ -178,5 +128,47 @@ export const routes: Routes = [
             )
         }, 
         title: 'ASMV - Membri'
-    }
+    }, 
+    {
+        path: 'dashboard',
+        component: DashboardLayoutComponent,
+        children: [
+          {
+            path: 'panou-control',
+            loadComponent: () => import('./dashboard/controlpanel/controlpanel.component').then(m => m.ControlpanelComponent),
+            title: 'ASMV - Panou de control',
+            // canActivate: [AuthGuard]
+          },
+          {
+            path: 'projects-management',
+            loadComponent: () => import('./dashboard/events-management/events-management.component').then(m => m.EventsManagementComponent),
+            title: 'ASMV - Proiecte',
+            // canActivate: [AuthGuard]
+          },
+          {
+            path: 'blogs-management',
+            loadComponent: () => import('./dashboard/blogs-management/blogs-management.component').then(m => m.BlogsManagementComponent),
+            title: 'ASMV - Bloguri',
+            // canActivate: [AuthGuard]
+          },
+          {
+            path: 'messages-management',
+            loadComponent: () => import('./dashboard/contact-management/contact-management.component').then(m => m.ContactManagementComponent),
+            title: 'ASMV - Contact',
+            // canActivate: [AuthGuard]
+          },
+          {
+            path: 'newsletter-management',
+            loadComponent: () => import('./dashboard/newsletter-management/newsletter-management.component').then(m => m.NewsletterManagementComponent),
+            title: 'ASMV - Newsletter',
+            // canActivate: [AuthGuard]
+          },
+          {
+            path: 'volunteers-management',
+            loadComponent: () => import('./dashboard/volunteers-management/volunteers-management.component').then(m => m.VolunteersManagementComponent),
+            title: 'ASMV - Voluntari',
+            // canActivate: [AuthGuard]
+          }
+        ]
+      }
 ];

@@ -1,0 +1,79 @@
+.example-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-sidenav {
+  width: 250px;
+  background-color: #2c3e50; /* Fundal întunecat */
+  color: #ecf0f1; /* Text deschis */
+}
+
+mat-sidenav-content {
+  flex-grow: 1;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #34495e; /* Fundal pentru toolbar */
+  color: #ecf0f1; /* Text deschis */
+}
+
+mat-toolbar .spacer {
+  flex-grow: 1;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  padding: 16px;
+}
+
+button.mat-icon-button {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+button.mat-icon-button:hover {
+  background: transparent;
+}
+
+.mat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: inherit; /* Preia culoarea textului din părinți */
+  text-decoration: none;
+}
+
+.mat-list-item mat-icon {
+  font-size: 15px; /* Dimensiunea pictogramei */
+  margin-right: 8px; /* Spațiu între pictogramă și text */
+  vertical-align: middle; /* Aliniază pictograma la mijloc */
+}
+
+.mat-list-item span {
+  line-height: 1; /* Asigură alinierea verticală corectă */
+}
+
+.mat-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundal pentru hover */
+}
+
+.tab-active {
+  background-color: rgba(255, 255, 255, 0.2); /* Fundal pentru tab-ul activ */
+  border-left: 4px solid #3498db; /* Bordura pentru tab-ul activ */
+}
+
+.mat-list-item-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
