@@ -4,11 +4,12 @@ import { ProjectService } from '../../core/services/projectService/project.servi
 import { Project } from '../../core/interfaces/Project';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [WebNavbarComponent, RouterLink, CommonModule],
+  imports: [WebNavbarComponent, RouterLink, CommonModule, WebFooterComponent],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })

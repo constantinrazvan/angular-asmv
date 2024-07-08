@@ -74,10 +74,10 @@ export class HomeComponent implements AfterViewInit {
     name: 'Ionașcu Ana-Maria'
   },
   {
-    title: 'Experiență extraordinară!',
-    description: 'ASMV mi-a schimbat complet perspectiva asupra educației online. Cursurile lor sunt interactive și ușor de înțeles. Recomand cu încredere!',
+    title: 'O experiență inestimabilă în ASMV!',
+    description: 'Implicarea mea în ASMV a reprezentat o șansă excepțională de a învăța și aplica tehnici de prim ajutor. Această experiență mi-a permis să îmi perfecționez abilitățile clinice și să colaborez eficient cu colegii. Recomand cu încredere această organizație tuturor studenților la medicină și nu numai.',
     logo: 'path_to_logo_image',
-    name: 'Nume'
+    name: 'Iordan Marina'
   },
   {
     title: 'Experiență extraordinară!',
