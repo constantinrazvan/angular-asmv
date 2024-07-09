@@ -1,1 +1,56 @@
-<p>create-volunteer works!</p>
+<div class="container">
+    <h2>Adaugă un Voluntar</h2>
+    <form class="volunteer-form" (ngSubmit)="submitForm()">
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nume</mat-label>
+          <input matInput type="text" [(ngModel)]="volunteer.lastName" name="lastName">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Prenume</mat-label>
+          <input matInput type="text" [(ngModel)]="volunteer.firstName" name="firstName">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Facultate</mat-label>
+          <input matInput type="text" [(ngModel)]="volunteer.faculty" name="faculty">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Data Aderării</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="volunteer.joiningDate" name="joiningDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Status Membru</mat-label>
+          <mat-select [(ngModel)]="volunteer.memberStatus" name="memberStatus">
+            <mat-option *ngFor="let status of memberStatuses" [value]="status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Vârstă</mat-label>
+          <input matInput type="number" [(ngModel)]="volunteer.age" name="age">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Localitate</mat-label>
+          <input matInput type="text" [(ngModel)]="volunteer.city" name="city">
+        </mat-form-field>
+      </div>
+      <div class="button-group">
+        <button mat-raised-button color="warn" type="button">Anulare</button>
+        <button mat-raised-button color="primary" type="submit">Adaugă</button>
+      </div>
+    </form>
+  </div>
+  

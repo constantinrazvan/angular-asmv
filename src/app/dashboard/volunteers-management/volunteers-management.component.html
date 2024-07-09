@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="dm">Gestionare Membri</h2>
-        <button mat-flat-button color="primary" (click)="openAddMemberDialog()">Adaugă Membru</button>
+        <button mat-flat-button color="primary" [routerLink]="['/dashboard/add-volunteer']" routerLinkActive="router-link-active" >Adaugă Membru</button>
         
         <div class="filters mt-4">
           <mat-form-field appearance="fill" class="filter-field">

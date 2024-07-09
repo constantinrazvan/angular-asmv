@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="dm">Gestionare Proiecte</h2>
-        <button mat-flat-button color="primary" (click)="openAddProjectDialog()">Adaugă Proiect</button>
+        <button mat-flat-button color="primary" [routerLink]="['/dashboard/add-project']" routerLinkActive="router-link-active">Adaugă Proiect</button>
         <div class="table-responsive mt-4">
           <table mat-table [dataSource]="projectDataSource" class="mat-elevation-z0" matSort>
             <ng-container matColumnDef="title">
