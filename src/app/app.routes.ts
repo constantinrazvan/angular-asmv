@@ -179,6 +179,11 @@ export const routes: Routes = [
             path: 'profile', 
             loadComponent: () => import('./dashboard/profile-user/profile-user.component').then(m => m.ProfileUserComponent),
             // canActivate: [AuthGuard]
+          }, 
+          {
+            path: 'add-blog', 
+            loadComponent: () => import('./dashboard/create-blog/create-blog.component').then(m => m.CreateBlogComponent), 
+            // canActivate: [AuthGuard]s
           }
         ]
       }

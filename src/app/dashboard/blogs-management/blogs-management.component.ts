@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../core/services/authService/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -23,7 +24,8 @@ import { AuthService } from '../../core/services/authService/auth.service';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule, 
+    RouterLink
   ],
   selector: 'app-blog-management',
   templateUrl: './blogs-management.component.html',

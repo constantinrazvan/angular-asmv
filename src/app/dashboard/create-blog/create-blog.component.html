@@ -1,1 +1,94 @@
-<p>create-blog works!</p>
+<div class="container">
+    <h2>Adaugă un Blog</h2>
+    <form class="blog-form">
+      <div class="form-row">
+        <label>Imagine Header</label>
+        <input type="file" accept=".jpg, .png" (change)="onHeaderFileChange($event)">
+        <div *ngIf="headerImageUrl" class="preview-container">
+          <img [src]="headerImageUrl" class="preview-image">
+          <button mat-icon-button color="warn" (click)="removeHeaderImage()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Titlu</mat-label>
+          <input matInput type="text" [(ngModel)]="title" name="title">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Content</mat-label>
+          <textarea matInput rows="5" [(ngModel)]="content" name="content"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Autor</mat-label>
+          <input matInput type="text" value="Autor curent" readonly [(ngModel)]="author" name="author">
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Data</mat-label>
+          <input matInput type="text" [value]="today" readonly>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <div style="text-align: left;" class="file-drop-container">
+          <ngx-file-drop (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content>
+              <div class="file-drop-content">
+                <p>Trage și lasă fișierele aici sau apasă pentru a alege</p>
+                <input type="file" accept=".jpg, .png" multiple (change)="onGalleryFileChange($event)" style="display: none;" #fileInput>
+                <label>
+                  <button mat-raised-button color="primary" type="button" (click)="triggerFileInput()">Alege Imagini</button>
+                </label>
+              </div>
+            </ng-template>
+          </ngx-file-drop>
+          <div class="gallery-preview-container" *ngIf="galleryImages.length > 0; else noImages">
+            <div *ngFor="let image of galleryImages; let i = index" class="gallery-image-container">
+              <img [src]="image.url" class="gallery-image">
+              <button mat-icon-button color="warn" (click)="removeGalleryImage(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <ng-template #noImages>
+            <p class="no-images-message">Galeria este goală</p>
+            <p class="no-images-message">Trage și lasă fișierele aici sau apasă pentru a alege</p>
+            <input type="file" accept=".jpg, .png" multiple (change)="onGalleryFileChange($event)" style="display: none;" #noFileInput>
+            <label>
+              <button mat-raised-button color="primary" type="button" (click)="triggerNoFileInput()">Alege Imagini</button>
+            </label>
+          </ng-template>
+        </div>
+      </div>
+      <div class="button-group">
+        <button mat-raised-button color="warn" type="button">Anulare</button>
+        <button mat-raised-button color="primary" type="submit">Adaugă</button>
+        <button mat-raised-button color="accent" type="button" (click)="openPreview()">Previzualizare</button>
+      </div>
+    </form>
+  </div>
+  
+  <ng-template #previewTemplate>
+    <div class="container-fluid my-5">
+        <div class="jumbotron text-center my-5 fade-in" [ngStyle]="{'background-image': 'url(' + headerImageUrl + ')'}">
+        <h1 class="display-4">{{title}}</h1>
+        </div>
+        <p>{{ content }}</p>
+        <p><strong>Autor:</strong> {{ author }}</p>
+        <p><strong>Data:</strong> {{ today }}</p>
+        <div *ngIf="galleryImages.length > 0">
+        <h3>Galerie Imagini</h3>
+        <div class="gallery-preview-container">
+            <div *ngFor="let image of galleryImages" class="gallery-image-container">
+            <img [src]="image.url" class="gallery-image">
+            </div>
+        </div>
+        </div>
+    </div>
+  </ng-template>

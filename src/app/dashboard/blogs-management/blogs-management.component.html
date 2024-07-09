@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-12">
         <h2>Gestioneaza Bloguri</h2>
-        <button mat-flat-button color="primary" (click)="openAddBlogDialog()">Adauga Blog</button>
+        <button mat-flat-button color="primary" [routerLink]="['/dashboard/add-blog']" routerLinkActive="router-link-active" >Adauga Blog</button>
         <div class="table-responsive mt-4">
           <table mat-table [dataSource]="blogDataSource" class="mat-elevation-z0" matSort>
             <ng-container matColumnDef="title">
