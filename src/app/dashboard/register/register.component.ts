@@ -21,10 +21,10 @@ export class RegisterComponent implements OnInit {
   key: string = '';
 
   statusLabels = {
-    'membru_adunarea_generala': 'Membru Adunarea Generală',
-    'membru_consiliu_directorial': 'Membru Consiliu Directorial',
-    'membru_de_onoare': 'Membru de Onoare',
-    'membru_voluntar': 'Voluntar'
+    'membru_adunarea_generala': 'MEMBRU_ADUNAREA_GENERALA',
+    'membru_consiliu_directorial': 'MEMBRU_CONSILIU_DIRECTORIAL',
+    'membru_de_onoare': 'MEMBRU_DE_ONOARE',
+    'membru_voluntar': 'MEMBRU_VOLUNTAR'
   };
 
   constructor(

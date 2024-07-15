@@ -6,6 +6,8 @@ export const environment = {
     login_endpoint: '/auth/login', 
     register_endpoint: '/auth/register', 
 
+    profile_user_endpoint: '/api/user',
+
     becomevolunteer_endpoint: '/volunteers/newVolunteer', 
     volunteer_list_endpoint: '/volunteers/getVolunteerList',
     volunteer_get_data_endpoint: '/volunteers/getVolunteerData',

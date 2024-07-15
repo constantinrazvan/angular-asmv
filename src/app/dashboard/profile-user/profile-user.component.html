@@ -1,67 +1,59 @@
-<div class="profile-container">
-    <h2 class="profile-title">Profilul Meu</h2>
-    <p class="profile-subtitle">Profilul tău este o înregistrare a informațiilor personale care te definesc.</p>
-  
-    <div class="profile-section">
+<div class="profile-form">
+  <mat-card>
+    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-content>
       <form (ngSubmit)="saveProfile()">
-        <mat-form-field appearance="fill" class="profile-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="userProfile.username" name="username" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput [(ngModel)]="userProfile.firstname" name="firstname" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput [(ngModel)]="userProfile.lastname" name="lastname" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="userProfile.email" name="email" type="email" required readonly>
-          <mat-hint>Introduceți adresa dvs. de email</mat-hint>
+          <input matInput [(ngModel)]="userProfile.email" name="email" required>
         </mat-form-field>
-  
-        <mat-form-field appearance="fill" class="profile-field">
-          <mat-label>Prenume</mat-label>
-          <input matInput [(ngModel)]="userProfile.prenume" name="prenume" required>
-          <mat-hint>Introduceți prenumele dvs.</mat-hint>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="userProfile.password" name="password" type="password" required>
         </mat-form-field>
-  
-        <mat-form-field appearance="fill" class="profile-field">
-          <mat-label>Nume</mat-label>
-          <input matInput [(ngModel)]="userProfile.nume" name="nume" required>
-          <mat-hint>Introduceți numele dvs.</mat-hint>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill" class="profile-field">
-          <mat-label>Rol</mat-label>
-          <input matInput [(ngModel)]="userProfile.role" name="rol" readonly>
-          <mat-hint>Rolul dvs. (voluntar/admin)</mat-hint>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill" class="profile-field">
+
+        <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
-          <mat-select [(ngModel)]="userProfile.status" name="status" required>
-            <mat-option value="Membru Adunarea Generală">Membru Adunarea Generală</mat-option>
-            <mat-option value="Membru Consiliu Directorial">Membru Consiliu Directorial</mat-option>
-            <mat-option value="Membru de Onoare">Membru de Onoare</mat-option>
-            <mat-option value="Membru Voluntar">Membru Voluntar</mat-option>
-          </mat-select>
-          <mat-hint>Selectați statusul dvs.</mat-hint>
+          <input matInput [(ngModel)]="userProfile.status" name="status" required>
         </mat-form-field>
-  
-        <button mat-flat-button color="primary" type="submit" class="update-button">Actualizează</button>
+
+        <button mat-raised-button color="primary" type="submit">Save Profile</button>
       </form>
-    </div>
-  
-    <h3 class="profile-title">Schimbare Parolă</h3>
-    <p class="profile-subtitle">Puteți schimba parola pentru motive de securitate sau reseta dacă ați uitat-o.</p>
-  
-    <div class="profile-section">
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Change Password</mat-card-title>
+    <mat-card-content>
       <form (ngSubmit)="changePassword()">
-        <mat-form-field appearance="fill" class="profile-field">
-          <mat-label>Parola Curentă</mat-label>
+        <mat-form-field appearance="fill">
+          <mat-label>Current Password</mat-label>
           <input matInput [(ngModel)]="passwordData.currentPassword" name="currentPassword" type="password" required>
-          <mat-hint>Introduceți parola curentă aici</mat-hint>
         </mat-form-field>
-  
-        <mat-form-field appearance="fill" class="profile-field">
-          <mat-label>Parolă Nouă</mat-label>
+
+        <mat-form-field appearance="fill">
+          <mat-label>New Password</mat-label>
           <input matInput [(ngModel)]="passwordData.newPassword" name="newPassword" type="password" required>
-          <mat-hint>Introduceți parola nouă aici</mat-hint>
         </mat-form-field>
-  
-        <button mat-flat-button color="primary" type="submit" class="update-button">Actualizează</button>
+
+        <button mat-raised-button color="primary" type="submit">Change Password</button>
       </form>
-    </div>
-  </div>
-  
+    </mat-card-content>
+  </mat-card>
+</div>

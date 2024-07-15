@@ -7,16 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-
-interface UserProfile {
-  nume: string;
-  prenume: string;
-  email: string;
-  parola: string;
-  role: string;
-  status: string;
-  createdAt: string;
-}
+import { ProfileUserServiceService } from '../../core/services/profileUserService/profile-user-service.service';
+import { User } from '../../core/interfaces/User'; // Ensure this path is correct
+import { jwtDecode } from 'jwt-decode';
 
 interface PasswordData {
   currentPassword: string;
@@ -40,14 +33,16 @@ interface PasswordData {
   ]
 })
 export class ProfileUserComponent implements OnInit {
-  userProfile: UserProfile = {
-    nume: '',
-    prenume: '',
+
+  constructor(private profileService: ProfileUserServiceService) { }
+
+  userProfile: User = {
+    username: '',
+    firstname: '',
+    lastname: '',
     email: '',
-    parola: '',
-    role: '',
-    status: '',
-    createdAt: ''
+    password: '',
+    status: ''
   };
 
   passwordData: PasswordData = {
@@ -56,26 +51,60 @@ export class ProfileUserComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    // Fetch the user profile data (e.g., from a service)
-    // For now, we'll use dummy data
-    this.userProfile = {
-      nume: 'Popescu',
-      prenume: 'Ion',
-      email: 'ion.popescu@example.com',
-      parola: '',
-      role: 'voluntar',
-      status: 'Membru Voluntar',
-      createdAt: '2024-07-08'
-    };
+    const userId = this.getUserId();
+    if (userId !== null) {
+      this.getUserData(userId);
+    } else {
+      console.error('User ID not found');
+    }
+  }
+
+  getUserId(): number | null {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+        const decoded: { id: number } = jwtDecode(token);
+        return decoded.id;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+
+    return null;
+  }
+
+  getUserData(id: number): void {
+    this.profileService.getUserData(id).subscribe({
+      next: (data) => {
+        this.userProfile = data;
+      },
+      error: (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    });
   }
 
   saveProfile(): void {
-    // Save the user profile data (e.g., to a service)
-    console.log('Profile saved', this.userProfile);
+    this.profileService.updateUserProfile(this.userProfile).subscribe({
+      next: (response) => {
+        console.log('Profile saved', response);
+      },
+      error: (error) => {
+        console.error('Error saving profile:', error);
+      }
+    });
   }
 
   changePassword(): void {
-    // Change the user's password
-    console.log('Password changed', this.passwordData);
+    this.profileService.changePassword(this.passwordData).subscribe({
+      next: (response) => {
+        console.log('Password changed', response);
+      },
+      error: (error) => {
+        console.error('Error changing password:', error);
+      }
+    });
   }
 }
