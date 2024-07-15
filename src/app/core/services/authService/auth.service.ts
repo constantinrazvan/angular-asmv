@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   register(user: User) : Observable<User | null> {
-    if(!user.firstname || !user.lastname || !user.email || !user.password || !user.role) {
+    if(!user.firstname || !user.lastname || !user.email || !user.password || !user.status) {
       return this.httpClient.post<User>(`${environment.api_base_url}${environment.register_endpoint}`, user);
     } else {
       return of(null);
