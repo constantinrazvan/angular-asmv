@@ -9,3 +9,7 @@
 * {
     font-family: 'DM Sans', sans-serif;
 }
+
+.image {
+    height: 100% !important;
+  }

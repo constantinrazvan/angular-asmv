@@ -9,43 +9,49 @@
                 <div class="d-flex align-items-center h-custom-2 px-5 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                     <form style="width: 23rem; padding: 0px;" (ngSubmit)="register()">
                         <h3 class="fw-normal mb-3 pb-3"><b>Înregistrează-te</b></h3>
+                        <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
                         <div class="mb-2">
-                            <input type="text" class="form-control" [(ngModel)]="user.firstname" name="firstname" placeholder="Nume" />
+                            <input type="text" class="form-control" [(ngModel)]="user.username" name="username" placeholder="Nume de utilizator" required />
                         </div>
                         <div class="mb-2">
-                            <input type="text" class="form-control" [(ngModel)]="user.lastname" name="lastname" placeholder="Prenume" />
+                            <input type="text" class="form-control" [(ngModel)]="user.firstname" name="firstname" placeholder="Nume" required />
                         </div>
                         <div class="mb-2">
-                            <input type="email" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email" />
+                            <input type="text" class="form-control" [(ngModel)]="user.lastname" name="lastname" placeholder="Prenume" required />
                         </div>
                         <div class="mb-2">
-                            <input type="email" class="form-control" [(ngModel)]="confirmEmail" name="confirmEmail" placeholder="Confirmă Email" />
+                            <input type="email" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email" required />
                         </div>
                         <div class="mb-2">
-                            <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="Parolă" />
+                            <input type="email" class="form-control" [(ngModel)]="confirmEmail" name="confirmEmail" placeholder="Confirmă Email" required />
                         </div>
                         <div class="mb-2">
-                            <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirmă Parolă" />
+                            <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="Parolă" required />
                         </div>
                         <div class="mb-2">
-                            <label for="role" class="form-label">Rol</label>
-                            <select id="role" class="form-select" [(ngModel)]="user.role" name="role">
-                                <option value="admin">Admin</option>
-                                <option value="volunteer">Voluntar</option>
+                            <input type="password" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirmă Parolă" required />
+                        </div>
+                        <div class="mb-2">
+                            <label for="status" class="form-label">Status</label>
+                            <select id="status" class="form-select" [(ngModel)]="user.status" name="status" required>
+                                <option value="membru_adunarea_generala">Membru Adunarea Generală</option>
+                                <option value="membru_consiliu_directorial">Membru Consiliu Directorial</option>
+                                <option value="membru_de_onoare">Membru de Onoare</option>
+                                <option value="membru_voluntar">Voluntar</option>
                             </select>
                         </div>
                         <div class="mb-2">
-                            <input type="text" class="form-control" [(ngModel)]="key" name="key" placeholder="Cheie" />
+                            <input type="text" class="form-control" [(ngModel)]="key" name="key" placeholder="Cheie" required />
                         </div>
                         <div class="pt-1 mb-4">
-                            <button style="background-color: #038ED1;" class="btn text-white w-100 btn-block" type="button" (click)="register()">Intră în cont</button>
+                            <button style="background-color: #038ED1;" class="btn text-white w-100 btn-block" type="submit">Intră în cont</button>
                         </div>
                         <p class="text-center">Nu ai un cont? <a [routerLink]="['/login']" routerLinkActive="router-link-active" style="color: #038ED1" class="link text-decoration-none text-center">Înregistrează-te!</a></p>
                     </form>
                 </div>
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
-                <img src="../../../assets/heroBg.jpg" alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                <img src="../../../assets/heroBg.jpg" alt="Login image" class="w-100 image" style="object-fit: cover; object-position: left;">
             </div>
         </div>
     </div>

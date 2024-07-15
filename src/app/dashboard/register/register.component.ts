@@ -10,36 +10,44 @@ import { User } from '../../core/interfaces/User';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
   error: string = '';
-  confirmPassword : string = '';
+  confirmPassword: string = '';
   confirmEmail: string = '';
   user: User = {} as User;
   key: string = '';
+
+  statusLabels = {
+    'membru_adunarea_generala': 'Membru Adunarea Generală',
+    'membru_consiliu_directorial': 'Membru Consiliu Directorial',
+    'membru_de_onoare': 'Membru de Onoare',
+    'membru_voluntar': 'Voluntar'
+  };
 
   constructor(
     private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
-      this.user.firstname = '';
-      this.user.lastname = '';
-      this.user.email = '';
-      this.confirmEmail = '';
-      this.confirmPassword = '';
-      this.user.password = '';
-      this.user.role = '';
-      this.error = '';
-      this.key = '';
+    this.user.username = '';
+    this.user.firstname = '';
+    this.user.lastname = '';
+    this.user.email = '';
+    this.confirmEmail = '';
+    this.confirmPassword = '';
+    this.user.password = '';
+    this.user.status = '';
+    this.error = '';
+    this.key = '';
   }
 
   private validator(): boolean {
-    if(this.user.firstname == '' || this.user.lastname == '' || this.user.email == '' || this.confirmEmail == '' || this.user.password == '' || this.key == '') {
+    if (this.user.username == '' || this.user.firstname == '' || this.user.lastname == '' || this.user.email == '' || this.confirmEmail == '' || this.user.password == '' || this.key == '') {
       this.error = 'Toate campurile trebuie completate';
-      return false; 
+      return false;
     } else if (this.user.email != this.confirmEmail) {
       this.error = 'Email-urile nu se potrivesc';
       return false;
@@ -48,8 +56,8 @@ export class RegisterComponent implements OnInit {
       return false;
     } else if (this.user.password.length < 8) {
       this.error = 'Parola trebuie sa contina cel putin 8 caractere';
-      return true;
-    } else if (!this.user.password.includes('[A-Z]') || !this.user.password.includes('[a-z]') || !this.user.password.includes('[0-9]')) {
+      return false;
+    } else if (!/[A-Z]/.test(this.user.password) || !/[a-z]/.test(this.user.password) || !/[0-9]/.test(this.user.password)) {
       this.error = 'Parola trebuie sa contina cel putin o litera mare, o litera mica si un numar';
       return false;
     } else {
@@ -59,23 +67,25 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    if (this.key !== 'asmvKey2024Platform') {
-      this.error = "Cheie gresita!";
-    } else {
-      if (this.validator()) {
-        const newUser: User = {
-          firstname: this.user.firstname,
-          lastname: this.user.lastname,
-          email: this.user.email,
-          password: this.user.password,
-          role: this.user.role
-        };
-        console.log('New User:', newUser);
-        this.authservice.register(newUser);
-      } else {
-        this.error = "Validation failed";
-      }
+    if (this.validator()) {
+      const newUser: User = {
+        username: this.user.username,
+        firstname: this.user.firstname,
+        lastname: this.user.lastname,
+        email: this.user.email,
+        password: this.user.password,
+        status: this.user.status
+      };
+      console.log('New User:', newUser);
+      this.authservice.register(newUser).subscribe({
+        next: response => {
+          console.log('Registration successful', response);
+        },
+        error: err => {
+          this.error = 'Registration failed. Please try again.';
+          console.error('Registration error', err);
+        }
+      });
     }
-  }  
+  }
 }
-  
