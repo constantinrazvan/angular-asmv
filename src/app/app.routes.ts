@@ -85,6 +85,11 @@ export const routes: Routes = [
             loadComponent : () => import('./dashboard/create-volunteer/create-volunteer.component').then(m => m.CreateVolunteerComponent), 
             title: 'Adaugă Voluntar', 
             // canActivate: [AuthGuard]
+        }, 
+        {
+          path:'manage-users', 
+          loadComponent : () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent),
+          //canActivate: [AuthGuard]
         }
       ]
     }

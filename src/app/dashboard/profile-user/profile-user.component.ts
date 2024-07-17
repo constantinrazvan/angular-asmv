@@ -76,35 +76,14 @@ export class ProfileUserComponent implements OnInit {
   }
 
   getUserData(id: number): void {
-    this.profileService.getUserData(id).subscribe({
-      next: (data) => {
-        this.userProfile = data;
-      },
-      error: (error) => {
-        console.error('Error fetching user data:', error);
-      }
-    });
+    
   }
 
   saveProfile(): void {
-    this.profileService.updateUserProfile(this.userProfile).subscribe({
-      next: (response) => {
-        console.log('Profile saved', response);
-      },
-      error: (error) => {
-        console.error('Error saving profile:', error);
-      }
-    });
+    
   }
 
   changePassword(): void {
-    this.profileService.changePassword(this.passwordData).subscribe({
-      next: (response) => {
-        console.log('Password changed', response);
-      },
-      error: (error) => {
-        console.error('Error changing password:', error);
-      }
-    });
+    
   }
 }

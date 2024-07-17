@@ -11,15 +11,13 @@ export class ProfileUserServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getUserData(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.api_base_url}${environment.profile_user_endpoint}/${id}`);
+  getUserData(id: number): void {
+     
   }
 
-  updateUserProfile(userProfile: User): Observable<any> {
-    return this.http.put(`${environment.api_base_url}${environment.profile_user_endpoint}/${userProfile.username}`, userProfile);
+  updateUserProfile(userProfile: User): void {
   }
 
-  changePassword(passwordData: { currentPassword: string, newPassword: string }): Observable<any> {
-    return this.http.post(`${environment.api_base_url}/auth/change-password`, passwordData);
+  changePassword(passwordData: { currentPassword: string, newPassword: string }): void {
   }
 }

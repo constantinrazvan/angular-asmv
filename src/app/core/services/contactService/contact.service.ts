@@ -15,7 +15,7 @@ export class ContactService {
   ) { }
 
   sendMessage(ContactMessage: ContactMessage): Observable<ContactMessage> {
-    const url = `${environment.api_base_url}${environment.contact_send_endpoint}`;
+    const url = `${environment.api_base_url}${environment.contact_send}`;
     
     const body = {
       fullname: ContactMessage.fullname,
@@ -35,7 +35,7 @@ export class ContactService {
   }
 
     getMessge(): Observable<ContactMessage> {
-      const url = `${environment.api_base_url}${environment.contact_get_endpoint}`;
+      const url = `${environment.api_base_url}${environment.contact_All}`;
       return this.http.get<ContactMessage>(url).pipe(
         map((data: ContactMessage) => {
           console.log(data);
@@ -49,7 +49,7 @@ export class ContactService {
     }
 
     getMessageById(): Observable<ContactMessage> {
-      const url = `${environment.api_base_url}${environment.contact_get_by_id_endpoint}`;
+      const url = `${environment.api_base_url}${environment.contact_getById}`;
       return this.http.get<ContactMessage>(url).pipe(
         map((data: any) => {
           console.log(data);

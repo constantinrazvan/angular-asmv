@@ -1,0 +1,22 @@
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px; /* Add padding to the content */
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px; /* Add margin to space out the form fields */
+  }
+  
+  .error {
+    color: red;
+    margin-top: 8px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px; /* Add padding to the actions */
+  }
+  
