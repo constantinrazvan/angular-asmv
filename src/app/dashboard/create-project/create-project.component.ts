@@ -8,7 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFileDropEntry, FileSystemFileEntry, NgxFileDropModule } from 'ngx-file-drop';
-
+import { Router } from '@angular/router';
+import { ProjectService } from '../../core/services/projectService/project.service';
 @Component({
   selector: 'app-create-project',
   standalone: true,
@@ -32,11 +33,12 @@ export class CreateProjectComponent implements OnInit {
   @ViewChild('previewTemplate') previewTemplate!: TemplateRef<any>;
 
   public files: NgxFileDropEntry[] = [];
-  public galleryImages: Array<{file: File, url: string | ArrayBuffer | null}> = [];
+  public galleryImages: Array<{ file: File, url: string | ArrayBuffer | null }> = [];
   public title: string = '';
   public content: string = '';
+  public summary: string = '';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private projectService: ProjectService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -54,7 +56,7 @@ export class CreateProjectComponent implements OnInit {
         fileEntry.file((file: File) => {
           const reader = new FileReader();
           reader.onload = (e) => {
-            this.galleryImages.push({file, url: reader.result});
+            this.galleryImages.push({ file, url: reader.result });
           };
           reader.readAsDataURL(file);
         });
@@ -76,7 +78,7 @@ export class CreateProjectComponent implements OnInit {
       const file = selectedFiles[i];
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.galleryImages.push({file, url: reader.result});
+        this.galleryImages.push({ file, url: reader.result });
       };
       reader.readAsDataURL(file);
     }
@@ -92,5 +94,23 @@ export class CreateProjectComponent implements OnInit {
 
   public removeGalleryImage(index: number) {
     this.galleryImages.splice(index, 1);
+  }
+
+  public submitForm() {
+    const project = {
+      title: this.title,
+      content: this.content,
+      summary: this.summary,
+      images: this.galleryImages.map(img => img.file)
+    };
+    this.projectService.addProject(project).subscribe({
+      next: response => {
+        console.log('Project added successfully', response);
+        this.router.navigate(['/projects']);
+      },
+      error: err => {
+        console.error('Error adding project', err);
+      }
+    });
   }
 }

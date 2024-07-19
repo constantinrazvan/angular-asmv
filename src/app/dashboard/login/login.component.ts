@@ -10,31 +10,38 @@ import { User } from '../../core/interfaces/User';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
  
   email: string = ''; 
   password: string = '';
+  error: string = '';
 
   constructor(
     private authservice: AuthService,
     private router: Router,
   ) {}
 
-  login() : void {
-    // if(this.email != '' && this.password != '') {
-    //   let user: Partial<User> = {
-    //     email: this.email,
-    //     password: this.password
-    //   }
+  login(): void {
+    if (this.email && this.password) {
+      let user: Partial<User> = {
+        email: this.email,
+        password: this.password
+      };
 
-    //   this.authservice.login(user);
-    // }
-
-    if(this.email == 'razvan@email.com' && this.password == 'razvan') {
-      this.router.navigate(['/dashboard']);
+      this.authservice.login(user).subscribe({
+        next: (response) => {
+          if (response?.token) {
+            localStorage.setItem('token', response.token);
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        error: (err) => {
+          console.error('Login failed', err);
+          this.error = 'Login failed. Please try again.';
+        }
+      });
     }
   }
-
 }

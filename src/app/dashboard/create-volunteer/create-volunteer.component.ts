@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { VolunteersService } from '../../core/services/volunteersService/volunteers.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-volunteer',
@@ -30,18 +32,20 @@ export class CreateVolunteerComponent implements OnInit {
   public volunteer = {
     firstName: '',
     lastName: '',
+    email: '',
     faculty: '',
-    joiningDate: '',
+    city: '',
     memberStatus: '',
-    age: '',
-    city: ''
+    joiningDate: ''
   };
   public memberStatuses = [
-    'Membru Adunarea Generala',
-    'Membru de Onoare',
-    'Membru Consiliu Directorial',
-    'Membru Voluntar'
+    'MEMBRU_ADUNAREA_GENERALA',
+    'MEMBRU_CONSILIU_DIRECTORIAL',
+    'MEMBRU_DE_ONOARE',
+    'MEMBRU_VOLUNTAR'
   ];
+
+  constructor(private volunteersService: VolunteersService, private router: Router) {}
 
   ngOnInit() {
     const date = new Date();
@@ -49,7 +53,16 @@ export class CreateVolunteerComponent implements OnInit {
   }
 
   public submitForm() {
-    console.log('Volunteer Data:', this.volunteer);
-    // Add logic to handle form submission, e.g., send the data to a server.
+    this.volunteersService.addVolunteer(this.volunteer).subscribe({
+      next: response => {
+        console.log('Volunteer added successfully', response);
+        // Optionally, navigate to another page or clear the form
+        this.router.navigate(['/volunteers']); // Update the path to where you want to navigate
+      },
+      error: err => {
+        console.error('Error adding volunteer', err);
+        // Optionally, handle the error, show a message to the user, etc.
+      }
+    });
   }
 }

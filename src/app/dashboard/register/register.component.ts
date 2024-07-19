@@ -45,13 +45,13 @@ export class RegisterComponent implements OnInit {
   }
 
   private validator(): boolean {
-    if (this.user.username == '' || this.user.firstname == '' || this.user.lastname == '' || this.user.email == '' || this.confirmEmail == '' || this.user.password == '' || this.key == '') {
+    if (this.user.username === '' || this.user.firstname === '' || this.user.lastname === '' || this.user.email === '' || this.confirmEmail === '' || this.user.password === '' || this.key === '') {
       this.error = 'Toate campurile trebuie completate';
       return false;
-    } else if (this.user.email != this.confirmEmail) {
+    } else if (this.user.email !== this.confirmEmail) {
       this.error = 'Email-urile nu se potrivesc';
       return false;
-    } else if (this.user.password != this.confirmPassword) {
+    } else if (this.user.password !== this.confirmPassword) {
       this.error = 'Parolele nu se potrivesc';
       return false;
     } else if (this.user.password.length < 8) {
@@ -76,10 +76,12 @@ export class RegisterComponent implements OnInit {
         password: this.user.password,
         status: this.user.status
       };
-      console.log('New User:', newUser);
+
       this.authservice.register(newUser).subscribe({
         next: response => {
           console.log('Registration successful', response);
+          // Optionally, navigate to the login page or another page
+          this.error = ''; // Clear error on successful registration
         },
         error: err => {
           this.error = 'Registration failed. Please try again.';

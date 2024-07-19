@@ -1,77 +1,75 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-4">
-        <mat-card class="card-stats">
-          <mat-card-content>
-            <span style="font-size: 15px;">Total Voluntari</span>
-            <h2>42</h2>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="col-md-4">
-        <mat-card class="card-stats">
-          <mat-card-content>
-            <span style="font-size: 15px;">Total Proiecte</span>
-            <h2>31</h2>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="col-md-4">
-        <mat-card class="card-stats">
-          <mat-card-content>
-            <span style="font-size: 15px;">Cereri Voluntariat</span>
-            <h2>10</h2>
-          </mat-card-content>
-        </mat-card>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="card-stats">
+        <mat-card-content>
+          <span style="font-size: 15px;">Total Voluntari</span>
+          <h2>{{ totalVolunteers }}</h2>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="card-stats">
+        <mat-card-content>
+          <span style="font-size: 15px;">Total Proiecte</span>
+          <h2>{{ totalProjects }}</h2>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card class="card-stats">
+        <mat-card-content>
+          <span style="font-size: 15px;">Cereri Voluntariat</span>
+          <h2>{{ totalVolunteerRequests }}</h2>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h3>Voluntari</h3>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="voluntariDataSource" class="mat-elevation-z0" matSort>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nume</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator #voluntariPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
-  
-    <!-- Tables Section -->
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <h3>Voluntari</h3>
-        <div class="table-responsive">
-          <table mat-table [dataSource]="voluntariDataSource" class="mat-elevation-z0" matSort>
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-              <td mat-cell *matCellDef="let element">{{element.id}}</td>
-            </ng-container>
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nume</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            </ng-container>
-            <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-              <td mat-cell *matCellDef="let element">{{element.email}}</td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <mat-paginator #voluntariPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
-      </div>
-      <div class="col-md-6 mt-4 mt-md-0">
-        <h3>Proiecte</h3>
-        <div class="table-responsive">
-          <table mat-table [dataSource]="proiecteDataSource" class="mat-elevation-z0" matSort>
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-              <td mat-cell *matCellDef="let element">{{element.id}}</td>
-            </ng-container>
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nume</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            </ng-container>
-            <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-              <td mat-cell *matCellDef="let element">{{element.status}}</td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumnsProiecte"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsProiecte;"></tr>
-          </table>
-          <mat-paginator #proiectePaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
+    <div class="col-md-6 mt-4 mt-md-0">
+      <h3>Proiecte</h3>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="proiecteDataSource" class="mat-elevation-z0" matSort>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nume</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let element">{{element.status}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsProiecte"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsProiecte;"></tr>
+        </table>
+        <mat-paginator #proiectePaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
   </div>
-  
+</div>

@@ -12,6 +12,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFileDropEntry, FileSystemFileEntry, NgxFileDropModule } from 'ngx-file-drop';
+import { BlogsService } from '../../core/services/blogsService/blogs.service';
+import { AuthService } from '../../core/services/authService/auth.service';
+import { Observable, of, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-create-blog',
@@ -35,8 +38,8 @@ import { NgxFileDropEntry, FileSystemFileEntry, NgxFileDropModule } from 'ngx-fi
   styleUrls: ['./create-blog.component.css']
 })
 export class CreateBlogComponent implements OnInit {
-  @ViewChild('fileInput') fileInput!: ElementRef;
-  @ViewChild('noFileInput') noFileInput!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('noFileInput') noFileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('previewTemplate') previewTemplate!: TemplateRef<any>;
 
   public files: NgxFileDropEntry[] = [];
@@ -46,13 +49,15 @@ export class CreateBlogComponent implements OnInit {
   public today: string = '';
   public title: string = '';
   public content: string = '';
-  public author: string = 'Autor curent';
+  public author: string = '';
+  public error: string = '';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private blogsService: BlogsService, private authService: AuthService) {}
 
   ngOnInit() {
     const date = new Date();
     this.today = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    this.author = this.authService.getUser() || 'Unknown';
   }
 
   public openPreview() {
@@ -68,7 +73,7 @@ export class CreateBlogComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           const reader = new FileReader();
-          reader.onload = (e) => {
+          reader.onload = () => {
             this.galleryImages.push({file, url: reader.result});
           };
           reader.readAsDataURL(file);
@@ -85,28 +90,30 @@ export class CreateBlogComponent implements OnInit {
     console.log(event);
   }
 
-  public onHeaderFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      this.headerImage = event.target.files[0];
+  public onHeaderFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.headerImage = input.files[0];
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = () => {
         this.headerImageUrl = reader.result;
       };
-      if (this.headerImage) {
-        reader.readAsDataURL(this.headerImage);
-      }
+      reader.readAsDataURL(this.headerImage);
     }
   }
 
-  public onGalleryFileChange(event: any) {
-    const selectedFiles = event.target.files;
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const file = selectedFiles[i];
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.galleryImages.push({file, url: reader.result});
-      };
-      reader.readAsDataURL(file);
+  public onGalleryFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const selectedFiles = input.files;
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i];
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.galleryImages.push({file, url: reader.result});
+        };
+        reader.readAsDataURL(file);
+      }
     }
   }
 
@@ -125,5 +132,71 @@ export class CreateBlogComponent implements OnInit {
 
   public removeGalleryImage(index: number) {
     this.galleryImages.splice(index, 1);
+  }
+
+  public uploadHeaderImage(): Observable<any> {
+    if (!this.headerImage) {
+      return of(null);
+    }
+    const formData = new FormData();
+    formData.append('file', this.headerImage);
+    return this.blogsService.uploadHeaderImage(formData);
+  }
+
+  public uploadGalleryImages(): Observable<any>[] {
+    const uploadObservables: Observable<any>[] = [];
+    for (const img of this.galleryImages) {
+      const formData = new FormData();
+      formData.append('file', img.file);
+      uploadObservables.push(this.blogsService.uploadGalleryImage(formData));
+    }
+    return uploadObservables;
+  }
+
+  public submitBlog() {
+    this.uploadHeaderImage().subscribe({
+      next: headerResponse => {
+        const headerImageUrl = headerResponse?.Url;
+        const galleryImageUploads = this.uploadGalleryImages();
+
+        forkJoin(galleryImageUploads).subscribe({
+          next: galleryResponses => {
+            const galleryImageUrls = galleryResponses.map(res => res.Url);
+            const newBlog = {
+              title: this.title,
+              content: this.content,
+              author: this.author,
+              date: this.today,
+              headerImageUrl: headerImageUrl,
+              galleryImageUrls: galleryImageUrls
+            };
+
+            this.blogsService.addBlog(newBlog).subscribe({
+              next: response => {
+                console.log('Blog created successfully', response);
+                // Optionally, navigate to another page or clear the form
+                this.title = '';
+                this.content = '';
+                this.author = '';
+                this.headerImage = null;
+                this.headerImageUrl = null;
+                this.galleryImages = [];
+              },
+              error: err => {
+                console.error('Blog creation failed', err);
+                // Handle error (show error message to user)
+                this.error = err.message;
+              }
+            });
+          },
+          error: err => {
+            console.error('Gallery image upload failed', err);
+          }
+        });
+      },
+      error: err => {
+        console.error('Header image upload failed', err);
+      }
+    });
   }
 }

@@ -9,9 +9,13 @@ import { Volunteer } from '../../interfaces/Volunteer';
 })
 export class VolunteersService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
+
+  addVolunteer(volunteer: Partial<Volunteer>): Observable<Volunteer> {
+    return this.http.post<Volunteer>(`${environment.api_base_url}${environment.volunteers_newVolunteer}`, volunteer).pipe(
+      catchError(this.handleError<Volunteer>('addVolunteer'))
+    );
+  }
 
   becomeVolunteer(firstname: string, lastname: string, email: string, faculty: string, phone: string, reason: string): Observable<any> {
     return this.http.post<Volunteer>(`${environment.api_base_url}${environment.becomeVolunteer_becomeVolunteer}`, 
@@ -45,5 +49,12 @@ export class VolunteersService {
       map(() => true),
       catchError(() => of(false))
     );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); // log to console instead
+      return of(result as T);
+    };
   }
 }
