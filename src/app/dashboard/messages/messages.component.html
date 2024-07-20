@@ -1,1 +1,49 @@
-<p>messages works!</p>
+<div class="container">
+    <h2>Mesaje</h2>
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Nume</th>
+          <th>Email</th>
+          <th>Data</th>
+          <th>Actiuni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of messages; let i = index">
+          <td>{{ message.fullname }}</td>
+          <td>{{ message.email }}</td>
+          <td>{{ message.date }}</td>
+          <td>
+            <button class="btn btn-info me-1" (click)="viewMessage(message)">Vezi</button>
+            <button class="btn btn-danger ms-1" (click)="deleteMessage(i)">Sterge</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Overlay for modal -->
+    <div *ngIf="selectedMessage" class="modal-backdrop"></div>
+  
+    <!-- Modal for viewing message details -->
+    <div *ngIf="selectedMessage" class="modal" tabindex="-1" style="display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalii Mesaj</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Nume:</strong> {{ selectedMessage.fullname }}</p>
+            <p><strong>Email:</strong> {{ selectedMessage.email }}</p>
+            <p><strong>Mesaj:</strong> {{ selectedMessage.message }}</p>
+            <p><strong>Data:</strong> {{ selectedMessage.date }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

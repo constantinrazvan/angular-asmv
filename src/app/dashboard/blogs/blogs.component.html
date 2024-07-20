@@ -1,1 +1,49 @@
-<p>blogs works!</p>
+<div class="container">
+  <h2>Bloguri</h2>
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>Titlu</th>
+        <th>Autor</th>
+        <th>Data</th>
+        <th>Actiuni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let blog of blogs; let i = index">
+        <td>{{ blog.title }}</td>
+        <td>{{ blog.author }}</td>
+        <td>{{ blog.date }}</td>
+        <td>
+          <button class="btn btn-info me-1" (click)="viewBlog(blog)">Vezi</button>
+          <button class="btn btn-danger ms-1" (click)="deleteBlog(i)">Sterge</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Overlay for modal -->
+  <div *ngIf="selectedBlog" class="modal-backdrop"></div>
+
+  <!-- Modal for viewing blog details -->
+  <div *ngIf="selectedBlog" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Blog Detalii</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Titlu:</strong> {{ selectedBlog.title }}</p>
+          <p><strong>Autor:</strong> {{ selectedBlog.author }}</p>
+          <p><strong>Content:</strong> {{ selectedBlog.body }}</p>
+          <p><strong>Data:</strong> {{ selectedBlog.date }}</p>
+          <img [src]="selectedBlog.imgHeader" alt="Blog Image" class="img-fluid">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

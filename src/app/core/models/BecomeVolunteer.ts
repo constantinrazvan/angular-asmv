@@ -4,5 +4,6 @@ export interface BecomeVolunteer {
     email: string, 
     faculty: string,
     phone: string, 
-    reason: string
+    reason: string,
+    date: string
 }

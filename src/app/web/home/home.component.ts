@@ -80,8 +80,8 @@ export class HomeComponent implements AfterViewInit {
     name: 'Iordan Marina'
   },
   {
-    title: 'Experiență extraordinară!',
-    description: 'ASMV mi-a schimbat complet perspectiva asupra educației online. Cursurile lor sunt interactive și ușor de înțeles. Recomand cu încredere!',
+    title: 'Experiența mea de voluntariat la Asociația Medicilor și Studenților Voluntari',
+    description: 'Voluntariatul la Asociația Medicilor și Studenților Voluntari a fost o experiență extrem de plăcută și educativă. Ca voluntar din Medgidia, am fost primită cu căldură în asociație și am participat la campanii de educație sanitară în școli și organizarea evenimentelor comunitare. Mi-am dezvoltat abilitățile de comunicare și organizare, iar atmosfera de camaraderie și sprijin între voluntari a fost extraordinară. Recomand cu căldură această oportunitate oricui dorește să contribuie activ la sănătatea comunității.',
     logo: 'path_to_logo_image',
     name: 'Nume'
   }

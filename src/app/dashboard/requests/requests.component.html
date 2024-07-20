@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Cereri</h2>
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Data</th>
+        <th>Actiuni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests; let i = index">
+        <td>{{ request.firstname }}</td>
+        <td>{{ request.lastname }}</td>
+        <td>{{ request.date }}</td>
+        <td>
+          <button class="btn btn-info me-1" (click)="viewRequest(request)">Vezi</button>
+          <button class="btn btn-danger ms-1" (click)="deleteRequest(i)">Sterge</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Overlay for modal -->
+  <div *ngIf="selectedRequest" class="modal-backdrop"></div>
+
+  <!-- Modal for viewing request details -->
+  <div *ngIf="selectedRequest" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cerere Detalii</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Nume:</strong> {{ selectedRequest.firstname }}</p>
+          <p><strong>Prenume:</strong> {{ selectedRequest.lastname }}</p>
+          <p><strong>Email:</strong> {{ selectedRequest.email }}</p>
+          <p><strong>Facultate:</strong> {{ selectedRequest.faculty }}</p>
+          <p><strong>Telefon:</strong> {{ selectedRequest.phone }}</p>
+          <p><strong>Motiv:</strong> {{ selectedRequest.reason }}</p>
+          <p><strong>Data:</strong> {{ selectedRequest.date }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,7 +18,8 @@ export class ContactComponent implements OnInit {
   message: Message = {
     fullname: '',
     email: '',
-    message: ''
+    message: '',
+    date: ''
   }
 
   title = "ASMV - Contact";

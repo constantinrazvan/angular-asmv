@@ -29,15 +29,15 @@ export const routes: Routes = [
           title: 'Dashboard - Bloguri'
         },
         {
+          path: 'cereri-voluntariat',
+          loadComponent: () => import('./dashboard/requests/requests.component').then(m => m.RequestsComponent),
+          title: 'Dashboard - Cereri voluntari'
+        }, 
+        {
           path: 'mesaje',
           loadComponent: () => import('./dashboard/messages/messages.component').then(m => m.MessagesComponent),
           title: 'Dashboard - Mesaje'
         },
-        {
-          path: 'cereri-voluntariat',
-          loadComponent: () => import('./dashboard/requests/requests.component').then(m => m.RequestsComponent),
-          title: 'Dashboard - Cereri voluntari'
-        }
       ]
     }
   ];
