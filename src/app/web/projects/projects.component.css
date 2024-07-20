@@ -1,38 +1,7 @@
-@font-face {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
-         url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
-}
-
-* {
-    font-family: 'DM Sans', sans-serif;
-}
-
-body, html {
-    font-family: 'DM Sans', sans-serif;
-}
-
 .jumbotron {
     background-color: #038ED1; 
     background-image: url('../../../assets/proiecteImg.jpg'); 
     background-size: cover;     
     background-position: center;
     color: white;
-}
-
-.fade-in {
-    opacity: 0;
-    transition: opacity 0.8s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-}
-
-.headingProject {
-    font-family: 'DM Sans', sans-serif;
-    color: #038ED1;
-    font-weight: bold;
 }

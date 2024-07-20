@@ -1,27 +1,10 @@
 <app-web-navbar></app-web-navbar>
 
-<div class="container text-center">
-    <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
-        <h1 class="display-4">Proiecte</h1>
-        <p class="lead" style="font-size: 15px;">Bine te-am găsit pe pagina noastră de proiecte! Aici vei găsi diferite proiecte pe care le-am realizat cu succes!.</p>
-        <p class="lead" style="font-size: 15px;"> Te invităm să tragi un ochi peste lucrurile pe care le-am făcut de-a lungul timpului! </p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div *ngFor="let project of projectsList" class="col-md-4 col-xs-12 mb-4 fade-in">
-            <div class="card shadow-sm h-100">
-                <div class="card-header">
-                    <h4 class="headingProject text-center" style="letter-spacing: -1px;"><b>{{ project.title }}</b></h4>
-                </div>
-                <div class="card-body">
-                    <p class="text-center">{{ project.summary }}</p>
-                </div>
-                <div class="card-footer">
-                    <button [routerLink]="['/proiect', project.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi proiect</button>
-                </div>
-            </div>
+<div class="container-fluid my-5">
+    <div class="container">
+        <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
+            <h1 class="display-4">Proiecte</h1>
+            <p class="lead" style="font-size: 15px;">Proiectele ASMV aduc cea mai semnificativă valoare asociației noastre!</p>
         </div>
     </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
-import { BlogsService } from '../../core/services/blogsService/blogs.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -16,14 +15,9 @@ export class BlogsComponent implements OnInit, AfterViewInit {
 
   title = "ASMV - Bloguri";
 
-  private readonly blogsService: BlogsService;
-
-  constructor(blogsService: BlogsService) {
-    this.blogsService = blogsService;
-  }
 
   ngOnInit(): void {
-    this.loadBlogs();
+    
   }
 
   ngAfterViewInit() {
@@ -45,17 +39,6 @@ export class BlogsComponent implements OnInit, AfterViewInit {
 
   blogsList: any[] = [];
 
-  private loadBlogs() {
-    this.blogsService.getBlogs().subscribe((blogs) => {
-      this.blogsList = blogs;
-      // Trigger onScroll to handle initial elements already in view
-      this.onScroll();
-    });
-  }
 
-  private loadBlog(id: number) {
-    this.blogsService.getBlogById(id).subscribe((blog) => {
-      // Logic to handle individual blog loading can be added here
-    });
-  }
+  
 }
