@@ -8,13 +8,13 @@ import { UpdatePasswordDTO } from '../../models/UserPasswordDto';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://localhost:7155/api/User'; // Make sure this matches the backend route
+  private apiUrl = 'https://localhost:7155/api/User';
 
   constructor(private http: HttpClient) { }
 
   getAllUsers(jwtToken: string): Observable<User[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
-    return this.http.get<User[]>(`${this.apiUrl}/all`, { headers }); // Adjusted endpoint
+    return this.http.get<User[]>(`${this.apiUrl}/all`, { headers });
   }
 
   getUserProfile(jwtToken: string): Observable<User> {
@@ -33,8 +33,12 @@ export class UserService {
   }
 
   deleteUser(userId: number, jwtToken: string): Observable<void> {
-    console.log('Deleting user with ID:', userId); // Add logging here
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
     return this.http.delete<void>(`${this.apiUrl}/${userId}`, { headers });
+  }
+
+  updatePasswordWithoutOld(newPassword: string, userId: number, jwtToken: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    return this.http.put<any>(`${this.apiUrl}/change-password-without-old`, { newPassword, userId }, { headers });
   }
 }

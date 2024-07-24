@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../core/services/user/user.service';
+import { AuthService } from '../../core/services/auth/auth.service'; // Import the AuthService
 import { User } from '../../core/models/User'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,35 +17,40 @@ export class UsersComponent implements OnInit {
   selectedUser: User | null = null;
   showChangePasswordModal: boolean = false;
   newPassword: string = '';
-  oldPassword: string = '';
-  jwtToken: string = ''; 
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService // Inject the AuthService
+  ) { }
 
   ngOnInit(): void {
-    // Retrieve JWT token from a service or storage
-    this.jwtToken = 'your-jwt-token'; // Replace with actual token retrieval logic
-    this.loadUsers();
+    this.loadUsers(); // Fetch users on component initialization
+  }
+
+  private getToken(): string | null {
+    return this.authService.getToken(); // Fetch token from AuthService
   }
 
   loadUsers(): void {
-    this.userService.getAllUsers(this.jwtToken).subscribe({
+    const token = this.getToken();
+    if (token) {
+      this.userService.getAllUsers(token).subscribe({
         next: (data) => {
-            this.users = data;
-            console.log('Users loaded:', this.users); // Verify user IDs are present
-            this.users.forEach(user => {
-                console.log(`User ID: ${user.id}`); // Check if IDs are present
-            });
+          this.users = data;
+          console.log('Users loaded:', this.users);
         },
         error: (error) => {
-            console.error('Error fetching users', error);
+          console.error('Error fetching users', error);
         }
-    });
-}
+      });
+    } else {
+      console.error('No token found. User may not be logged in.');
+    }
+  }
 
   viewUser(user: User): void {
     this.selectedUser = user;
-    this.showChangePasswordModal = false; // Ensure change password modal is closed
+    this.showChangePasswordModal = false;
   }
 
   closeViewModal(): void {
@@ -59,42 +65,47 @@ export class UsersComponent implements OnInit {
   closeChangePasswordModal(): void {
     this.showChangePasswordModal = false;
     this.newPassword = '';
-    this.oldPassword = '';
   }
 
   changePassword(): void {
-    if (this.selectedUser && this.oldPassword && this.newPassword) {
-      const updatePasswordDto = {
-        oldPassword: this.oldPassword,
-        newPassword: this.newPassword
-      };
-      this.userService.updatePassword(updatePasswordDto, this.jwtToken).subscribe({
-        next: () => {
-          this.closeChangePasswordModal();
-        },
-        error: (error) => {
-          console.error('Error changing password', error);
-        }
-      });
+    if (this.selectedUser && this.newPassword) {
+      const token = this.getToken();
+      if (token) {
+        this.userService.updatePasswordWithoutOld(this.newPassword, this.selectedUser.id, token).subscribe({
+          next: () => {
+            this.closeChangePasswordModal();
+            this.loadUsers(); // Optionally reload users to reflect changes
+          },
+          error: (error) => {
+            console.error('Error changing password', error);
+          }
+        });
+      } else {
+        console.error('No token found. Cannot change password.');
+      }
     }
   }
 
   deleteUser(userId: number): void {
-    console.log('Attempting to delete user with ID:', userId); // Check the ID being passed
     if (userId === undefined || userId === null) {
-        console.error('Invalid user ID:', userId);
-        return;
+      console.error('Invalid user ID:', userId);
+      return;
     }
-    if (confirm('Are you sure you want to delete this user?')) { // Confirm before deleting
-        this.userService.deleteUser(userId, this.jwtToken).subscribe({
-            next: () => {
-                this.loadUsers(); // Reload users after deletion
-            },
-            error: (error) => {
-                console.error('Error deleting user:', error);
-                alert('Failed to delete user. Please try again.'); // Provide user feedback
-            }
+    if (confirm('Are you sure you want to delete this user?')) {
+      const token = this.getToken();
+      if (token) {
+        this.userService.deleteUser(userId, token).subscribe({
+          next: () => {
+            this.loadUsers(); // Reload users after deletion
+          },
+          error: (error) => {
+            console.error('Error deleting user:', error);
+            alert('Failed to delete user. Please try again.');
+          }
         });
+      } else {
+        console.error('No token found. Cannot delete user.');
+      }
     }
-}
+  }  
 }

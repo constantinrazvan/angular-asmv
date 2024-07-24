@@ -5,6 +5,7 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapCheckCircleFill } from '@ng-icons/bootstrap-icons';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 
 interface Project {
@@ -17,7 +18,7 @@ interface Project {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, WebNavbarComponent, WebFooterComponent, NgIconComponent, FormsModule],
+  imports: [CommonModule, WebNavbarComponent, WebFooterComponent, NgIconComponent, FormsModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   viewProviders: [provideIcons({

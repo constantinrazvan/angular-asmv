@@ -1,81 +1,76 @@
 <div class="container">
-    <h2>Utilizatori</h2>
-  
-    <!-- Users Table -->
-    <table class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Nume</th>
-          <th>Prenume</th>
-          <th>Email</th>
-          <th>Acțiuni</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-              <button class="btn btn-info me-1" (click)="viewUser(user)">Vezi</button>
-              <button class="btn btn-warning me-1" (click)="openChangePasswordModal(user)">Schimbă Parola</button>
-              <button class="btn btn-danger" (click)="deleteUser(user.id)">Șterge</button>
-            </td>
-          </tr>                  
-      </tbody>
-    </table>
-  
-    <!-- View User Modal -->
-    <div *ngIf="selectedUser" class="modal-backdrop"></div>
-    <div *ngIf="selectedUser" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Detalii Utilizator</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Nume:</strong> {{ selectedUser.firstName }}</p>
-            <p><strong>Prenume:</strong> {{ selectedUser.lastName }}</p>
-            <p><strong>Email:</strong> {{ selectedUser.email }}</p>
-            <p><strong>Telefon:</strong> {{ selectedUser.phoneNumber }}</p>
-            <p><strong>Facultate:</strong> {{ selectedUser.faculty }}</p>
-            <p><strong>Status:</strong> {{ selectedUser.status }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeViewModal()">Închide</button>
-          </div>
+  <h2>Utilizatori</h2>
+
+  <!-- Users Table -->
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Email</th>
+        <th>Acțiuni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button class="btn btn-info me-1" (click)="viewUser(user)">Vezi</button>
+          <button class="btn btn-warning me-1" (click)="openChangePasswordModal(user)">Schimbă Parola</button>
+          <button class="btn btn-danger" (click)="deleteUser(user.id)">Șterge</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- View User Modal -->
+  <div *ngIf="selectedUser" class="modal-backdrop"></div>
+  <div *ngIf="selectedUser" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalii Utilizator</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
         </div>
-      </div>
-    </div>
-  
-    <!-- Change Password Modal -->
-    <div *ngIf="showChangePasswordModal" class="modal-backdrop"></div>
-    <div *ngIf="showChangePasswordModal" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Schimbă Parola</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeChangePasswordModal()"></button>
-          </div>
-          <div class="modal-body">
-            <form (ngSubmit)="changePassword()">
-              <div class="form-group">
-                <label for="oldPassword">Parola veche:</label>
-                <input id="oldPassword" type="password" [(ngModel)]="oldPassword" name="oldPassword" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="newPassword">Parola nouă:</label>
-                <input id="newPassword" type="password" [(ngModel)]="newPassword" name="newPassword" class="form-control" required>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Salvează</button>
-                <button type="button" class="btn btn-secondary" (click)="closeChangePasswordModal()">Închide</button>
-              </div>
-            </form>
-          </div>
+        <div class="modal-body">
+          <p><strong>Nume:</strong> {{ selectedUser.firstName }}</p>
+          <p><strong>Prenume:</strong> {{ selectedUser.lastName }}</p>
+          <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+          <p><strong>Telefon:</strong> {{ selectedUser.phoneNumber }}</p>
+          <p><strong>Facultate:</strong> {{ selectedUser.faculty }}</p>
+          <p><strong>Status:</strong> {{ selectedUser.status }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeViewModal()">Închide</button>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Change Password Modal -->
+  <div *ngIf="showChangePasswordModal" class="modal-backdrop"></div>
+  <div *ngIf="showChangePasswordModal" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Schimbă Parola</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeChangePasswordModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="changePassword()">
+            <div class="form-group">
+              <label for="newPassword">Parola nouă:</label>
+              <input id="newPassword" type="password" [(ngModel)]="newPassword" name="newPassword" class="form-control" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Salvează</button>
+              <button type="button" class="btn btn-secondary" (click)="closeChangePasswordModal()">Închide</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

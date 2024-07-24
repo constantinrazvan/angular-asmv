@@ -9,49 +9,57 @@ import { Login } from '../../models/Login';
 })
 export class AuthService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  private readonly tokenKey = 'token'; // Key used to store the token
+  private readonly apiUrl = 'https://localhost:7155/api/auth'; // Base URL for the authentication API
 
   loginEmpty: Login = {
     email: '',
     password: ''
-  };
+   };
 
-  registerEmpty: Register = {
+   registerEmpty: Register = {
     firstname: '',
     lastname: '',
-    password: '',
     email: '',
+    password: '',
     phoneNumber: '',
     faculty: '',
     status: ''
-  };
+   }
+
+  constructor(private http: HttpClient) { }
 
   register(register: Register): Observable<Register> {
-    return this.http.post<Register>('https://localhost:7155/api/auth/register', register);
+    return this.http.post<Register>(`${this.apiUrl}/register`, register);
   }
 
   login(login: Login): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('https://localhost:7155/api/auth/login', login).pipe(
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, login).pipe(
       tap(response => {
-        if (response && response.token) {
-          localStorage.setItem('token', response.token); // Store token
+        if (response?.token) {
+          this.setToken(response.token); // Store token
         }
       })
     );
   }
-  
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 
-  logout() {
-    localStorage.removeItem('token');
+  logout(): void {
+    this.clearToken(); // Clear token
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
-  }  
+    return localStorage.getItem(this.tokenKey); // Retrieve token
+  }
+
+  private setToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token); // Store token
+  }
+
+  private clearToken(): void {
+    localStorage.removeItem(this.tokenKey); // Remove token
+  }
 }
