@@ -12,11 +12,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getAllUsers(jwtToken: string): Observable<User[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    return this.http.get<User[]>(`${this.apiUrl}/all`, { headers }); // Adjusted endpoint
+  }
+
   getUserProfile(jwtToken: string): Observable<User> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
     return this.http.get<User>(`${this.apiUrl}/profile`, { headers });
   }
-  
 
   updateUserProfile(user: User, jwtToken: string): Observable<User> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
@@ -26,5 +30,11 @@ export class UserService {
   updatePassword(updatePasswordDto: UpdatePasswordDTO, jwtToken: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
     return this.http.put<any>(`${this.apiUrl}/change-password`, updatePasswordDto, { headers });
+  }
+
+  deleteUser(userId: number, jwtToken: string): Observable<void> {
+    console.log('Deleting user with ID:', userId); // Add logging here
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    return this.http.delete<void>(`${this.apiUrl}/${userId}`, { headers });
   }
 }

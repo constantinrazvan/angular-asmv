@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Register } from '../../models/Register';
 import { Login } from '../../models/Login';
 
@@ -33,8 +33,15 @@ export class AuthService {
   }
 
   login(login: Login): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('https://localhost:7155/api/auth/login', login);
+    return this.http.post<{ token: string }>('https://localhost:7155/api/auth/login', login).pipe(
+      tap(response => {
+        if (response && response.token) {
+          localStorage.setItem('token', response.token); // Store token
+        }
+      })
+    );
   }
+  
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
@@ -43,4 +50,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }  
 }
