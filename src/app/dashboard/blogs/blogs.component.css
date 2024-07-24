@@ -17,7 +17,6 @@
   
   .table th,
   .table td {
-    padding: 1.5rem; /* Marim padding-ul pentru celule */
     vertical-align: middle;
     border-top: 1px solid #dee2e6;
   }

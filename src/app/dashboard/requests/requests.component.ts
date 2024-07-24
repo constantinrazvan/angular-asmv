@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
+import { BecomevolunteerService } from '../../core/services/becomeVolunteer/becomevolunteer.service';
 
 @Component({
   selector: 'app-requests',
@@ -9,16 +10,35 @@ import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.css']
 })
-export class RequestsComponent {
-  requests: BecomeVolunteer[] = [
-    { firstname: 'John', lastname: 'Doe', email: 'john@example.com', faculty: 'Science', phone: '1234567890', reason: 'I love volunteering', date: '2023-07-19' },
-    { firstname: 'Jane', lastname: 'Smith', email: 'jane@example.com', faculty: 'Arts', phone: '0987654321', reason: 'I want to help', date: '2023-07-18' }
-  ];
+export class RequestsComponent implements OnInit {
 
+  requests: BecomeVolunteer[] = [];
   selectedRequest: BecomeVolunteer | null = null;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+
+  constructor(
+    private service: BecomevolunteerService
+  ) { }
+
+  ngOnInit(): void {
+    this.loadRequests();
+  }
+
+  loadRequests(): void {
+    this.service.getAllVolunteers().subscribe({
+      next: (data) => {
+        this.requests = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
   deleteRequest(index: number): void {
-    this.requests.splice(index, 1);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    this.requests.splice(startIndex + index, 1);
   }
 
   viewRequest(request: BecomeVolunteer): void {
@@ -27,5 +47,28 @@ export class RequestsComponent {
 
   closeDialog(): void {
     this.selectedRequest = null;
+  }
+
+  get paginatedRequests(): BecomeVolunteer[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.requests.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.requests.length / this.itemsPerPage);
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  get pages(): number[] {
+    const pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 }

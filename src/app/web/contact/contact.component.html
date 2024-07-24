@@ -1,24 +1,24 @@
 <app-web-navbar></app-web-navbar>
 
 <div class="container-fluid my-5">
-  <div id="form" style=" margin: auto; text-align: left;">
+  <div id="form" style="margin: auto; text-align: left;">
     <div class="mb-3">
       <h1 style="font-size: 30px; text-align: center;"><b>Contactează-ne!</b></h1>
       <p class="text-center"> Lasă-ne un mesaj folosind formularul de mai jos și noi vom reveni cu un mesaj în cel mai scurt timp!</p>
       <p class="text-center text-danger"> {{error}} </p>
     </div>
-    <form class="mt-5 mb-5" >
+    <form class="mt-5 mb-5" (ngSubmit)="postMessage()">
       <div class="form-group mb-3">
         <label for="fullName" style="text-align: left;">Nume Prenume</label>
-        <input type="text" [(ngModel)]="message.fullname" name="fullname" class="form-control" id="fullName" placeholder="Ion Ionescu">
+        <input type="text" [(ngModel)]="message.FullName" name="fullName" class="form-control" id="fullName" placeholder="Ion Ionescu">
       </div>
       <div class="form-group mb-3">
         <label for="emailAddress">Adresă Email</label>
-        <input type="email" [(ngModel)]="message.email" name="email" class="form-control" id="emailAddress" placeholder="email@exemplu.com">
+        <input type="email" [(ngModel)]="message.Email" name="email" class="form-control" id="emailAddress" placeholder="email@exemplu.com">
       </div>
       <div class="form-group mb-3">
         <label for="message">Mesaj</label>
-        <textarea type="text" [(ngModel)]="message.message" name="message" class="form-control" id="message" rows="3"></textarea>
+        <textarea type="text" [(ngModel)]="message.Mess" name="message" class="form-control" id="message" rows="3"></textarea> <!-- Bind to Mess -->
       </div>
       <button class="btn w-100 text-white" style="background-color: #038ED1;" type="submit">Trimite</button>
     </form>

@@ -1,86 +1,80 @@
 <app-web-navbar></app-web-navbar>
 
 <div class="container-fluid">
-    <div class="row justify-content-center gy-4">
-        <div class="col-md-4 mx-5 py-5">
-            <h1 style="width: 100%;">
-                <b>Completează formularul acesta și hai să faci parte din cea mai <i>cool</i> asociație!</b>
-            </h1>
-            <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus tempor metus, id aliquet elit accumsan id. Mauris tristique, quam ac scelerisque sagittis,
-                libero tellus porta sapien, vitae hendrerit tortor nulla a neque. Etiam augue mi, laoreet eu tellus eget, pretium finibus leo. Aenean eget dignissim diam, at blandit nisi.
-            </p>
+  <div class="row justify-content-center gy-4">
+    <div class="col-md-4 mx-5 py-5">
+      <h1 style="width: 100%;">
+        <b>Completează formularul acesta și hai să faci parte din cea mai <i>cool</i> asociație!</b>
+      </h1>
+      <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus tempor metus, id aliquet elit accumsan id. Mauris tristique, quam ac scelerisque sagittis,
+        libero tellus porta sapien, vitae hendrerit tortor nulla a neque. Etiam augue mi, laoreet eu tellus eget, pretium finibus leo. Aenean eget dignissim diam, at blandit nisi.
+      </p>
 
-            <div style="display: flex; align-items: center; margin-top: 20px;">
-                <!-- icon -->
-                <div style="margin-left: 10px; margin-top: 15px;">
-                    <h5><b>Locație</b></h5>
-                    <p>Constanța, România</p>
-                </div>
-            </div>
-
-            <div style="display: flex; align-items: center; margin-top: 20px;">
-                <!-- icon -->
-                <div style="margin-left: 10px; margin-top: 15px;">
-                    <h5><b>Numărul de Telefon</b></h5>
-                    <p>0712 345 678</p>
-                </div>
-            </div>
-
-            <div style="display: flex; align-items: center; margin-top: 20px;">
-                <!-- icon -->
-                <div style="margin-left: 10px; margin-top: 15px;">
-                    <h5><b>Adresa de Email</b></h5>
-                    <p>{{asmvEmail}}</p>
-                </div>
-            </div>
+      <div style="display: flex; align-items: center; margin-top: 20px;">
+        <!-- icon -->
+        <div style="margin-left: 10px; margin-top: 15px;">
+          <h5><b>Locație</b></h5>
+          <p>Constanța, România</p>
         </div>
+      </div>
 
-        <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
-            <h1> Hai în echipă</h1>
-            <span> Formular de înscriere online</span>
-            <form  style="margin-top: 50px;">
-                <div class="row mb-3">
-                    <div class="col">
-                        <label>Nume</label>
-                        <input type="text" class="form-control" name="name" [(ngModel)]="name" />
-                        <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                    </div>
-                    <div class="col">
-                        <label>Prenume</label>
-                        <input type="text" class="form-control" name="lastname" [(ngModel)]="lastname" />
-                        <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="email" [(ngModel)]="email" />
-                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                </div>
-                <div class="mb-3">
-                    <label>Facultate</label>
-                    <input type="text" class="form-control" name="faculty" [(ngModel)]="faculty" />
-                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                </div>
-                <div class="mb-3">
-                    <label>Număr Telefon</label>
-                    <input type="text" class="form-control" name="phone" [(ngModel)]="phone" />
-                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                </div>
-                <div class="mb-3">
-                    <label>De ce vrei să fii voluntar?</label>
-                    <textarea rows="3" class="form-control" name="reason" [(ngModel)]="reason"></textarea>
-                    <span *ngIf="error" style="text-align: center; color: red;">{{error}}</span>
-                </div>
-                <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white;">
-                    {{ formSent ? 'Trimis' : 'Trimite' }}
-                    <svg style="color: #038ED1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                      <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                    </svg>
-                </button>
-            </form>
+      <div style="display: flex; align-items: center; margin-top: 20px;">
+        <!-- icon -->
+        <div style="margin-left: 10px; margin-top: 15px;">
+          <h5><b>Numărul de Telefon</b></h5>
+          <p>0712 345 678</p>
         </div>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-top: 20px;">
+        <!-- icon -->
+        <div style="margin-left: 10px; margin-top: 15px;">
+          <h5><b>Adresa de Email</b></h5>
+          <p>{{asmvEmail}}</p>
+        </div>
+      </div>
     </div>
+
+    <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
+      <h1> Hai în echipă</h1>
+      <span> Formular de înscriere online</span>
+      <form (ngSubmit)="becomeVolunteerPost()" style="margin-top: 50px;">
+        <div class="row mb-3">
+          <div class="col">
+            <label>Nume</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="becomeVolunteer.firstName" />
+          </div>
+          <div class="col">
+            <label>Prenume</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="becomeVolunteer.lastName" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="becomeVolunteer.email" />
+        </div>
+        <div class="mb-3">
+          <label>Facultate</label>
+          <input type="text" class="form-control" name="faculty" [(ngModel)]="becomeVolunteer.faculty" />
+        </div>
+        <div class="mb-3">
+          <label>Număr Telefon</label>
+          <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="becomeVolunteer.phoneNumber" />
+        </div>
+        <div class="mb-3">
+          <label>De ce vrei să fii voluntar?</label>
+          <textarea rows="3" class="form-control" name="reason" [(ngModel)]="becomeVolunteer.reason"></textarea>
+        </div>
+        <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white;">
+          {{ formSent ? 'Trimis' : 'Trimite' }}
+          <svg style="color: #038ED1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 
 <app-web-footer></app-web-footer>

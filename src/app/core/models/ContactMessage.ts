@@ -1,6 +1,6 @@
 export interface Message {
-    fullname: string;
-    email: string;
-    message: string;
-    date: string;
+    FullName: string;
+    Email: string;
+    Mess?: string;  // Optional for GET requests
+    Message?: string;  // Optional for POST requests
 }

@@ -16,7 +16,7 @@
   
   .table th,
   .table td {
-    padding: 1.5rem;
+
     vertical-align: middle;
     border-top: 1px solid #dee2e6;
   }
@@ -100,4 +100,3 @@
     border: 0;
     appearance: none;
   }
-  
