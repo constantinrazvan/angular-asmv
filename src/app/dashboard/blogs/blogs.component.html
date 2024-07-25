@@ -1,47 +1,76 @@
+<!-- src/app/components/blogs/blogs.component.html -->
 <div class="container">
-  <h2>Bloguri</h2>
-  <table class="table table-responsive">
+  <h2>Blogs</h2>
+
+  <button class="btn btn-primary mb-3" (click)="toggleAddBlogForm()">Add Blog</button>
+
+  <form *ngIf="showAddBlogForm" (ngSubmit)="addBlog()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="newBlog.title" name="title" required>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <textarea class="form-control" id="content" [(ngModel)]="newBlog.content" name="content" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Blog</button>
+  </form>
+
+  <table class="table table-responsive mt-3">
     <thead>
       <tr>
-        <th>Titlu</th>
-        <th>Autor</th>
-        <th>Data</th>
-        <th>Actiuni</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let blog of blogs; let i = index">
+      <tr *ngFor="let blog of paginatedBlogs; let i = index">
         <td>{{ blog.title }}</td>
-        <td>{{ blog.author }}</td>
-        <td>{{ blog.date }}</td>
+        <td>{{ blog.content }}</td>
         <td>
-          <button class="btn btn-info me-1" (click)="viewBlog(blog)">Vezi</button>
-          <button class="btn btn-danger ms-1" (click)="deleteBlog(i)">Sterge</button>
+          <button class="btn btn-info me-1" (click)="viewBlog(blog)">View</button>
+          <button class="btn btn-danger ms-1" (click)="deleteBlog(i)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Overlay for modal -->
+  <nav *ngIf="totalPages > 1">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(1)">First</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(currentPage - 1)">Previous</button>
+      </li>
+      <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
+        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(currentPage + 1)">Next</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(totalPages)">Last</button>
+      </li>
+    </ul>
+  </nav>
+
   <div *ngIf="selectedBlog" class="modal-backdrop"></div>
 
-  <!-- Modal for viewing blog details -->
   <div *ngIf="selectedBlog" class="modal" tabindex="-1" style="display: block;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Blog Detalii</h5>
+          <h5 class="modal-title">Blog Details</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
         </div>
         <div class="modal-body">
-          <p><strong>Titlu:</strong> {{ selectedBlog.title }}</p>
-          <p><strong>Autor:</strong> {{ selectedBlog.author }}</p>
-          <p><strong>Content:</strong> {{ selectedBlog.body }}</p>
-          <p><strong>Data:</strong> {{ selectedBlog.date }}</p>
-          <img [src]="selectedBlog.imgHeader" alt="Blog Image" class="img-fluid">
+          <p><strong>Title:</strong> {{ selectedBlog.title }}</p>
+          <p><strong>Content:</strong> {{ selectedBlog.content }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Close</button>
         </div>
       </div>
     </div>
