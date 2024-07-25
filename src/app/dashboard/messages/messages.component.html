@@ -1,26 +1,26 @@
-<div class="container">
-  <h2>Mesaje</h2>
-  <table class="table table-responsive">
-    <thead>
-      <tr>
-        <th>Nume</th>
-        <th>Email</th>
-        <th>Actiuni</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let message of paginatedMessages; let i = index">
-        <td>{{ message.fullName }}</td>
-        <td>{{ message.email }}</td>
-        <td>
-          <button class="btn btn-info me-1" (click)="viewMessage(message)">Vezi</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container my-5">
+  <h2 class="text-center mb-5">Mesaje</h2>
+
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Refresh data</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col-12 mb-4" *ngFor="let message of paginatedMessages; let i = index">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="card-title text-primary"><b>{{ message.fullName }}</b></h3>
+          <p class="card-text">{{ message.email }}</p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-primary btn-sm" (click)="viewMessage(message)">Vezi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <nav *ngIf="totalPages > 1">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="setPage(1)">Prima</button>
       </li>
@@ -31,7 +31,7 @@
         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(currentPage + 1)">Următor</button>
+        <button class="page-link" (click)="setPage(currentPage + 1)">Următoarea</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
@@ -41,17 +41,17 @@
 
   <div *ngIf="selectedMessage" class="modal-backdrop"></div>
 
-  <div *ngIf="selectedMessage" class="modal" tabindex="-1" style="display: block;">
-    <div class="modal-dialog">
+  <div *ngIf="selectedMessage" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detalii Mesaj</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
         </div>
         <div class="modal-body">
-          <p><strong>Nume:</strong> {{ selectedMessage?.fullName }}</p>
-          <p><strong>Email:</strong> {{ selectedMessage?.email }}</p>
-          <p><strong>Mesaj:</strong> {{ selectedMessage?.mess }}</p>
+          <h4 class="modal-title mb-3">{{ selectedMessage.fullName }}</h4>
+          <p><strong>Email:</strong> {{ selectedMessage.email }}</p>
+          <p><strong>Mesaj:</strong> {{ selectedMessage.mess }}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>

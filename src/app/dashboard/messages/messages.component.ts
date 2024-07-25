@@ -12,12 +12,16 @@ import { ContactService } from '../../core/services/contact/contact.service';
 })
 export class MessagesComponent implements OnInit {
 
-  messages: RetriveMessage[] = [];
+  messages: RetriveMessage[] = [];  // Initialize as an empty array
   selectedMessage: RetriveMessage | null = null;
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 6;
 
   constructor(private service: ContactService) {}
+
+  refreshData(): void {
+    location.reload();
+  }
 
   ngOnInit(): void {
     this.loadMessages();
@@ -25,8 +29,13 @@ export class MessagesComponent implements OnInit {
 
   loadMessages() {
     this.service.getAllMessages().subscribe({
-      next: (data: RetriveMessage[]) => {
-        this.messages = data;
+      next: (data: any) => {  // Use 'any' type to handle non-standard response structure
+        console.log('API response:', data);  // Log the response
+        if (data && Array.isArray(data.$values)) {
+          this.messages = data.$values;
+        } else {
+          console.error('Data is not an array:', data);
+        }
       },
       error: (error: any | string) => {
         console.log('Error:', error);

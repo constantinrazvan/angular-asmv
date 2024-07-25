@@ -8,14 +8,15 @@ import { RetriveMessage } from '../../models/RetriveMessage';
   providedIn: 'root'
 })
 export class ContactService {
+  private baseUrl = 'https://localhost:7155/api/Message';
+
+  constructor(private http: HttpClient) { }
 
   contactEmpty: Message = {
     FullName: '',
     Email: '',
     Mess: ''
   };
-
-  constructor(private http: HttpClient) { }
 
   sendMessage(message: Message): Observable<Message> {
     const payload = {
@@ -24,14 +25,18 @@ export class ContactService {
       message: message.Mess
     };
     console.log('Sending payload:', payload);
-    return this.http.post<Message>('https://localhost:7155/api/Message/add', payload);
+    return this.http.post<Message>(`${this.baseUrl}/add`, payload);
   }
 
   getMessage(id: number): Observable<RetriveMessage> {
-    return this.http.get<RetriveMessage>('https://localhost:7155/api/Message/' + id);
+    return this.http.get<RetriveMessage>(`${this.baseUrl}/${id}`);
   }
 
   getAllMessages(): Observable<RetriveMessage[]> {
-    return this.http.get<RetriveMessage[]>('https://localhost:7155/api/Message/all');
+    return this.http.get<RetriveMessage[]>(`${this.baseUrl}/all`);
+  }
+
+  getCount() : Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/count`);
   }
 }

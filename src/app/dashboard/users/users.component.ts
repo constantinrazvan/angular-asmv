@@ -27,6 +27,10 @@ export class UsersComponent implements OnInit {
     this.loadUsers(); // Fetch users on component initialization
   }
 
+  refreshData(): void {
+    location.reload();
+  }
+
   private getToken(): string | null {
     return this.authService.getToken(); // Fetch token from AuthService
   }
@@ -34,19 +38,26 @@ export class UsersComponent implements OnInit {
   loadUsers(): void {
     const token = this.getToken();
     if (token) {
-      this.userService.getAllUsers(token).subscribe({
-        next: (data) => {
-          this.users = data;
-          console.log('Users loaded:', this.users);
-        },
-        error: (error) => {
-          console.error('Error fetching users', error);
-        }
-      });
+        this.userService.getAllUsers(token).subscribe({
+            next: (data: any) => {
+                console.log('Users data structure:', data);
+                // Check if data has a '$values' property which contains the array
+                if (data && Array.isArray(data.$values)) {
+                    this.users = data.$values;
+                } else {
+                    console.error('Unexpected data format:', data);
+                }
+                console.log('Users loaded:', this.users);
+            },
+            error: (error) => {
+                console.error('Error fetching users', error);
+            }
+        });
     } else {
-      console.error('No token found. User may not be logged in.');
+        console.error('No token found. User may not be logged in.');
     }
-  }
+}
+
 
   viewUser(user: User): void {
     this.selectedUser = user;

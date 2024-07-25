@@ -30,4 +30,8 @@ export class BecomevolunteerService {
   getVolunteer(id: number): Observable<BecomeVolunteer> {
     return this.http.get<BecomeVolunteer>('https://localhost:7155/api/BecomeVolunteer/' + id);
   }
+
+  getCount(): Observable<number> {
+    return this.http.get<number>(`https://localhost:7155/api/BecomeVolunteer/count`);
+  }
 }

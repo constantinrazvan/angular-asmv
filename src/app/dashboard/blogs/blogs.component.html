@@ -1,76 +1,73 @@
-<!-- src/app/components/blogs/blogs.component.html -->
-<div class="container">
-  <h2>Blogs</h2>
+<div class="container my-5">
+  <h2 class="text-center mb-5">Bloguri</h2>
 
-  <button class="btn btn-primary mb-3" (click)="toggleAddBlogForm()">Add Blog</button>
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-primary" (click)="toggleAddBlogForm()">Adauga Blog</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Refresh data</button>
+  </div>
 
-  <form *ngIf="showAddBlogForm" (ngSubmit)="addBlog()">
+  <form *ngIf="showAddBlogForm" (ngSubmit)="addBlog()" class="mb-4 p-3 border rounded">
     <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
+      <label for="title" class="form-label">Titlu</label>
       <input type="text" class="form-control" id="title" [(ngModel)]="newBlog.title" name="title" required>
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">Content</label>
       <textarea class="form-control" id="content" [(ngModel)]="newBlog.content" name="content" rows="3" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Add Blog</button>
+    <button type="submit" class="btn btn-primary w-100">Adauga Blog</button>
   </form>
 
-  <table class="table table-responsive mt-3">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let blog of paginatedBlogs; let i = index">
-        <td>{{ blog.title }}</td>
-        <td>{{ blog.content }}</td>
-        <td>
-          <button class="btn btn-info me-1" (click)="viewBlog(blog)">View</button>
-          <button class="btn btn-danger ms-1" (click)="deleteBlog(i)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-4 col-12 mb-4" *ngFor="let blog of paginatedBlogs; let i = index">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="card-title text-primary"><b>{{ blog.title }}</b></h3>
+          <p class="card-text">{{ blog.content | slice:0:100 }}...</p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-primary btn-sm" (click)="viewBlog(blog)">Vezi</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteBlog(i)">Sterge</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <nav *ngIf="totalPages > 1">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
-        <button class="page-link" (click)="setPage(1)">First</button>
+        <button class="page-link" (click)="setPage(1)">Prima</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === 1">
-        <button class="page-link" (click)="setPage(currentPage - 1)">Previous</button>
+        <button class="page-link" (click)="setPage(currentPage - 1)">Anterior</button>
       </li>
       <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(currentPage + 1)">Next</button>
+        <button class="page-link" (click)="setPage(currentPage + 1)">Urmatoarea</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(totalPages)">Last</button>
+        <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
       </li>
     </ul>
   </nav>
 
   <div *ngIf="selectedBlog" class="modal-backdrop"></div>
 
-  <div *ngIf="selectedBlog" class="modal" tabindex="-1" style="display: block;">
-    <div class="modal-dialog">
+  <div *ngIf="selectedBlog" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Blog Details</h5>
+          <h5 class="modal-title">Detalii Blog</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
         </div>
         <div class="modal-body">
-          <p><strong>Title:</strong> {{ selectedBlog.title }}</p>
-          <p><strong>Content:</strong> {{ selectedBlog.content }}</p>
+          <h4 class="modal-title mb-3">{{ selectedBlog.title }}</h4>
+          <p>{{ selectedBlog.content }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
         </div>
       </div>
     </div>

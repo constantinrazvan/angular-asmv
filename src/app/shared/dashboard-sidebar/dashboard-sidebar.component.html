@@ -1,6 +1,11 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <mat-nav-list>
+      <a mat-list-item [routerLink]="['/dashboard/statistici']" routerLinkActive="tab-active">
+        <span class="mat-list-item-content">
+          <span class="dm">Statistici</span>
+        </span>
+      </a>
       <a mat-list-item [routerLink]="['/dashboard/bloguri']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <span class="dm">Bloguri</span>

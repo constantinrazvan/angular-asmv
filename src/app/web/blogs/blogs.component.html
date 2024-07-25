@@ -6,18 +6,17 @@
             <p class="lead" style="font-size: 15px;">În secțiunea noastră de bloguri, vei găsi diferite gânduri, idei și noutăți. Noutăți atât despre lumea tech cât și despre lumea medicală!</p>
         </div>
 
-        <h3> Momentan nu avem nici un blog!</h3>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-md-4 col-12 mb-4 fade-in" *ngFor="let blog of blogsList">
                 <div class="card h-100 text-center">
                     <div class="card-body">
                         <h3 class="card-title" style="color: #038ED1;"><b>{{ blog.title }}</b></h3>
-                        <p class="card-text">{{ blog.summary }}</p>
-                        <button [routerLink]="['/blog', blog.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi curs</button>
+                        <p class="card-text">{{ blog.content }}</p>
+                        <button [routerLink]="['/blogs', blog.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi blog</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
 <app-web-footer></app-web-footer>

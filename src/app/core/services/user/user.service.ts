@@ -41,4 +41,9 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
     return this.http.put<any>(`${this.apiUrl}/change-password-without-old`, { newPassword, userId }, { headers });
   }
+
+  getCount(jwtToken: string) : Observable<number> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    return this.http.get<number>(`${this.apiUrl}/count`);
+  }
 }

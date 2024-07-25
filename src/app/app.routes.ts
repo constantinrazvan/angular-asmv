@@ -66,7 +66,14 @@ export const routes: Routes = [
       {
         path: 'forbidden',
         loadComponent: () => import("./dashboard/forbidden/forbidden.component").then(m => m.ForbiddenComponent),
-        title: 'Dashboard - Forbidden'
+        title: 'Dashboard - Forbidden',
+        canActivate: [AuthGuard]
+      }, 
+      {
+        path: 'statistici',
+        loadComponent: () => import("./dashboard/statistics/statistics.component").then(m => m.StatisticsComponent),
+        title: 'Dashboard - Statistici',
+        canActivate: [AuthGuard]
       }
     ]
   },

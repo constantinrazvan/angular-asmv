@@ -12,7 +12,7 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getBlogs(): Observable<{ $values: Blog[] }> { // Adjust the return type based on your API response
+  getBlogs(): Observable<{ $values: Blog[] }> {
     return this.http.get<{ $values: Blog[] }>(this.baseUrl);
   }
 
@@ -22,5 +22,13 @@ export class BlogService {
 
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getBlog(id: number): Observable<Blog> {
+    return this.http.get<Blog>(`${this.baseUrl}/${id}`);
+  }
+
+  getCount() : Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/count`);
   }
 }

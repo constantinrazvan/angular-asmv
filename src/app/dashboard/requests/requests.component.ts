@@ -17,9 +17,11 @@ export class RequestsComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  constructor(
-    private service: BecomevolunteerService
-  ) { }
+  constructor(private service: BecomevolunteerService) {}
+
+  refreshData(): void {
+    location.reload();
+  }
 
   ngOnInit(): void {
     this.loadRequests();
@@ -27,8 +29,15 @@ export class RequestsComponent implements OnInit {
 
   loadRequests(): void {
     this.service.getAllVolunteers().subscribe({
-      next: (data) => {
-        this.requests = data;
+      next: (data: any) => {
+        console.log('Data received from service:', data);
+        // Check if data has a '$values' property which contains the array
+        if (data && Array.isArray(data.$values)) {
+          this.requests = data.$values;
+        } else {
+          console.error('Data is not an array:', data);
+          this.requests = [];
+        }
       },
       error: (error) => {
         console.log(error);

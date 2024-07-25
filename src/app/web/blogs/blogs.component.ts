@@ -3,6 +3,8 @@ import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BlogService } from '../../core/services/blog/blog.service';
+import { Blog } from '../../core/models/Blog';  // Ensure this import exists
 
 @Component({
   selector: 'app-blogs',
@@ -15,9 +17,14 @@ export class BlogsComponent implements OnInit, AfterViewInit {
 
   title = "ASMV - Bloguri";
 
+  blogsList: Blog[] = [];
+
+  constructor(
+    private blogService: BlogService
+  ){}
 
   ngOnInit(): void {
-    
+    this.loadBlogs();
   }
 
   ngAfterViewInit() {
@@ -37,8 +44,19 @@ export class BlogsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  blogsList: any[] = [];
-
-
-  
+  loadBlogs(): void {
+    this.blogService.getBlogs().subscribe({
+      next: (data) => {
+        if (data && data.$values && Array.isArray(data.$values)) {
+          this.blogsList = data.$values;
+        } else {
+          console.error('Data is not an array', data);
+          this.blogsList = [];
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 }

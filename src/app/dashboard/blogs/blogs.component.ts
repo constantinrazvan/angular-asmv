@@ -27,6 +27,10 @@ export class BlogsComponent implements OnInit {
     this.loadBlogs();
   }
 
+  refreshData(): void {
+    location.reload();
+  }
+
   loadBlogs(): void {
     this.blogService.getBlogs().subscribe({
       next: (data) => {

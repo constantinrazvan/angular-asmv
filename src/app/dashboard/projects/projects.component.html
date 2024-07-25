@@ -1,1 +1,80 @@
-<p>projects works!</p>
+<div class="container">
+    <h2>Projects</h2>
+  
+    <button class="btn btn-primary mb-3" (click)="toggleAddProjectForm()">Add Project</button>
+    <br />
+    <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()"> Refresh data </button>
+  
+    <form *ngIf="showAddProjectForm" (ngSubmit)="addProject()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="newProject.title" name="title" required>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" [(ngModel)]="newProject.content" name="content" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Project</button>
+    </form>
+  
+    <table class="table table-responsive mt-3">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of paginatedProjects; let i = index">
+          <td>{{ project.title }}</td>
+          <td>{{ project.content }}</td>
+          <td>
+            <button class="btn btn-info me-1" (click)="viewProject(project)">View</button>
+            <button class="btn btn-danger ms-1" (click)="deleteProject(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <nav *ngIf="totalPages > 1">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="setPage(1)">First</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="setPage(currentPage - 1)">Previous</button>
+        </li>
+        <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
+          <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="setPage(currentPage + 1)">Next</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="setPage(totalPages)">Last</button>
+        </li>
+      </ul>
+    </nav>
+  
+    <div *ngIf="selectedProject" class="modal-backdrop"></div>
+  
+    <div *ngIf="selectedProject" class="modal" tabindex="-1" style="display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Project Details</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Title:</strong> {{ selectedProject.title }}</p>
+            <p><strong>Content:</strong> {{ selectedProject.content }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeDialog()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

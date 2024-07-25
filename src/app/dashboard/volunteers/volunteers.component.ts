@@ -26,6 +26,10 @@ export class VolunteersComponent implements OnInit {
     this.loadVolunteers();
   }
 
+  refreshData(): void {
+    location.reload();
+  }
+
   loadVolunteers(): void {
     this.volunteerService.getAllVolunteers().subscribe({
       next: (data) => {
