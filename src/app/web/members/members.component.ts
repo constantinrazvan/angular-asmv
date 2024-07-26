@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
+import { VolunteerService } from '../../core/services/volunteers/volunteers.service';
+import { Volunteer } from '../../core/models/Volunteer';
 
 @Component({
   selector: 'app-members',
@@ -13,6 +15,12 @@ import { CommonModule } from '@angular/common';
 export class MembersComponent implements OnInit, AfterViewInit {
 
   title = "ASMV - Membri";
+
+  membersAdunareaGenerala: Volunteer[] = [];
+  membersConsiliuDirectorial: Volunteer[] = [];
+  memberVolunteers: Volunteer[] = [];
+
+  constructor(private service: VolunteerService) {}
 
   ngOnInit(): void {
     this.loadMembers();
@@ -36,32 +44,37 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
 
   loadMembers(): void {
-    // Loading members logic goes here, if needed
+    this.getMembers();
   }
 
-  membersActive: string[] = [
-    "assets/voluntari-activi/voluntar1.jpg", 
-    "assets/voluntari-activi/voluntar2.jpg",
-    "assets/voluntari-activi/voluntar3.jpg",
-    "assets/voluntari-activi/voluntar4.jpg",
-  ]
-
-  memberVolunteers: string[] = [
-    "assets/voluntari-asmv/voluntar1.jpg",
-    "assets/voluntari-asmv/voluntar2.jpg",
-    "assets/voluntari-asmv/voluntar3.jpg",
-    "assets/voluntari-asmv/voluntar4.jpg",
-    "assets/voluntari-asmv/voluntar5.jpg",
-    "assets/voluntari-asmv/voluntar6.jpg",
-    "assets/voluntari-asmv/voluntar7.jpg",
-    "assets/voluntari-asmv/voluntar8.jpg",
-    "assets/voluntari-asmv/voluntar9.jpg",
-    "assets/voluntari-asmv/voluntar10.jpg",
-    "assets/voluntari-asmv/voluntar11.jpg",
-    "assets/voluntari-asmv/voluntar12.jpg",
-    "assets/voluntari-asmv/voluntar13.jpg",
-    "assets/voluntari-asmv/voluntar14.jpg",
-    "assets/voluntari-asmv/voluntar15.jpg",
-  ]
-
+  getMembers(): void {
+    this.service.getAllVolunteers().subscribe({
+      next: (res: any) => {
+        console.log('Volunteers:', res); 
+        if (res.$values && Array.isArray(res.$values)) {
+          const volunteers: Volunteer[] = res.$values;
+          this.membersAdunareaGenerala = [];
+          this.membersConsiliuDirectorial = [];
+          this.memberVolunteers = [];
+          for (let volunteer of volunteers) {
+            if (volunteer.status === "Membru Adunarea Generala") {
+              this.membersAdunareaGenerala.push(volunteer);
+            } else if (volunteer.status === "Membru Consiliu Directorial") {
+              this.membersConsiliuDirectorial.push(volunteer);
+            } else if (volunteer.status === "Membru Voluntar") {
+              this.memberVolunteers.push(volunteer);
+            }
+          }
+          console.log('membersAdunareaGenerala:', this.membersAdunareaGenerala);
+          console.log('membersConsiliuDirectorial:', this.membersConsiliuDirectorial);
+          console.log('memberVolunteers:', this.memberVolunteers);
+        } else {
+          console.error('Data is not in expected format', res);
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 }

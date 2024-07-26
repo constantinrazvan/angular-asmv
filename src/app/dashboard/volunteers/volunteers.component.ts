@@ -32,8 +32,15 @@ export class VolunteersComponent implements OnInit {
 
   loadVolunteers(): void {
     this.volunteerService.getAllVolunteers().subscribe({
-      next: (data) => {
-        this.volunteers = this.reverseVolunteers(data);
+      next: (data: any) => {
+        if (data && Array.isArray(data.$values)) { // Accessing the correct property
+          this.volunteers = this.reverseVolunteers(data.$values);
+        } else if (Array.isArray(data)) { // Check if data itself is an array
+          this.volunteers = this.reverseVolunteers(data);
+        } else {
+          console.error('Data is not an array', data);
+          this.volunteers = [];
+        }
       },
       error: (error) => {
         console.log(error);

@@ -11,24 +11,41 @@
     <div class="container">
         <h1 style="color: #038ED1; font-weight: bold;"> Adunarea Generală / Membrii Fondatori </h1>
         <div class="row">
-
+            <div *ngFor="let member of membersAdunareaGenerala" class="col-md-4 col-xs-12 mb-4 fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
+                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="container">
         <h1 style="color: #038ED1; font-weight: bold;"> Consiliu Directorial </h1>
         <div class="row">
-            <div *ngFor="let member of membersActive" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <img [src]="member" class="img-fluid" alt="Active Member">
+            <div *ngFor="let member of membersConsiliuDirectorial" class="col-md-4 col-xs-12 mb-4 fade-in">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
+                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold;"> Mebrii Voluntari </h1>
+        <h1 style="color: #038ED1; font-weight: bold;"> Membrii Voluntari </h1>
         <div class="row">
             <div *ngFor="let member of memberVolunteers" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <img [src]="member" class="img-fluid" alt="Volunteer Member">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
+                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

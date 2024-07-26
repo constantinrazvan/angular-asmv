@@ -10,6 +10,10 @@
     font-family: 'DM Sans';
 }
 
+.dm {
+    font-family: 'DM Sans', sans-serif;
+}
+
 .jumbotron {
     background-color: #038ED1; 
     background-image: url('../../../assets/membri.jpg'); 
