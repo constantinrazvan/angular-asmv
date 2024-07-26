@@ -12,7 +12,7 @@ import { ContactService } from '../../core/services/contact/contact.service';
 })
 export class MessagesComponent implements OnInit {
 
-  messages: RetriveMessage[] = [];  // Initialize as an empty array
+  messages: RetriveMessage[] = [];  
   selectedMessage: RetriveMessage | null = null;
   currentPage: number = 1;
   itemsPerPage: number = 6;
@@ -29,10 +29,10 @@ export class MessagesComponent implements OnInit {
 
   loadMessages() {
     this.service.getAllMessages().subscribe({
-      next: (data: any) => {  // Use 'any' type to handle non-standard response structure
-        console.log('API response:', data);  // Log the response
+      next: (data: any) => {  
+        console.log('API response:', data); 
         if (data && Array.isArray(data.$values)) {
-          this.messages = data.$values;
+          this.messages = this.reversedMessages(data.$values);
         } else {
           console.error('Data is not an array:', data);
         }
@@ -41,6 +41,22 @@ export class MessagesComponent implements OnInit {
         console.log('Error:', error);
       }
     });
+  }
+
+  reversedMessages(data: RetriveMessage[]): RetriveMessage[] {
+    let stack: RetriveMessage[] = [];
+
+    for (let message of data) {
+      stack.push(message);
+    }
+
+    let reversedMessages: RetriveMessage[] = [];
+
+    while(stack.length > 0) {
+      reversedMessages.push(stack.pop()!);
+    }
+
+    return reversedMessages;
   }
 
   viewMessage(message: RetriveMessage): void {

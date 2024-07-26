@@ -20,11 +20,11 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService // Inject the AuthService
+    private authService: AuthService 
   ) { }
 
   ngOnInit(): void {
-    this.loadUsers(); // Fetch users on component initialization
+    this.loadUsers(); 
   }
 
   refreshData(): void {
@@ -32,32 +32,44 @@ export class UsersComponent implements OnInit {
   }
 
   private getToken(): string | null {
-    return this.authService.getToken(); // Fetch token from AuthService
+    return this.authService.getToken(); 
   }
 
   loadUsers(): void {
     const token = this.getToken();
     if (token) {
-        this.userService.getAllUsers(token).subscribe({
-            next: (data: any) => {
-                console.log('Users data structure:', data);
-                // Check if data has a '$values' property which contains the array
-                if (data && Array.isArray(data.$values)) {
-                    this.users = data.$values;
-                } else {
-                    console.error('Unexpected data format:', data);
-                }
-                console.log('Users loaded:', this.users);
-            },
-            error: (error) => {
-                console.error('Error fetching users', error);
-            }
-        });
+      this.userService.getAllUsers(token).subscribe({
+        next: (data: any) => {
+          console.log('Users data structure:', data);
+          if (data && Array.isArray(data.$values)) {
+            this.users = this.reversedUsers(data.$values);
+          } else {
+            console.error('Unexpected data format:', data);
+          }
+          console.log('Users loaded:', this.users);
+        },
+        error: (error) => {
+          console.error('Error fetching users', error);
+        }
+      });
     } else {
-        console.error('No token found. User may not be logged in.');
+      console.error('No token found. User may not be logged in.');
     }
-}
+  }
 
+  reversedUsers(data: User[]): User[] {
+    let stack: User[] = [];
+    for (let user of data) {
+      stack.push(user);
+    }
+
+    let reversedUsers: User[] = [];
+    while (stack.length > 0) {
+      reversedUsers.push(stack.pop()!);
+    }
+
+    return reversedUsers;
+  }
 
   viewUser(user: User): void {
     this.selectedUser = user;
@@ -85,7 +97,7 @@ export class UsersComponent implements OnInit {
         this.userService.updatePasswordWithoutOld(this.newPassword, this.selectedUser.id, token).subscribe({
           next: () => {
             this.closeChangePasswordModal();
-            this.loadUsers(); // Optionally reload users to reflect changes
+            this.loadUsers(); 
           },
           error: (error) => {
             console.error('Error changing password', error);
@@ -107,7 +119,7 @@ export class UsersComponent implements OnInit {
       if (token) {
         this.userService.deleteUser(userId, token).subscribe({
           next: () => {
-            this.loadUsers(); // Reload users after deletion
+            this.loadUsers(); 
           },
           error: (error) => {
             console.error('Error deleting user:', error);
@@ -118,5 +130,5 @@ export class UsersComponent implements OnInit {
         console.error('No token found. Cannot delete user.');
       }
     }
-  }  
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../core/services/blog/blog.service';
 import { Blog } from '../../core/models/Blog';
 import { BlogDTO } from '../../core/models/BlogDTO';
-import {jwtDecode} from 'jwt-decode'; // Fix the import here
+import { jwtDecode } from 'jwt-decode'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,8 +34,8 @@ export class BlogsComponent implements OnInit {
   loadBlogs(): void {
     this.blogService.getBlogs().subscribe({
       next: (data) => {
-        if (data && Array.isArray(data.$values)) { // Adjust this line based on the actual structure
-          this.blogs = data.$values; // Use the correct property for the array
+        if (data && Array.isArray(data.$values)) { 
+          this.blogs = this.reversedBlogs(data.$values); 
         } else {
           console.error('Data is not an array', data);
           this.blogs = [];
@@ -45,6 +45,20 @@ export class BlogsComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  reversedBlogs(data: Blog[]): Blog[] {
+    let stack: Blog[] = [];
+    for (let blog of data) {
+      stack.push(blog);
+    }
+
+    let reversedBlogs: Blog[] = [];
+    while (stack.length > 0) {
+      reversedBlogs.push(stack.pop()!);
+    }
+
+    return reversedBlogs;
   }
 
   deleteBlog(index: number): void {
@@ -113,12 +127,12 @@ export class BlogsComponent implements OnInit {
       this.blogService.addBlog(this.newBlog, userId).subscribe({
         next: (newBlog) => {
           if (this.blogs && Array.isArray(this.blogs)) {
-            this.blogs.push(newBlog);
+            this.blogs.unshift(newBlog); 
           } else {
             this.blogs = [newBlog];
           }
-          this.newBlog = { title: '', content: '' }; // Reset form
-          this.showAddBlogForm = false; // Hide form after submission
+          this.newBlog = { title: '', content: '' };
+          this.showAddBlogForm = false; 
         },
         error: (error) => {
           console.log(error);

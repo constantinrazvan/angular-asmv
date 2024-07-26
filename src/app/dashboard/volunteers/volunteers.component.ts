@@ -33,12 +33,26 @@ export class VolunteersComponent implements OnInit {
   loadVolunteers(): void {
     this.volunteerService.getAllVolunteers().subscribe({
       next: (data) => {
-        this.volunteers = data;
+        this.volunteers = this.reverseVolunteers(data);
       },
       error: (error) => {
         console.log(error);
       }
     });
+  }
+
+  reverseVolunteers(data: Volunteer[]): Volunteer[] {
+    let stack: Volunteer[] = [];
+    for (let volunteer of data) {
+      stack.push(volunteer);
+    }
+
+    let reversedVolunteers: Volunteer[] = [];
+    while (stack.length > 0) {
+      reversedVolunteers.push(stack.pop()!);
+    }
+
+    return reversedVolunteers;
   }
 
   viewVolunteer(volunteer: Volunteer): void {
@@ -74,33 +88,26 @@ export class VolunteersComponent implements OnInit {
   editVolunteer(volunteer: Volunteer): void {
     this.editVolunteerData = {
       ...volunteer
-      // No need to format it here; just use the Date object
     };
   }
-  
-  
+
   closeEditModal(): void {
     this.editVolunteerData = null;
-  }  
+  }
 
   updateVolunteer(): void {
-    if (this.editVolunteerData) {
-      // No need to check for type here; `joined` should be Date already
-      if (this.editVolunteerData.id) {
-        this.volunteerService.updateVolunteer(this.editVolunteerData.id, this.editVolunteerData as Volunteer).subscribe({
-          next: () => {
-            this.loadVolunteers();
-            this.closeEditModal();
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        });
-      }
+    if (this.editVolunteerData && this.editVolunteerData.id) {
+      this.volunteerService.updateVolunteer(this.editVolunteerData.id, this.editVolunteerData as Volunteer).subscribe({
+        next: () => {
+          this.loadVolunteers();
+          this.closeEditModal();
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
     }
   }
-  
-  
 
   openAddModal(): void {
     this.addVolunteerData = {
@@ -110,18 +117,16 @@ export class VolunteersComponent implements OnInit {
       email: '',
       phoneNumber: '',
       status: '',
-      // Use Date object directly
-      joined: new Date() 
+      joined: new Date()
     };
   }
-  
+
   closeAddModal(): void {
     this.addVolunteerData = null;
   }
 
   addVolunteer(): void {
     if (this.addVolunteerData) {
-      // No need to check for type here; `joined` should be Date already
       this.volunteerService.addVolunteer(this.addVolunteerData as Volunteer).subscribe({
         next: () => {
           this.loadVolunteers();
@@ -132,12 +137,11 @@ export class VolunteersComponent implements OnInit {
         }
       });
     }
-  }  
+  }
 
   private formatDateForInput(date: Date): string {
-    // Convert Date object to yyyy-mm-dd string for HTML input
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }

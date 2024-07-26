@@ -31,9 +31,8 @@ export class RequestsComponent implements OnInit {
     this.service.getAllVolunteers().subscribe({
       next: (data: any) => {
         console.log('Data received from service:', data);
-        // Check if data has a '$values' property which contains the array
         if (data && Array.isArray(data.$values)) {
-          this.requests = data.$values;
+          this.requests = this.reverseRequests(data.$values);
         } else {
           console.error('Data is not an array:', data);
           this.requests = [];
@@ -43,6 +42,21 @@ export class RequestsComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  reverseRequests(data: BecomeVolunteer[]): BecomeVolunteer[] {
+    let stack: BecomeVolunteer[] = [];
+
+    for(let request of data) {
+      stack.push(request);
+    }
+
+    let reversedRequests: BecomeVolunteer[] = [];
+
+    while(stack.length > 0) {
+      reversedRequests.push(stack.pop()!);
+    }
+    return reversedRequests;
   }
 
   deleteRequest(index: number): void {
