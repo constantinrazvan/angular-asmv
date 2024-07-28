@@ -2,10 +2,16 @@
   <h2 class="text-center mb-5">Mesaje</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Refresh data</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
   </div>
 
-  <div class="row">
+  <!-- Mesaj pentru lipsa mesajelor -->
+  <div *ngIf="paginatedMessages.length === 0" class="text-center">
+    <p class="text-muted">Nu există mesaje</p>
+  </div>
+
+  <!-- Lista de mesaje -->
+  <div *ngIf="paginatedMessages.length > 0" class="row">
     <div class="col-md-4 col-12 mb-4" *ngFor="let message of paginatedMessages; let i = index">
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
@@ -13,13 +19,15 @@
           <p class="card-text">{{ message.email }}</p>
           <div class="d-flex justify-content-between">
             <button class="btn btn-outline-primary btn-sm" (click)="viewMessage(message)">Vezi</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteMessage(message.id)">Șterge</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <nav *ngIf="totalPages > 1">
+  <!-- Paginare -->
+  <nav *ngIf="totalPages > 1 && paginatedMessages.length > 0">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="setPage(1)">Prima</button>
@@ -39,8 +47,8 @@
     </ul>
   </nav>
 
+  <!-- Modal pentru detalii mesaj -->
   <div *ngIf="selectedMessage" class="modal-backdrop"></div>
-
   <div *ngIf="selectedMessage" class="modal fade show" tabindex="-1" style="display: block;">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -54,7 +62,7 @@
           <p><strong>Mesaj:</strong> {{ selectedMessage.mess }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
         </div>
       </div>
     </div>

@@ -2,23 +2,43 @@
   <h2 class="text-center mb-5">Bloguri</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-primary" (click)="toggleAddBlogForm()">Adauga Blog</button>
-    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Refresh data</button>
+    <button class="btn btn-primary" (click)="toggleAddBlogForm()">Adaugă Blog</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
   </div>
 
-  <form *ngIf="showAddBlogForm" (ngSubmit)="addBlog()" class="mb-4 p-3 border rounded">
-    <div class="mb-3">
-      <label for="title" class="form-label">Titlu</label>
-      <input type="text" class="form-control" id="title" [(ngModel)]="newBlog.title" name="title" required>
+  <!-- Modal for Adding/Editing Blog -->
+  <div *ngIf="showAddBlogForm" class="modal-backdrop"></div>
+  <div *ngIf="showAddBlogForm" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditing ? 'Editare Blog' : 'Adăugare Blog' }}</h5>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="saveBlog()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Titlu</label>
+              <input type="text" class="form-control" id="title" [(ngModel)]="currentBlog.title" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Conținut</label>
+              <textarea class="form-control" id="content" [(ngModel)]="currentBlog.content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">{{ isEditing ? 'Salvează Modificările' : 'Adaugă Blog' }}</button>
+            <button type="button" class="btn btn-secondary w-100 mt-2" aria-label="Close" (click)="closeAddBlogModal()">Închide</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="content" class="form-label">Content</label>
-      <textarea class="form-control" id="content" [(ngModel)]="newBlog.content" name="content" rows="3" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary w-100">Adauga Blog</button>
-  </form>
+  </div>
 
-  <div class="row">
+  <!-- Message for No Blogs -->
+  <div *ngIf="paginatedBlogs.length === 0" class="text-center">
+    <p class="text-muted">Nu există bloguri</p>
+  </div>
+
+  <!-- Blog List -->
+  <div *ngIf="paginatedBlogs.length > 0" class="row">
     <div class="col-md-4 col-12 mb-4" *ngFor="let blog of paginatedBlogs; let i = index">
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
@@ -26,14 +46,16 @@
           <p class="card-text">{{ blog.content | slice:0:100 }}...</p>
           <div class="d-flex justify-content-between">
             <button class="btn btn-outline-primary btn-sm" (click)="viewBlog(blog)">Vezi</button>
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteBlog(i)">Sterge</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="confirmDelete(blog)">Șterge</button>
+            <button class="btn btn-outline-secondary btn-sm" (click)="editBlog(blog)">Editează</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <nav *ngIf="totalPages > 1">
+  <!-- Pagination -->
+  <nav *ngIf="totalPages > 1 && paginatedBlogs.length > 0">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="setPage(1)">Prima</button>
@@ -45,7 +67,7 @@
         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(currentPage + 1)">Urmatoarea</button>
+        <button class="page-link" (click)="setPage(currentPage + 1)">Următoarea</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
@@ -53,8 +75,8 @@
     </ul>
   </nav>
 
+  <!-- Modal for Blog Details -->
   <div *ngIf="selectedBlog" class="modal-backdrop"></div>
-
   <div *ngIf="selectedBlog" class="modal fade show" tabindex="-1" style="display: block;">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -67,7 +89,27 @@
           <p>{{ selectedBlog.content }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Confirming Deletion -->
+  <div *ngIf="showConfirmDeleteModal" class="modal-backdrop"></div>
+  <div *ngIf="showConfirmDeleteModal" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmare Ștergere</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sigur doriți să ștergeți blogul "{{ blogToDelete?.title }}"?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Anulează</button>
+          <button type="button" class="btn btn-danger" (click)="deleteBlog()">Șterge</button>
         </div>
       </div>
     </div>

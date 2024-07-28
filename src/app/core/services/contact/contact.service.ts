@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Message } from '../../models/ContactMessage';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { RetriveMessage } from '../../models/RetriveMessage';
 
 @Injectable({
@@ -39,4 +39,16 @@ export class ContactService {
   getCount() : Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
+
+  deleteMessage(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError(error);
+  }
+
 }

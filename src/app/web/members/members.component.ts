@@ -18,6 +18,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
 
   membersAdunareaGenerala: Volunteer[] = [];
   membersConsiliuDirectorial: Volunteer[] = [];
+  membersOnoare: Volunteer[] = [];
+  membersActives: Volunteer[] = [];
   memberVolunteers: Volunteer[] = [];
 
   constructor(private service: VolunteerService) {}
@@ -50,24 +52,33 @@ export class MembersComponent implements OnInit, AfterViewInit {
   getMembers(): void {
     this.service.getAllVolunteers().subscribe({
       next: (res: any) => {
+        
         console.log('Volunteers:', res); 
+        
         if (res.$values && Array.isArray(res.$values)) {
           const volunteers: Volunteer[] = res.$values;
+          
           this.membersAdunareaGenerala = [];
           this.membersConsiliuDirectorial = [];
           this.memberVolunteers = [];
+
           for (let volunteer of volunteers) {
             if (volunteer.status === "Membru Adunarea Generala") {
               this.membersAdunareaGenerala.push(volunteer);
             } else if (volunteer.status === "Membru Consiliu Directorial") {
               this.membersConsiliuDirectorial.push(volunteer);
+            }else if (volunteer.status === "Membru Activ") {
+              this.membersActives.push(volunteer);
+            } else if (volunteer.status === "Membru Onoare") {
+              this.membersOnoare.push(volunteer);
             } else if (volunteer.status === "Membru Voluntar") {
               this.memberVolunteers.push(volunteer);
-            }
+            } 
           }
           console.log('membersAdunareaGenerala:', this.membersAdunareaGenerala);
           console.log('membersConsiliuDirectorial:', this.membersConsiliuDirectorial);
           console.log('memberVolunteers:', this.memberVolunteers);
+        
         } else {
           console.error('Data is not in expected format', res);
         }

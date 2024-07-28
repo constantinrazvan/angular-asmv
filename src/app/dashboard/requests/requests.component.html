@@ -1,28 +1,32 @@
-<div class="container">
-  <h2>Cereri</h2>
-  <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()"> Refresh data </button>
-  <table class="table table-responsive">
-    <thead>
-      <tr>
-        <th>Nume</th>
-        <th>Prenume</th>
-        <th>Actiuni</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let request of paginatedRequests; let i = index">
-        <td>{{ request.firstName }}</td>
-        <td>{{ request.lastName }}</td>
-        <td>
-          <button class="btn btn-info me-1" (click)="viewRequest(request)">Vezi</button>
-          <button class="btn btn-danger ms-1" (click)="deleteRequest(i)">Sterge</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container my-5">
+  <h2 class="text-center mb-5">Cereri</h2>
 
-  <nav *ngIf="totalPages > 1">
-    <ul class="pagination">
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
+  </div>
+
+  <!-- Mesaj pentru lipsa cererilor -->
+  <div *ngIf="paginatedRequests.length === 0" class="text-center">
+    <p class="text-muted">Nu există cereri</p>
+  </div>
+
+  <div *ngIf="paginatedRequests.length > 0" class="row">
+    <div class="col-md-4 col-12 mb-4" *ngFor="let request of paginatedRequests; let i = index">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="card-title text-primary"><b>{{ request.firstName }} {{ request.lastName }}</b></h3>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-info btn-sm me-1" (click)="viewRequest(request)">Vezi</button>
+            <button class="btn btn-outline-danger btn-sm ms-1" (click)="confirmDelete(request.id)">Șterge</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <nav *ngIf="totalPages > 1 && paginatedRequests.length > 0" class="mt-4">
+    <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="setPage(1)">Prima</button>
       </li>
@@ -33,7 +37,7 @@
         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(currentPage + 1)">Următor</button>
+        <button class="page-link" (click)="setPage(currentPage + 1)">Următoarea</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
@@ -41,25 +45,46 @@
     </ul>
   </nav>
 
+  <!-- Modal for request details -->
   <div *ngIf="selectedRequest" class="modal-backdrop"></div>
 
-  <div *ngIf="selectedRequest" class="modal" tabindex="-1" style="display: block;">
-    <div class="modal-dialog">
+  <div *ngIf="selectedRequest" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Cerere Detalii</h5>
           <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
         </div>
         <div class="modal-body">
-          <p><strong>Nume:</strong> {{ selectedRequest.firstName }}</p>
-          <p><strong>Prenume:</strong> {{ selectedRequest.lastName }}</p>
+          <h4 class="modal-title mb-3">{{ selectedRequest.firstName }} {{ selectedRequest.lastName }}</h4>
           <p><strong>Email:</strong> {{ selectedRequest.email }}</p>
           <p><strong>Facultate:</strong> {{ selectedRequest.faculty }}</p>
           <p><strong>Telefon:</strong> {{ selectedRequest.phoneNumber }}</p>
           <p><strong>Motiv:</strong> {{ selectedRequest.reason }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Inchide</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div *ngIf="showConfirmModal" class="modal-backdrop"></div>
+
+  <div *ngIf="showConfirmModal" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmați Ștergerea</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sunteți sigur că doriți să ștergeți cererea <b>{{ requestToDelete?.firstName }} {{ requestToDelete?.lastName }}</b>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Anulează</button>
+          <button type="button" class="btn btn-danger" (click)="deleteRequest()">Șterge</button>
         </div>
       </div>
     </div>

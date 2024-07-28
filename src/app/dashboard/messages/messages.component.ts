@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RetriveMessage } from '../../core/models/RetriveMessage';
 import { CommonModule } from '@angular/common';
 import { ContactService } from '../../core/services/contact/contact.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-messages',
@@ -89,4 +90,20 @@ export class MessagesComponent implements OnInit {
     }
     return pages;
   }
+
+  deleteMessage(id: number) {
+    this.service.deleteMessage(id).subscribe({
+      next: () => {
+        console.log('Message deleted successfully');
+        this.loadMessages();
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Error deleting message:', err.message);
+        console.error('Status:', err.status);
+        console.error('Details:', err.error);
+      }
+    });
+  }
+  
+
 }

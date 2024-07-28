@@ -20,6 +20,10 @@ export class BlogService {
     return this.http.post<Blog>(`${this.baseUrl}?userId=${userId}`, blog);
   }
 
+  updateBlog(blog: Blog, id: number): Observable<Blog> {
+    return this.http.put<Blog>(`${this.baseUrl}/${id}`, blog);
+  }
+
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
@@ -28,7 +32,7 @@ export class BlogService {
     return this.http.get<Blog>(`${this.baseUrl}/${id}`);
   }
 
-  getCount() : Observable<number> {
+  getCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
 }

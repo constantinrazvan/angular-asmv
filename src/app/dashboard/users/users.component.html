@@ -1,9 +1,14 @@
 <div class="container">
   <h2>Utilizatori</h2>
-  <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()"> Refresh data </button>
+  <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()">Actualizează datele</button>
+
+  <!-- Mesaj pentru lipsa utilizatorilor -->
+  <div *ngIf="users.length === 0" class="text-center">
+    <p class="text-muted">Nu există utilizatori</p>
+  </div>
 
   <!-- Users Table -->
-  <table class="table table-responsive">
+  <table *ngIf="users.length > 0" class="table table-responsive">
     <thead>
       <tr>
         <th>Nume</th>
@@ -20,7 +25,7 @@
         <td>
           <button class="btn btn-info me-1" (click)="viewUser(user)">Vezi</button>
           <button class="btn btn-warning me-1" (click)="openChangePasswordModal(user)">Schimbă Parola</button>
-          <button class="btn btn-danger" (click)="deleteUser(user.id)">Șterge</button>
+          <button class="btn btn-danger" (click)="confirmDelete(user.id)">Șterge</button>
         </td>
       </tr>
     </tbody>
@@ -70,6 +75,26 @@
               <button type="button" class="btn btn-secondary" (click)="closeChangePasswordModal()">Închide</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div *ngIf="showConfirmDeleteModal" class="modal-backdrop"></div>
+  <div *ngIf="showConfirmDeleteModal" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmare Ștergere</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmDeleteModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sigur doriți să ștergeți utilizatorul "{{ userToDelete?.firstName }} {{ userToDelete?.lastName }}"?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeConfirmDeleteModal()">Anulează</button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser()">Șterge</button>
         </div>
       </div>
     </div>

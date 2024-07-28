@@ -14,8 +14,10 @@ export class RequestsComponent implements OnInit {
 
   requests: BecomeVolunteer[] = [];
   selectedRequest: BecomeVolunteer | null = null;
+  showConfirmModal: boolean = false;
+  requestToDelete: BecomeVolunteer | null = null;
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 6;
 
   constructor(private service: BecomevolunteerService) {}
 
@@ -59,9 +61,29 @@ export class RequestsComponent implements OnInit {
     return reversedRequests;
   }
 
-  deleteRequest(index: number): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.requests.splice(startIndex + index, 1);
+  confirmDelete(id: number): void {
+    this.requestToDelete = this.requests.find(request => request.id === id) || null;
+    this.showConfirmModal = true;
+  }
+
+  deleteRequest(): void {
+    if (this.requestToDelete) {
+      this.service.deleteRequest(this.requestToDelete.id).subscribe({
+        next: () => {
+          console.log('Request deleted successfully');
+          this.loadRequests(); // Refresh the list after deletion
+          this.closeConfirmModal();
+        },
+        error: (error) => {
+          console.error('Error deleting request:', error);
+        }
+      });
+    }
+  }
+
+  closeConfirmModal(): void {
+    this.showConfirmModal = false;
+    this.requestToDelete = null;
   }
 
   viewRequest(request: BecomeVolunteer): void {

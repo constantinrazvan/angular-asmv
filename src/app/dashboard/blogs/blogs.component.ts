@@ -9,17 +9,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
-  styleUrls: ['./blogs.component.css'], 
-  standalone: true, 
+  styleUrls: ['./blogs.component.css'],
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class BlogsComponent implements OnInit {
   blogs: Blog[] = [];
   selectedBlog: Blog | null = null;
+  blogToDelete: Blog | null = null;
+  currentBlog: Blog = { id: 0, title: '', content: '', userId: 0 };
+  showAddBlogForm: boolean = false;
+  showConfirmDeleteModal: boolean = false;
+  isEditing: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  newBlog: BlogDTO = { title: '', content: '' };
-  showAddBlogForm: boolean = false;
 
   constructor(private blogService: BlogService) { }
 
@@ -27,15 +30,11 @@ export class BlogsComponent implements OnInit {
     this.loadBlogs();
   }
 
-  refreshData(): void {
-    location.reload();
-  }
-
   loadBlogs(): void {
     this.blogService.getBlogs().subscribe({
       next: (data) => {
-        if (data && Array.isArray(data.$values)) { 
-          this.blogs = this.reversedBlogs(data.$values); 
+        if (data && Array.isArray(data.$values)) {
+          this.blogs = this.reversedBlogs(data.$values);
         } else {
           console.error('Data is not an array', data);
           this.blogs = [];
@@ -48,30 +47,40 @@ export class BlogsComponent implements OnInit {
   }
 
   reversedBlogs(data: Blog[]): Blog[] {
-    let stack: Blog[] = [];
-    for (let blog of data) {
-      stack.push(blog);
-    }
-
-    let reversedBlogs: Blog[] = [];
-    while (stack.length > 0) {
-      reversedBlogs.push(stack.pop()!);
-    }
-
-    return reversedBlogs;
+    return data.slice().reverse();
   }
 
-  deleteBlog(index: number): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const blogId = this.blogs[startIndex + index].id;
-    this.blogService.deleteBlog(blogId).subscribe({
-      next: () => {
-        this.blogs.splice(startIndex + index, 1);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+  refreshData(): void {
+    this.loadBlogs();
+  }
+
+  toggleAddBlogForm(): void {
+    this.showAddBlogForm = !this.showAddBlogForm;
+  }
+
+  confirmDelete(blog: Blog): void {
+    this.blogToDelete = blog;
+    this.showConfirmDeleteModal = true;
+  }
+
+  deleteBlog(): void {
+    if (this.blogToDelete) {
+      const blogId = this.blogToDelete.id;
+      this.blogService.deleteBlog(blogId).subscribe({
+        next: () => {
+          this.blogs = this.blogs.filter(blog => blog.id !== blogId);
+          this.closeConfirmModal();
+        },
+        error: (error) => {
+          console.log('Error deleting blog:', error);
+        }
+      });
+    }
+  }
+
+  closeConfirmModal(): void {
+    this.showConfirmDeleteModal = false;
+    this.blogToDelete = null;
   }
 
   viewBlog(blog: Blog): void {
@@ -80,6 +89,51 @@ export class BlogsComponent implements OnInit {
 
   closeDialog(): void {
     this.selectedBlog = null;
+  }
+
+  openAddBlogModal(): void {
+    this.currentBlog = { id: 0, title: '', content: '', userId: 0 };
+    this.isEditing = false;
+    this.showAddBlogForm = true;
+  }
+
+  editBlog(blog: Blog): void {
+    this.currentBlog = { id: blog.id, title: blog.title, content: blog.content, userId: blog.userId };
+    this.isEditing = true;
+    this.showAddBlogForm = true;
+  }
+
+  closeAddBlogModal(): void {
+    this.showAddBlogForm = false;
+  }
+
+  saveBlog(): void {
+    try {
+      const userId = this.getUserIdFromToken();
+      if (this.isEditing) {
+        this.blogService.updateBlog(this.currentBlog, this.currentBlog.id).subscribe({
+          next: (updatedBlog) => {
+            this.blogs = this.blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog);
+            this.closeAddBlogModal();
+          },
+          error: (error) => {
+            console.log('Error updating blog:', error);
+          }
+        });
+      } else {
+        this.blogService.addBlog(this.currentBlog, userId).subscribe({
+          next: (newBlog) => {
+            this.blogs.unshift(newBlog);
+            this.closeAddBlogModal();
+          },
+          error: (error) => {
+            console.log('Error adding blog:', error);
+          }
+        });
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
   }
 
   get paginatedBlogs(): Blog[] {
@@ -98,11 +152,7 @@ export class BlogsComponent implements OnInit {
   }
 
   get pages(): number[] {
-    const pages = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   getUserIdFromToken(): number {
@@ -114,32 +164,6 @@ export class BlogsComponent implements OnInit {
     if (!decodedToken.nameid) {
       throw new Error('Invalid token structure');
     }
-    return +decodedToken.nameid; // Convert to number
-  }
-
-  toggleAddBlogForm(): void {
-    this.showAddBlogForm = !this.showAddBlogForm;
-  }
-
-  addBlog(): void {
-    try {
-      const userId = this.getUserIdFromToken();
-      this.blogService.addBlog(this.newBlog, userId).subscribe({
-        next: (newBlog) => {
-          if (this.blogs && Array.isArray(this.blogs)) {
-            this.blogs.unshift(newBlog); 
-          } else {
-            this.blogs = [newBlog];
-          }
-          this.newBlog = { title: '', content: '' };
-          this.showAddBlogForm = false; 
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    return +decodedToken.nameid;
   }
 }

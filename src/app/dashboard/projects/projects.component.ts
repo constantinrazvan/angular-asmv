@@ -2,24 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project/service.service';
 import { Project } from '../../core/models/Project';
 import { ProjectDTO } from '../../core/models/ProjectDTO';
-import { jwtDecode } from 'jwt-decode'; // Fix the import here
+import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css'], 
-  standalone: true, 
+  styleUrls: ['./projects.component.css'],
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
   selectedProject: Project | null = null;
+  showConfirmModal: boolean = false;
+  showAddProjectForm: boolean = false;
+  projectToDelete: Project | null = null;
   currentPage: number = 1;
   itemsPerPage: number = 5;
   newProject: ProjectDTO = { title: '', content: '' };
-  showAddProjectForm: boolean = false;
 
   constructor(private projectService: ProjectService) { }
 
@@ -34,30 +36,73 @@ export class ProjectsComponent implements OnInit {
   loadProjects(): void {
     this.projectService.getProjects().subscribe({
       next: (data) => {
-        if (data && Array.isArray(data.$values)) { // Adjust this line based on the actual structure
-          this.projects = data.$values; // Use the correct property for the array
+        if (data && Array.isArray(data.$values)) {
+          this.projects = data.$values;
         } else {
-          console.error('Data is not an array', data);
+          console.error('Datele nu sunt un array', data);
           this.projects = [];
         }
       },
       error: (error) => {
-        console.log(error);
+        console.log('Eroare la încărcarea proiectelor:', error);
       }
     });
   }
 
-  deleteProject(index: number): void {
+  toggleAddProjectModal(): void {
+    this.showAddProjectForm = !this.showAddProjectForm;
+  }
+
+  closeAddProjectModal(): void {
+    this.showAddProjectForm = false;
+  }
+
+  addProject(): void {
+    try {
+      const userId = this.getUserIdFromToken();
+      this.projectService.addProject(this.newProject, userId).subscribe({
+        next: (newProject) => {
+          this.projects.push(newProject);
+          this.newProject = { title: '', content: '' };
+          this.closeAddProjectModal();
+        },
+        error: (error) => {
+          console.log('Eroare la adăugarea proiectului:', error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
+
+  confirmDelete(index: number): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const projectId = this.projects[startIndex + index].id;
-    this.projectService.deleteProject(projectId).subscribe({
-      next: () => {
-        this.projects.splice(startIndex + index, 1);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    this.projectToDelete = this.projects[startIndex + index];
+    this.showConfirmModal = true;
+  }
+
+  deleteProject(): void {
+    if (this.projectToDelete) {
+      this.projectService.deleteProject(this.projectToDelete.id).subscribe({
+        next: () => {
+          const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+          const index = this.projects.indexOf(this.projectToDelete!);
+          if (index !== -1) {
+            this.projects.splice(startIndex + index, 1);
+          }
+          this.closeConfirmModal();
+        },
+        error: (error) => {
+          console.log('Eroare la ștergerea proiectului:', error);
+        }
+      });
+    }
+  }
+  
+
+  closeConfirmModal(): void {
+    this.showConfirmModal = false;
+    this.projectToDelete = null;
   }
 
   viewProject(project: Project): void {
@@ -94,38 +139,12 @@ export class ProjectsComponent implements OnInit {
   getUserIdFromToken(): number {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('Token not found');
+      throw new Error('Token neexistent');
     }
     const decodedToken: any = jwtDecode(token);
     if (!decodedToken.nameid) {
-      throw new Error('Invalid token structure');
+      throw new Error('Structura token-ului invalidă');
     }
-    return +decodedToken.nameid; // Convert to number
-  }
-
-  toggleAddProjectForm(): void {
-    this.showAddProjectForm = !this.showAddProjectForm;
-  }
-
-  addProject(): void {
-    try {
-      const userId = this.getUserIdFromToken();
-      this.projectService.addProject(this.newProject, userId).subscribe({
-        next: (newProject) => {
-          if (this.projects && Array.isArray(this.projects)) {
-            this.projects.push(newProject);
-          } else {
-            this.projects = [newProject];
-          }
-          this.newProject = { title: '', content: '' }; // Reset form
-          this.showAddProjectForm = false; // Hide form after submission
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    return +decodedToken.nameid; // Convertire la număr
   }
 }

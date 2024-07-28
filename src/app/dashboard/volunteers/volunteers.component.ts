@@ -8,8 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-volunteers',
   templateUrl: './volunteers.component.html',
   styleUrls: ['./volunteers.component.css'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class VolunteersComponent implements OnInit {
   volunteers: Volunteer[] = [];
@@ -33,9 +33,9 @@ export class VolunteersComponent implements OnInit {
   loadVolunteers(): void {
     this.volunteerService.getAllVolunteers().subscribe({
       next: (data: any) => {
-        if (data && Array.isArray(data.$values)) { // Accessing the correct property
+        if (data && Array.isArray(data.$values)) {
           this.volunteers = this.reverseVolunteers(data.$values);
-        } else if (Array.isArray(data)) { // Check if data itself is an array
+        } else if (Array.isArray(data)) {
           this.volunteers = this.reverseVolunteers(data);
         } else {
           console.error('Data is not an array', data);
@@ -43,7 +43,7 @@ export class VolunteersComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
+        console.error('Error loading volunteers:', error);
       }
     });
   }
@@ -86,16 +86,14 @@ export class VolunteersComponent implements OnInit {
           this.closeDeleteModal();
         },
         error: (error) => {
-          console.log(error);
+          console.error('Error deleting volunteer:', error);
         }
       });
     }
   }
 
   editVolunteer(volunteer: Volunteer): void {
-    this.editVolunteerData = {
-      ...volunteer
-    };
+    this.editVolunteerData = { ...volunteer };
   }
 
   closeEditModal(): void {
@@ -110,7 +108,7 @@ export class VolunteersComponent implements OnInit {
           this.closeEditModal();
         },
         error: (error) => {
-          console.log(error);
+          console.error('Error updating volunteer:', error);
         }
       });
     }
@@ -140,13 +138,13 @@ export class VolunteersComponent implements OnInit {
           this.closeAddModal();
         },
         error: (error) => {
-          console.log(error);
+          console.error('Error adding volunteer:', error);
         }
       });
     }
   }
 
-  private formatDateForInput(date: Date): string {
+  public formatDateForInput(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');

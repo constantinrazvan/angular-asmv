@@ -1,195 +1,194 @@
-<div class="container">
-    <h2>Voluntari</h2>
-    
-    <!-- Add Volunteer Button -->
-    <button class="btn btn-primary mb-3" (click)="openAddModal()">Adaugă Voluntar</button>
-    <br/>
-    <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()"> Refresh data </button>
+<div class="container my-5">
+  <h2 class="text-center mb-5">Voluntari</h2>
 
-    <!-- Volunteers Table -->
-    <table class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Nume</th>
-          <th>Email</th>
-          <th>Data Aderare</th>
-          <th>Actiuni</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let volunteer of paginatedVolunteers; let i = index">
-          <td>{{ volunteer.firstName }} {{ volunteer.lastName }}</td>
-          <td>{{ volunteer.email }}</td>
-          <td>{{ volunteer.joined | date }}</td>
-          <td>
-            <button class="btn btn-info me-1" (click)="viewVolunteer(volunteer)">Vezi</button>
-            <button class="btn btn-danger ms-1" (click)="confirmDelete(volunteer.id)">Sterge</button>
-            <button class="btn btn-warning ms-1" (click)="editVolunteer(volunteer)">Modifica</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <!-- Pagination -->
-    <nav *ngIf="totalPages > 1">
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="setPage(1)">Prima</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="setPage(currentPage - 1)">Anterior</button>
-        </li>
-        <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
-          <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="setPage(currentPage + 1)">Următor</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
-        </li>
-      </ul>
-    </nav>
-  
-    <!-- View Volunteer Modal -->
-    <div *ngIf="selectedVolunteer" class="modal-backdrop"></div>
-    <div *ngIf="selectedVolunteer" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Detalii Voluntar</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Nume:</strong> {{ selectedVolunteer.firstName }} {{ selectedVolunteer.lastName }}</p>
-            <p><strong>Email:</strong> {{ selectedVolunteer.email }}</p>
-            <p><strong>Telefon:</strong> {{ selectedVolunteer.phoneNumber }}</p>
-            <p><strong>Status:</strong> {{ selectedVolunteer.status }}</p>
-            <p><strong>Data Aderare:</strong> {{ selectedVolunteer.joined | date }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeViewModal()">Închide</button>
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-primary" (click)="openAddModal()">Adaugă Voluntar</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Refresh data</button>
+  </div>
+
+  <!-- Carduri pentru voluntari -->
+  <div class="row">
+    <div class="col-md-4 col-12 mb-4" *ngFor="let volunteer of paginatedVolunteers; let i = index">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">{{ volunteer.firstName }} {{ volunteer.lastName }}</h5>
+          <p class="card-text"><strong>Email:</strong> {{ volunteer.email }}</p>
+          <p class="card-text"><strong>Data Aderare:</strong> {{ volunteer.joined | date }}</p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-info btn-sm" (click)="viewVolunteer(volunteer)">Vezi</button>
+            <button class="btn btn-outline-warning btn-sm" (click)="editVolunteer(volunteer)">Modifică</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="confirmDelete(volunteer.id)">Șterge</button>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Delete Confirmation Modal -->
-    <div *ngIf="confirmDeleteId !== null" class="modal-backdrop"></div>
-    <div *ngIf="confirmDeleteId !== null" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Confirmare Ștergere</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteModal()"></button>
-          </div>
-          <div class="modal-body">
-            <p>Sigur doriți să ștergeți acest voluntar?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="deleteVolunteer()">Șterge</button>
-            <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Anulează</button>
-          </div>
+  </div>
+
+  <!-- Paginare -->
+  <nav *ngIf="totalPages > 1" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(1)">Prima</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(currentPage - 1)">Anterior</button>
+      </li>
+      <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
+        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(currentPage + 1)">Următorul</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Modal pentru vizualizarea voluntarului -->
+  <div *ngIf="selectedVolunteer" class="modal-backdrop"></div>
+  <div *ngIf="selectedVolunteer" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalii Voluntar</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeViewModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Nume:</strong> {{ selectedVolunteer.firstName }} {{ selectedVolunteer.lastName }}</p>
+          <p><strong>Email:</strong> {{ selectedVolunteer.email }}</p>
+          <p><strong>Telefon:</strong> {{ selectedVolunteer.phoneNumber }}</p>
+          <p><strong>Status:</strong> {{ selectedVolunteer.status }}</p>
+          <p><strong>Data Aderare:</strong> {{ selectedVolunteer.joined | date }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeViewModal()">Închide</button>
         </div>
       </div>
     </div>
+  </div>
 
-<!-- Edit Volunteer Modal -->
-<div *ngIf="editVolunteerData" class="modal-backdrop"></div>
-<div *ngIf="editVolunteerData" class="modal" tabindex="-1" style="display: block;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modifică Voluntar</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="closeEditModal()"></button>
+  <!-- Modal de confirmare pentru ștergere -->
+  <div *ngIf="confirmDeleteId !== null" class="modal-backdrop"></div>
+  <div *ngIf="confirmDeleteId !== null" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmare Ștergere</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sigur doriți să ștergeți acest voluntar?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="deleteVolunteer()">Șterge</button>
+          <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Anulează</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <form (ngSubmit)="updateVolunteer()">
-          <div class="form-group">
-            <label for="firstName">Nume:</label>
-            <input id="firstName" [(ngModel)]="editVolunteerData.firstName" name="firstName" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="lastName">Prenume:</label>
-            <input id="lastName" [(ngModel)]="editVolunteerData.lastName" name="lastName" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" [(ngModel)]="editVolunteerData.email" name="email" type="email" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Telefon:</label>
-            <input id="phoneNumber" [(ngModel)]="editVolunteerData.phoneNumber" name="phoneNumber" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="status">Status:</label>
-            <input id="status" [(ngModel)]="editVolunteerData.status" name="status" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="joined">Data Aderare:</label>
-            <input id="joined" [(ngModel)]="editVolunteerData.joined" name="joined" type="date" class="form-control" required>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Salvează</button>
-            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Închide</button>
-          </div>
-        </form>
+    </div>
+  </div>
+
+  <!-- Modal pentru modificarea voluntarului -->
+  <div *ngIf="editVolunteerData" class="modal-backdrop"></div>
+  <div *ngIf="editVolunteerData" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modifică Voluntar</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeEditModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="updateVolunteer()">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">Nume:</label>
+              <input id="firstName" [(ngModel)]="editVolunteerData.firstName" name="firstName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Prenume:</label>
+              <input id="lastName" [(ngModel)]="editVolunteerData.lastName" name="lastName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <input id="email" [(ngModel)]="editVolunteerData.email" name="email" type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Telefon:</label>
+              <input id="phoneNumber" [(ngModel)]="editVolunteerData.phoneNumber" name="phoneNumber" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status:</label>
+              <select [(ngModel)]="editVolunteerData.status" id="status" name="status" class="form-control form-control-sm" required>
+                <option value="" disabled selected>Status</option>
+                <option value="Membru Adunarea Generală">Membru Adunarea Generală</option>
+                <option value="Membru Consiliu Directorial">Membru Consiliu Directorial</option>
+                <option value="Membru de Onoare">Membru de Onoare</option>
+                <option value="Membru Activ">Membru Activ</option>
+                <option value="Membru Voluntar">Membru Voluntar</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="joined" class="form-label">Data Aderare:</label>
+              <input id="joined" [(ngModel)]="editVolunteerData.joined" name="joined" type="date" class="form-control" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Salvează</button>
+              <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Închide</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pentru adăugarea voluntarului -->
+  <div *ngIf="addVolunteerData" class="modal-backdrop"></div>
+  <div *ngIf="addVolunteerData" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Adaugă Voluntar</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeAddModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="addVolunteer()">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">Nume:</label>
+              <input id="firstName" [(ngModel)]="addVolunteerData.firstName" name="firstName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Prenume:</label>
+              <input id="lastName" [(ngModel)]="addVolunteerData.lastName" name="lastName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <input id="email" [(ngModel)]="addVolunteerData.email" name="email" type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Telefon:</label>
+              <input id="phoneNumber" [(ngModel)]="addVolunteerData.phoneNumber" name="phoneNumber" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status:</label>
+              <select [(ngModel)]="addVolunteerData.status" id="status" name="status" class="form-control form-control-sm" required>
+                <option value="" disabled selected>Status</option>
+                <option value="Membru Adunarea Generală">Membru Adunarea Generală</option>
+                <option value="Membru Consiliu Directorial">Membru Consiliu Directorial</option>
+                <option value="Membru de Onoare">Membru de Onoare</option>
+                <option value="Membru Activ">Membru Activ</option>
+                <option value="Membru Voluntar">Membru Voluntar</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="joined" class="form-label">Data Aderare:</label>
+              <input id="joined" [(ngModel)]="addVolunteerData.joined" name="joined" type="date" class="form-control" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Adaugă</button>
+              <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Închide</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-  
-    <!-- Add Volunteer Modal -->
-    <div *ngIf="addVolunteerData" class="modal-backdrop"></div>
-    <div *ngIf="addVolunteerData" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Adaugă Voluntar</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeAddModal()"></button>
-          </div>
-          <div class="modal-body">
-            <form (ngSubmit)="addVolunteer()">
-              <div class="form-group">
-                <label for="firstName">Nume:</label>
-                <input id="firstName" [(ngModel)]="addVolunteerData.firstName" name="firstName" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="lastName">Prenume:</label>
-                <input id="lastName" [(ngModel)]="addVolunteerData.lastName" name="lastName" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input id="email" [(ngModel)]="addVolunteerData.email" name="email" type="email" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="phoneNumber">Telefon:</label>
-                <input id="phoneNumber" [(ngModel)]="addVolunteerData.phoneNumber" name="phoneNumber" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="status">Status:</label>
-                <div class="form-outline mb-2">
-                  <select [(ngModel)]="addVolunteerData.status" id="status" name="status" class="form-control form-control-sm" required>
-                    <option value="" disabled selected>Status</option>
-                    <option value="Membru Adunarea Generală">Membru Adunarea Generală</option>
-                    <option value="Membru Consiliu Directorial">Membru Consiliu Directorial</option>
-                    <option value="Membru Voluntar">Membru Voluntar</option>
-                  </select>
-                </div>              
-              </div>
-              <div class="form-group">
-                <label for="joined">Data Aderare:</label>
-                <input id="joined" [(ngModel)]="addVolunteerData.joined" name="joined" type="date" class="form-control" required>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Adaugă</button>
-                <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Închide</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  

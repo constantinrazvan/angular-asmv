@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../core/services/user/user.service';
-import { AuthService } from '../../core/services/auth/auth.service'; // Import the AuthService
+import { AuthService } from '../../core/services/auth/auth.service'; 
 import { User } from '../../core/models/User'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   selectedUser: User | null = null;
   showChangePasswordModal: boolean = false;
+  showConfirmDeleteModal: boolean = false; 
+  userToDelete: User | null = null; 
   newPassword: string = '';
 
   constructor(
@@ -109,26 +111,37 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  deleteUser(userId: number): void {
-    if (userId === undefined || userId === null) {
-      console.error('Invalid user ID:', userId);
-      return;
+  confirmDelete(userId: number): void {
+    const user = this.users.find(user => user.id === userId);
+    if (user) {
+      this.userToDelete = user;
+      this.showConfirmDeleteModal = true;
     }
-    if (confirm('Are you sure you want to delete this user?')) {
+  }
+
+  deleteUser(): void {
+    if (this.userToDelete) {
+      const userId = this.userToDelete.id;
       const token = this.getToken();
       if (token) {
         this.userService.deleteUser(userId, token).subscribe({
           next: () => {
             this.loadUsers(); 
+            this.closeConfirmDeleteModal();
           },
           error: (error) => {
             console.error('Error deleting user:', error);
-            alert('Failed to delete user. Please try again.');
+            alert('Nu s-a putut șterge utilizatorul. Vă rugăm încercați din nou.');
           }
         });
       } else {
         console.error('No token found. Cannot delete user.');
       }
     }
+  }
+
+  closeConfirmDeleteModal(): void {
+    this.showConfirmDeleteModal = false;
+    this.userToDelete = null;
   }
 }

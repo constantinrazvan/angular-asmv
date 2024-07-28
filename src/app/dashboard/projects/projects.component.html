@@ -1,80 +1,116 @@
-<div class="container">
-    <h2>Projects</h2>
-  
-    <button class="btn btn-primary mb-3" (click)="toggleAddProjectForm()">Add Project</button>
-    <br />
-    <button class="btn btn-outline-primary btn-sm mb-3" (click)="refreshData()"> Refresh data </button>
-  
-    <form *ngIf="showAddProjectForm" (ngSubmit)="addProject()">
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" [(ngModel)]="newProject.title" name="title" required>
+<div class="container my-5">
+  <h2 class="text-center mb-5">Proiecte</h2>
+
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-primary" (click)="toggleAddProjectModal()">Adaugă Proiect</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
+  </div>
+
+  <!-- Modal pentru adăugare proiect -->
+  <div *ngIf="showAddProjectForm" class="modal-backdrop"></div>
+  <div *ngIf="showAddProjectForm" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Adaugă Proiect</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeAddProjectModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="addProject()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Titlu</label>
+              <input type="text" class="form-control" id="title" [(ngModel)]="newProject.title" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Conținut</label>
+              <textarea class="form-control" id="content" [(ngModel)]="newProject.content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Adaugă Proiect</button>
+          </form>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="content" class="form-label">Content</label>
-        <textarea class="form-control" id="content" [(ngModel)]="newProject.content" name="content" rows="3" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Project</button>
-    </form>
-  
-    <table class="table table-responsive mt-3">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let project of paginatedProjects; let i = index">
-          <td>{{ project.title }}</td>
-          <td>{{ project.content }}</td>
-          <td>
-            <button class="btn btn-info me-1" (click)="viewProject(project)">View</button>
-            <button class="btn btn-danger ms-1" (click)="deleteProject(i)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <nav *ngIf="totalPages > 1">
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="setPage(1)">First</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="setPage(currentPage - 1)">Previous</button>
-        </li>
-        <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
-          <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="setPage(currentPage + 1)">Next</button>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="setPage(totalPages)">Last</button>
-        </li>
-      </ul>
-    </nav>
-  
-    <div *ngIf="selectedProject" class="modal-backdrop"></div>
-  
-    <div *ngIf="selectedProject" class="modal" tabindex="-1" style="display: block;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Project Details</h5>
-            <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Title:</strong> {{ selectedProject.title }}</p>
-            <p><strong>Content:</strong> {{ selectedProject.content }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeDialog()">Close</button>
+    </div>
+  </div>
+
+  <!-- Mesaj pentru lipsa proiectelor -->
+  <div *ngIf="paginatedProjects.length === 0" class="text-center">
+    <p class="text-muted">Nu există proiecte</p>
+  </div>
+
+  <!-- Carduri pentru proiecte -->
+  <div *ngIf="paginatedProjects.length > 0" class="row">
+    <div class="col-md-4 col-12 mb-4" *ngFor="let project of paginatedProjects; let i = index">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="card-title text-primary"><b>{{ project.title }}</b></h3>
+          <p class="card-text">{{ project.content }}</p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-info btn-sm" (click)="viewProject(project)">Vezi</button>
+            <button class="btn btn-danger btn-sm" (click)="confirmDelete(i)">Șterge</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Paginare -->
+  <nav *ngIf="totalPages > 1 && paginatedProjects.length > 0" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(1)">Prima</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="setPage(currentPage - 1)">Anterior</button>
+      </li>
+      <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
+        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(currentPage + 1)">Următorul</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Modal pentru detalii proiect -->
+  <div *ngIf="selectedProject" class="modal-backdrop"></div>
+  <div *ngIf="selectedProject" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalii Proiect</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Titlu:</strong> {{ selectedProject.title }}</p>
+          <p><strong>Conținut:</strong> {{ selectedProject.content }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmare pentru ștergere -->
+  <div *ngIf="showConfirmModal" class="modal-backdrop"></div>
+  <div *ngIf="showConfirmModal" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmare Ștergere</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sunteți sigur că doriți să ștergeți proiectul "{{ projectToDelete?.title }}"?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Anulează</button>
+          <button type="button" class="btn btn-danger" (click)="deleteProject()">Șterge</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

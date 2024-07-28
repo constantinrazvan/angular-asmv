@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { BecomeVolunteer } from '../../models/BecomeVolunteer';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class BecomevolunteerService {
   constructor(private http: HttpClient) {}
 
   becomeVolunteerEmpty: BecomeVolunteer = {
+    id: 0,
     firstName: '',
     lastName: '',
     email: '',
@@ -34,4 +35,17 @@ export class BecomevolunteerService {
   getCount(): Observable<number> {
     return this.http.get<number>(`https://localhost:7155/api/BecomeVolunteer/count`);
   }
+
+  deleteRequest(id: number): Observable<void> {
+    return this.http.delete<void>(`https://localhost:7155/api/BecomeVolunteer/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error.message);
+    // Displaying error details for debugging
+    return throwError(() => new Error('Something went wrong; please try again later.'));
+  }
+  
 }
