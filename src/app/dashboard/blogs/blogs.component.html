@@ -32,12 +32,10 @@
     </div>
   </div>
 
-  <!-- Message for No Blogs -->
   <div *ngIf="paginatedBlogs.length === 0" class="text-center">
     <p class="text-muted">Nu există bloguri</p>
   </div>
 
-  <!-- Blog List -->
   <div *ngIf="paginatedBlogs.length > 0" class="row">
     <div class="col-md-4 col-12 mb-4" *ngFor="let blog of paginatedBlogs; let i = index">
       <div class="card h-100 shadow-sm border-0">

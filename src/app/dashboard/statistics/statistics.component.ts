@@ -58,10 +58,10 @@ export class StatisticsComponent implements OnInit {
 
   loadProjects(): void {
     this.projectService.getCount().subscribe({
-      next: (data) => {
+      next: (data : number) => {
         this.projects = data;
       },
-      error: (error) => {
+      error: (error : string) => {
         console.log(error);
       }
     });

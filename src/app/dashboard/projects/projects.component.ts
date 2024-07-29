@@ -5,6 +5,7 @@ import { ProjectDTO } from '../../core/models/ProjectDTO';
 import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectApiResponse } from '../../core/models/ProjectApiResponse';
 
 @Component({
   selector: 'app-projects',
@@ -21,7 +22,10 @@ export class ProjectsComponent implements OnInit {
   projectToDelete: Project | null = null;
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  newProject: ProjectDTO = { title: '', content: '' };
+  newProject: ProjectDTO = { title: '', content: '', images: [] };
+  showEditProjectForm: boolean = false;
+  editProject: ProjectDTO = { title: '', content: '', images: [] };
+  projectToEdit: Project | null = null;
 
   constructor(private projectService: ProjectService) { }
 
@@ -30,21 +34,29 @@ export class ProjectsComponent implements OnInit {
   }
 
   refreshData(): void {
-    location.reload();
+    this.loadProjects();
   }
 
   loadProjects(): void {
     this.projectService.getProjects().subscribe({
-      next: (data) => {
-        if (data && Array.isArray(data.$values)) {
-          this.projects = data.$values;
+      next: (response: ProjectApiResponse) => {
+        if (response && Array.isArray(response.$values)) {
+          this.projects = response.$values;
+          this.projects.forEach(project => {
+            if (project.images && project.images.$values) {
+              project.images.$values.forEach(image => {
+                image.filePath = image.filePath
+                  .replace('wwwroot/', 'https://localhost:7155/')
+                  .replace(/\\/g, '/');
+              });
+            }
+          });
         } else {
-          console.error('Datele nu sunt un array', data);
-          this.projects = [];
+          console.error('Expected an array in $values but got:', response);
         }
       },
       error: (error) => {
-        console.log('Eroare la încărcarea proiectelor:', error);
+        console.error('Error loading projects:', error);
       }
     });
   }
@@ -61,44 +73,57 @@ export class ProjectsComponent implements OnInit {
     try {
       const userId = this.getUserIdFromToken();
       this.projectService.addProject(this.newProject, userId).subscribe({
-        next: (newProject) => {
+        next: (newProject: Project) => {
+          if (newProject.images && newProject.images.$values) {
+            newProject.images.$values.forEach(image => {
+              image.filePath = image.filePath.startsWith('http')
+                ? image.filePath
+                : `https://localhost:7155/${image.filePath.replace('wwwroot/', '')}`;
+            });
+          }
           this.projects.push(newProject);
-          this.newProject = { title: '', content: '' };
+          this.newProject = { title: '', content: '', images: [] };
           this.closeAddProjectModal();
         },
         error: (error) => {
-          console.log('Eroare la adăugarea proiectului:', error);
+          console.error('Error adding project:', error);
         }
       });
     } catch (error: any) {
-      console.log(error.message);
+      console.error('Unexpected error:', error.message);
     }
   }
 
   confirmDelete(index: number): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.projectToDelete = this.projects[startIndex + index];
+    this.projectToDelete = this.paginatedProjects[index];
     this.showConfirmModal = true;
   }
 
   deleteProject(): void {
+    // Ensure that projectToDelete is not null before proceeding
     if (this.projectToDelete) {
-      this.projectService.deleteProject(this.projectToDelete.id).subscribe({
+      const projectToDelete: Project = this.projectToDelete; // Type assertion
+  
+      this.projectService.deleteProject(projectToDelete.id).subscribe({
         next: () => {
-          const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-          const index = this.projects.indexOf(this.projectToDelete!);
-          if (index !== -1) {
-            this.projects.splice(startIndex + index, 1);
+          // Find the index of the project in the paginated list
+          const indexInPaginated = this.paginatedProjects.indexOf(projectToDelete);
+  
+          // If the project is found in the paginated list, remove it
+          if (indexInPaginated !== -1) {
+            this.projects = this.projects.filter(project => project.id !== projectToDelete.id);
+            this.closeConfirmModal();
           }
-          this.closeConfirmModal();
         },
         error: (error) => {
-          console.log('Eroare la ștergerea proiectului:', error);
+          console.error('Error deleting project:', error);
         }
       });
+    } else {
+      console.error('No project selected for deletion');
     }
   }
-  
 
   closeConfirmModal(): void {
     this.showConfirmModal = false;
@@ -106,7 +131,18 @@ export class ProjectsComponent implements OnInit {
   }
 
   viewProject(project: Project): void {
-    this.selectedProject = project;
+    this.selectedProject = {
+      ...project,
+      images: project.images ? {
+        $id: project.images.$id,
+        $values: project.images.$values.map(image => ({
+          ...image,
+          filePath: image.filePath.startsWith('http')
+            ? image.filePath
+            : `https://localhost:7155/${image.filePath.replace('wwwroot/', '')}`
+        }))
+      } : { $id: 'default-id', $values: [] }
+    };
   }
 
   closeDialog(): void {
@@ -129,22 +165,73 @@ export class ProjectsComponent implements OnInit {
   }
 
   get pages(): number[] {
-    const pages = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   getUserIdFromToken(): number {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('Token neexistent');
+      throw new Error('Token does not exist');
     }
     const decodedToken: any = jwtDecode(token);
     if (!decodedToken.nameid) {
-      throw new Error('Structura token-ului invalidă');
+      throw new Error('Invalid token structure');
     }
-    return +decodedToken.nameid; // Convertire la număr
+    return +decodedToken.nameid;
   }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      this.newProject.images = Array.from(event.target.files); // Directly use File objects
+    }
+  }
+
+  onEditFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      this.editProject.images = Array.from(event.target.files); // Directly use File objects
+    }
+  }
+
+  editProjectDetails(project: Project | null): void {
+    if (project) { // Check if `project` is not null
+      this.projectToEdit = project;
+      this.editProject = {
+        title: project.title,
+        content: project.content,
+        images: project.images ? [...project.images.$values] : []
+      };
+      this.showEditProjectForm = true;
+    }
+  }
+
+  closeEditProjectModal(): void {
+    this.showEditProjectForm = false;
+    this.projectToEdit = null;
+  }
+
+  updateProject(): void {
+    if (this.projectToEdit) {
+      const userId = this.getUserIdFromToken(); // Get the userId
+      this.projectService.updateProject(this.projectToEdit.id, this.editProject, userId).subscribe({
+        next: (updatedProject: Project) => {
+          const index = this.projects.findIndex(p => p.id === updatedProject.id);
+          if (index !== -1) {
+            this.projects[index] = updatedProject;
+            this.closeEditProjectModal();
+          }
+        },
+        error: (error) => {
+          console.error('Error updating project:', error);
+        }
+      });
+    }
+  }
+  
+
+  onImageError(event: Event): void {
+    // Handle image load error here, for example:
+    const target = event.target as HTMLImageElement;
+    target.src = 'path/to/default/image.png'; // Path to a placeholder image
+  }
+  
 }
