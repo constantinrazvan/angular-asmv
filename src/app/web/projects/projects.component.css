@@ -1,7 +1,130 @@
-.jumbotron {
-    background-color: #038ED1; 
-    background-image: url('../../../assets/proiecteImg.jpg'); 
-    background-size: cover;     
-    background-position: center;
-    color: white;
+@font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
+         url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
+}
+
+* {
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Jumbotron */
+.custom-jumbotron {
+    background-image: url('../../../assets/heroBg.jpg');
+    padding: 80px 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-jumbotron::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.1), rgba(0,0,0,0) 70%);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.custom-jumbotron h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    z-index: 2;
+    position: relative;
+}
+
+.custom-jumbotron p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+/* Card Styles */
+.custom-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: #ffffff;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+.btn-custom {
+    background-color: #038ED1;
+    border: none;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.btn-custom:hover {
+    background-color: #026ab1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Fade-in Animation */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

@@ -17,6 +17,10 @@ export class ProjectService {
     return this.http.get<ProjectApiResponse>(`${this.baseUrl}`);
   }
 
+  getProject(id: number) : Observable<Project> {
+    return this.http.get<Project>(`${this.baseUrl}/${id}`);
+  }
+
   addProject(project: ProjectDTO, userId: number): Observable<Project> {
     const formData: FormData = new FormData();
     formData.append('title', project.title);

@@ -10,6 +10,7 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+
 .project-details {
     padding: 0px 50px;
     font-family: 'DM Sans', sans-serif;
@@ -27,6 +28,7 @@ body, html {
 
 .jumbotron {
     background-color: #038ED1; 
+    background-image: url('../../../assets/heroBg.jpg');
     background-size: cover;     
     background-position: center;
     color: white;

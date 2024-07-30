@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         next: (res: { token: string }) => {
           console.log(res);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['dashboard/mesaje']);
+          this.router.navigate(['dashboard/statistici']);
         },
         error: (err: any) => {
           console.log(err);
