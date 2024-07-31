@@ -6,13 +6,14 @@ import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectApiResponse } from '../../core/models/ProjectApiResponse';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule]
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
@@ -22,9 +23,9 @@ export class ProjectsComponent implements OnInit {
   projectToDelete: Project | null = null;
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  newProject: ProjectDTO = { title: '', content: '', images: [] };
+  newProject: ProjectDTO = { title: '', summary: '', content: '', images: [] };
   showEditProjectForm: boolean = false;
-  editProject: ProjectDTO = { title: '', content: '', images: [] };
+  editProject: ProjectDTO = { title: '', summary: '', content: '', images: [] };
   projectToEdit: Project | null = null;
 
   constructor(private projectService: ProjectService) { }
@@ -82,7 +83,7 @@ export class ProjectsComponent implements OnInit {
             });
           }
           this.projects.push(newProject);
-          this.newProject = { title: '', content: '', images: [] };
+          this.newProject = { title: '', summary: '', content: '', images: [] };
           this.closeAddProjectModal();
         },
         error: (error) => {
@@ -197,6 +198,7 @@ export class ProjectsComponent implements OnInit {
       this.projectToEdit = project;
       this.editProject = {
         title: project.title,
+        summary: project.summary,
         content: project.content,
         images: project.images ? [...project.images.$values] : []
       };

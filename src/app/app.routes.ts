@@ -74,6 +74,24 @@ export const routes: Routes = [
         loadComponent: () => import("./dashboard/statistics/statistics.component").then(m => m.StatisticsComponent),
         title: 'Dashboard - Statistici',
         canActivate: [AuthGuard]
+      }, 
+      {
+        path: 'adauga-blog',
+        loadComponent: () => import("./dashboard/blogs/add-blog/add-blog.component").then(m => m.AddBlogComponent),
+        title: 'Dashboard - Adauga blog',
+        canActivate: [AuthGuard]
+      }, 
+      {
+        path: 'editeaza-blog/:id',
+        loadComponent: () => import("./dashboard/blogs/edit-blog/edit-blog.component").then(m => m.EditBlogComponent),
+        title: 'Dashboard - Editeaza blog',
+        canActivate: [AuthGuard]
+      }, 
+      {
+        path: 'adauga-proiect',
+        loadComponent: () => import("./dashboard/projects/add-project/add-project.component").then(m => m.AddProjectComponent),
+        title: 'Dashboard - Adauga proiect',
+        canActivate: [AuthGuard]
       }
     ]
   },

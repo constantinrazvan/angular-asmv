@@ -17,6 +17,7 @@ export class ProjectDetailComponent implements OnInit {
   project: Project = {
     id: 0,
     title: '',
+    summary: '',
     content: '',
     userId: 0,
     images: {

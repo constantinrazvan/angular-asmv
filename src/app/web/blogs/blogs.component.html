@@ -11,7 +11,8 @@
                 <div class="card h-100 text-center">
                     <div class="card-body">
                         <h3 class="card-title" style="color: #038ED1;"><b>{{ blog.title }}</b></h3>
-                        <p class="card-text">{{ blog.content }}</p>
+                        <!-- Utilizează pipe-ul stripHtml pentru a elimina HTML-ul și a decodifica entitățile -->
+                        <p class="card-text">{{ blog.summary }} </p>
                         <button [routerLink]="['/blogs', blog.id]" class="btn text-white w-100" style="background-color: #038ED1;">Vezi blog</button>
                     </div>
                 </div>

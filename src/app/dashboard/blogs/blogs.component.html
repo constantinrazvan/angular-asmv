@@ -2,7 +2,7 @@
   <h2 class="text-center mb-5">Bloguri</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-primary" (click)="toggleAddBlogForm()">Adaugă Blog</button>
+    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-blog']" routerLinkActive="router-link-active" >Adaugă Blog</button>
     <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
   </div>
 

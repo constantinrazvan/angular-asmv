@@ -4,24 +4,24 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BlogService } from '../../core/services/blog/blog.service';
-import { Blog } from '../../core/models/Blog';  // Ensure this import exists
+import { Blog } from '../../core/models/Blog';
+import { StripHtmlPipe } from '../../core/pipes/strip-html.pipe';
 
 @Component({
   selector: 'app-blogs',
   standalone: true,
-  imports: [WebFooterComponent, WebNavbarComponent, CommonModule, RouterModule],
+  imports: [WebFooterComponent, WebNavbarComponent, CommonModule, RouterModule, StripHtmlPipe],
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent implements OnInit, AfterViewInit {
 
   title = "ASMV - Bloguri";
-
   blogsList: Blog[] = [];
 
   constructor(
     private blogService: BlogService
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.loadBlogs();
@@ -49,6 +49,7 @@ export class BlogsComponent implements OnInit, AfterViewInit {
       next: (data) => {
         if (data && data.$values && Array.isArray(data.$values)) {
           this.blogsList = data.$values;
+          console.log(this.blogsList); // Verifică ce conține blog.content
         } else {
           console.error('Data is not an array', data);
           this.blogsList = [];

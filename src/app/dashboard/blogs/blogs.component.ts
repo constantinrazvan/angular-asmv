@@ -5,19 +5,20 @@ import { BlogDTO } from '../../core/models/BlogDTO';
 import { jwtDecode } from 'jwt-decode'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink]
 })
 export class BlogsComponent implements OnInit {
   blogs: Blog[] = [];
   selectedBlog: Blog | null = null;
   blogToDelete: Blog | null = null;
-  currentBlog: Blog = { id: 0, title: '', content: '', userId: 0 };
+  currentBlog: Blog = { id: 0, title: '', content: '', summary: '', userId: 0 };
   showAddBlogForm: boolean = false;
   showConfirmDeleteModal: boolean = false;
   isEditing: boolean = false;
@@ -92,13 +93,13 @@ export class BlogsComponent implements OnInit {
   }
 
   openAddBlogModal(): void {
-    this.currentBlog = { id: 0, title: '', content: '', userId: 0 };
+    this.currentBlog = { id: 0, title: '', summary: '', content: '', userId: 0 };
     this.isEditing = false;
     this.showAddBlogForm = true;
   }
 
   editBlog(blog: Blog): void {
-    this.currentBlog = { id: blog.id, title: blog.title, content: blog.content, userId: blog.userId };
+    this.currentBlog = { id: blog.id, title: blog.title, summary: blog.summary, content: blog.content, userId: blog.userId };
     this.isEditing = true;
     this.showAddBlogForm = true;
   }

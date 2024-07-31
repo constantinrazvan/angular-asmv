@@ -12,9 +12,14 @@ mat-sidenav {
 
 mat-sidenav-content {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 mat-toolbar {
+  position: sticky;
+  top: 0;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,6 +27,7 @@ mat-toolbar {
   color: #2c3e50; /* Dark text */
   height: 64px; /* Adjusted height for better alignment */
   border-bottom: solid 1px #e0e0e0;
+  z-index: 1000; /* Ensure toolbar stays above other content */
 }
 
 mat-toolbar .spacer {
@@ -84,4 +90,13 @@ button.mat-icon-button:hover {
 
 .content {
   padding: 16px; /* Padding for the content area */
+  flex-grow: 1; /* Ensure content area takes available space */
+}
+
+.position-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -2,7 +2,7 @@
   <h2 class="text-center mb-5">Proiecte</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-primary" (click)="toggleAddProjectModal()">Adaugă Proiect</button>
+    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-proiect']" routerLinkActive="router-link-active" >Adaugă Proiect</button>
     <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
   </div>
 
