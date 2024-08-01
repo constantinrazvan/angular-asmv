@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmare Ștergere</h1>
+<div mat-dialog-content>
+  <p>Sigur doriți să ștergeți blogul "{{ data.blog?.title }}"?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anulează</button>
+  <button mat-button [mat-dialog-close]="true">Șterge</button>
+</div>

@@ -1,6 +1,17 @@
 .container {
+  max-width: 1200px;
+  margin: auto;
   padding: 2rem;
 }
+
+.mat-elevation-z8 {
+  margin-bottom: 20px;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}
+
 
 .card-title {
   font-size: 1.25rem;

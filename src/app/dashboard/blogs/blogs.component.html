@@ -2,34 +2,8 @@
   <h2 class="text-center mb-5">Bloguri</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-blog']" routerLinkActive="router-link-active" >Adaugă Blog</button>
+    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-blog']" routerLinkActive="router-link-active">Adaugă Blog</button>
     <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
-  </div>
-
-  <!-- Modal for Adding/Editing Blog -->
-  <div *ngIf="showAddBlogForm" class="modal-backdrop"></div>
-  <div *ngIf="showAddBlogForm" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ isEditing ? 'Editare Blog' : 'Adăugare Blog' }}</h5>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="saveBlog()">
-            <div class="mb-3">
-              <label for="title" class="form-label">Titlu</label>
-              <input type="text" class="form-control" id="title" [(ngModel)]="currentBlog.title" name="title" required>
-            </div>
-            <div class="mb-3">
-              <label for="content" class="form-label">Conținut</label>
-              <textarea class="form-control" id="content" [(ngModel)]="currentBlog.content" name="content" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">{{ isEditing ? 'Salvează Modificările' : 'Adaugă Blog' }}</button>
-            <button type="button" class="btn btn-secondary w-100 mt-2" aria-label="Close" (click)="closeAddBlogModal()">Închide</button>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div *ngIf="paginatedBlogs.length === 0" class="text-center">
@@ -41,11 +15,10 @@
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
           <h3 class="card-title text-primary"><b>{{ blog.title }}</b></h3>
-          <p class="card-text">{{ blog.content | slice:0:100 }}...</p>
+          <p class="card-text" *ngIf="!blog.summary">{{ blog.summary }}</p>
           <div class="d-flex justify-content-between">
-            <button class="btn btn-outline-primary btn-sm" (click)="viewBlog(blog)">Vezi</button>
             <button class="btn btn-outline-danger btn-sm" (click)="confirmDelete(blog)">Șterge</button>
-            <button class="btn btn-outline-secondary btn-sm" (click)="editBlog(blog)">Editează</button>
+            <button class="btn btn-outline-secondary btn-sm" [routerLink]="['/dashboard/editeaza-blog', blog.id]">Editează</button>
           </div>
         </div>
       </div>
@@ -73,26 +46,6 @@
     </ul>
   </nav>
 
-  <!-- Modal for Blog Details -->
-  <div *ngIf="selectedBlog" class="modal-backdrop"></div>
-  <div *ngIf="selectedBlog" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Detalii Blog</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
-        </div>
-        <div class="modal-body">
-          <h4 class="modal-title mb-3">{{ selectedBlog.title }}</h4>
-          <p>{{ selectedBlog.content }}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal for Confirming Deletion -->
   <div *ngIf="showConfirmDeleteModal" class="modal-backdrop"></div>
   <div *ngIf="showConfirmDeleteModal" class="modal fade show" tabindex="-1" style="display: block;">
@@ -103,7 +56,7 @@
           <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmModal()"></button>
         </div>
         <div class="modal-body">
-          <p>Sigur doriți să ștergeți blogul "{{ blogToDelete?.title }}"?</p>
+          <p>Sigur doriți să ștergeți blogul <b>"{{ blogToDelete?.title }}"</b>?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Anulează</button>
