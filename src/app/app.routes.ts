@@ -92,6 +92,12 @@ export const routes: Routes = [
         loadComponent: () => import("./dashboard/projects/add-project/add-project.component").then(m => m.AddProjectComponent),
         title: 'Dashboard - Adauga proiect',
         canActivate: [AuthGuard]
+      }, 
+      {
+        path: "editeaza-proiect/:id",
+        loadComponent: () => import("./dashboard/projects/edit-project/edit-project.component").then(m => m.EditProjectComponent),
+        title: 'Dashboard - Editeaza proiect',
+        canActivate: [AuthGuard]
       }
     ]
   },

@@ -16,7 +16,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AddProjectComponent {
 
-  project : ProjectDTO = { title: '', summary: '', content: '', images: [] };
+  project : ProjectDTO = { title: '', summary: '', content: '', image: '' };
   selectedImage: string | ArrayBuffer | null = null;
   error: string = '';
 
@@ -49,17 +49,35 @@ export class AddProjectComponent {
       return;
     } else {
       this.error = '';
-
-      this.projectService.addProject(this.project, this.getUserIdFromToken()).subscribe({
+      const formData = new FormData();
+      formData.append('title', this.project.title);
+      formData.append('summary', this.project.summary);
+      formData.append('content', this.project.content);
+      if (this.selectedImage && typeof this.selectedImage === 'string') {
+        // Convertim string-ul într-un File obiect
+        const byteString = atob(this.selectedImage.split(',')[1]);
+        const mimeString = this.selectedImage.split(',')[0].split(':')[1].split(';')[0];
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+          uint8Array[i] = byteString.charCodeAt(i);
+        }
+        const file = new File([arrayBuffer], 'image.jpg', { type: mimeString });
+        formData.append('image', file);
+      }
+  
+      this.projectService.addProject(formData, this.getUserIdFromToken()).subscribe({
         next: (data) => {
           console.log(data);
         }, 
         error: (error) => {
           console.log(error);
         }
-      })
+      });
     }
   }
+  
+  
 
   getUserIdFromToken(): number {
     const token = localStorage.getItem('token');

@@ -5,7 +5,6 @@ import { ProjectDTO } from '../../core/models/ProjectDTO';
 import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProjectApiResponse } from '../../core/models/ProjectApiResponse';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -23,9 +22,9 @@ export class ProjectsComponent implements OnInit {
   projectToDelete: Project | null = null;
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  newProject: ProjectDTO = { title: '', summary: '', content: '', images: [] };
+  newProject: ProjectDTO = { title: '', summary: '', content: '', image: '' };
   showEditProjectForm: boolean = false;
-  editProject: ProjectDTO = { title: '', summary: '', content: '', images: [] };
+  editProject: ProjectDTO = { title: '', summary: '', content: '', image: '' };
   projectToEdit: Project | null = null;
 
   constructor(private projectService: ProjectService) { }
@@ -40,18 +39,14 @@ export class ProjectsComponent implements OnInit {
 
   loadProjects(): void {
     this.projectService.getProjects().subscribe({
-      next: (response: ProjectApiResponse) => {
-        if (response && Array.isArray(response.$values)) {
-          this.projects = response.$values;
-          this.projects.forEach(project => {
-            if (project.images && project.images.$values) {
-              project.images.$values.forEach(image => {
-                image.filePath = image.filePath
-                  .replace('wwwroot/', 'https://localhost:7155/')
-                  .replace(/\\/g, '/');
-              });
-            }
-          });
+      next: (response: any) => {
+        if (response && response.$values && Array.isArray(response.$values)) {
+          this.projects = response.$values.map((project: Project) => ({
+            ...project,
+            image: project.image
+              ? project.image.replace('wwwroot/', 'https://localhost:7155/').replace(/\\/g, '/')
+              : ''
+          }));
         } else {
           console.error('Expected an array in $values but got:', response);
         }
@@ -62,39 +57,6 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  toggleAddProjectModal(): void {
-    this.showAddProjectForm = !this.showAddProjectForm;
-  }
-
-  closeAddProjectModal(): void {
-    this.showAddProjectForm = false;
-  }
-
-  addProject(): void {
-    try {
-      const userId = this.getUserIdFromToken();
-      this.projectService.addProject(this.newProject, userId).subscribe({
-        next: (newProject: Project) => {
-          if (newProject.images && newProject.images.$values) {
-            newProject.images.$values.forEach(image => {
-              image.filePath = image.filePath.startsWith('http')
-                ? image.filePath
-                : `https://localhost:7155/${image.filePath.replace('wwwroot/', '')}`;
-            });
-          }
-          this.projects.push(newProject);
-          this.newProject = { title: '', summary: '', content: '', images: [] };
-          this.closeAddProjectModal();
-        },
-        error: (error) => {
-          console.error('Error adding project:', error);
-        }
-      });
-    } catch (error: any) {
-      console.error('Unexpected error:', error.message);
-    }
-  }
-
   confirmDelete(index: number): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.projectToDelete = this.paginatedProjects[index];
@@ -102,20 +64,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(): void {
-    // Ensure that projectToDelete is not null before proceeding
     if (this.projectToDelete) {
-      const projectToDelete: Project = this.projectToDelete; // Type assertion
-  
-      this.projectService.deleteProject(projectToDelete.id).subscribe({
+      this.projectService.deleteProject(this.projectToDelete.id).subscribe({
         next: () => {
-          // Find the index of the project in the paginated list
-          const indexInPaginated = this.paginatedProjects.indexOf(projectToDelete);
-  
-          // If the project is found in the paginated list, remove it
-          if (indexInPaginated !== -1) {
-            this.projects = this.projects.filter(project => project.id !== projectToDelete.id);
-            this.closeConfirmModal();
-          }
+          this.projects = this.projects.filter(project => project.id !== this.projectToDelete!.id);
+          this.closeConfirmModal();
         },
         error: (error) => {
           console.error('Error deleting project:', error);
@@ -129,21 +82,6 @@ export class ProjectsComponent implements OnInit {
   closeConfirmModal(): void {
     this.showConfirmModal = false;
     this.projectToDelete = null;
-  }
-
-  viewProject(project: Project): void {
-    this.selectedProject = {
-      ...project,
-      images: project.images ? {
-        $id: project.images.$id,
-        $values: project.images.$values.map(image => ({
-          ...image,
-          filePath: image.filePath.startsWith('http')
-            ? image.filePath
-            : `https://localhost:7155/${image.filePath.replace('wwwroot/', '')}`
-        }))
-      } : { $id: 'default-id', $values: [] }
-    };
   }
 
   closeDialog(): void {
@@ -180,60 +118,4 @@ export class ProjectsComponent implements OnInit {
     }
     return +decodedToken.nameid;
   }
-
-  onFileChange(event: any): void {
-    if (event.target.files.length > 0) {
-      this.newProject.images = Array.from(event.target.files); // Directly use File objects
-    }
-  }
-
-  onEditFileChange(event: any): void {
-    if (event.target.files.length > 0) {
-      this.editProject.images = Array.from(event.target.files); // Directly use File objects
-    }
-  }
-
-  editProjectDetails(project: Project | null): void {
-    if (project) { // Check if `project` is not null
-      this.projectToEdit = project;
-      this.editProject = {
-        title: project.title,
-        summary: project.summary,
-        content: project.content,
-        images: project.images ? [...project.images.$values] : []
-      };
-      this.showEditProjectForm = true;
-    }
-  }
-
-  closeEditProjectModal(): void {
-    this.showEditProjectForm = false;
-    this.projectToEdit = null;
-  }
-
-  updateProject(): void {
-    if (this.projectToEdit) {
-      const userId = this.getUserIdFromToken(); // Get the userId
-      this.projectService.updateProject(this.projectToEdit.id, this.editProject, userId).subscribe({
-        next: (updatedProject: Project) => {
-          const index = this.projects.findIndex(p => p.id === updatedProject.id);
-          if (index !== -1) {
-            this.projects[index] = updatedProject;
-            this.closeEditProjectModal();
-          }
-        },
-        error: (error) => {
-          console.error('Error updating project:', error);
-        }
-      });
-    }
-  }
-  
-
-  onImageError(event: Event): void {
-    // Handle image load error here, for example:
-    const target = event.target as HTMLImageElement;
-    target.src = 'path/to/default/image.png'; // Path to a placeholder image
-  }
-  
 }

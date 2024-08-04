@@ -6,8 +6,21 @@
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('ttf')
+}
+
 * {
     font-family: 'DM Sans', sans-serif;
+}
+
+.interFont {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -2px;
+    font-size: 50px;
 }
 
 #dm {
@@ -58,12 +71,16 @@ body, html {
 }
 
 
-
 .headingFirstSection {
     font-family: 'DM Sans', sans-serif;
     font-size: 48px;
     color: #038ED1;
     font-weight: bold;
+}
+ 
+.inter {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -2px;
 }
 
 .paragraphFirstSection {

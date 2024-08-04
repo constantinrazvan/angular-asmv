@@ -6,6 +6,16 @@
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('ttf');
+}
+
+.inter {
+    font-family: 'Inter', sans-serif;
+}
+
 * {
     font-family: 'DM Sans';
 }

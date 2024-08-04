@@ -1,1 +1,38 @@
-<p>edit-project works!</p>
+<button class="btn btn-outline-primary btn-sm mb-5" [routerLink]="['/dashboard/proiecte']" routerLinkActive="router-link-active">Revino pe pagina anterioara</button>
+
+<div class="container my-5">
+  <h2 class="text-center mb-5">Editeaza Proiect</h2>
+
+  <form (ngSubmit)="editProject()">
+    <div class="mb-3">
+      <!-- Afișează imaginea selectată sau imaginea existentă -->
+      <div *ngIf="imagePreview" class="selected-image-container">
+        <img [src]="imagePreview" alt="Selected Image" class="selected-image">
+        <button type="button" class="btn btn-danger btn-sm mt-2" (click)="removeSelectedImage()">Șterge poza</button>
+      </div>
+      <!-- Input pentru încărcarea unei noi imagini -->
+      <input type="file" id="fileInput" (change)="onFileChange($event)" style="display: none;">
+      <button type="button" class="btn btn-secondary mt-2" (click)="triggerFileInputClick()">Alege o imagine</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Titlu:</label>
+      <input id="title" [(ngModel)]="editedProject.title" name="title" class="form-control" required>
+      <small id="titleHelp" class="form-text text-muted">Încearcă să folosești un titlu cât mai atractiv și scurt.</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="summary" class="form-label">Sumar:</label>
+      <input id="summary" [(ngModel)]="editedProject.summary" name="summary" class="form-control" required>
+      <small id="summaryHelp" class="form-text text-muted">Adaugă o scurtă descriere despre proiectul tău! Acest sumar va fi afișat în cardul care este afișat în pagina de proiecte!</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">Conținut:</label>
+      <angular-editor [(ngModel)]="editedProject.content" [config]="editorConfig" name="content" required></angular-editor>
+      <small id="contentHelp" class="form-text text-muted">Foloseste cu încredere toate elementele pe care editorul le oferă.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Actualizează Proiect</button>
+  </form>
+</div>

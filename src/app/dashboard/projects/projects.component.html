@@ -2,154 +2,47 @@
   <h2 class="text-center mb-5">Proiecte</h2>
 
   <div class="d-flex justify-content-between mb-4">
-    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-proiect']" routerLinkActive="router-link-active" >Adaugă Proiect</button>
-    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează datele</button>
+    <button class="btn btn-primary" [routerLink]="['/dashboard/adauga-proiect']" routerLinkActive="router-link-active">Adaugă Proiect</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="refreshData()">Actualizează</button>
   </div>
 
-  <!-- Modal pentru adăugare proiect -->
-  <div *ngIf="showAddProjectForm" class="modal-backdrop fade show"></div>
-  <div *ngIf="showAddProjectForm" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Adaugă Proiect</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeAddProjectModal()"></button>
-        </div>
-        <form (ngSubmit)="addProject()">
-          <div class="mb-3">
-            <label for="title" class="form-label">Titlu</label>
-            <input type="text" class="form-control" id="title" [(ngModel)]="newProject.title" name="title" required>
-          </div>
-          <div class="mb-3">
-            <label for="content" class="form-label">Conținut</label>
-            <textarea class="form-control" id="content" [(ngModel)]="newProject.content" name="content" rows="3" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="images" class="form-label">Imagini</label>
-            <input type="file" class="form-control" id="images" (change)="onFileChange($event)" multiple>
-          </div>
-          <button type="submit" class="btn btn-primary">Adaugă Proiect</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal pentru editare proiect -->
-  <div *ngIf="showEditProjectForm" class="modal-backdrop fade show"></div>
-  <div *ngIf="showEditProjectForm" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Editează Proiect</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeEditProjectModal()"></button>
-        </div>
-        <form (ngSubmit)="updateProject()">
-          <div class="mb-3">
-            <label for="editTitle" class="form-label">Titlu</label>
-            <input type="text" class="form-control" id="editTitle" [(ngModel)]="editProject.title" name="title" required>
-          </div>
-          <div class="mb-3">
-            <label for="editContent" class="form-label">Conținut</label>
-            <textarea class="form-control" id="editContent" [(ngModel)]="editProject.content" name="content" rows="3" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="editImages" class="form-label">Imagini</label>
-            <input type="file" class="form-control" id="editImages" (change)="onEditFileChange($event)" multiple>
-          </div>
-          <button type="submit" class="btn btn-primary">Salvează Modificările</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mesaj pentru lipsa proiectelor -->
-  <div *ngIf="paginatedProjects.length === 0" class="text-center">
-    <p class="text-muted">Nu există proiecte</p>
-  </div>
-
-  <!-- Carduri pentru proiecte -->
-  <div *ngIf="paginatedProjects.length > 0" class="row">
-    <div class="col-md-4 col-12 mb-4" *ngFor="let project of paginatedProjects; let i = index">
-      <div class="card h-100 shadow-sm border-0">
+  <div class="row">
+    <div *ngFor="let project of paginatedProjects" class="col-md-4 mb-4">
+      <div class="card">
         <div class="card-body">
-          <h3 class="card-title text-primary"><b>{{ project.title }}</b></h3>
-          <p class="card-text">{{ project.content }}</p>
-          <div class="d-flex justify-content-between">
-            <button class="btn btn-info btn-sm" (click)="viewProject(project)">Vezi</button>
-            <button class="btn btn-warning btn-sm" (click)="editProjectDetails(project)">Editează</button>
-            <button class="btn btn-danger btn-sm" (click)="confirmDelete(i)">Șterge</button>
-          </div>
+          <h5 class="card-title">{{ project.title }}</h5>
+          <p class="card-text">{{ project.summary }}</p>
+          <button class="btn btn-danger" (click)="confirmDelete(project.id)">Șterge</button>
+          <button class="btn btn-warning" routerLink="/dashboard/editeaza-proiect/{{ project.id }}">Editează</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Paginare -->
-  <nav *ngIf="totalPages > 1 && paginatedProjects.length > 0" class="mt-4">
-    <ul class="pagination justify-content-center">
+  <nav *ngIf="totalPages > 1">
+    <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 1">
-        <button class="page-link" (click)="setPage(1)">Prima</button>
+        <a class="page-link" (click)="setPage(currentPage - 1)">Previous</a>
       </li>
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <button class="page-link" (click)="setPage(currentPage - 1)">Anterior</button>
-      </li>
-      <li *ngFor="let page of pages" [class.active]="page === currentPage" class="page-item">
-        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+      <li *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage">
+        <a class="page-link" (click)="setPage(page)">{{ page }}</a>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(currentPage + 1)">Următorul</button>
-      </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <button class="page-link" (click)="setPage(totalPages)">Ultima</button>
+        <a class="page-link" (click)="setPage(currentPage + 1)">Next</a>
       </li>
     </ul>
   </nav>
 
-  <!-- Modal pentru detalii proiect -->
-  <div *ngIf="selectedProject" class="modal-backdrop fade show"></div>
-  <div *ngIf="selectedProject" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Detalii Proiect</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Titlu:</strong> {{ selectedProject.title }}</p>
-          <p><strong>Conținut:</strong> {{ selectedProject.content }}</p>
-          
-          <!-- Secțiunea Imagini -->
-          <div *ngIf="selectedProject.images && selectedProject.images.$values && selectedProject.images.$values.length > 0" class="mb-3">
-            <h5>Imagini</h5>
-            <div class="d-flex flex-wrap">
-              <img *ngFor="let image of selectedProject.images.$values"
-                [src]="image.filePath"
-                [alt]="selectedProject.title"
-                class="img-fluid mb-3 me-2"
-                style="max-width: 150px; max-height: 150px; object-fit: cover;"
-                (error)="onImageError($event)">
-            </div>
-          </div>
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDialog()">Închide</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal de confirmare pentru ștergere -->
-  <div *ngIf="showConfirmModal" class="modal-backdrop fade show"></div>
-  <div *ngIf="showConfirmModal" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
+  <!-- Confirm Delete Modal -->
+  <div *ngIf="showConfirmModal" class="modal">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Confirmare Ștergere</h5>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeConfirmModal()"></button>
+          <button type="button" class="btn-close" (click)="closeConfirmModal()"></button>
         </div>
         <div class="modal-body">
-          <p>Sigur doriți să ștergeți acest proiect?</p>
+          <p>Ești sigur că dorești să ștergi acest proiect?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeConfirmModal()">Anulează</button>

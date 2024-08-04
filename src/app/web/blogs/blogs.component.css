@@ -10,6 +10,16 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('ttf');
+}
+
+.inter {
+    font-family: 'Inter', sans-serif;
+}
+
 body, html {
     scroll-behavior: smooth;
 }

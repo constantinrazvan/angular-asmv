@@ -13,29 +13,18 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  getProjects(): Observable<ProjectApiResponse> {
-    return this.http.get<ProjectApiResponse>(`${this.baseUrl}`);
+  getProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.baseUrl}`);
   }
 
-  getProject(id: number) : Observable<Project> {
+  getProject(id: number): Observable<Project> {
     return this.http.get<Project>(`${this.baseUrl}/${id}`);
   }
 
-  addProject(project: ProjectDTO, userId: number): Observable<Project> {
-    const formData: FormData = new FormData();
-    formData.append('title', project.title);
-    formData.append('content', project.content);
-
-    // Ensure `images` is an array of `File` objects
-    if (project.images) {
-      project.images.forEach(image => {
-        if (image instanceof File) {
-          formData.append('images', image);
-        } else {
-          console.warn('Non-File object in images array:', image);
-        }
-      });
-    }
+  // Parametrul `formData` este corect acum și nu trebuie să-l declari din nou
+  addProject(formData: FormData, userId: number): Observable<Project> {
+    // Nu trebuie să mai creezi un alt `formData` aici
+    // Folosește parametrul `formData` care a fost trecut în apel
 
     return this.http.post<Project>(`${this.baseUrl}?userId=${userId}`, formData);
   }
@@ -48,22 +37,7 @@ export class ProjectService {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
 
-  updateProject(id: number, project: ProjectDTO, userId: number): Observable<Project> {
-    const formData: FormData = new FormData();
-    formData.append('title', project.title);
-    formData.append('content', project.content);
-
-    // Ensure `images` is an array of `File` objects
-    if (project.images) {
-      project.images.forEach(image => {
-        if (image instanceof File) {
-          formData.append('images', image);
-        } else {
-          console.warn('Non-File object in images array:', image);
-        }
-      });
-    }
-
+  updateProject(id: number, formData: FormData, userId: number): Observable<Project> {
     return this.http.put<Project>(`${this.baseUrl}/${id}?userId=${userId}`, formData);
   }
 }

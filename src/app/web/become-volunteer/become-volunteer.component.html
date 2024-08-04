@@ -1,45 +1,35 @@
 <app-web-navbar></app-web-navbar>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row justify-content-center gy-4">
-    <div class="col-md-4 mx-5 py-5">
-      <h1 style="width: 100%;">
-        <b>Completează formularul acesta și hai să faci parte din cea mai <i>cool</i> asociație!</b>
+    <!-- Secțiunea cu textul -->
+    <div class="col-md-5 py-4 px-3">
+      <h1 class="inter">
+        <b>Completează formularul acesta și hai să faci parte din cea mai cool asociație!</b>
       </h1>
       <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus tempor metus, id aliquet elit accumsan id. Mauris tristique, quam ac scelerisque sagittis,
-        libero tellus porta sapien, vitae hendrerit tortor nulla a neque. Etiam augue mi, laoreet eu tellus eget, pretium finibus leo. Aenean eget dignissim diam, at blandit nisi.
+        🌟 Înscrie-te pentru a Face Diferența! 🌟
+        <br /><br/>
+
+        Suntem încântați să te avem alături în misiunea noastră de a aduce schimbări pozitive în comunitate! Pentru a deveni parte din echipa noastră de voluntari, te rugăm să completezi formularul de mai jos.
+        <br/><br/>
+        🔹 Pasul 1: Completează toate câmpurile din formularul alăturat. Asigură-te că oferi toate informațiile necesare pentru a putea să te cunoaștem mai bine.
+        <br/><br/>
+        🔹 Pasul 2: Trimite formularul completat. Imediat ce primim datele tale, echipa noastră va începe procesul de verificare.
+        <br/><br/>
+        🔹 Pasul 3: Te vom contacta pentru a discuta detalii suplimentare și pentru a-ți oferi toate informațiile necesare despre cum poți începe aventura alături de noi!
+        <br/><br/>
+        Împreună, putem face lucruri minunate! Așteptăm cu nerăbdare să te cunoaștem și să lucrăm împreună pentru a face o diferență reală.
+        <br/><br/>
+        Mulțumim pentru implicarea ta și pentru dorința de a contribui la un viitor mai bun!
       </p>
-
-      <div style="display: flex; align-items: center; margin-top: 20px;">
-        <!-- icon -->
-        <div style="margin-left: 10px; margin-top: 15px;">
-          <h5><b>Locație</b></h5>
-          <p>Constanța, România</p>
-        </div>
-      </div>
-
-      <div style="display: flex; align-items: center; margin-top: 20px;">
-        <!-- icon -->
-        <div style="margin-left: 10px; margin-top: 15px;">
-          <h5><b>Numărul de Telefon</b></h5>
-          <p>0712 345 678</p>
-        </div>
-      </div>
-
-      <div style="display: flex; align-items: center; margin-top: 20px;">
-        <!-- icon -->
-        <div style="margin-left: 10px; margin-top: 15px;">
-          <h5><b>Adresa de Email</b></h5>
-          <p>{{asmvEmail}}</p>
-        </div>
-      </div>
     </div>
 
-    <div class="col-md-4 mx-5 py-5 shadow" id="colForm">
-      <h1> Hai în echipă</h1>
+    <!-- Secțiunea cu formularul -->
+    <div class="col-md-5 py-4 px-3 shadow" id="colForm">
+      <h1 class="inter mt-3"> <b>Hai în echipă</b></h1>
       <span> Formular de înscriere online</span>
-      <form (ngSubmit)="becomeVolunteerPost()" style="margin-top: 50px;">
+      <form (ngSubmit)="becomeVolunteerPost()" style="margin-top: 30px;">
         <div class="row mb-3">
           <div class="col">
             <label>Nume</label>
@@ -66,7 +56,7 @@
           <label>De ce vrei să fii voluntar?</label>
           <textarea rows="3" class="form-control" name="reason" [(ngModel)]="becomeVolunteer.reason"></textarea>
         </div>
-        <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white;">
+        <button type="submit" class="btn" [ngClass]="{'btn-success': formSent, 'btn-primary': !formSent}" style="width: 100%; height: 50px; background-color: white; color: #038ED1">
           {{ formSent ? 'Trimis' : 'Trimite' }}
           <svg style="color: #038ED1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
             <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>

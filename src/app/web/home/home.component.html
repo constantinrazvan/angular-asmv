@@ -2,7 +2,7 @@
 
 <div class="text-center hero position-relative">
     <span style="font-size: 12px;"> <b>BUN VENIT LA</b> </span>
-    <h1 class="display-5 fw-bold">Asociația Medicilor Studenților Voluntari</h1>
+    <h1 class="display-5 fw-bold interFont">Asociația Medicilor Studenților Voluntari</h1>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Bun venit în comunitatea noastră de viitori medici! Ne concentrăm pe educație, inovare și conexiuni în domeniul medical. Alătură-te nouă pentru a-ți dezvolta abilitățile și pentru a contribui la construirea unui viitor mai sănătos și mai strălucitor în domeniul sănătății!</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -16,7 +16,7 @@
     <div class="container mt-5 pt-5 my-5 py-5 px-5">
         <div class="row align-items-center"> 
             <div class="col-md-6">
-                <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Cine suntem?</b></h2>
+                <h2 class="section-heading display-5 mt-5 headingFirstSection inter"><b>Cine suntem?</b></h2>
                 <p class="lead paragraphFirstSection">Asociația Studenților și Medicilor Voluntari este o organizație non-profit înființată în 2007, la inițiativa unor tineri medici și studenți care și-au propus dezvoltarea pe plan local a unui grup informativ, care să promoveze sănătatea printre tineri și să ajute la perfecționarea în domeniul pregătirii studenților la medicină.</p>
             </div>
             <div class="col-md-6">
@@ -29,7 +29,7 @@
 <div class="container-fluid fade-in principii" style="background-color: #07AEFF; background-image: url('../../../assets/CurveLine.svg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="text-center p-5">
-            <h2 class="section-heading display-5 mt-5 headingFirstSection text-white"><b>Principii ASMV</b></h2>
+            <h2 class="section-heading display-5 mt-5 headingFirstSection text-white inter"><b>Principii ASMV</b></h2>
             <p class="lead paragraphFirstSection text-white">Principiile generale ASMV se adresează atât studenților și cadrelor medicale care încearcă să faciliteze acumularea de cunoștințe și experiență, cât și tinerilor din afara ariei medicale, prin campanii de informare și prevenție. Alături de proiectele ce vizează sănătatea publică, ASMV sprijină acțiunile de protecție a mediului și acordă suport moral și material celor în suferință. ASMV promovează competența și performanța. Prin acțiunile organizate, ASMV dorește să crească calitatea educației medicale românești, în special a pregătirii individuale a studentului la medicină.
                 <br/> Se promovează competența și performanța, munca în echipă, ideea de familie și de dezvoltare prin acumularea de cunoștințe noi în mod constant. Prin acțiunile organizate, ASMV dorește să crească calitatea educației medicale românești, în special a pregătirii individuale a studentului la medicină.
             </p>
@@ -44,7 +44,7 @@
                 <img src="../../../assets/asmv1Blob.jpg" alt="hero" class="img-fluid">
             </div>
             <div class="col-md-6">
-                <h2 class="section-heading display-5 mt-5 headingFirstSection"><b>Obiective</b></h2>
+                <h2 class="section-heading display-5 mt-5 headingFirstSection inter"><b>Obiective</b></h2>
                 <p class="lead paragraphFirstSection">Educație medicală în rândul tinerilor și perfecționarea în domeniul pregătirii profesionale a studenților. Acordarea de ajutoare materiale, de asistență și sprijin moral persoanelor suferinde. Organizarea de manifestări științifice naționale și internaționale, simpozioane, conferințe, campanii informative și alte evenimente pe teme medicale. Tipărirea de publicații și materiale informative. Realizarea de proiecte ce vizează problemele de mediu. Colaborarea cu instituții medicale și alte organizații din țară și străinătate în vederea unor schimburi de experiență și a realizării scopurilor de mai sus.</p>
             </div>
         </div>
@@ -55,7 +55,7 @@
     <div class="container px-5 mt-5">
         <div class="row">
             <div class="col-md-4 mb-5">
-                <h1 id="testimonialsHeading" class="font-weight-bold mb-3">Ascultă părerea voluntarilor actuali!</h1>
+                <h1 id="testimonialsHeading" class="font-weight-bold mb-3 inter">Ascultă părerea voluntarilor actuali!</h1>
                 <p class="text-muted testimonialsParagraph" style="text-align: justify; font-family:'DM Sans', sans-serif;">
                     Opiniile membrilor activi sunt adesea o sursă valoroasă de încredere și inspirație. La ASMV, ne axăm pe părerea celor care fac parte din comunitatea noastră pentru a ne ghida în eforturile noastre de a oferi servicii de cea mai înaltă calitate. Ascultăm cu atenție feedback-ul și experiențele lor pentru a continua să ne îmbunătățim și să ne aliniem obiectivelor și valorilor noastre. Iată ce spun membrii noștri activi despre experiența lor cu ASMV.
                 </p>
@@ -64,12 +64,12 @@
                 <div class="card shadow" style="border-radius: 10px; border: none;">
                     <div class="card-body">
                         <i class="bi bi-quote" style="font-size: 30px; color: #038ED1;"></i>
-                        <h5 class="cardHeading mt-3" style="color: #038ED1"><b>{{ testimonial.title }}</b></h5>
-                        <p class="mb-4 cardDescription">{{ testimonial.description }}</p>
+                        <h5 class="cardHeading mt-3 inter" style="color: #038ED1; letter-spacing: -1px; font-size: 22px;"><b>{{ testimonial.title }}</b></h5>
+                        <p class="mb-4 cardDescription" style="font-size: 14px;">{{ testimonial.description }}</p>
                         <hr />
                         <div class="d-flex align-items-center">
                             <img [src]="logo" width="30" alt="logo" class="me-2">
-                            <span class="text-muted">{{ testimonial.name }}</span>
+                            <span class="inter" style="letter-spacing: -1px; color: #038ED1;"><b>{{ testimonial.name }}</b></span>
                         </div>
                     </div>
                 </div>
@@ -81,13 +81,13 @@
 <div class="container-fluid py-5 mt-5 text-white cta" style="background-color: #07AEFF;">
     <div class="row align-items-center justify-content-center" style="padding: 0px 10%;">
         <div class="col-md-8 text-center text-md-start mb-4 mb-md-0">
-            <h6 class='pop'>ASMV</h6>
-            <h1 class='pop'>Hai în echipă!</h1>
+            <h6 class='pop'><b>ASMV</b></h6>
+            <h1 class='pop inter' style="letter-spacing: -1px;"> <b>Hai în echipă!</b></h1>
             <p>Hai să faci parte din cea mai cool asociație de voluntari în domeniul sănătății! Alătură-te unei comunități dedicate, unde vei avea ocazia să contribui la îmbunătățirea vieții celor din jurul tău. Fie că ești student la medicină, asistent medical sau pur și simplu pasionat de sănătate și binefacere, vei găsi locul potrivit la noi. Implică-te în proiecte de voluntariat, campanii de informare și evenimente educative care fac o diferență reală. Vino să înveți, să ajuți și să faci parte dintr-o echipă entuziastă și plină de compasiune. Te așteptăm cu brațele deschise! 🌟</p>
         </div>
         <div class="col-md-4 text-center text-md-start">
             <div class="d-flex justify-content-center justify-content-md-start">
-                <a class="btn btn-light w-100 border-rounded dm" style="font-size: 18px; padding: 10px 50px; border-radius: 10px; color: #07AEFF; background-color: white;" href="/haiInEchipa" class="text-decoration-none"> <span id="dm" style="font-style: 'DM Sans', sans-serif;">Hai la bord!</span> </a> 
+                <a class="btn btn-light w-100 border-rounded dm" style="font-size: 18px; padding: 10px 50px; border-radius: 10px; color: #07AEFF; background-color: white;" href="/haiInEchipa" class="text-decoration-none inter"> <span id="dm" class="inter" style="letter-spacing: 1px;"><b>Hai la bord!</b></span> </a> 
             </div>
         </div>
     </div>

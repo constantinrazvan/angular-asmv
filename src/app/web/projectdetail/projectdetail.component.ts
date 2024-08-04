@@ -20,10 +20,7 @@ export class ProjectDetailComponent implements OnInit {
     summary: '',
     content: '',
     userId: 0,
-    images: {
-      $id: '',
-      $values: []
-    }
+    image: ''
   };
 
   title = `ASMV - Proiect`;
@@ -43,27 +40,33 @@ export class ProjectDetailComponent implements OnInit {
       next: (data: Project) => {
         this.project = {
           ...data,
-          images: {
-            $id: data.images ? data.images.$id : '',
-            $values: data.images ? data.images.$values.map(image => ({
-              ...image,
-              filePath: this.getImageUrl(image.filePath)
-            })) : []
-          }
+          image: this.getImageUrl(data.image) 
         };
+        console.log('Project:', this.project);
       },
       error: (error) => {
         console.error('Error fetching project', error);
       }
     });
   }
+  
+
+  setUpperCase() : void {
+    this.upperCaseTitle = this.project.title.charAt(0).toUpperCase() + this.project.title.slice(1);
+  }
+
+  upperCaseTitle = '';
 
   getImageUrl(filePath: string): string {
-    return filePath.startsWith('http') ? filePath : `https://localhost:7155/${filePath.replace('wwwroot/', '')}`;
+    return filePath && filePath.startsWith('http') 
+      ? filePath 
+      : `https://localhost:7155/${filePath.replace('wwwroot/', '')}`;
   }
+  
+  
 
   onImageError(event: Event): void {
     const target = event.target as HTMLImageElement;
-    target.src = 'path/to/default/image.png';
+    target.src = '../../../assets/defaultImage.jpeg';
   }
 }
