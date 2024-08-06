@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top p-2">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top p-2" [ngClass]="{'scrolled': scrolled}">
     <div class="container-fluid mx-5 px-2">
         <a class="navbar-brand" href="/">
             <img src="../../../../assets/logoFooter.jpg" alt="logo" height="40" />
@@ -20,9 +20,6 @@
                     </li>
                     <li class="nav-item">
                         <a [ngClass]="{'active-link': activeRoute === '/members'}" class="nav-link px-2" href="/members">Echipa ASMV</a>
-                    </li>
-                    <li class="nav-item">
-                        <a [ngClass]="{'active-link': activeRoute === '/blogs'}" class="nav-link px-2" href="/blogs">Bloguri</a>
                     </li>
                     <li class="nav-item">
                         <a [ngClass]="{'active-link': activeRoute === '/contact'}" class="nav-link px-2" href="/contact">Contact</a>

@@ -32,6 +32,8 @@ export class BecomeVolunteerComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = "ASMV";
+
+    this.error = "Din pacate, in momentul actual nu functioneaza acest serviciu. Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail.";
   }
 
   validator(): boolean {
@@ -57,21 +59,22 @@ export class BecomeVolunteerComponent implements OnInit {
   }
 
   becomeVolunteerPost() {
-    if (!this.validator()) {
-      return;
-    }
-    console.log(this.becomeVolunteer);
-    this.service.addVolunteer(this.becomeVolunteer).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.formSent = true;
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.log(err);
-        this.error = err.error.errors || { general: 'An error occurred' };
-        window.alert(this.error);
-      }
-    });
+    // if (!this.validator()) {
+    //   return;
+    // }
+    // console.log(this.becomeVolunteer);
+    // this.service.addVolunteer(this.becomeVolunteer).subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //     this.formSent = true;
+    //     this.router.navigate(['/']);
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //     this.error = err.error.errors || { general: 'An error occurred' };
+    //     window.alert(this.error);
+    //   }
+    // });
+   this.error = "Din pacate, in momentul actual nu functioneaza acest serviciu. Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail.";
   }
 }

@@ -1,28 +1,49 @@
 <app-web-navbar></app-web-navbar>
 
-<div class="container-fluid my-5">
+<div class="container">
+
     <div class="container">
-        <div class="jumbotron text-center my-5 fade-in custom-jumbotron">
-            <h1 class="display-2">Proiecte</h1>
-            <p class="lead">Proiectele ASMV aduc cea mai semnificativă valoare asociației noastre!</p>
+        <div class="hero-section text-center my-5 fade-in">
+            <h1 class="inter title">
+                <b>
+                    Povestile cu care ne 
+                    <span class="underline-container">
+                        mandrim
+                        <img src="../../../assets/needle-underline 1.svg" alt="underline" class="underline-img">
+                    </span>
+                </b>
+                <img src="../../../assets/spark 1.svg" alt="spark" class="spark-img">
+            </h1>
+            <p class="subtitle">Proiectele aduc cea mai semnificativă valoare asociației noastre!</p>
         </div>
     </div>
 
     <div class="container">
-        <div class="row">
-            <div *ngFor="let project of projects.reverse()" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-description">Pentru a afla mai multe apasă pe butonul de mai jos pentru a vedea proiectul.</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button [routerLink]="['/proiect/', project.id]" class="btn btn-custom">Vezi proiect</button>
+        <div class="row justify-content-center">
+            <div *ngFor="let project of projects" class="col-md-8 mb-4 fade-in">
+                <div class="project-card">
+                    <div class="row no-gutters">
+                        <div class="col-md-5">
+                            <img src="../../../assets/heroBg.jpg" alt="project" class="project-img">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="project-content">
+                                <h3 class="inter">{{ project.title }}</h3>
+                                <p>{{ project.summary }}</p>
+                                <a class="btn btn-custom" [routerLink]="['/proiect']">Vezi Proiect</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    
+    
+    
+    
+    
 </div>
 
 <app-web-footer></app-web-footer>

@@ -1,83 +1,101 @@
 <app-web-navbar></app-web-navbar>
 
-<div class="container-fluid my-5">
-    <div class="container">
-        <div class="jumbotron text-center my-5 fade-in" style="background-color: #038ED1; padding: 50px; color: white;">
-            <h1 class="inter" style="font-size: 50px;"><b>Echipa</b></h1>
-            <p class="lead" style="font-size: 15px;">Voluntarii ASMV aduc cea mai semnificativă valoare asociației noastre!</p>
-        </div>
+<div class="container">
+
+    <div class="hero-section text-center my-5 fade-in">
+        <h1 class="inter title">
+            <b>
+                Echipa
+                <span class="underline-container">
+                    valoarasa
+                    <img src="../../../assets/needle-underline 1.svg" alt="underline" class="underline-img">
+                </span>
+                a asociatiei
+            </b>
+            <img src="../../../assets/spark 1.svg" alt="spark" class="spark-img">
+        </h1>
     </div>
 
-    <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold; letter-spacing: -1px;" class="inter"><b>Adunarea Generală / Membrii Fondatori</b></h1>
+    <div class="content">
         <div class="row">
-            <div *ngFor="let member of membersAdunareaGenerala" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card">
+            <div class="col-md-3 mb-4" *ngFor="let member of membersAdunareaGenerala">
+                <div class="card h-100 text-center">
                     <div class="card-body">
-                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
-                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
+                        <div class="logo-wrapper">
+                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
+                        </div>
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ member.firstName + ' ' + member.lastName }}</b></h3>
+                        <p class="card-text">{{ member.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider" *ngIf="membersAdunareaGenerala.length > 0" />
+        
+        <div class="row">
+            <div class="col-md-3 mb-4" *ngFor="let member of membersConsiliuDirectorial">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="logo-wrapper">
+                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
+                        </div>
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ member.firstName + ' ' + member.lastName }}</b></h3>
+                        <p class="card-text">{{ member.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="section-divider" *ngIf="membersConsiliuDirectorial.length > 0" />
+        
+        <div class="row">
+            <div class="col-md-3 mb-4" *ngFor="let member of membersOnoare">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="logo-wrapper">
+                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
+                        </div>
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ member.firstName + ' ' + member.lastName }}</b></h3>
+                        <p class="card-text">{{ member.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider" *ngIf="membersOnoare.length > 0" />
+        
+        <div class="row">
+            <div class="col-md-3 mb-4" *ngFor="let member of membersActives">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="logo-wrapper">
+                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
+                        </div>
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ member.firstName + ' ' + member.lastName }}</b></h3>
+                        <p class="card-text">{{ member.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider" *ngIf="membersActives.length > 0" />
+        
+        <div class="row">
+            <div class="col-md-3 mb-4" *ngFor="let member of memberVolunteers">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="logo-wrapper">
+                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
+                        </div>
+                        <h3 class="card-title" style="color: #038ED1;"><b>{{ member.firstName + ' ' + member.lastName }}</b></h3>
+                        <p class="card-text">{{ member.status }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold;letter-spacing: -1px; font-family: 'Inter', sans-serif;" ><b>Consiliu Directorial</b></h1>
-        <div class="row">
-            <div *ngFor="let member of membersConsiliuDirectorial" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
-                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold;letter-spacing: -1px;" class="inter"><b>Membrii de Onoare</b></h1>
-
-        <div class="row">
-            <div *ngFor="let member of membersOnoare" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
-                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold;letter-spacing: -1px;" class="inter"><b>Membrii Activi</b></h1>
-        <div class="row">
-            <div *ngFor="let member of membersActives" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
-                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 style="color: #038ED1; font-weight: bold;letter-spacing: -1px;" class="inter"><b>Membrii Voluntari</b></h1>
-        <div class="row">
-            <div *ngFor="let member of memberVolunteers" class="col-md-4 col-xs-12 mb-4 fade-in">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../../../assets/logoFooter.jpg" alt="member"  height="80">
-                        <h5 class="card-title dm">{{ member.firstName }} {{ member.lastName }}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <app-web-footer></app-web-footer>

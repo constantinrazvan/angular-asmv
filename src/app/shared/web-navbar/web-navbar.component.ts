@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-web-navbar',
@@ -11,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class WebNavbarComponent implements OnInit {
 
   constructor() { }
+
+  scrolled = false;
 
   activeRoute = window.location.pathname;
 
@@ -29,5 +31,18 @@ export class WebNavbarComponent implements OnInit {
         this.activeRoute = '/contact';
         break;
     }
+
+    this.checkScroll();
   }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    this.checkScroll();
+  }
+
+  checkScroll() {
+    this.scrolled = window.scrollY > 50; // Adjust this value as needed
+  }
+
+  
 }

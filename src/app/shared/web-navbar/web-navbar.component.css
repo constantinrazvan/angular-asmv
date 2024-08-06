@@ -49,3 +49,16 @@ a {
         font-size: 14px;
     }
 }
+
+/* Initial styles for the navbar */
+.navbar {
+    background-color: transparent; /* Transparent background initially */
+    transition: background-color 0.3s ease; /* Smooth transition for the background color */
+    box-shadow: none; /* No shadow initially */
+}
+
+/* Styles for the navbar when scrolled */
+.navbar.scrolled {
+    background-color: #ffffff; /* White background when scrolled */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to show depth */
+}

@@ -14,12 +14,24 @@ import { RouterLink } from '@angular/router';
   imports: [WebNavbarComponent, WebFooterComponent, CommonModule, RouterLink],
 })
 export class ProjectsComponent implements OnInit {
-  projects: Project[] = [];
+  projects: Project[] = [
+    // Add your projects here
+    {
+      id: 1,
+      title: 'Project 1',
+      content: 'Content 1',
+      summary: 'Summary 1', 
+      userId: 0,
+      image: ''
+    }
+  ];
 
   constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
     this.loadProjects();
+
+    localStorage.setItem("project1", JSON.stringify(this.projects[0]));
   }
 
   loadProjects() {

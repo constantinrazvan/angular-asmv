@@ -16,12 +16,14 @@ import { ProjectService } from '../../core/services/project/service.service';
 export class ProjectDetailComponent implements OnInit {
   project: Project = {
     id: 0,
-    title: '',
+    title:'',
     summary: '',
     content: '',
     userId: 0,
     image: ''
   };
+
+  
 
   title = `ASMV - Proiect`;
 
@@ -31,7 +33,19 @@ export class ProjectDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadProject();
+    const savedProject = localStorage.getItem("project1");
+
+    if (savedProject) {
+      const parsedProject: Project = JSON.parse(savedProject);
+      this.project = {
+        id: parsedProject.id,
+        title: parsedProject.title,
+        content: parsedProject.content,
+        summary: parsedProject.summary,
+        userId: parsedProject.userId,
+        image: parsedProject.image
+      };
+    }
   }
 
   loadProject(): void {

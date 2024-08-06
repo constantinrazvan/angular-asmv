@@ -1,86 +1,78 @@
 @font-face {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
-         url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
-}
-
-@font-face {
     font-family: 'Inter';
     font-style: normal;
-    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('ttf');
+    font-weight: normal; /* Specify weight if known */
+    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('truetype');
+}
+
+/* Fade-in Animation */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .inter {
     font-family: 'Inter', sans-serif;
+    letter-spacing: -3px;
 }
 
-* {
-    font-family: 'DM Sans';
+.underline-container {
+    position: relative;
+    display: inline-block;
 }
 
-.dm {
-    font-family: 'DM Sans', sans-serif;
-}
-
-.jumbotron {
-    background-color: #038ED1; 
-    background-image: url('../../../assets/membri.jpg'); 
-    background-size: cover;     
-    background-position: center;
-    color: white;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-}
-
-.card-body {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.card-title, .card-text {
-    margin: 0;
-}
-
-.memberFunction {
-    font-size: 13px;
-}
-
-.memberSection {
-    margin-bottom: 30px;
-}
-
-.fade-in {
-    opacity: 0;
-    transition: opacity 0.8s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-}
-
-.headingSection {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 48px;
+.underline-img {
+    position: absolute;
+    bottom: -10px; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(50%);
+    width: 100%;
+    z-index: -1;
     color: #038ED1;
-    font-weight: bold;
-    margin-bottom: 30px;
 }
 
-.member-image {
+.spark-img {
+    position: absolute;
+    width: 40px;
+    margin-top: -5px;
+}
+
+@media screen and (max-width: 768px) {
+    .spark-img {
+        width: 30px;
+    }
+}
+
+.logo-wrapper {
+    display: inline-block;
+    padding: 10px; /* Adjust padding as needed */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Border to match the image border */
+    border-radius: 100px; /* Same border radius as the image */
+    background-color: white; /* Match this to the background color if needed */
+}
+
+.logo-img {
     width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
+    border-radius: 100px;
 }
 
-.memberFunction {
-    margin-top: 10px;
+.card-title {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -1px;
+    font-size: 20px;
+}
+
+.section-divider {
+    border: none;
+    height: 2px; /* Thickness of the line */
+    background-color: #038ED1; /* Color of the line */
+    margin: 30px 0; /* Spacing above and below the line */
 }

@@ -2,12 +2,34 @@
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 400;
-    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('ttf'),
+    src: url('../../../assets/DM_Sans/static/DMSans_24pt-Medium.ttf') format('truetype'),
          url('/assets/fonts/DM-Sans-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal; /* Specify weight if known */
+    src: url('../../../assets/Inter/static/Inter_24pt-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 900;
+    src: url('../../../assets/Poppins/Poppins-ExtraBold.ttf') format('truetype');
 }
 
 * {
     font-family: 'DM Sans', sans-serif;
+}
+
+.poppins {
+    font-family: 'Poppins', sans-serif;
+    font-size: 50px;
+}
+
+.inter {
+    font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -127,4 +149,111 @@ body {
     to {
         opacity: 1;
     }
+}
+
+.underline-container {
+    position: relative;
+    display: inline-block;
+}
+
+.underline-img {
+    position: absolute;
+    bottom: -10px; /* Adjust this value as needed to position the image */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%) translateY(50%); /* Center horizontally and adjust vertical position */
+    width: 100%; /* Ensure it fits the width of the span */
+    z-index: -1; /* Ensure it’s behind the text */
+    color: #038ED1;
+}
+
+.spark-img {
+    position: absolute;
+    width: 40px;
+    margin-top: -5px;
+}
+
+@media screen and (max-width: 768px) {
+    .spark-img {
+        width: 30px;
+    }
+}
+
+.project-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.project-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.project-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between elements */
+    height: 100%; /* Full height of the container */
+}
+
+.project-content h3 {
+    font-size: 1.875rem; /* 30px */
+    margin: 0;
+    color: #333;
+}
+
+.project-content p {
+    font-size: 1rem;
+    color: #666;
+    margin: 5px 0; /* Space between title and summary */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+}
+
+.btn-custom {
+    background-color: #038ED1;
+    border: none;
+    color: #fff;
+    font-size: 0.875rem; /* Slightly smaller font size */
+    padding: 8px 16px; /* Adjust padding for a smaller button */
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    align-self: center; /* Center the button horizontally */
+    margin-top: auto; /* Push button to the bottom of the content */
+}
+
+.btn-custom:hover {
+    background-color: #026ab1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.col-md-5, .col-md-7 {
+    padding-right: 0;
+    padding-left: 0;
 }

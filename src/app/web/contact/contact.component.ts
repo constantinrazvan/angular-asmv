@@ -26,7 +26,9 @@ export class ContactComponent implements OnInit {
     private service: ContactService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.error = "Momentan serviciul de contact nu este configurat! Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail!";
+  }
 
   postMessage() {
     console.log('Posting message:', this.message); // Log the message data
@@ -37,7 +39,7 @@ export class ContactComponent implements OnInit {
       },
       error: (error: any) => {
         console.log('Error:', error); // Log the error
-        this.error = error.message || 'An error occurred';
+        this.error = "Momentan serviciul de contact nu este configurat! Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail!";
       }
     });
   }

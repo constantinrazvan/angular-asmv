@@ -9,10 +9,8 @@ export const routes: Routes = [
   { path: 'contact', loadComponent: () => import('./web/contact/contact.component').then(m => m.ContactComponent), title: 'ASMV - Contact' },
   { path: 'volunteers', loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent), title: 'ASMV - Voluntari' },
   { path: 'haiInEchipa', loadComponent: () => import('./web/become-volunteer/become-volunteer.component').then(m => m.BecomeVolunteerComponent), title: 'ASMV - Hai in echipa' },
-  { path: 'blogs', loadComponent: () => import('./web/blogs/blogs.component').then(m => m.BlogsComponent), title: 'ASMV - Bloguri' },
-  { path: 'blogs/:id', loadComponent: () => import('./web/blogdetail/blogdetail.component').then(m => m.BlogdetailComponent), title: 'ASMV - Blog' },
   { path: 'supportUs', loadComponent: () => import('./web/supportus/supportus.component').then(m => m.SupportusComponent), title: 'ASMV - Sponsorizeaza-ne!' },
-  { path: 'proiect/:id', loadComponent: () => import('./web/projectdetail/projectdetail.component').then(m => m.ProjectDetailComponent), title: 'ASMV - Proiect' },
+  { path: 'proiect', loadComponent: () => import('./web/projectdetail/projectdetail.component').then(m => m.ProjectDetailComponent), title: 'ASMV - Proiect' },
   { path: 'members', loadComponent: () => import('./web/members/members.component').then(m => m.MembersComponent), title: 'ASMV - Membri' },
   { path: 'proiecte', loadComponent: () => import('./web/projects/projects.component').then(m => m.ProjectsComponent), title: 'ASMV - Proiecte' },
   { path: 'login', loadComponent: () => import("./dashboard/login/login.component").then(m => m.LoginComponent), title: 'Dashboard - Login' },
@@ -25,12 +23,6 @@ export const routes: Routes = [
         path: 'proiecte',
         loadComponent: () => import('./dashboard/projects/projects.component').then(m => m.ProjectsComponent),
         title: 'Dashboard - Proiecte',
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'bloguri',
-        loadComponent: () => import('./dashboard/blogs/blogs.component').then(m => m.BlogsComponent),
-        title: 'Dashboard - Bloguri',
         canActivate: [AuthGuard]
       },
       {
@@ -73,18 +65,6 @@ export const routes: Routes = [
         path: 'statistici',
         loadComponent: () => import("./dashboard/statistics/statistics.component").then(m => m.StatisticsComponent),
         title: 'Dashboard - Statistici',
-        canActivate: [AuthGuard]
-      }, 
-      {
-        path: 'adauga-blog',
-        loadComponent: () => import("./dashboard/blogs/add-blog/add-blog.component").then(m => m.AddBlogComponent),
-        title: 'Dashboard - Adauga blog',
-        canActivate: [AuthGuard]
-      }, 
-      {
-        path: 'editeaza-blog/:id',
-        loadComponent: () => import("./dashboard/blogs/edit-blog/edit-blog.component").then(m => m.EditBlogComponent),
-        title: 'Dashboard - Editeaza blog',
         canActivate: [AuthGuard]
       }, 
       {

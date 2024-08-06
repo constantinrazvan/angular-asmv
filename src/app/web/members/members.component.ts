@@ -4,6 +4,7 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { CommonModule } from '@angular/common';
 import { VolunteerService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
+import { now } from 'jquery';
 
 @Component({
   selector: 'app-members',
@@ -19,8 +20,129 @@ export class MembersComponent implements OnInit, AfterViewInit {
   membersAdunareaGenerala: Volunteer[] = [];
   membersConsiliuDirectorial: Volunteer[] = [];
   membersOnoare: Volunteer[] = [];
-  membersActives: Volunteer[] = [];
-  memberVolunteers: Volunteer[] = [];
+  membersActives: Volunteer[] = [
+    {
+      id: 1, 
+      firstName: 'Georgia', 
+      lastName: 'Iacob', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Activ', 
+      joined: new Date(),
+    }
+  ];
+  memberVolunteers: Volunteer[] = [
+    {
+      id: 1, 
+      firstName: 'Ana Maria Gabriela', 
+      lastName: 'Cosma', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 2, 
+      firstName: 'Bianca Maria', 
+      lastName: 'Francu', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 3, 
+      firstName: 'Augustin', 
+      lastName: 'Fricatel', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 4, 
+      firstName: 'Cristina Catalina', 
+      lastName: 'Gradinaru', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 5, 
+      firstName: 'Marina', 
+      lastName: 'Iordan', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    },
+    {
+      id: 5, 
+      firstName: 'Bianca-Andreea', 
+      lastName: 'Matei', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    },
+    {
+      id: 6, 
+      firstName: 'Electra', 
+      lastName: 'Milidonis', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 7, 
+      firstName: 'Zakaria', 
+      lastName: 'Rochdi', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }, 
+    {
+      id: 8, 
+      firstName: 'Andrei Eusebiu', 
+      lastName: 'Valimareanu', // cu diacritice
+      email: '', 
+      phoneNumber: '', 
+      status: 'Membru Voluntar', 
+      joined: new Date(),
+    }
+  ];
+  memberAjInstructorPA: Volunteer[] = [
+    {
+      id: 1, 
+      firstName: 'Bianca', 
+      lastName: 'Ianus', 
+      email: '', 
+      phoneNumber: '', 
+      status: '', 
+      joined: new Date(),
+    },
+    {
+      id: 2, 
+      firstName: 'Elif', 
+      lastName: 'Ibadula', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Aj. Instructor PA', 
+      joined: new Date(),
+    }, 
+    {
+      id: 3, 
+      firstName: 'Ana-Maria', 
+      lastName: 'Ionascu', 
+      email: '', 
+      phoneNumber: '', 
+      status: 'Aj. Instructor PA', 
+      joined: new Date(),
+    }
+  ];
 
   constructor(private service: VolunteerService) {}
 

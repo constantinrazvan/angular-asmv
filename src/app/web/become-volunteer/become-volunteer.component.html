@@ -7,6 +7,7 @@
       <h1 class="inter">
         <b>Completează formularul acesta și hai să faci parte din cea mai cool asociație!</b>
       </h1>
+      <p class="text-danger"> {{ error }} </p>
       <p style="margin-top: 20px; margin-bottom: 20px; color: grey;">
         🌟 Înscrie-te pentru a Face Diferența! 🌟
         <br /><br/>
@@ -27,7 +28,7 @@
 
     <!-- Secțiunea cu formularul -->
     <div class="col-md-5 py-4 px-3 shadow" id="colForm">
-      <h1 class="inter mt-3"> <b>Hai în echipă</b></h1>
+      <h1 class="inter" style="margin-top: 50px;"> <b>Hai în echipă</b></h1>
       <span> Formular de înscriere online</span>
       <form (ngSubmit)="becomeVolunteerPost()" style="margin-top: 30px;">
         <div class="row mb-3">
