@@ -20,10 +20,9 @@ export class ProjectDetailComponent implements OnInit {
     summary: '',
     content: '',
     userId: 0,
-    image: ''
+    image: '',
+    date: new Date
   };
-
-  
 
   title = `ASMV - Proiect`;
 
@@ -33,35 +32,21 @@ export class ProjectDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const savedProject = localStorage.getItem("project1");
-
-    if (savedProject) {
-      const parsedProject: Project = JSON.parse(savedProject);
-      this.project = {
-        id: parsedProject.id,
-        title: parsedProject.title,
-        content: parsedProject.content,
-        summary: parsedProject.summary,
-        userId: parsedProject.userId,
-        image: parsedProject.image
-      };
-    }
+   this.loadProject();
   }
 
   loadProject(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.getProject(id).subscribe({
-      next: (data: Project) => {
-        this.project = {
-          ...data,
-          image: this.getImageUrl(data.image) 
-        };
-        console.log('Project:', this.project);
-      },
-      error: (error) => {
-        console.error('Error fetching project', error);
-      }
-    });
+    const projectId = this.route.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.service.getProjectById(+projectId).subscribe({
+        next: (data: Project) => {
+          this.project = data;
+        },
+        error: (error: string | any) => {
+          console.log(error);
+        }
+      })
+    }
   }
   
 

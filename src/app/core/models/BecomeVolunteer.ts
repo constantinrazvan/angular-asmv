@@ -1,7 +1,7 @@
 export interface BecomeVolunteer {
-    id: number,
-    firstName: string;
-    lastName: string;
+    id: number | string,
+    firstname: string;
+    lastname: string;
     email: string;
     faculty: string;
     phoneNumber: string;
