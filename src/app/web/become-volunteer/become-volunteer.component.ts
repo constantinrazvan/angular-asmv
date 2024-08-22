@@ -6,7 +6,6 @@ import { bootstrapTelephoneFill, bootstrapEnvelopeFill, bootstrapGeoAltFill } fr
 import { provideIcons } from '@ng-icons/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BecomevolunteerService } from '../../core/services/becomeVolunteer/becomevolunteer.service';
 import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
 
 @Component({
@@ -20,13 +19,18 @@ import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
 export class BecomeVolunteerComponent implements OnInit {
 
   constructor(
-    private service: BecomevolunteerService,
     private router: Router
   ) {}
 
   title = "ASMV - Devino Voluntar";
   asmvEmail: string = 'asmv.ct@gmail.com';
-  becomeVolunteer: BecomeVolunteer = { ...this.service.becomeVolunteerEmpty };
+  becomeVolunteer: BecomeVolunteer = {
+    fullname: '',
+    email: '',
+    faculty: '',
+    phone: '',
+    reason: '',
+  };
   error: string = '';
   formSent: boolean = false;
 
@@ -37,7 +41,7 @@ export class BecomeVolunteerComponent implements OnInit {
   }
 
   validator(): boolean {
-    if (!this.becomeVolunteer.firstName || !this.becomeVolunteer.lastName || !this.becomeVolunteer.email || !this.becomeVolunteer.faculty || !this.becomeVolunteer.phoneNumber || !this.becomeVolunteer.reason) {
+    if (!this.becomeVolunteer.fullname || !this.becomeVolunteer.email || !this.becomeVolunteer.faculty || !this.becomeVolunteer.phone || !this.becomeVolunteer.reason) {
       this.error = "Toate campurile sunt obligatorii";
       window.alert(this.error);
       return false;
@@ -49,7 +53,7 @@ export class BecomeVolunteerComponent implements OnInit {
       return false;
     }
 
-    if (this.becomeVolunteer.phoneNumber.length !== 10 || !this.becomeVolunteer.phoneNumber.split('').every(char => !isNaN(Number(char)))) {
+    if (this.becomeVolunteer.phone.length !== 10 || !this.becomeVolunteer.phone.split('').every(char => !isNaN(Number(char)))) {
       this.error = "Numar invalid";
       window.alert(this.error);
       return false;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
+// import { AuthService } from '../services/auth/auth.service';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class StatusGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
+    // private authService: AuthService,
     private router: Router
   ) {}
 
@@ -16,7 +16,7 @@ export class StatusGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const token = this.authService.getToken();
+    const token = localStorage.getItem('token');
 
     if (!token) {
       this.router.navigate(['/login']);

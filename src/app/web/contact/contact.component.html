@@ -1,24 +1,34 @@
 <app-web-navbar></app-web-navbar>
 
 <div class="container-fluid my-5">
+  <div class="container text-center my-5">
+    <div class="alert alert-info py-4" role="alert">
+        <h3 class="font-weight-bold text-primary mb-3">
+          ! Formularul de contact este în prezent indisponibil!
+        </h3>
+        <p class="lead">
+            Ne cerem scuze pentru inconvenient! Serviciul de contact nu este disponibil în acest moment, dar lucrăm pentru a-l face funcțional în scurt timp. Până atunci, puteți să ne contactați la adresa de email <a href="mailto:asmv.ct@gmail.com">asmv.ct&#64;gmail.com</a>.
+        </p>
+    </div>
+  </div>
+
   <div id="form" style="margin: auto; text-align: left;">
     <div class="mb-3">
       <h1 class="inter" style="font-size: 40px; text-align: center; letter-spacing: -1.5px;"><b>Contactează-ne!</b></h1>
       <p class="text-center"> Lasă-ne un mesaj folosind formularul de mai jos și noi vom reveni cu un mesaj în cel mai scurt timp!</p>
-      <p class="text-center text-danger"> {{error}} </p>
     </div>
     <form class="mt-5 mb-5" (ngSubmit)="postMessage()">
       <div class="form-group mb-3">
         <label for="fullName" style="text-align: left;">Nume Prenume</label>
-        <input type="text" [(ngModel)]="message.FullName" name="fullName" class="form-control" id="fullName" placeholder="Ion Ionescu">
+        <input type="text" [(ngModel)]="message.name" name="fullName" class="form-control" id="fullName" placeholder="Ion Ionescu">
       </div>
       <div class="form-group mb-3">
         <label for="emailAddress">Adresă Email</label>
-        <input type="email" [(ngModel)]="message.Email" name="email" class="form-control" id="emailAddress" placeholder="email@exemplu.com">
+        <input type="email" [(ngModel)]="message.email" name="email" class="form-control" id="emailAddress" placeholder="email@exemplu.com">
       </div>
       <div class="form-group mb-3">
         <label for="message">Mesaj</label>
-        <textarea type="text" [(ngModel)]="message.Mess" name="message" class="form-control" id="message" rows="3"></textarea> <!-- Bind to Mess -->
+        <textarea type="text" [(ngModel)]="message.text" name="message" class="form-control" id="message" rows="3"></textarea> <!-- Bind to Mess -->
       </div>
       <button class="btn w-100 text-white intern" style="background-color: #038ED1; letter-spacing: -0.5px;" type="submit"><b>Trimite</b></button>
     </form>

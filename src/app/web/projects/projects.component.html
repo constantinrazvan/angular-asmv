@@ -1,49 +1,38 @@
 <app-web-navbar></app-web-navbar>
 
-<div class="container">
-
-    <div class="container">
-        <div class="hero-section text-center my-5 fade-in">
-            <h1 class="inter title">
-                <b>
-                    Povestile cu care ne 
-                    <span class="underline-container">
-                        mandrim
-                        <img src="../../../assets/needle-underline 1.svg" alt="underline" class="underline-img">
-                    </span>
-                </b>
-                <img src="../../../assets/spark 1.svg" alt="spark" class="spark-img">
-            </h1>
-            <p class="subtitle">Proiectele aduc cea mai semnificativă valoare asociației noastre!</p>
-        </div>
+<!-- <div class="container py-5">
+    <div class="jumbotron bg-light p-3">
+        <h2 class="text-center font-weight-bold text-primary">Proiectele cu care ne mândrim!</h2>
+        <p class="text-center small mt-4">
+            De-a lungul timpului, ne-am distins prin numeroase proiecte pe care le-am realizat cu succes. Fiecare dintre acestea
+            a reflectat angajamentul nostru față de excelență și profesionalism, contribuind la crearea unei reputații solide și recunoscute în domeniul nostru de activitate. Prin munca noastră dedicată, am reușit să aducem valoare adăugată și să stabilim
+            standarde înalte în toate inițiativele pe care le-am întreprins. Fiecare proiect finalizat este o mărturie a pasiunii
+            și profesionalismului echipei noastre.
+        </p>
     </div>
+    <hr />
+</div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div *ngFor="let project of projects" class="col-md-8 mb-4 fade-in">
-                <div class="project-card">
-                    <div class="row no-gutters">
-                        <div class="col-md-5">
-                            <img src="../../../assets/heroBg.jpg" alt="project" class="project-img">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="project-content">
-                                <h3 class="inter">{{ project.title }}</h3>
-                                <p>{{ project.summary }}</p>
-                                <a class="btn btn-custom" [routerLink]="['/proiect']">Vezi Proiect</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col-md-3 mb-4" *ngFor="let project of projects">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h3 class="card-title" style="color: #038ED1;"><b>{{ project.title }}</b></h3>
+                <p class="card-text">{{ project.content }}</p>
+                <button class="btn btn-primary" [routerLink]="['/proiecte', project.id]" routerLinkActive="router-link-active">Detalii</button>
             </div>
         </div>
     </div>
-    
-    
-    
-    
-    
-    
-</div>
+</div> -->
 
+<div class="container text-center my-5">
+    <div class="alert alert-info py-4" role="alert">
+        <h3 class="font-weight-bold text-primary mb-3">
+            ! Proiectele noastre sunt în curs de postare!
+        </h3>
+        <p class="lead">
+            Dorim să oferim informații de calitate pentru vizitatorii website-ului nostru! Vă rugăm să reveniți în curând pentru a descoperi mai multe despre realizările noastre.
+        </p>
+    </div>
+</div>
 <app-web-footer></app-web-footer>

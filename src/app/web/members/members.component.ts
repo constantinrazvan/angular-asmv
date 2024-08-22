@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
-import { VolunteerService } from '../../core/services/volunteers/volunteers.service';
+// import { VolunteerService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
 import { now } from 'jquery';
 
@@ -17,134 +17,305 @@ export class MembersComponent implements OnInit, AfterViewInit {
 
   title = "ASMV - Membri";
 
-  membersAdunareaGenerala: Volunteer[] = [];
-  membersConsiliuDirectorial: Volunteer[] = [];
-  membersOnoare: Volunteer[] = [];
-  membersActives: Volunteer[] = [
+  membersAdunareaGenerala: Volunteer[] = [
     {
       id: 1, 
-      firstName: 'Georgia', 
-      lastName: 'Iacob', 
+      firstname: 'Dr. Dan', 
+      lastname: 'Pletea', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Activ', 
-      joined: new Date(),
-    }
-  ];
-  memberVolunteers: Volunteer[] = [
-    {
-      id: 1, 
-      firstName: 'Ana Maria Gabriela', 
-      lastName: 'Cosma', 
-      email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
+      phone: '', 
+      status: 'Presedinte Adunarea Generala', 
+      joined_date: '22-05-2025',
+      city: ''
     }, 
     {
       id: 2, 
-      firstName: 'Bianca Maria', 
-      lastName: 'Francu', 
+      firstname: 'Dr. Florin', 
+      lastname: 'Stanimir', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
+      phone: '', 
+      status: 'Vicepresedinte Adunarea Generala', 
+      joined_date: '22-05-2025',
+      city: ''
     }, 
     {
-      id: 3, 
-      firstName: 'Augustin', 
-      lastName: 'Fricatel', 
+      id: 3,
+      firstname: 'Dr. Florin',
+      lastname: 'Postelnicu',
+      email: '',
+      phone: '',
+      status: 'Secretar Adunarea Generala',
+      joined_date: '22-05-2025',
+      city: ''
+    }
+  ];
+  membersConsiliuDirectorial: Volunteer[] = [
+    {
+      id: 1, 
+      firstname: 'Esra', 
+      lastname: '', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
+      phone: '', 
+      status: 'Presedinte', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 2,
+      firstname: 'Berkant', 
+      lastname: 'Güneș', 
+      email: '', 
+      phone: '', 
+      status: 'Vicepresedinte', 
+      joined_date: '22-05-2025',
+      city: ''
+    },
+    {
+      id: 3, 
+      firstname: 'Georgiana Cristina', 
+      lastname: 'Iacob', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Activ - Debutant Prim Ajutor - Aj. Instructor Prim Ajutor', 
+      joined_date: '22-05-2025',
+      city: ''
     }, 
     {
       id: 4, 
-      firstName: 'Cristina Catalina', 
-      lastName: 'Gradinaru', 
+      firstname: 'Std. Med.', 
+      lastname: 'Dana Popa', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
+      phone: '', 
+      status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
+      joined_date: '22-05-2025',
+      city: ''
     }, 
     {
       id: 5, 
-      firstName: 'Marina', 
-      lastName: 'Iordan', 
+      firstname: 'Dr. Roxana', 
+      lastname: 'Stoiciu', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
-    },
-    {
-      id: 5, 
-      firstName: 'Bianca-Andreea', 
-      lastName: 'Matei', 
-      email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
-    },
+      phone: '', 
+      status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
     {
       id: 6, 
-      firstName: 'Electra', 
-      lastName: 'Milidonis', 
+      firstname: 'Vlad Daniel', 
+      lastname: 'Leu', 
       email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
-    }, 
-    {
-      id: 7, 
-      firstName: 'Zakaria', 
-      lastName: 'Rochdi', 
-      email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
-    }, 
-    {
-      id: 8, 
-      firstName: 'Andrei Eusebiu', 
-      lastName: 'Valimareanu', // cu diacritice
-      email: '', 
-      phoneNumber: '', 
-      status: 'Membru Voluntar', 
-      joined: new Date(),
-    }
-  ];
-  memberAjInstructorPA: Volunteer[] = [
-    {
-      id: 1, 
-      firstName: 'Bianca', 
-      lastName: 'Ianus', 
-      email: '', 
-      phoneNumber: '', 
-      status: '', 
-      joined: new Date(),
-    },
-    {
-      id: 2, 
-      firstName: 'Elif', 
-      lastName: 'Ibadula', 
-      email: '', 
-      phoneNumber: '', 
-      status: 'Aj. Instructor PA', 
-      joined: new Date(),
-    }, 
-    {
-      id: 3, 
-      firstName: 'Ana-Maria', 
-      lastName: 'Ionascu', 
-      email: '', 
-      phoneNumber: '', 
-      status: 'Aj. Instructor PA', 
-      joined: new Date(),
+      phone: '', 
+      status: 'Membru Activ - Debutant Prim Ajutor - Instructor Prim Ajutor', 
+      joined_date: '22-05-2025',
+      city: ''
     }
   ];
 
-  constructor(private service: VolunteerService) {}
+  memberVolunteers: Volunteer[] = [
+    {
+      id: 1, 
+      firstname: 'Ana Maria Gabriela', 
+      lastname: 'Cosma', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 2, 
+      firstname: 'Bianca Maria', 
+      lastname: 'Francu', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 3, 
+      firstname: 'Augustin', 
+      lastname: 'Fricatel', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 4, 
+      firstname: 'Cristina Catalina', 
+      lastname: 'Gradinaru', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 5, 
+      firstname: 'Marina', 
+      lastname: 'Iordan', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    },
+    {
+      id: 6, 
+      firstname: 'Bianca-Andreea', 
+      lastname: 'Matei', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    },
+    {
+      id: 7, 
+      firstname: 'Electra', 
+      lastname: 'Milidonis', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 8, 
+      firstname: 'Zakaria', 
+      lastname: 'Rochdi', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 9, 
+      firstname: 'Andrei Eusebiu', 
+      lastname: 'Valimareanu', // cu diacritice
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 10, 
+      firstname: 'Bianca Maria', 
+      lastname: 'Herenciuc', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 11, 
+      firstname: 'Cristina', 
+      lastname: 'Cravcic', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 12, 
+      firstname: 'Gabriela Irene', 
+      lastname: 'Raicu', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''  
+    }, 
+    {
+      id: 13, 
+      firstname: 'Madalina Cristina', 
+      lastname: 'Manole', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 14, 
+      firstname: 'Maryem Betul', 
+      lastname: 'Dag', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar - Aj. Instructor', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 15, 
+      firstname: 'Raluca Florentina', 
+      lastname: 'Smochina', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar - Aj. Instructor', 
+      joined_date: '22-05-2025',
+      city: ''
+    },
+    {
+      id: 16, 
+      firstname: 'Bianca', 
+      lastname: 'Ianus', 
+      email: '', 
+      phone: '', 
+      status: 'Aj. Instructor PA', 
+      joined_date: '22-05-2025',
+      city: ''
+    },
+    {
+      id: 17, 
+      firstname: 'Elif', 
+      lastname: 'Ibadula', 
+      email: '', 
+      phone: '', 
+      status: 'Aj. Instructor PA', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 18, 
+      firstname: 'Ana-Maria', 
+      lastname: 'Ionascu', 
+      email: '', 
+      phone: '', 
+      status: 'Aj. Instructor PA', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 19, 
+      firstname: 'Ana Maria Gabriela', 
+      lastname: 'Brotea', 
+      email: '', 
+      phone: '', 
+      status: 'Aj. Instructor PA', 
+      joined_date: '22-05-2025',
+      city: ''
+    }, 
+    {
+      id: 20, 
+      firstname: 'Andreea Cristina', 
+      lastname: 'Barbalau', 
+      email: '', 
+      phone: '', 
+      status: 'Membru Voluntar - Aj. Instructor PA', 
+      joined_date: '22-05-2025',
+      city: ''
+    }
+  ];
+
+  // constructor(private service: VolunteerService) {}
 
   ngOnInit(): void {
     this.loadMembers();
@@ -172,42 +343,6 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
 
   getMembers(): void {
-    this.service.getAllVolunteers().subscribe({
-      next: (res: any) => {
-        
-        console.log('Volunteers:', res); 
-        
-        if (res.$values && Array.isArray(res.$values)) {
-          const volunteers: Volunteer[] = res.$values;
-          
-          this.membersAdunareaGenerala = [];
-          this.membersConsiliuDirectorial = [];
-          this.memberVolunteers = [];
-
-          for (let volunteer of volunteers) {
-            if (volunteer.status === "Membru Adunarea Generala") {
-              this.membersAdunareaGenerala.push(volunteer);
-            } else if (volunteer.status === "Membru Consiliu Directorial") {
-              this.membersConsiliuDirectorial.push(volunteer);
-            }else if (volunteer.status === "Membru Activ") {
-              this.membersActives.push(volunteer);
-            } else if (volunteer.status === "Membru Onoare") {
-              this.membersOnoare.push(volunteer);
-            } else if (volunteer.status === "Membru Voluntar") {
-              this.memberVolunteers.push(volunteer);
-            } 
-          }
-          console.log('membersAdunareaGenerala:', this.membersAdunareaGenerala);
-          console.log('membersConsiliuDirectorial:', this.membersConsiliuDirectorial);
-          console.log('memberVolunteers:', this.memberVolunteers);
-        
-        } else {
-          console.error('Data is not in expected format', res);
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    
   }
 }

@@ -4,8 +4,7 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Message } from '../../core/models/ContactMessage';
-import { ContactService } from '../../core/services/contact/contact.service';
+import { Message } from '../../core/models/Message';
 
 @Component({
   selector: 'app-contact',
@@ -16,31 +15,26 @@ import { ContactService } from '../../core/services/contact/contact.service';
 })
 export class ContactComponent implements OnInit {
 
-  message: Message = { ...this.service.contactEmpty };
+  message : Message = {
+    name: "",
+    email: "",
+    text: ""
+  }
 
   title = "ASMV - Contact";
 
   error: string = "";
+  
   constructor(
     private router: Router,
-    private service: ContactService
   ) {}
 
   ngOnInit(): void {
     this.error = "Momentan serviciul de contact nu este configurat! Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail!";
   }
 
-  postMessage() {
-    console.log('Posting message:', this.message); // Log the message data
-    this.service.sendMessage(this.message).subscribe({
-      next: (data: Message) => {
-        console.log('Response:', data);
-        this.router.navigate(['/']);
-      },
-      error: (error: any) => {
-        console.log('Error:', error); // Log the error
-        this.error = "Momentan serviciul de contact nu este configurat! Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail!";
-      }
-    });
+  postMessage() { 
+    console.log(this.message);
   }
+
 }

@@ -1,41 +1,51 @@
-const baseUrl = 'https://localhost:5400/api';
-
-export const authEnvironment = { 
-    loginUrl: baseUrl + '/auth/login',
-    registerUrl: baseUrl + '/auth/register'
+export const authEnvironement = {
+    login: "http://localhost:8080/api/auth/login",
+    register: "http://localhost:8080/api/auth/register"
 }
 
-export const projectsEnvironment = {
-    getProjects: baseUrl + '/projects', 
-    getProject: baseUrl + '/projects/', 
-    addProject: baseUrl + '/projects/newProject',
-    deleteProject: baseUrl + '/projects/',
-    getCount: baseUrl + '/projects/count',
-    updateProject: baseUrl + '/projects/' 
-}
-
-export const volunteersEnvironement = { 
-    getVolunteers: baseUrl + '/volunteers',
-    getVolunteer: baseUrl + '/volunteers/',
-    addVolunteer: baseUrl + '/volunteers/newVolunteer',
-    updateVolunteer: baseUrl + '/volunteers/',
-    deleteVolunteer: baseUrl + '/volunteers/',
-    getCount: baseUrl + '/volunteers/count'
-}
-
-export const becomeVolunteerEnvironment = { 
-    getRequests: baseUrl + '/becomeVolunteers',
-    getRequest: baseUrl + '/becomeVolunteers/',
-    addRequest: baseUrl + '/becomeVolunteers/newBecomeVolunteer',
-    deleteRequest: baseUrl + '/becomeVolunteers/',
-    getCount: baseUrl + '/becomeVolunteers/count'
+export const becomeVolunteerEnvironment = {
+    add: "http://localhost:8080/api/become-volunteer/new",
+    getAll: "http://localhost:8080/api/become-volunteer/all",
+    getOne: "http://localhost:8080/api/become-volunteer/",
+    delete: "http://localhost:8080/api/become-volunteer/delete/",
+    update: "http://localhost:8080/api/become-volunteer/update/",
+    markAsRead: "http://localhost:8080/api/become-volunteer/markAsRead/",
 }
 
 export const messageEnvironment = {
-    getMessages: baseUrl + '/messages',
-    getMessage: baseUrl + '/messages/',
-    addMessage: baseUrl + '/messages/newMessage',
-    deleteMessage: baseUrl + '/messages/',
-    getCount: baseUrl + '/messages/count',
-    updateMessage: baseUrl + '/messages/'
+    add: "http://localhost:8080/api/messages/add",
+    getAll: "http://localhost:8080/api/messages/all",
+    update: "http://localhost:8080/api/messages/{id}",
+
+}
+
+export const projectEnvironment = { 
+    add: "http://localhost:8080/api/proiecte/add",
+    getOne: "http://localhost:8080/api/proiecte/",
+    getAll: "http://localhost:8080/api/proiecte/all",
+    update: "http://localhost:8080/api/proiecte/update/",
+    delete: "http://localhost:8080/api/proiecte/",
+    getImage: "http://localhost:8080/api/proiecte", // /{id}/image
+}
+
+export const userEnvironment = {
+    getAll: "http://localhost:8080/api/users/all",
+    getOne: "http://localhost:8080/api/users/one/",
+    deleteOne: "http://localhost:8080/api/users/delete/",
+}
+
+export const volunteerEnvironmet = {
+    add: "http://localhost:8080/api/volunteers/add",
+    getAll: "http://localhost:8080/api/volunteers/all",
+    getOne: "http://localhost:8080/api/volunteers/",
+    delete: "http://localhost:8080/api/volunteers/delete/",
+    update: "http://localhost:8080/api/volunteers/update/"
+}
+
+export const countEnvironment = { 
+    getMessages: "http://localhost:8080/api/messages/count",
+    getVolunteers: "http://localhost:8080/api/volunteers/count",
+    getProjects: "http://localhost:8080/api/proiecte/count",
+    getBecomeVolunteers: "http://localhost:8080/api/become-volunteer/count", 
+    getUsers: "http://localhost:8080/api/users/count"
 }

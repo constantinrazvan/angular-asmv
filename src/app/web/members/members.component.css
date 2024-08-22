@@ -76,3 +76,7 @@
     background-color: #038ED1; /* Color of the line */
     margin: 30px 0; /* Spacing above and below the line */
 }
+
+.text-primary {
+    color: #038ED1 !important;
+}
