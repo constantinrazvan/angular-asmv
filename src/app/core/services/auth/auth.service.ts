@@ -52,4 +52,13 @@ export class AuthService {
   isLoggedIn() { 
     return !!localStorage.getItem('token');
   }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.clear();
+  }
 }

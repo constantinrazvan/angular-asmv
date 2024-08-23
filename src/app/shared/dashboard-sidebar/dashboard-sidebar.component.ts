@@ -35,6 +35,8 @@ export class DashboardSidebarComponent implements OnInit {
     if (token) {
       const decodedToken: any = jwtDecode(token);
       this.username = decodedToken.FirstName + ' ' + decodedToken.LastName;
+    } else { 
+      this.username = 'test user';
     }
   }
 

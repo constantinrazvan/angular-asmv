@@ -6,11 +6,6 @@
           <span class="dm">Statistici</span>
         </span>
       </a>
-      <a mat-list-item [routerLink]="['/dashboard/bloguri']" routerLinkActive="tab-active">
-        <span class="mat-list-item-content">
-          <span class="dm">Bloguri</span>
-        </span>
-      </a>
       <a mat-list-item [routerLink]="['/dashboard/proiecte']" routerLinkActive="tab-active">
         <span class="mat-list-item-content">
           <span class="dm">Proiecte</span>
@@ -52,7 +47,7 @@
         </button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item>
-            <a class="nav-link text-decoration-none" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
+            <a class="nav-link text-decoration-none" [routerLink]="['/dashboard/profil']" routerLinkActive="router-link-active">
               <mat-icon>account_box</mat-icon>
               <span class="dm">Profile</span>
             </a>

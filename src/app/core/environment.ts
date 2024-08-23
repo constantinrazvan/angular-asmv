@@ -15,7 +15,9 @@ export const becomeVolunteerEnvironment = {
 export const messageEnvironment = {
     add: "http://localhost:8080/api/messages/add",
     getAll: "http://localhost:8080/api/messages/all",
-    update: "http://localhost:8080/api/messages/{id}",
+    update: "http://localhost:8080/api/messages/",
+    delete: "http://localhost:8080/api/messages/delete/", 
+    getOne: "http://localhost:8080/api/messages/one/"
 
 }
 
