@@ -1,1 +1,31 @@
-<p>login works!</p>
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title>Autentificare</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" name="email" type="email" [(ngModel)]="email" required>
+            <mat-error *ngIf="!email">Emailul este obligatoriu</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Parolă</mat-label>
+            <input matInput id="password" name="password" type="password" [(ngModel)]="password" required>
+            <mat-error *ngIf="!password">Parola este obligatorie</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group text-center">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Conectare</button>
+        </div>
+      </mat-card-content>
+
+      <button mat-button> <a class="nav-link text-decoration-none" [routerLink]="['/inregistrare']" routerLinkActive="router-link-active">Nu ai cont? Creeaza unul!</a></button>
+    </mat-card>
+  </form>
+  

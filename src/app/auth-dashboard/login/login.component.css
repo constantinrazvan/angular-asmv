@@ -1,0 +1,50 @@
+/* login.component.css */
+:host {
+    display: block; /* Folosește display block pentru elementul host */
+    position: relative; /* Necesitat pentru a poziționa cardul relativ la acest element */
+    height: 100vh; /* Înălțimea paginii întregi */
+    margin: 0;
+  }
+  
+  .login-card {
+    max-width: 600px; /* Dimensiune lățime maximă */
+    width: 100%; /* Asigură că cardul se adaptează la dimensiunea containerului */
+    padding: 24px; /* Mai mult padding pentru un aspect mai aerisit */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Fundal alb pentru card */
+    
+    position: absolute; /* Poziționează cardul absolut față de părintele său */
+    top: 50%; /* Centrăm pe verticală */
+    left: 50%; /* Centrăm pe orizontală */
+    transform: translate(-50%, -50%); /* Ajustăm poziția pentru a centra exact */
+  }
+  
+  mat-card-header {
+    text-align: center;
+    margin-bottom: 16px; /* Mai mult spațiu sub header */
+  }
+  
+  mat-card-title {
+    font-size: 1.5rem; /* Font mai mare pentru titlu */
+    font-weight: 600; /* Font bold pentru titlu */
+  }
+  
+  .form-group {
+    margin-bottom: 1rem; /* Spațiu mai mare între câmpuri */
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-error {
+    color: #d32f2f; /* Culoare roșie pentru mesajele de eroare */
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 16px; /* Mai mult spațiu deasupra butonului */
+    padding: 0.75rem; /* Mai mult padding pentru buton */
+  }
+  

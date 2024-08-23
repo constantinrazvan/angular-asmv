@@ -1,1 +1,72 @@
-<p>register works!</p>
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
+    <mat-card class="registration-card">
+      <mat-card-header>
+        <mat-card-title>Înregistrare</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Prenume</mat-label>
+            <input matInput id="firstname" name="firstname" [(ngModel)]="firstname" required>
+            <mat-error *ngIf="!firstname">Prenumele este obligatoriu</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Nume</mat-label>
+            <input matInput id="lastname" name="lastname" [(ngModel)]="lastname" required>
+            <mat-error *ngIf="!lastname">Numele este obligatoriu</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" name="email" type="email" [(ngModel)]="email" required>
+            <mat-error *ngIf="!email">Emailul este obligatoriu</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Confirmă Email</mat-label>
+            <input matInput id="confirmEmail" name="confirmEmail" type="email" [(ngModel)]="confirmEmail" required>
+            <mat-error *ngIf="!confirmEmail">Confirmarea email-ului este obligatorie</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Parolă</mat-label>
+            <input matInput id="password" name="password" type="password" [(ngModel)]="password" required>
+            <mat-error *ngIf="!password">Parola este obligatorie</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Confirmă Parolă</mat-label>
+            <input matInput id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="confirmPassword" required>
+            <mat-error *ngIf="!confirmPassword">Confirmarea parolei este obligatorie</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Rol</mat-label>
+            <mat-select id="role" name="role" [(ngModel)]="role">
+              <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group text-center">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.form.valid">Înscrie-te</button>
+        </div>
+      </mat-card-content>
+
+      <button mat-button> <a class="nav-link text-decoration-none" [routerLink]="['/autentificare']" routerLinkActive="router-link-active">Ai deja un cont? Intra acum!</a></button>
+    </mat-card>
+  </form>
+  

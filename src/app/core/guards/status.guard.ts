@@ -27,7 +27,7 @@ export class StatusGuard implements CanActivate {
       const decodedToken: any = jwtDecode(token);
       const userStatus = decodedToken.Status; // Ensure 'Status' is the correct key
 
-      if (userStatus === 'Membru Adunarea Generala' || userStatus === 'Membru Fondator') {
+      if (userStatus === 'Membru Adunarea Generala') {
         return true;
       } else {
         this.router.navigate(['/dashboard/forbidden']);
