@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Message } from '../../core/models/Message';
 import { MessagesService } from '../../core/services/messages/messages.service';
 import { Router, RouterLink } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-manage-messages',
@@ -18,17 +20,18 @@ import { Router, RouterLink } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule,
-    RouterLink
+    RouterLink,
+    MatPaginatorModule
   ],
   templateUrl: './manage-messages.component.html',
-  styleUrls: ['./manage-messages.component.css'] // Corrected styleUrls
+  styleUrls: ['./manage-messages.component.css']
 })
-export class ManageMessagesComponent implements OnInit {
-
+export class ManageMessagesComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
   displayedColumns: string[] = ['id', 'name', 'email', 'text'];
   dataSource = new MatTableDataSource<Message>(this.messages);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   constructor(
     private dialog: MatDialog,
@@ -36,19 +39,22 @@ export class ManageMessagesComponent implements OnInit {
     private router: Router
   ) {}
 
-  viewMessage(id: number){
-    this.router.navigate(['/view-message', id]);
+  ngOnInit(): void {
+    this.getMessages();
   }
 
-  ngOnInit(): void {
-    this.getMessages(); // Call to retrieve messages
+  ngAfterViewInit() {
+    // Initialize paginator after the view has been initialized
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   getMessages(): void {
     this.service.getAllMessages().subscribe({
       next: (data) => {
-        this.messages = data; // Directly assign data to messages
-        this.dataSource.data = this.messages.sort((a, b) => b.id! - a.id!); // Update the dataSource with the new messages
+        this.messages = data;
+        this.dataSource.data = this.messages;
         console.log('Messages retrieved:', this.messages);
       },
       error: (error) => {
@@ -60,6 +66,13 @@ export class ManageMessagesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.paginator) {
+      this.paginator.firstPage(); // Optionally reset to the first page on filter change
+    }
+  }
+
+  viewMessage(id: number) {
+    this.router.navigate(['/dashboard/vezi-mesaj', id]);
   }
 
   openDialog(id: number) {
