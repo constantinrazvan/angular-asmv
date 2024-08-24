@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Message } from '../../core/models/Message';
+import { MessagesService } from '../../core/services/messages/messages.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,6 +16,11 @@ import { Message } from '../../core/models/Message';
 })
 export class ContactComponent implements OnInit {
 
+  constructor(
+    private service: MessagesService,
+    private router: Router
+  ){}
+
   message : Message = {
     name: "",
     email: "",
@@ -24,17 +30,31 @@ export class ContactComponent implements OnInit {
   title = "ASMV - Contact";
 
   error: string = "";
-  
-  constructor(
-    private router: Router,
-  ) {}
 
   ngOnInit(): void {
-    this.error = "Momentan serviciul de contact nu este configurat! Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail!";
+    this.message.name = "";
+    this.message.email = "";
+    this.message.text = "";
   }
 
   postMessage() { 
-    console.log(this.message);
+    if(this.message.name == "" || this.message.email == "" || this.message.text == "") {
+      this.error = "Completati toate campurile!";
+      return;
+    }
+
+    this.error = "";
+    
+    this.service.addMessage(this.message).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.log(error);
+        this.error = "Eroare la trimiterea mesajului!";
+      }
+    })
   }
 
 }

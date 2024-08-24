@@ -1,0 +1,63 @@
+/* Ensure full width for form fields */
+.example-full-width {
+    width: 100%;
+  }
+  
+  /* Container styles */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align form-container horizontally */
+    padding: 16px;
+    position: relative; /* Required for absolute positioning of the button */
+    max-width: 100%; /* Adjust width for better alignment */
+    margin: 0 auto; /* Center the container horizontally if needed */
+  }
+  
+  /* Button container styles */
+  .header {
+    position: absolute;
+    top: 16px; /* Space from the top */
+    left: 16px; /* Space from the left */
+  }
+  
+  /* Form container styles */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 64px; /* Space between the button and the form */
+    align-items: center; /* Center the form fields horizontally */
+  }
+  
+  /* Row styles for form fields alignment */
+  .row {
+    display: flex;
+    justify-content: space-between; /* Distribute space between fields */
+    gap: 16px; /* Space between form fields */
+    width: 100%; /* Ensure row takes full width */
+    margin-bottom: 16px; /* Space below the row */
+  }
+  
+  /* Flex item styles for individual form fields */
+  .flex-item {
+    flex: 1; /* Allow fields to grow and shrink */
+  }
+  
+  /* Full width for the text area */
+  .full-width {
+    width: 100%; /* Span full width of the container */
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 600px) {
+    .row {
+      flex-direction: column; /* Stack fields vertically */
+      gap: 16px; /* Space between fields in a column layout */
+    }
+  
+    .flex-item {
+      width: 100%; /* Ensure fields take full width in mobile layout */
+    }
+  }
+  

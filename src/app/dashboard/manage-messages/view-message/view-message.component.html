@@ -1,16 +1,37 @@
-<mat-form-field class="example-full-width">
-    <mat-label>Nume</mat-label>
-    <input matInput value={{message.name}} placeholder="Nume">
-</mat-form-field>
-
-<mat-form-field class="example-full-width">
-    <mat-label>Email</mat-label>
-    <input matInput value={{message.email}} placeholder="Email">
-</mat-form-field>
-
-<mat-form-field class="example-full-width">
-    <mat-label>Text</mat-label>
-    <input matInput value={{message.text}} placeholder="Content">
-</mat-form-field>
-
-<button mat-flat-button color="primary" [routerLink]="['/dashboard/mesaje']" routerLinkActive="router-link-active">Intoarce-te!</button>
+<div class="container">
+    <div class="header">
+      <button 
+        mat-flat-button 
+        color="primary" 
+        [routerLink]="['/dashboard/mesaje']" 
+        routerLinkActive="router-link-active"
+      >
+        Intoarce-te!
+      </button>
+    </div>
+  
+    <div class="form-container">
+      <div class="row">
+        <mat-form-field class="flex-item">
+          <mat-label>ID</mat-label>
+          <input matInput [value]="message.id" placeholder="ID" readonly>
+        </mat-form-field>
+  
+        <mat-form-field class="flex-item">
+          <mat-label>Nume</mat-label>
+          <input matInput [value]="message.name" placeholder="Nume" readonly>
+        </mat-form-field>
+  
+        <mat-form-field class="flex-item">
+          <mat-label>Email</mat-label>
+          <input matInput [value]="message.email" placeholder="Email" readonly>
+        </mat-form-field>
+      </div>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Text</mat-label>
+        <textarea matInput [value]="message.text" placeholder="Content" readonly></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  

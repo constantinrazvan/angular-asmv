@@ -66,7 +66,11 @@ export const routes: Routes = [
       { path: 'voluntari', loadComponent: () => import('./dashboard/manage-volunteers/manage-volunteers.component').then(m => m.ManageVolunteersComponent) },
       { path: 'utilizatori', loadComponent: () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent) }, 
       { path: 'cereri-voluntariat', loadComponent: () => import('./dashboard/manage-requests/manage-requests.component').then(m => m.ManageRequestsComponent) },
-      { path: 'profil', loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent) }
+      { path: 'profil', loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent) }, 
+      { 
+        path: 'vezi-mesaj/:id', 
+        loadComponent: () => import('./dashboard/manage-messages/view-message/view-message.component').then(m => m.ViewMessageComponent) 
+      },
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route

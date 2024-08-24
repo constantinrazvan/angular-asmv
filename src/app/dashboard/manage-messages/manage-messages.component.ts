@@ -6,15 +6,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Message } from '../../core/models/Message';
-import { DeleteConfirmationDialog } from './delete-confirmation-dialog.component';
 import { MessagesService } from '../../core/services/messages/messages.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-messages',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    RouterLink
+  ],
   templateUrl: './manage-messages.component.html',
-  styleUrl: './manage-messages.component.css'
+  styleUrls: ['./manage-messages.component.css'] // Corrected styleUrls
 })
 export class ManageMessagesComponent implements OnInit {
 
@@ -24,25 +32,29 @@ export class ManageMessagesComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private service: MessagesService
+    private service: MessagesService,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.dataSource.data = this.messages; 
+  viewMessage(id: number){
+    this.router.navigate(['/view-message', id]);
   }
 
-  getMessages() : void {
+  ngOnInit(): void {
+    this.getMessages(); // Call to retrieve messages
+  }
+
+  getMessages(): void {
     this.service.getAllMessages().subscribe({
       next: (data) => {
-        console.log(data);
-        for(let i = 0; i < data.length; i++) {
-          this.messages.push(data[i]);
-        }
+        this.messages = data; // Directly assign data to messages
+        this.dataSource.data = this.messages.sort((a, b) => b.id! - a.id!); // Update the dataSource with the new messages
+        console.log('Messages retrieved:', this.messages);
       },
       error: (error) => {
-        console.log(error);
+        console.error('Error retrieving messages:', error);
       }
-    })
+    });
   }
 
   applyFilter(event: Event) {
@@ -52,25 +64,5 @@ export class ManageMessagesComponent implements OnInit {
 
   openDialog(id: number) {
     console.log(id);
-  }
-
-  deleteMessage(id: number) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialog);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.service.deleteMessage(id).subscribe({
-          next: (data) => {
-            console.log(data);
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        })
-        console.log(this.service);
-      } else { 
-        console.log("Canceled");
-      }
-    });
   }
 }

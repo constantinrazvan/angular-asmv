@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -6,20 +6,25 @@ import { CommonModule } from '@angular/common';
 import { MessagesService } from '../../../core/services/messages/messages.service';
 import { Message } from '../../../core/models/Message';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-view-message',
   standalone: true,
-  imports: [MatInputModule, MatFormFieldModule, FormsModule, CommonModule, RouterLink],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, CommonModule, RouterLink, MatButtonModule],
   templateUrl: './view-message.component.html',
   styleUrl: './view-message.component.css'
 })
-export class ViewMessageComponent {
+export class ViewMessageComponent implements OnInit {
 
   constructor(
     private service: MessagesService,
     private route: ActivatedRoute
   ) {}
+
+  ngOnInit (): void {
+    this.getOne(this.param);
+  }
 
   param = Number(this.route.snapshot.paramMap.get('id'));
   message: Message = {} as Message;
