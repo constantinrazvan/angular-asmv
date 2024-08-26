@@ -10,6 +10,17 @@
         Intoarce-te!
       </button>
     </div>
+
+    <span 
+            class="badge rounded-pill"
+            [ngClass]="{
+              'bg-success': message.newRequest,
+              'bg-info': !message.newRequest
+            }"
+            style="font-size: 15px; color: white;"
+          >
+            {{ message.newRequest ? 'Necitit' : 'Citit' }}
+          </span>
   
     <div class="form-container">
       <div class="row">
@@ -33,6 +44,9 @@
         <mat-label>Text</mat-label>
         <textarea matInput [value]="message.text" placeholder="Content" readonly></textarea>
       </mat-form-field>
+    </div>
+    <div class="text-left">
+      <button mat-flat-button color="primary" style="text-align: left;" (click)="markAsRead()">Marcheaza ca citit</button>
     </div>
   </div>
   

@@ -17,7 +17,8 @@ export const messageEnvironment = {
     getAll: "http://localhost:8080/api/messages/all",
     update: "http://localhost:8080/api/messages/",
     delete: "http://localhost:8080/api/messages/delete/", 
-    getOne: "http://localhost:8080/api/messages/one/"
+    getOne: "http://localhost:8080/api/messages/one/", 
+    markAsRead: "htt://localhost:8080/api/messages/markAsRead/"
 
 }
 

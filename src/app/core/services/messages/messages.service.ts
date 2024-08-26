@@ -32,4 +32,8 @@ export class MessagesService {
   deleteMessage = (id: number) : Observable<boolean> => { 
     return this.http.delete<boolean>(messageEnvironment.delete + id);
   }
+
+  markAsRead(id: number): Observable<void> {
+    return this.http.patch<void>(`http://localhost:8080/api/messages/markAsRead/${id}`, {});
+  }  
 }

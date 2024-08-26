@@ -24,7 +24,8 @@ export class ContactComponent implements OnInit {
   message : Message = {
     name: "",
     email: "",
-    text: ""
+    text: "", 
+    newRequest: true
   }
 
   title = "ASMV - Contact";
@@ -35,6 +36,7 @@ export class ContactComponent implements OnInit {
     this.message.name = "";
     this.message.email = "";
     this.message.text = "";
+    this.message.newRequest = true;
   }
 
   postMessage() { 

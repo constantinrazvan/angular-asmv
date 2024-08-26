@@ -28,7 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 export class ManageMessagesComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
-  displayedColumns: string[] = ['name', 'email', 'text'];
+  displayedColumns: string[] = ['name', 'email', 'newRequest', 'actiuni'];
   dataSource = new MatTableDataSource<Message>(this.messages);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
