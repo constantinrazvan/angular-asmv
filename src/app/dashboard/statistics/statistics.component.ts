@@ -4,8 +4,8 @@ import { StatisticsService } from '../../core/services/statistics/statistics.ser
 import { CommonModule } from '@angular/common';
 
 interface Data {
-  title: string,
-  data: number
+  title: string;
+  data: number;
 }
 
 @Component({
@@ -16,7 +16,6 @@ interface Data {
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-
   messages: number = 0;
   volunteers: number = 0;
   becomeVolunteers: number = 0;
@@ -25,7 +24,7 @@ export class StatisticsComponent implements OnInit {
 
   statistics: Data[] = [];
 
-  constructor(private service: StatisticsService) { }
+  constructor(private service: StatisticsService) {}
 
   ngOnInit() {
     this.getMessages();
@@ -37,11 +36,11 @@ export class StatisticsComponent implements OnInit {
 
   updateStatistics() {
     this.statistics = [
-      { title: "Mesaje", data: this.messages },
-      { title: "Voluntari", data: this.volunteers },
-      { title: "Cereri Voluntariat", data: this.becomeVolunteers },
-      { title: "Proiecte", data: this.projects },
-      { title: "Utilizatori", data: this.users }
+      { title: 'Mesaje', data: this.messages },
+      { title: 'Voluntari', data: this.volunteers },
+      { title: 'Cereri Voluntariat', data: this.becomeVolunteers },
+      { title: 'Proiecte', data: this.projects },
+      { title: 'Utilizatori', data: this.users },
     ];
   }
 
@@ -51,7 +50,7 @@ export class StatisticsComponent implements OnInit {
         this.messages = data;
         this.updateStatistics();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -61,7 +60,7 @@ export class StatisticsComponent implements OnInit {
         this.volunteers = data;
         this.updateStatistics();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -71,7 +70,7 @@ export class StatisticsComponent implements OnInit {
         this.becomeVolunteers = data;
         this.updateStatistics();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -81,7 +80,7 @@ export class StatisticsComponent implements OnInit {
         this.projects = data;
         this.updateStatistics();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 
@@ -91,7 +90,7 @@ export class StatisticsComponent implements OnInit {
         this.users = data;
         this.updateStatistics();
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
 }

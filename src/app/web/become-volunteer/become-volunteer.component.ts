@@ -7,6 +7,7 @@ import { provideIcons } from '@ng-icons/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
+import { RequestsService } from '../../core/services/requests/requests.service';
 
 @Component({
   selector: 'app-become-volunteer',
@@ -19,7 +20,8 @@ import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
 export class BecomeVolunteerComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router, 
+    private service: RequestsService
   ) {}
 
   title = "ASMV - Devino Voluntar";
@@ -30,6 +32,7 @@ export class BecomeVolunteerComponent implements OnInit {
     faculty: '',
     phone: '',
     reason: '',
+    newRequest: true
   };
   error: string = '';
   formSent: boolean = false;
@@ -63,22 +66,14 @@ export class BecomeVolunteerComponent implements OnInit {
   }
 
   becomeVolunteerPost() {
-    // if (!this.validator()) {
-    //   return;
-    // }
-    // console.log(this.becomeVolunteer);
-    // this.service.addVolunteer(this.becomeVolunteer).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.formSent = true;
-    //     this.router.navigate(['/']);
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.error = err.error.errors || { general: 'An error occurred' };
-    //     window.alert(this.error);
-    //   }
-    // });
-   this.error = "Din pacate, in momentul actual nu functioneaza acest serviciu. Te rugam sa ne contactezi prin intermediul unei platforme social media sau pe mail.";
+    if (this.validator()) {
+      this.service.addRequest(this.becomeVolunteer).subscribe({
+        next: (data: any) => {
+          console.log('Răspuns primit:', data);
+          this.router.navigate(['/']);
+        },
+        error: (error) => console.error('There was an error!', error)
+      });
+    }
   }
 }

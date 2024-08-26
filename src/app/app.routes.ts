@@ -71,6 +71,10 @@ export const routes: Routes = [
         path: 'vezi-mesaj/:id', 
         loadComponent: () => import('./dashboard/manage-messages/view-message/view-message.component').then(m => m.ViewMessageComponent) 
       },
+      {
+        path: 'vezi-cerere/:id', 
+        loadComponent: () => import('./dashboard/manage-requests/view-request/view-request.component').then(m => m.ViewRequestComponent)
+      }
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route

@@ -28,7 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 export class ManageMessagesComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
-  displayedColumns: string[] = ['id', 'name', 'email', 'text'];
+  displayedColumns: string[] = ['name', 'email', 'text'];
   dataSource = new MatTableDataSource<Message>(this.messages);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -75,7 +75,7 @@ export class ManageMessagesComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/dashboard/vezi-mesaj', id]);
   }
 
-  openDialog(id: number) {
-    console.log(id);
+  refreshData() {
+    this.getMessages();
   }
 }
