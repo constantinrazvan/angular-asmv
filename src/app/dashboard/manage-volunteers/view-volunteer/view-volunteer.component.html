@@ -1,0 +1,80 @@
+<div class="container mt-4">
+    <!-- Butonul de întoarcere -->
+    <div class="d-flex justify-content-between mb-3">
+      <button 
+        mat-flat-button 
+        color="primary"
+        [routerLink]="['/dashboard/voluntari']" 
+        routerLinkActive="router-link-active"
+        style="background-color: #038ED1;"
+      >
+        Întoarce-te!
+      </button>
+    </div>
+  
+    <mat-card>
+      <mat-card-content>
+        <!-- Rândul cu ID, Nume, Email -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>ID</mat-label>
+              <input matInput [value]="volunteer.id" placeholder="ID" readonly>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>Nume</mat-label>
+              <input matInput [value]="volunteer.firstname + ' ' + volunteer.lastname" placeholder="Nume" readonly>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>Email</mat-label>
+              <input matInput [value]="volunteer.email" placeholder="Email" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Rândul cu Facultate -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Facultate</mat-label>
+              <textarea matInput [value]="volunteer.city" placeholder="Facultate" readonly></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Rândul cu Număr de Telefon -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Număr de Telefon</mat-label>
+              <textarea matInput [value]="volunteer.phone" placeholder="Număr de Telefon" readonly></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Rândul cu Aderare -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Aderare</mat-label>
+              <textarea matInput [value]="volunteer.joined_date" placeholder="Aderare" readonly></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Rândul cu Status -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <mat-label>Status</mat-label>
+              <textarea matInput [value]="volunteer.status" placeholder="Status" readonly></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>  

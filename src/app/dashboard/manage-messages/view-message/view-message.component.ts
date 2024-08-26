@@ -8,6 +8,7 @@ import { Message } from '../../../core/models/Message';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar for notifications
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-view-message',
@@ -18,7 +19,8 @@ import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
     MatFormFieldModule,
     FormsModule,
     MatButtonModule,
-    RouterLink
+    RouterLink,
+    MatCardModule
   ],
   templateUrl: './view-message.component.html',
   styleUrls: ['./view-message.component.css']

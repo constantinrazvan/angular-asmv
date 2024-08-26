@@ -67,7 +67,7 @@ export class ManageMessagesComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.paginator) {
-      this.paginator.firstPage(); // Optionally reset to the first page on filter change
+      this.paginator.firstPage();
     }
   }
 

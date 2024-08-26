@@ -74,6 +74,14 @@ export const routes: Routes = [
       {
         path: 'vezi-cerere/:id', 
         loadComponent: () => import('./dashboard/manage-requests/view-request/view-request.component').then(m => m.ViewRequestComponent)
+      }, 
+      {
+        path: 'vezi-voluntar/:id', 
+        loadComponent: () => import('./dashboard/manage-volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent)
+      }, 
+      {
+        path: 'adauga-voluntar', 
+        loadComponent: () => import('./dashboard/manage-volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent)
       }
     ]
   },
