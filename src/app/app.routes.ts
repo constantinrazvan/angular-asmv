@@ -82,6 +82,18 @@ export const routes: Routes = [
       {
         path: 'adauga-voluntar', 
         loadComponent: () => import('./dashboard/manage-volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent)
+      }, 
+      {
+        path: 'vezi-utilizator/:id', 
+        loadComponent: () => import('./dashboard/manage-users/view-user/view-user.component').then(m => m.ViewUserComponent)
+      }, 
+      {
+        path: 'schimba-parola/:id',
+        loadComponent: () => import('./dashboard/manage-users/change-password/change-password.component').then(m => m.ChangePasswordComponent)
+      }, 
+      {
+        path: 'schimba-email/:id', 
+        loadComponent: () => import('./dashboard/manage-users/change-email/change-email.component').then(m => m.ChangeEmailComponent)
       }
     ]
   },

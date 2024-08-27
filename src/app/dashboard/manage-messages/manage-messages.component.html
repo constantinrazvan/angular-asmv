@@ -1,7 +1,7 @@
 <div class="container py-5">
     <div style="display: flex; justify-content: space-between;">
-        <mat-form-field style="width: 50%;">
-            <mat-label>Cauta</mat-label>
+        <mat-form-field>
+            <mat-label>Căutare</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ion" #input>
           </mat-form-field>
         <button mat-flat-button style="background-color: #038ED1; color: white; margin-bottom: 20px; width: 20px;" (click)="refreshData()">

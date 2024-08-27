@@ -1,5 +1,5 @@
 export interface Volunteer {
-  id: number, 
+  id?: number, 
   firstname: string, 
   lastname: string, 
   email: string, 

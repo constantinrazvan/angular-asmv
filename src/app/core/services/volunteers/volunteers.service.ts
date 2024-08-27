@@ -30,4 +30,12 @@ export class VolunteersService {
   addVolunteer(volunteer: Volunteer) : Observable<Volunteer> {
     return this.http.post<Volunteer>(volunteerEnvironmet.add, volunteer);
   }
+
+  deleteVolunteer(id: number) : Observable<boolean> { 
+    return this.http.delete<boolean>(volunteerEnvironmet.delete + id);
+  }
+
+  updateVolunteer(id: number, volunteer: Volunteer) : Observable<Volunteer> {
+    return this.http.put<Volunteer>(volunteerEnvironmet.update + id, volunteer);
+  }
 }
