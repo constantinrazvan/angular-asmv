@@ -47,7 +47,7 @@ export class ManageProjectsComponent implements OnInit, AfterViewInit {
   getProjects(): void {
     this.service.getAllProjects().subscribe({
       next: (data) => {
-        this.projects = data;
+        this.projects = data.reverse();
         this.dataSource.data = this.projects;
       },
       error: (e) => console.error(e)

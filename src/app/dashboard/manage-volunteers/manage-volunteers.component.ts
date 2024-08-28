@@ -32,7 +32,7 @@ export class ManageVolunteersComponent implements OnInit {
   getVolunteers(): void {
     this.service.getAll().subscribe({
       next: (data) => {
-        this.dataSource.data = data;
+        this.dataSource.data = data.reverse();
         this.dataSource.paginator = this.paginator;
       },
       error: (e) => console.error(e),

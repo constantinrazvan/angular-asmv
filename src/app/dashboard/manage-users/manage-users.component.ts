@@ -51,7 +51,7 @@ export class ManageUsersComponent implements OnInit {
   getUsers(): void { 
     this.service.getAllUsers().subscribe({
       next: (data: User[]) => {
-        this.dataSource.data = data;
+        this.dataSource.data = data.reverse();
         this.dataSource.paginator = this.paginator;
         console.log(data);
       }, 

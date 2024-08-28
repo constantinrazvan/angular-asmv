@@ -53,7 +53,7 @@ export class ManageMessagesComponent implements OnInit, AfterViewInit {
   getMessages(): void {
     this.service.getAllMessages().subscribe({
       next: (data) => {
-        this.messages = data;
+        this.messages = data.reverse();
         this.dataSource.data = this.messages;
         console.log('Messages retrieved:', this.messages);
       },
