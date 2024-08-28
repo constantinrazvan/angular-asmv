@@ -31,13 +31,8 @@ export class DashboardSidebarComponent implements OnInit {
   }
 
   getName() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken: any = jwtDecode(token);
-      this.username = decodedToken.FirstName + ' ' + decodedToken.LastName;
-    } else { 
-      this.username = 'test user';
-    }
+    const user : string = this.service.getUserUsername();
+    this.username = user;
   }
 
   toggleSidenav() {

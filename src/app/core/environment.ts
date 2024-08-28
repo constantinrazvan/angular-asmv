@@ -36,7 +36,10 @@ export const userEnvironment = {
     getOne: "http://localhost:8080/api/users/one/",
     deleteOne: "http://localhost:8080/api/users/delete/",
     changePassword: "http://localhost:8080/api/users/changepassword/",
-    changeEmail: "http://localhost:8080/api/users/changeemail/{id}/"
+    changeEmail: "http://localhost:8080/api/users/changeemail/",
+    update: "http://localhost:8080/api/users/update/",
+    userChangeEmail: "http://localhost:8080/api/users/userChangeEmail/",
+    userChangePassword: "http://localhost:8080/api/users/userChangePassword/"
 }
 
 export const volunteerEnvironmet = {

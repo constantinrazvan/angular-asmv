@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../../core/services/users/users.service';
 import { User } from '../../../core/models/User';
 import { MatCardModule } from '@angular/material/card';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,6 +23,7 @@ export class ViewUserComponent implements OnInit {
 
   constructor(
     private service: UsersService,
+    private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -63,7 +65,7 @@ export class ViewUserComponent implements OnInit {
     const confirmed = window.confirm('Sigur dorești să ștergi acest utilizator?');
   
     if (confirmed) {
-      this.service.deleteUser(this.user.id).subscribe({
+      this.service.deleteUser(this.user.id!).subscribe({
         next: () => {
           console.log('User deleted successfully');
           this.router.navigate(['/dashboard/utilizatori']);
@@ -92,4 +94,26 @@ export class ViewUserComponent implements OnInit {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${day}-${month}-${year}, ${hours}:${minutes}`;
   }
+
+  checkUserRole(): boolean { 
+    const currentUserRole = this.auth.getUserRole();
+    const targetUserRole = this.user.role;
+  
+    // Permite ștergerea dacă utilizatorul curent este "admin"
+    // și utilizatorul țintă nu este "admin"
+    if (currentUserRole === "admin" && targetUserRole !== "admin") {
+      return true;
+    }
+    
+    // Permite ștergerea dacă utilizatorul curent este "Membru Adunarea Generala" 
+    // și utilizatorul țintă nu este "Membru Adunarea Generala" și nici "admin"
+    if (currentUserRole === "Membru Adunarea Generala" &&
+        targetUserRole !== "Membru Adunarea Generala" &&
+        targetUserRole !== "admin") {
+      return true;
+    }
+    
+    // În toate celelalte cazuri, nu permite ștergerea
+    return false;
+  }  
 }

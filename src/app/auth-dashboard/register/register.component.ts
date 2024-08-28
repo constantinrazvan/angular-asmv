@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -32,6 +33,7 @@ export class RegisterComponent {
   confirmPassword: string = "";
   role: string = this.roles[2];
   createdAt: string;
+  accesskey: string = "";
 
   error: string = "";
 
@@ -51,18 +53,41 @@ export class RegisterComponent {
     return `${day}/${month}/${year}`;
   }
 
-  onSubmit(): void { 
-    console.log(this.firstname, this.lastname, this.email, this.password, this.confirmEmail, this.confirmPassword, this.role, this.createdAt);
-    this.service.register(this.firstname, this.lastname, this.email, this.password, this.role, this.createdAt).subscribe({
-      next: (data: any) => {
-        if (data) {
-          console.log(data);
+  onSubmit(): void {
+    // Verifică dacă toate câmpurile sunt completate corect
+    if (this.email !== this.confirmEmail) {
+      this.error = "Emailurile nu coincid!";
+      return;
+    }
+    
+    if (this.password !== this.confirmPassword) {
+      this.error = "Parolele nu coincid!";
+      return;
+    }
+  
+    console.log(`
+      User firstname: ${this.firstname}, 
+      User lastname: ${this.lastname}, 
+      User email: ${this.email}, 
+      User password: ${this.password}, 
+      User role: ${this.role}, 
+      User createdAt: ${this.createdAt}`
+    );
+  
+    this.service.register(this.firstname, this.lastname, this.email, this.password, this.role, this.createdAt, this.accesskey).subscribe({
+      next: (isRegistered: boolean) => {
+        if (isRegistered) {
           this.router.navigate(['/autentificare']);
+        } else {
+          this.error = "Email deja existent sau cheia de acces este invalida!";
+          console.log('Registration failed: User already exists or invalid access key');
         }
       },
-      error: (error: string | any) => {
-        this.error = "Email deja existent!";
-        console.log(error);
+      error: (error: HttpErrorResponse) => {
+        console.log('Error status:', error.status);
+        console.log('Error message:', error.message);
+        console.log('Error details:', error.error);
+        this.error = "A apărut o eroare la înregistrare!";
       }
     });
   }

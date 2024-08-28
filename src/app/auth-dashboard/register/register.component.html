@@ -60,11 +60,21 @@
             </mat-select>
           </mat-form-field>
         </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Cheie de access</mat-label>
+            <input matInput id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="accesskey" required>
+            <mat-error *ngIf="!accesskey">Cheia de acces este obligatorie</mat-error>
+          </mat-form-field>
+        </div>
   
         <div class="form-group text-center">
           <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.form.valid">Înscrie-te</button>
         </div>
       </mat-card-content>
+
+      <p> {{ error }} </p>
 
       <button mat-button> <a class="nav-link text-decoration-none" [routerLink]="['/autentificare']" routerLinkActive="router-link-active">Ai deja un cont? Intra acum!</a></button>
     </mat-card>

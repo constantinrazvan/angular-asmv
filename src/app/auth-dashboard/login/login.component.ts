@@ -18,6 +18,18 @@ import { AuthService } from '../../core/services/auth/auth.service';
 })
 export class LoginComponent {
 
+  /*
+    Membru Voluntar
+    email: string = "emil@gmail.com";
+    password: string = "emil"
+  */
+
+  /*
+    Membru Adunarea Generala 
+    email: string = "admin2024_asmv@asmv.com";
+    password: string = "admin"  
+  */
+
   constructor(
     private service: AuthService, 
     private router: Router
@@ -32,7 +44,7 @@ export class LoginComponent {
       next: (data: string) => {
         console.log(data);
         this.service.setUserToken(data);
-        this.router.navigate(['/autentificare']);
+        this.router.navigate(['/dashboard/statistici']);
       }, 
       error: (error: string) => {
         console.log(error);

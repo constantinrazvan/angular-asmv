@@ -8,11 +8,23 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users/users.service';
 import { User } from '../../core/models/User';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-manage-users',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, MatPaginatorModule],
+  imports: [
+    CommonModule, 
+    MatTableModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatButtonModule, 
+    RouterLink, 
+    MatPaginatorModule,
+    MatCardModule, 
+    MatIconModule
+  ],
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.css']
 })
@@ -51,5 +63,10 @@ export class ManageUsersComponent implements OnInit {
 
   refreshData(): void {
     this.getUsers();
+  }
+
+  accesGranted(): boolean {
+    const userRole: string = localStorage.getItem('role') as string;
+    return userRole === "Membru Adunarea Generala" || userRole === "admin";
   }
 }

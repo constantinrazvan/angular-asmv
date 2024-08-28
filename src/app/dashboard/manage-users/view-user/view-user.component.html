@@ -96,10 +96,10 @@
           mat-flat-button 
           color="primary"
           class="action-button"
-          style="margin-left: 2.5px; background-color: #d19a03;; color: white;"
+          style="margin-left: 2.5px; background-color: #038ED1; color: white;"
           (click)="editUser()"
         >
-        <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">edit</span>
+          <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">edit</span>
         </button>
 
         <button 
@@ -107,10 +107,11 @@
           color="danger"
           class="action-button"
           style="margin-left: 2.5px; background-color: #d10303; color: white;"
+          *ngIf="checkUserRole()"
           (click)="deleteUser()"
         >
-        <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">delete</span>
-      </button>
+          <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">delete</span>
+        </button>
       </div>
     </mat-card-content>
   </mat-card>
