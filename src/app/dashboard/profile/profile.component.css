@@ -29,7 +29,6 @@
     text-transform: uppercase; /* Face inițiala să fie majusculă */
 }
 
-
 mat-card-content {
     padding: 20px;
 }
