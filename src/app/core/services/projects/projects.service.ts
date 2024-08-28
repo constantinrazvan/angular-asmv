@@ -17,9 +17,10 @@ export class ProjectsService {
     return this.http.get<Project>(projectEnvironment.getOne + id);
   }
 
-  getProjectImage = (id: number) : Observable<string> => {
-    return this.http.get<string>(projectEnvironment.getImage + "/" + id + "/image");
+  getProjectImage(id: number): Observable<Blob> {
+    return this.http.get<Blob>(`${projectEnvironment.getImage}/${id}/image`, { responseType: 'blob' as 'json' });
   }
+  
 
   getAllProjects = () : Observable<Project[]> => {
     return this.http.get<Project[]>(projectEnvironment.getAll);

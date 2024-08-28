@@ -1,1 +1,57 @@
-<p>manage-projects works!</p>
+<div class="container py-5">
+    <div style="display: flex; justify-content: space-between;">
+        <mat-form-field appearance="fill">
+            <mat-label>Căutare</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Project Title" #input>
+        </mat-form-field>
+        <button mat-flat-button style="background-color: #038ED1; color: white; margin-bottom: 20px;" (click)="refreshData()">
+            <span class="material-icons" style="padding: 5px;">
+                refresh
+            </span> 
+        </button>
+    </div>
+  
+    <ng-container *ngIf="dataSource.data.length > 0">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Titlu </th>
+                <td mat-cell *matCellDef="let project"> {{project.title}} </td>
+            </ng-container>
+  
+            <!-- Content Column -->
+            <ng-container matColumnDef="content">
+                <th mat-header-cell *matHeaderCellDef> Conținut </th>
+                <td mat-cell *matCellDef="let project"> {{project.content}} </td>
+            </ng-container>
+  
+            <!-- Summary Column -->
+            <ng-container matColumnDef="summary">
+                <th mat-header-cell *matHeaderCellDef> Rezumat </th>
+                <td mat-cell *matCellDef="let project"> {{project.summary}} </td>
+            </ng-container>
+  
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Acțiuni </th>
+                <td mat-cell *matCellDef="let project">
+                    <button 
+                        mat-flat-button 
+                        color="primary" 
+                        style="margin-right: 8px; background-color: #038ED1;" 
+                        [routerLink]="['/dashboard/vezi-proiect', project.id]" 
+                        routerLinkActive="router-link-active"
+                    >
+                        <span class="material-icons">visibility</span>
+                    </button>
+                    <!-- Add more action buttons if needed -->
+                </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

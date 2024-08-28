@@ -121,7 +121,12 @@ export const routes: Routes = [
         path: '', 
         loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),
         canActivate: [authGuard]
-      }, 
+      },
+      {
+        path: 'vezi-proiect/:id', 
+        loadComponent: () => import('./dashboard/manage-projects/view-project/view-project.component').then(m => m.ViewProjectComponent),
+        canActivate: [authGuard]
+      } 
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route

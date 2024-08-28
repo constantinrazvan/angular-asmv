@@ -1,0 +1,36 @@
+/* Container card */
+mat-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Image styling */
+  .project-image {
+    max-width: 60%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Action button */
+  .action-button {
+    background-color: #038ED1;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Center text */
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Text muted */
+  .text-muted {
+    color: #6c757d;
+  }
+  
+  /* Margin bottom for better spacing */
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+  
