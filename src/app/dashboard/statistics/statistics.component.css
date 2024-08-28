@@ -1,0 +1,108 @@
+.stats-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+
+.stats-content {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container {
+  background-color: #038ED1;
+  border-radius: 50%;
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.stat-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.stats-data {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.stats-title {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Tabele integrate în carduri */
+.table-card {
+  background-color: #ffffff; /* Ușor diferit față de stats-card pentru contrast */
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.table-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #038ED1;
+  padding-bottom: 5px;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 12px 8px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.mat-header-row {
+  background-color: #038ED1;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  color: #ffffff; /* Text alb pe fundal albastru */
+}
+
+.mat-row {
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.mat-row:hover {
+  background-color: #ffffff; /* Ușor gri la hover */
+}
+
+.mat-paginator {
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: none;
+}
+
+.mat-paginator .mat-button {
+  color: #038ED1;
+}
+
+.mat-paginator .mat-form-field {
+  margin-top: 0;
+}
+
+.mat-paginator .mat-option {
+  color: #038ED1;
+}
