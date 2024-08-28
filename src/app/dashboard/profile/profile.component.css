@@ -15,11 +15,20 @@
     align-items: center;
 }
 
-.avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.avatar-circle {
+    width: 60px; /* Dimensiunea cercului */
+    height: 60px; /* Dimensiunea cercului */
+    border-radius: 50%; /* Face cercul rotund */
+    background-color: #038ED1; /* Culoarea de fundal */
+    display: flex; /* Folosește Flexbox pentru centrare */
+    align-items: center; /* Centrează pe verticală */
+    justify-content: center; /* Centrează pe orizontală */
+    color: #fff; /* Culoarea textului */
+    font-size: 30px; /* Dimensiunea inițialei */
+    font-weight: bold; /* Îngroșează inițiala */
+    text-transform: uppercase; /* Face inițiala să fie majusculă */
 }
+
 
 mat-card-content {
     padding: 20px;

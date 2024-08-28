@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users/users.service';
 import { User } from '../../core/models/User';
@@ -14,54 +14,71 @@ import { AuthService } from '../../core/services/auth/auth.service';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+  user: User = {} as User;
+  formattedDate: string = ''; // Adăugați un câmp pentru data formatată
+  id: number = this.authService.getUserId();
+
   constructor(
     private route: ActivatedRoute,
     private service: UsersService,
     private authService: AuthService
   ) {}
 
-  user: User = {} as User;
-
-  id = localStorage.getItem('userId');
-
-  getUser() : void { 
-    this.service.getOneUser(Number(this.id)).subscribe({
-      next: (data) => { 
-        this.user = data;
-        console.log("Data retrived successfully", this.user);
-      }, 
-      error: (error) => { 
-        console.log(error);
-      }
-    })
+  ngOnInit(): void {
+    this.getUser();
   }
 
-  editUser() : void { 
-    this.service.updateUser(Number(this.id), this.user).subscribe({
-      next: (data) => { 
-        console.log("Data updated successfully", data);
-      }, 
-      error: (error) => { 
+  initial: string = this.getInitial(this.user.lastname);
+
+  getUser(): void {
+    this.service.getOneUser(this.id).subscribe({
+      next: (data: User) => {
+        this.user = data;
+        // Convertim data creării contului dacă este disponibilă
+        if (this.user.created_at) {
+          this.formattedDate = this.formatDate(this.user.created_at);
+        }
+        console.log('Data retrieved successfully', this.user);
+      },
+      error: (error) => {
         console.log(error);
       }
-    })
+    });
+  }
+
+  formatDate(date: Date): string {
+    if (!date) {
+      return ''; // sau orice altă valoare implicită
+    }
+    const isoDate = new Date(date);
+    const day = String(isoDate.getDate()).padStart(2, '0');
+    const month = String(isoDate.getMonth() + 1).padStart(2, '0'); // Luni încep de la 0
+    const year = isoDate.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  editUser(): void {
+    this.service.updateUser(this.id, this.user).subscribe({
+      next: (data) => {
+        console.log('Data updated successfully', data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   getInitial(name: string): string {
-    if (name && name.length > 0) {
-        return name.charAt(0).toUpperCase();
-    }
-    return '';
+    return name && name.length > 0 ? name.charAt(0).toUpperCase() : '';
   }
 
-  logout() : void { 
+  logout(): void {
     this.authService.logout();
   }
 
-  changeEmail() : void {}
-  changePassword() : void {}
-
+  changeEmail(): void {}
+  changePassword(): void {}
 }
