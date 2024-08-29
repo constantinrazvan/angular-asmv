@@ -82,8 +82,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
     }, 
     {
       id: 4, 
-      firstname: 'Std. Med.', 
-      lastname: 'Dana Popa', 
+      firstname: 'Med.', 
+      lastname: 'Daniela Popa', 
       email: '', 
       phone: '', 
       status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
