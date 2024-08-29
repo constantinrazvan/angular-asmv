@@ -1,7 +1,14 @@
-<app-web-navbar></app-web-navbar>
+<!-- Full-page spinner -->
+<div *ngIf="isLoading" class="overlay">
+  <mat-spinner></mat-spinner>
+</div>
 
-<!-- <div class="container py-5">
-    <div class="jumbotron bg-light p-3">
+<!-- Main content including navbar and footer -->
+<div *ngIf="!isLoading">
+  <app-web-navbar></app-web-navbar>
+
+  <div class="container py-5">
+    <div class="p-3">
         <h2 class="text-center font-weight-bold text-primary">Proiectele cu care ne mândrim!</h2>
         <p class="text-center small mt-4">
             De-a lungul timpului, ne-am distins prin numeroase proiecte pe care le-am realizat cu succes. Fiecare dintre acestea
@@ -11,28 +18,34 @@
         </p>
     </div>
     <hr />
-</div>
+  </div>
 
-<div class="row">
-    <div class="col-md-3 mb-4" *ngFor="let project of projects">
-        <div class="card h-100 text-center">
-            <div class="card-body">
-                <h3 class="card-title" style="color: #038ED1;"><b>{{ project.title }}</b></h3>
-                <p class="card-text">{{ project.content }}</p>
-                <button class="btn btn-primary" [routerLink]="['/proiecte', project.id]" routerLinkActive="router-link-active">Detalii</button>
-            </div>
+  <div class="container py-5">
+    <div class="row">
+      <ng-container *ngFor="let project of dataSource.data">
+        <div class="col-md-4 mb-4">
+          <mat-card class="project-card">
+            <img mat-card-image [src]="project.image" alt="{{project.title}}">
+            <mat-card-header>
+              <mat-card-title>{{project.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{project.summary}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <a mat-flat-button color="primary" style="background-color: #038ED1;" [routerLink]="['/proiect', project.id]" class="btn-primary"><i>Citește</i></a>
+            </mat-card-actions>
+          </mat-card>        
         </div>
+      </ng-container>
     </div>
-</div> -->
 
-<div class="container text-center my-5">
-    <div class="alert alert-info py-4" role="alert">
-        <h3 class="font-weight-bold text-primary mb-3">
-            ! Proiectele noastre sunt în curs de postare!
-        </h3>
-        <p class="lead">
-            Dorim să oferim informații de calitate pentru vizitatorii website-ului nostru! Vă rugăm să reveniți în curând pentru a descoperi mai multe despre realizările noastre.
-        </p>
-    </div>
+    <mat-paginator
+      [pageSize]="6"
+      [pageSizeOptions]="[6, 12, 24]"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+  <app-web-footer></app-web-footer>
 </div>
-<app-web-footer></app-web-footer>

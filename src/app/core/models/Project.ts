@@ -3,5 +3,5 @@ export interface Project {
   title: string, 
   content:  string, 
   summary: string, 
-  image?: string | File
+  image?: string | File | null
 }

@@ -1,0 +1,11 @@
+.project-image-container {
+    text-align: center; /* Centers the image horizontally within the container */
+    margin: 20px 0; /* Optional: Adds vertical space around the image */
+}
+
+.project-image {
+    max-width: 500px; 
+    height: auto; 
+    display: block;
+    margin: 0 auto;
+}

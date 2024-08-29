@@ -24,7 +24,7 @@ export const routes: Routes = [
     title: 'ASMV - Proiecte'
   },
   {
-    path: 'proiecte/:id',
+    path: 'proiect/:id',
     loadComponent: () => import('./web/projects/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
     title: 'ASMV - Proiect'
   },
@@ -126,7 +126,12 @@ export const routes: Routes = [
         path: 'vezi-proiect/:id', 
         loadComponent: () => import('./dashboard/manage-projects/view-project/view-project.component').then(m => m.ViewProjectComponent),
         canActivate: [authGuard]
-      } 
+      }, 
+      {
+        path: 'adauga-proiect', 
+        loadComponent: () => import('./dashboard/manage-projects/add-project/add-project.component').then(m => m.AddProjectComponent),
+        canActivate: [authGuard]
+      }
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route

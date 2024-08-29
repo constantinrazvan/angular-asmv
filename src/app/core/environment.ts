@@ -26,7 +26,7 @@ export const projectEnvironment = {
     add: "http://localhost:8080/api/proiecte/add",
     getOne: "http://localhost:8080/api/proiecte/",
     getAll: "http://localhost:8080/api/proiecte/all",
-    update: "http://localhost:8080/api/proiecte/update/",
+    update: "http://localhost:8080/api/proiecte/",
     delete: "http://localhost:8080/api/proiecte/",
     getImage: "http://localhost:8080/api/proiecte", // /{id}/image
 }

@@ -2,14 +2,14 @@ import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
-// import { VolunteerService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
 import { now } from 'jquery';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [WebNavbarComponent, WebFooterComponent, CommonModule],
+  imports: [WebNavbarComponent, WebFooterComponent, CommonModule, MatProgressSpinnerModule],
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css']
 })
@@ -315,6 +315,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
     }
   ];
 
+  isLoading = true;
+
   // constructor(private service: VolunteerService) {}
 
   ngOnInit(): void {
@@ -343,6 +345,10 @@ export class MembersComponent implements OnInit, AfterViewInit {
   }
 
   getMembers(): void {
-    
+    // Simulate an async operation, replace with actual data fetching if needed
+    setTimeout(() => {
+      // Data is already available, just simulate a delay
+      this.isLoading = false; // Hide spinner when data is ready
+    }, 1000); // Adjust the timeout as needed
   }
 }

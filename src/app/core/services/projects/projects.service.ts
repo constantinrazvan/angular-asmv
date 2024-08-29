@@ -13,7 +13,7 @@ export class ProjectsService {
     private http: HttpClient
   ) { }
 
-  getOneProject = (id: number) : Observable<Project> => {
+  getOneProject = (id: number): Observable<Project> => {
     return this.http.get<Project>(projectEnvironment.getOne + id);
   }
 
@@ -21,20 +21,47 @@ export class ProjectsService {
     return this.http.get<Blob>(`${projectEnvironment.getImage}/${id}/image`, { responseType: 'blob' as 'json' });
   }
   
-
-  getAllProjects = () : Observable<Project[]> => {
+  getAllProjects = (): Observable<Project[]> => {
     return this.http.get<Project[]>(projectEnvironment.getAll);
   }
+  
+  addProject = (project: Project, imageFile?: File): Observable<Project> => {
+    const formData = new FormData();
+    formData.append('title', project.title);
+    formData.append('content', project.content);
+    formData.append('summary', project.summary);
 
-  addProject = (project: Project) : Observable<Project> => {
-    return this.http.post<Project>(projectEnvironment.add, project);
+    if (imageFile) {
+      formData.append('image', imageFile);
+    } else if (project.image && typeof project.image === 'string') {
+      // Handle image URL or skip if not required in the request
+      console.warn('Image is a string URL, not sending in form data.');
+    }
+
+    return this.http.post<Project>(projectEnvironment.add, formData);
   }
 
-  updateProject = (project: Project) : Observable<Project> => {
-    return this.http.put<Project>(projectEnvironment.update, project);
+  updateProject(id: number, project: Project, imageFile: File | null): Observable<Project> {
+    const formData = new FormData();
+    formData.append('title', project.title);
+    formData.append('content', project.content);
+    formData.append('summary', project.summary);
+    
+    // Include the image only if imageFile is not null
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+  
+    // Log the formData to verify its contents
+    console.log('Updating project with FormData:', formData);
+  
+    // Send the FormData to the backend
+    return this.http.put<Project>(`${projectEnvironment.update}${id}`, formData);
   }
+  
+  
 
-  deleteProject = (id: number) : Observable<any> => {
+  deleteProject = (id: number): Observable<any> => {
     return this.http.delete<any>(projectEnvironment.delete + id);
   }
 }

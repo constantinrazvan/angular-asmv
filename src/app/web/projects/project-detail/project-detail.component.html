@@ -1,1 +1,18 @@
-<p>project-detail works!</p>
+<app-web-navbar></app-web-navbar>
+
+<div class="container p-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/proiecte']" routerLinkActive="router-link-active"  class="text-decoration-none">Proiecte</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{project.title}}</li>
+        </ol>
+    </nav>
+
+    <h1>{{project.title}}</h1>
+    <div class="project-image-container">
+        <img src="{{projectImage}}" alt="Project Image" class="project-image img-fluid">
+    </div>
+    <div [innerHTML]="project.content"></div>
+</div>
+
+<app-web-footer></app-web-footer>

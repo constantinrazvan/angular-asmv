@@ -1,71 +1,77 @@
-<app-web-navbar></app-web-navbar>
-
-<div class="container">
-    <div class="hero-section text-center my-5 fade-in">
+<!-- Full-page spinner -->
+<div *ngIf="isLoading" class="overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="!isLoading">
+    <app-web-navbar></app-web-navbar>
+  
+    <div class="container">
+      <div class="hero-section text-center my-5 fade-in">
         <h1 class="inter title">
-            <b>
-                Echipa
-                <span class="underline-container">
-                    valoroasa
-                    <img src="../../../assets/needle-underline 1.svg" alt="underline" class="underline-img">
-                </span>
-                a asociatiei
-            </b>
-            <img src="../../../assets/spark 1.svg" alt="spark" class="spark-img">
+          <b>
+            Echipa
+            <span class="underline-container">
+              valoroasa
+              <img src="../../../assets/needle-underline 1.svg" alt="underline" class="underline-img">
+            </span>
+            a asociatiei
+          </b>
+          <img src="../../../assets/spark 1.svg" alt="spark" class="spark-img">
         </h1>
-    </div>
-
-    <div *ngIf="membersAdunareaGenerala.length > 0">
+      </div>
+  
+      <div *ngIf="membersAdunareaGenerala.length > 0">
         <div class="row">
-            <div class="col-md-3 mb-4" *ngFor="let member of membersAdunareaGenerala">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="logo-wrapper">
-                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
-                        </div>
-                        <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
-                        <p class="card-text">{{ member.status }}</p>
-                    </div>
+          <div class="col-md-3 mb-4" *ngFor="let member of membersAdunareaGenerala">
+            <div class="card h-100 text-center">
+              <div class="card-body">
+                <div class="logo-wrapper">
+                  <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
                 </div>
+                <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
+                <p class="card-text">{{ member.status }}</p>
+              </div>
             </div>
+          </div>
         </div>
         <hr class="section-divider" />
-    </div>
-
-    <div *ngIf="membersConsiliuDirectorial.length > 0">
+      </div>
+  
+      <div *ngIf="membersConsiliuDirectorial.length > 0">
         <div class="row">
-            <div class="col-md-3 mb-4" *ngFor="let member of membersConsiliuDirectorial">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="logo-wrapper">
-                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
-                        </div>
-                        <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
-                        <p class="card-text">{{ member.status }}</p>
-                    </div>
+          <div class="col-md-3 mb-4" *ngFor="let member of membersConsiliuDirectorial">
+            <div class="card h-100 text-center">
+              <div class="card-body">
+                <div class="logo-wrapper">
+                  <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
                 </div>
+                <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
+                <p class="card-text">{{ member.status }}</p>
+              </div>
             </div>
+          </div>
         </div>
         <hr class="section-divider" />
-    </div>
-
-    <div *ngIf="memberVolunteers.length > 0">
+      </div>
+  
+      <div *ngIf="memberVolunteers.length > 0">
         <div class="row">
-            <div class="col-md-3 mb-4" *ngFor="let member of memberVolunteers">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="logo-wrapper">
-                            <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
-                        </div>
-                        <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
-                        <p class="card-text">{{ member.status }}</p>
-                    </div>
+          <div class="col-md-3 mb-4" *ngFor="let member of memberVolunteers">
+            <div class="card h-100 text-center">
+              <div class="card-body">
+                <div class="logo-wrapper">
+                  <img src="../../../assets/logoFooter.jpg" alt="logo" class="logo-img">
                 </div>
+                <h3 class="card-title text-primary"><b>{{ member.firstname + ' ' + member.lastname }}</b></h3>
+                <p class="card-text">{{ member.status }}</p>
+              </div>
             </div>
+          </div>
         </div>
         <hr class="section-divider" />
+      </div>
     </div>
-
-</div>
-
-<app-web-footer></app-web-footer>
+  
+    <app-web-footer></app-web-footer>
+  </div>  

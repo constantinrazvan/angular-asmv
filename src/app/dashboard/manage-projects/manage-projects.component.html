@@ -4,11 +4,29 @@
             <mat-label>Căutare</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Project Title" #input>
         </mat-form-field>
-        <button mat-flat-button style="background-color: #038ED1; color: white; margin-bottom: 20px;" (click)="refreshData()">
-            <span class="material-icons" style="padding: 5px;">
-                refresh
-            </span> 
-        </button>
+
+
+        <div class="button-group">
+            <button 
+              mat-flat-button 
+              color="primary"
+              style="margin-right: 2.5px; background-color: #038ED1; color: white;"
+              class="action-button"
+              [routerLink]="['/dashboard/adauga-proiect']" 
+              routerLinkActive="router-link-active"
+            >
+              <span class="material-icons">add</span>
+            </button>
+            <button 
+              mat-flat-button 
+              color="primary"
+              class="action-button"
+              style="margin-left: 2.5px; background-color: #038ED1; color: white;"
+              (click)="refreshData()"
+            >
+              <span class="material-icons">refresh</span>
+            </button>
+          </div>
     </div>
   
     <ng-container *ngIf="dataSource.data.length > 0">

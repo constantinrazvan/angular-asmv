@@ -13,16 +13,16 @@
     <mat-card-content>
       <!-- Project Details -->
       <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="!isEditing">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>ID</mat-label>
             <input matInput [value]="project.id" placeholder="ID" readonly>
           </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div [ngClass]="{'col-md-6': !isEditing, 'col-md-12': isEditing}">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Titlu</mat-label>
-            <input matInput [(ngModel)]="project.title" placeholder="Titlu" readonly>
+            <input matInput [(ngModel)]="project.title" placeholder="Titlu" [readonly]="!isEditing">
           </mat-form-field>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="col-md-12">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Conținut</mat-label>
-            <textarea matInput [(ngModel)]="project.content" placeholder="Conținut" readonly></textarea>
+            <textarea matInput [(ngModel)]="project.content" placeholder="Conținut" [readonly]="!isEditing"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -40,35 +40,57 @@
         <div class="col-md-12">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Rezumat</mat-label>
-            <textarea matInput [(ngModel)]="project.summary" placeholder="Rezumat" readonly></textarea>
+            <textarea matInput [(ngModel)]="project.summary" placeholder="Rezumat" [readonly]="!isEditing"></textarea>
           </mat-form-field>
         </div>
       </div>
 
-      <!-- Image -->
       <div class="row mb-4">
         <div class="col-md-12 text-center">
-          <div *ngIf="projectImage">
-            <img [src]="projectImage" alt="Project Image" class="project-image">
+          <div *ngIf="projectImage; else noImageTemplate">
+            <img [src]="projectImage" alt="Imagine proiect" class="project-image">
+            
+            <div *ngIf="isEditing">
+              <button mat-flat-button color="primary" (click)="deleteImage()" style="background-color: #d10303; margin-right: 5px;">
+                <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+              </button>
+              <input type="file" (change)="onFileChange($event)" style="margin-top: 10px;">
+            </div>
           </div>
-          <div *ngIf="!projectImage">
-            <p class="text-muted">Nu există imagine atașată</p>
-          </div>
+      
+          <ng-template #noImageTemplate>
+            <p class="text-muted" *ngIf="!isEditing">Nu există imagine atașată</p>
+            <div *ngIf="isEditing">
+              <p class="text-muted">Nu există imagine atașată. Încărcați o imagine nouă:</p>
+              <input type="file" (change)="onFileChange($event)" style="margin-top: 10px;">
+            </div>
+          </ng-template>
         </div>
-      </div>
+      </div>      
 
       <!-- Actions -->
       <div class="row">
         <div class="col-md-12 text-center">
-          <button 
-            mat-flat-button 
-            color="primary"
-            class="action-button"
-            style="background-color: #038ED1;"
-            [routerLink]="['/dashboard/edit-project', project.id]"
-          >
-            EDITAȚI PROIECTUL
-          </button>
+          <div class="button-group">
+            <!-- Show Edit/Save and Cancel Buttons based on isEditing -->
+            <ng-container *ngIf="!isEditing">
+              <button mat-flat-button color="primary" style="background-color: #d19a03; padding: 2px; margin-right: 5px;" (click)="isEditing = true">
+                <span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+              </button>
+              <button mat-flat-button color="primary" (click)="deleteProject()" style="background-color: #d10303; padding: 2px; margin-left: 5px;">
+                <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="isEditing">
+              <button mat-flat-button color="primary" style="background-color: #d19a03; padding: 2px; margin-right: 5px;" (click)="saveProject()">
+                <span class="material-symbols-outlined" style="font-size: 20px;">save</span>
+              </button>
+              <button mat-flat-button color="primary" (click)="cancelEditing()" style="background-color: #d1d1d1; padding: 2px; margin-left: 5px;">
+                <span class="material-symbols-outlined" style="font-size: 20px;">cancel</span>
+              </button>
+            </ng-container>
+          </div>
         </div>
       </div>
     </mat-card-content>

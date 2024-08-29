@@ -80,3 +80,22 @@
 .text-primary {
     color: #038ED1 !important;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255); /* White background with slight transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to ensure it covers all other content */
+  }
+  
+  /* Ensure spinner size */
+  mat-spinner {
+    width: 100px;
+    height: 100px;
+  }
