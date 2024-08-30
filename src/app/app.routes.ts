@@ -61,6 +61,11 @@ export const routes: Routes = [
     canActivate: [loggedinGuard]
   },
   {
+    path: 'politica-de-confidentialitate',
+    loadComponent: () => import('./web/gdpr/gdpr.component').then(m => m.GdprComponent), 
+    title: 'ASMV - Politica de confidentialitate'
+  },
+  {
     path: 'dashboard', 
     loadComponent : () => import('./shared/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
     canActivate: [authGuard],
@@ -111,7 +116,7 @@ export const routes: Routes = [
         path: 'utilizator-schimba-parola/:id',
         loadComponent: () => import('./dashboard/profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
         canActivate: [authGuard]
-      }, 
+      },      
       {
         path: 'utilizator-schimba-email/:id',
         loadComponent: () => import('./dashboard/profile/change-email/change-email.component').then(m => m.ChangeEmailComponent),

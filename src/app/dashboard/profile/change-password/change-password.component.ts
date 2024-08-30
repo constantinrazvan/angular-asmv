@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
 @Component({
   selector: 'app-change-password',
@@ -22,7 +23,8 @@ export class ChangePasswordComponent {
   constructor(
     private service: UsersService, 
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar // Inject MatSnackBar
   ) {}
 
   id: number = +this.route.snapshot.params['id'];
@@ -30,10 +32,17 @@ export class ChangePasswordComponent {
   changePassword() : void { 
     this.service.userChangePassword(this.id, this.newPassword, this.oldPassword).subscribe({
       next: () => {
-        console.log('Parola actualizată cu succes');
-        this.router.navigate(['/dashboard/vezi-utilizator', this.route.snapshot.params['id']]);
+        this.snackBar.open('Parola actualizată cu succes', 'Închis', {
+          duration: 3000, 
+          panelClass: ['success-snackbar'] 
+        });
+        this.router.navigate(['/dashboard/profil']);
       },
       error: (err) => {
+        this.snackBar.open('Eroare la actualizarea parolei. Verificați informațiile furnizate.', 'Închis', {
+          duration: 3000, // Durata de afișare în milisecunde
+          panelClass: ['error-snackbar'] 
+        });
         console.log(err);
       }
     });

@@ -1,0 +1,8 @@
+/* Optional: Custom styles for the modal */
+.modal-header {
+    background-color: #f8f9fa;
+  }
+  .modal-footer {
+    justify-content: space-between;
+  }
+  

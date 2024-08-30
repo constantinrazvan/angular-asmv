@@ -1,0 +1,11 @@
+/* change-email.component.css */
+.success-snackbar {
+    background-color: #4caf50; /* Verde pentru succes */
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336; /* Roșu pentru eroare */
+    color: white;
+  }
+  

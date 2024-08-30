@@ -68,7 +68,7 @@
                                     </div>
                                     <h5>Schimbă parola</h5>
                                     <p class="text-muted">Actualizează-ți parola pentru a-ți proteja contul.</p>
-                                    <button mat-flat-button color="primary" style="background-color: #038ED1;" [routerLink]="['/dashboard/utilizator-schimba-parola', user.id]">Schimbă</button>
+                                    <button mat-flat-button color="primary" style="background-color: #038ED1;" [routerLink]="['/dashboard/utilizator-schimba-parola', user.id]" (click)="changePassword()">Schimbă</button>
                                 </mat-card-content>
                             </mat-card>
                         </div>

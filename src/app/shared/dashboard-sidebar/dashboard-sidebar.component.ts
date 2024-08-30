@@ -41,6 +41,6 @@ export class DashboardSidebarComponent implements OnInit {
 
   logout() {
     this.service.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/autentificare']);
   }
 }

@@ -6,6 +6,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapCheckCircleFill } from '@ng-icons/bootstrap-icons';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CookieModalComponent } from '../cookie-modal/cookie-modal.component';
 
 
 interface Project {

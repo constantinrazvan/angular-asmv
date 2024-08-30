@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users/users.service';
 import { User } from '../../core/models/User';
 import { CommonModule } from '@angular/common';
@@ -8,11 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
@@ -24,7 +25,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: UsersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -76,9 +78,29 @@ export class ProfileComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('role');
+    const userId = localStorage.getItem('userId');
+
+    if(token && email && username && role && userId) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
+      localStorage.clear();
+      this.router.navigate(['/autentificare']);
+    } else { 
+      console.log('No token found');
+      this.router.navigate(['/autentificare']);
+    }
   }
 
   changeEmail(): void {}
-  changePassword(): void {}
+  changePassword(): void {
+    console.log(this.user.id);
+    this.router.navigate(['/dashboard/utilizator-schimba-parola', this.id]);
+  }
 }
