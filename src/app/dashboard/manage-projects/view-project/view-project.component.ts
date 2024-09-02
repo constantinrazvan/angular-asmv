@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-view-project',
   standalone: true, 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatCardModule, MatButtonModule, MatInputModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatCardModule, MatButtonModule, MatInputModule, RouterLink],
   templateUrl: './view-project.component.html',
   styleUrls: ['./view-project.component.css']
 })

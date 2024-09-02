@@ -109,11 +109,6 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },     
       {
-        path: 'utilizator-schimba-email/:id',
-        loadComponent: () => import('./dashboard/profile/change-email/change-email.component').then(m => m.ChangeEmailComponent),
-        canActivate: [authGuard]
-      },
-      {
         path: '', 
         loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),
         canActivate: [authGuard]
@@ -128,6 +123,11 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/manage-projects/add-project/add-project.component').then(m => m.AddProjectComponent),
         canActivate: [authGuard]
       },
+      {
+        path: 'editeaza-utilizator/:id', 
+        loadComponent: () => import('./dashboard/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent),
+        canActivate: [authGuard]
+      }
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route
