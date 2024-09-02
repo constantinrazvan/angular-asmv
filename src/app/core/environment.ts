@@ -37,7 +37,7 @@ export const userEnvironment = {
     deleteOne: "http://localhost:8080/api/users/delete/",
     changePassword: "http://localhost:8080/api/users/changepassword/",
     changeEmail: "http://localhost:8080/api/users/changeemail/",
-    update: "http://localhost:8080/api/users/update/",
+    update: "http://localhost:8080/api/users/update-user/",
     userChangeEmail: "http://localhost:8080/api/users/userChangeEmail/",
     userChangePassword: "http://localhost:8080/api/users/userChangePassword/"
 }
@@ -56,4 +56,8 @@ export const countEnvironment = {
     getProjects: "http://localhost:8080/api/proiecte/count",
     getBecomeVolunteers: "http://localhost:8080/api/become-volunteer/count", 
     getUsers: "http://localhost:8080/api/users/count"
+}
+
+export const adminEnvironment = {
+    changeEmailUser: "http://localhost:8080/api/auth/forgot-password"
 }

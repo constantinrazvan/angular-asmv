@@ -58,7 +58,11 @@
         <div class="col-md-6">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Rol</mat-label>
-            <input matInput [(ngModel)]="user.role" placeholder="Rol" [readonly]="!isEditing">
+            <mat-select [(ngModel)]="user.role" [disabled]="!isEditing">
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{ role }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -73,30 +77,14 @@
         </div>
       </div>
 
+      <!-- Action Buttons -->
       <div class="button-group">
         <button 
           mat-flat-button 
           color="primary"
           class="action-button"
           style="margin-left: 2.5px; background-color: #038ED1; color: white;"
-          [routerLink]="['/dashboard/schimba-parola', user.id]"
-        >
-          SCHIMBA PAROLA
-        </button>
-        <button 
-          mat-flat-button 
-          color="primary"
-          class="action-button"
-          style="margin-left: 2.5px; background-color: #038ED1; color: white;"
-          [routerLink]="['/dashboard/schimba-email', user.id]"
-        >
-          SCHIMBA EMAIL
-        </button>
-        <button 
-          mat-flat-button 
-          color="primary"
-          class="action-button"
-          style="margin-left: 2.5px; background-color: #038ED1; color: white;"
+          *ngIf="!isEditing"
           (click)="editUser()"
         >
           <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">edit</span>
@@ -107,10 +95,32 @@
           color="danger"
           class="action-button"
           style="margin-left: 2.5px; background-color: #d10303; color: white;"
-          *ngIf="checkUserRole()"
+          *ngIf="!isEditing && checkUserRole()"
           (click)="deleteUser()"
         >
           <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">delete</span>
+        </button>
+
+        <button 
+          mat-flat-button 
+          color="primary"
+          class="action-button"
+          style="margin-left: 2.5px; background-color: #038ED1; color: white;"
+          *ngIf="isEditing"
+          (click)="saveUser()"
+        >
+          <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">check</span>
+        </button>
+
+        <button 
+          mat-flat-button 
+          color="warn"
+          class="action-button"
+          style="margin-left: 2.5px; background-color: #d10303; color: white;"
+          *ngIf="isEditing"
+          (click)="cancelEdit()"
+        >
+          <span class="material-symbols-outlined" style="font-size: 20px; margin-top: 2.5px">close</span>
         </button>
       </div>
     </mat-card-content>

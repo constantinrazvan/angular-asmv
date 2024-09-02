@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../models/User';
-import { userEnvironment } from '../../environment';
+import { adminEnvironment, userEnvironment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +21,6 @@ export class UsersService {
     return this.http.get<User>(userEnvironment.getOne + id);
   }  
 
-  changeEmail(id: number, email: string) : Observable<User> {
-    return this.http.patch<User>(userEnvironment.changeEmail + id, {email: email});
-  }
-
-  changePassword(id: number, password: string) : Observable<User> {
-    return this.http.patch<User>(userEnvironment.changePassword + id, {password: password});
-  }
 
   deleteUser(id: number) : Observable<User> {
     return this.http.delete<User>(userEnvironment.deleteOne + id);
@@ -43,5 +36,9 @@ export class UsersService {
 
   userChangePassword(id: number, newPassword: string, oldPassword: string): Observable<boolean> {
     return this.http.patch<boolean>(userEnvironment.userChangePassword + id, {newPassword: newPassword, oldPassword: oldPassword});
+  }
+
+  adminChangePassword(email: string, password: string, accesskey: string): Observable<boolean> {
+    return this.http.patch<boolean>(adminEnvironment.changeEmailUser, {email: email, password: password, accessKey: accesskey});
   }
 }

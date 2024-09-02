@@ -14,20 +14,18 @@ import { AuthService } from '../../core/services/auth/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatButtonModule, MatCardModule, MatFormFieldModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
   /*
-    Membru Voluntar
-    email: string = "emil@gmail.com";
-    password: string = "emil"
+    razvan20@email.com
+    razvan20
   */
 
   /*
-    Membru Adunarea Generala 
-    email: string = "admin2024_asmv@asmv.com";
-    password: string = "admin"  
+    admin2024_asmv@asmv.com
+    admin
   */
 
   constructor(
@@ -39,7 +37,11 @@ export class LoginComponent {
   password: string = "";
   error: string = "";
 
-  onSubmit() : void { 
+  onSubmit(): void { 
+    console.log(`
+      this.email: ${this.email}
+      this.password: ${this.password}
+    `);
     this.service.login(this.email, this.password).subscribe({
       next: (data: string) => {
         console.log(data);
@@ -50,6 +52,6 @@ export class LoginComponent {
         console.log(error);
         this.error = "Email sau parola incorecte";
       }
-    })
+    });
   }
 }

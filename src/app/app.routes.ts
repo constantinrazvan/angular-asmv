@@ -66,6 +66,11 @@ export const routes: Routes = [
     title: 'ASMV - Politica de confidentialitate'
   },
   {
+    path: 'schimba-parola', 
+    loadComponent: () => import('./auth-dashboard/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
+    title: 'ASMV - Schimba parola',
+  },
+  {
     path: 'dashboard', 
     loadComponent : () => import('./shared/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
     canActivate: [authGuard],
@@ -77,6 +82,7 @@ export const routes: Routes = [
       { path: 'utilizatori', loadComponent: () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent), canActivate: [authGuard] }, 
       { path: 'cereri-voluntariat', loadComponent: () => import('./dashboard/manage-requests/manage-requests.component').then(m => m.ManageRequestsComponent), canActivate: [authGuard] },
       { path: 'profil', loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent) }, 
+      
       { 
         path: 'vezi-mesaj/:id', 
         loadComponent: () => import('./dashboard/manage-messages/view-message/view-message.component').then(m => m.ViewMessageComponent),
@@ -101,22 +107,7 @@ export const routes: Routes = [
         path: 'vezi-utilizator/:id', 
         loadComponent: () => import('./dashboard/manage-users/view-user/view-user.component').then(m => m.ViewUserComponent),
         canActivate: [authGuard]
-      }, 
-      {
-        path: 'schimba-parola/:id',
-        loadComponent: () => import('./dashboard/manage-users/change-password/change-password.component').then(m => m.ChangePasswordComponent),
-        canActivate: [authGuard]
-      }, 
-      {
-        path: 'schimba-email/:id', 
-        loadComponent: () => import('./dashboard/manage-users/change-email/change-email.component').then(m => m.ChangeEmailComponent),
-        canActivate: [authGuard]
-      }, 
-      {
-        path: 'utilizator-schimba-parola/:id',
-        loadComponent: () => import('./dashboard/profile/change-password/change-password.component').then(m => m.ChangePasswordComponent),
-        canActivate: [authGuard]
-      },      
+      },     
       {
         path: 'utilizator-schimba-email/:id',
         loadComponent: () => import('./dashboard/profile/change-email/change-email.component').then(m => m.ChangeEmailComponent),
@@ -136,7 +127,7 @@ export const routes: Routes = [
         path: 'adauga-proiect', 
         loadComponent: () => import('./dashboard/manage-projects/add-project/add-project.component').then(m => m.AddProjectComponent),
         canActivate: [authGuard]
-      }
+      },
     ]
   },
   { path: '**', redirectTo: '' } // This should be the last route

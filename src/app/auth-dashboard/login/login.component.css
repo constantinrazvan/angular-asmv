@@ -47,4 +47,11 @@
     margin-top: 16px; /* Mai mult spațiu deasupra butonului */
     padding: 0.75rem; /* Mai mult padding pentru buton */
   }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
   

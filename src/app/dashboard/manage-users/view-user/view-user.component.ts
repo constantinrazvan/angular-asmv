@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../../core/services/users/users.service';
@@ -13,13 +14,29 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, RouterLink, MatCardModule],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule, // Add MatSelectModule to imports
+    FormsModule,
+    RouterLink,
+    MatCardModule,
+  ],
   templateUrl: './view-user.component.html',
   styleUrls: ['./view-user.component.css']
 })
 export class ViewUserComponent implements OnInit {
   user: User = {} as User;
   isEditing: boolean = false;
+  
+  // List of roles
+  roles = [
+    "Membru Adunarea Generala", 
+    "Membru Consiliu Directorial", 
+    "Membru Voluntar"
+  ];
 
   constructor(
     private service: UsersService,
@@ -41,12 +58,11 @@ export class ViewUserComponent implements OnInit {
 
     this.service.getOneUser(id).subscribe({
       next: (data) => {
-        // Parse the created_at string into a Date object
         const createdAt = data.created_at ? new Date(data.created_at) : null;
 
         this.user = {
           ...data,
-          created_at: createdAt // Replace the string with the Date object
+          created_at: createdAt
         };
 
         console.log('User data fetched successfully', this.user);
@@ -59,6 +75,23 @@ export class ViewUserComponent implements OnInit {
 
   editUser(): void {
     this.isEditing = true;
+  }
+
+  saveUser(): void {
+    this.service.updateUser(this.user.id!, this.user).subscribe({
+      next: () => {
+        console.log('User updated successfully');
+        this.isEditing = false;
+      },
+      error: (e) => {
+        console.error('Failed to update user', e);
+      }
+    });
+  }
+
+  cancelEdit(): void {
+    this.getUser(); // Re-fetch user data to reset changes
+    this.isEditing = false;
   }
 
   deleteUser(): void {
@@ -79,12 +112,6 @@ export class ViewUserComponent implements OnInit {
     }
   }
   
-  cancelEdit(): void {
-    this.getUser(); // Re-fetch user data to reset changes
-    this.isEditing = false;
-  }
-
-  // Function to format the date as day-mm-yyyy
   formatDate(date: Date | null): string {
     if (!date) return 'N/A';
     const day = date.getDate().toString().padStart(2, '0');
@@ -99,21 +126,16 @@ export class ViewUserComponent implements OnInit {
     const currentUserRole = this.auth.getUserRole();
     const targetUserRole = this.user.role;
   
-    // Permite ștergerea dacă utilizatorul curent este "admin"
-    // și utilizatorul țintă nu este "admin"
     if (currentUserRole === "admin" && targetUserRole !== "admin") {
       return true;
     }
     
-    // Permite ștergerea dacă utilizatorul curent este "Membru Adunarea Generala" 
-    // și utilizatorul țintă nu este "Membru Adunarea Generala" și nici "admin"
     if (currentUserRole === "Membru Adunarea Generala" &&
         targetUserRole !== "Membru Adunarea Generala" &&
         targetUserRole !== "admin") {
       return true;
     }
     
-    // În toate celelalte cazuri, nu permite ștergerea
     return false;
   }  
 }
