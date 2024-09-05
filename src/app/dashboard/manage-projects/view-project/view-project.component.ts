@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -29,6 +29,7 @@ export class ViewProjectComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private projectsService: ProjectsService,
     private http: HttpClient
   ) {}
@@ -137,6 +138,14 @@ export class ViewProjectComponent implements OnInit {
   }
 
   deleteProject(): void {
-    // Implement your delete logic here
+    this.projectsService.deleteProject(this.id).subscribe({
+      next: (response) => {
+        this.router.navigate(['/dashboard/proiecte']);
+      },
+      error: (error) => {
+        console.error('Error deleting project:', error);
+        alert('S-a produs o eroare la ștergerea proiectului. Încercați din nou mai târziu.');
+      }
+    })
   }
 }

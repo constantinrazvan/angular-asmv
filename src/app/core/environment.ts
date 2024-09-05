@@ -1,63 +1,63 @@
 export const authEnvironement = {
-    login: "http://localhost:8080/api/auth/login",
-    register: "http://localhost:8080/api/auth/register"
+    login: "https://89.40.72.64:8080/api/auth/login",
+    register: "https://89.40.72.64:8080/api/auth/register"
 }
 
 export const becomeVolunteerEnvironment = {
-    add: "http://localhost:8080/api/become-volunteer/new",
-    getAll: "http://localhost:8080/api/become-volunteer/all",
-    getOne: "http://localhost:8080/api/become-volunteer/",
-    delete: "http://localhost:8080/api/become-volunteer/delete/",
-    update: "http://localhost:8080/api/become-volunteer/update/",
-    markAsRead: "http://localhost:8080/api/become-volunteer/markAsRead/",
+    add: "https://89.40.72.64:8080/api/become-volunteer/new",
+    getAll: "https://89.40.72.64:8080/api/become-volunteer/all",
+    getOne: "https://89.40.72.64:8080/api/become-volunteer/",
+    delete: "https://89.40.72.64:8080/api/become-volunteer/delete/",
+    update: "https://89.40.72.64:8080/api/become-volunteer/update/",
+    markAsRead: "https://89.40.72.64:8080/api/become-volunteer/markAsRead/",
 }
 
 export const messageEnvironment = {
-    add: "http://localhost:8080/api/messages/add",
-    getAll: "http://localhost:8080/api/messages/all",
-    update: "http://localhost:8080/api/messages/",
-    delete: "http://localhost:8080/api/messages/delete/", 
-    getOne: "http://localhost:8080/api/messages/one/", 
-    markAsRead: "htt://localhost:8080/api/messages/markAsRead/"
-
+    add: "https://89.40.72.64:8080/api/messages/add",
+    getAll: "https://89.40.72.64:8080/api/messages/all",
+    update: "https://89.40.72.64:8080/api/messages/",
+    delete: "https://89.40.72.64:8080/api/messages/delete/", 
+    getOne: "https://89.40.72.64:8080/api/messages/one/", 
+    markAsRead: "https://89.40.72.64:8080/api/messages/markAsRead/"
 }
 
+
 export const projectEnvironment = { 
-    add: "http://localhost:8080/api/proiecte/add",
-    getOne: "http://localhost:8080/api/proiecte/",
-    getAll: "http://localhost:8080/api/proiecte/all",
-    update: "http://localhost:8080/api/proiecte/",
-    delete: "http://localhost:8080/api/proiecte/",
-    getImage: "http://localhost:8080/api/proiecte", // /{id}/image
+    add: "https://89.40.72.64:8080/api/proiecte/add",
+    getOne: "https://89.40.72.64:8080/api/proiecte/",
+    getAll: "https://89.40.72.64:8080/api/proiecte/all",
+    update: "https://89.40.72.64:8080/api/proiecte/",
+    delete: "https://89.40.72.64:8080/api/proiecte/",
+    getImage: "https://89.40.72.64:8080/api/proiecte", // /{id}/image
 }
 
 export const userEnvironment = {
-    getAll: "http://localhost:8080/api/users/all",
-    getOne: "http://localhost:8080/api/users/one/",
-    deleteOne: "http://localhost:8080/api/users/delete/",
-    changePassword: "http://localhost:8080/api/users/changepassword/",
-    changeEmail: "http://localhost:8080/api/users/changeemail/",
-    update: "http://localhost:8080/api/users/update-user/",
-    userChangeEmail: "http://localhost:8080/api/users/userChangeEmail/",
-    userChangePassword: "http://localhost:8080/api/users/userChangePassword/"
+    getAll: "https://89.40.72.64:8080/api/users/all",
+    getOne: "https://89.40.72.64:8080/api/users/one/",
+    deleteOne: "https://89.40.72.64:8080/api/users/delete/",
+    changePassword: "https://89.40.72.64:8080/api/users/changepassword/",
+    changeEmail: "https://89.40.72.64:8080/api/users/changeemail/",
+    update: "https://89.40.72.64:8080/api/users/update-user/",
+    userChangeEmail: "https://89.40.72.64:8080/api/users/userChangeEmail/",
+    userChangePassword: "https://89.40.72.64:8080/api/users/userChangePassword/"
 }
 
 export const volunteerEnvironmet = {
-    add: "http://localhost:8080/api/volunteers/add",
-    getAll: "http://localhost:8080/api/volunteers/all",
-    getOne: "http://localhost:8080/api/volunteers/",
-    delete: "http://localhost:8080/api/volunteers/delete/",
-    update: "http://localhost:8080/api/volunteers/update/"
+    add: "https://89.40.72.64:8080/api/volunteers/add",
+    getAll: "https://89.40.72.64:8080/api/volunteers/all",
+    getOne: "https://89.40.72.64:8080/api/volunteers/",
+    delete: "https://89.40.72.64:8080/api/volunteers/delete/",
+    update: "https://89.40.72.64:8080/api/volunteers/update/"
 }
 
 export const countEnvironment = { 
-    getMessages: "http://localhost:8080/api/messages/count",
-    getVolunteers: "http://localhost:8080/api/volunteers/count",
-    getProjects: "http://localhost:8080/api/proiecte/count",
-    getBecomeVolunteers: "http://localhost:8080/api/become-volunteer/count", 
-    getUsers: "http://localhost:8080/api/users/count"
+    getMessages: "https://89.40.72.64:8080/api/messages/count",
+    getVolunteers: "https://89.40.72.64:8080/api/volunteers/count",
+    getProjects: "https://89.40.72.64:8080/api/proiecte/count",
+    getBecomeVolunteers: "https://89.40.72.64:8080/api/become-volunteer/count", 
+    getUsers: "https://89.40.72.64:8080/api/users/count"
 }
 
 export const adminEnvironment = {
-    changeEmailUser: "http://localhost:8080/api/auth/forgot-password"
+    changeEmailUser: "https://89.40.72.64:8080/api/auth/forgot-password"
 }

@@ -58,8 +58,6 @@ export class ProjectsService {
     // Send the FormData to the backend
     return this.http.put<Project>(`${projectEnvironment.update}${id}`, formData);
   }
-  
-  
 
   deleteProject = (id: number): Observable<any> => {
     return this.http.delete<any>(projectEnvironment.delete + id);
