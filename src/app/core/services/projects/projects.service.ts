@@ -34,7 +34,6 @@ export class ProjectsService {
     if (imageFile) {
       formData.append('image', imageFile);
     } else if (project.image && typeof project.image === 'string') {
-      // Handle image URL or skip if not required in the request
       console.warn('Image is a string URL, not sending in form data.');
     }
 
