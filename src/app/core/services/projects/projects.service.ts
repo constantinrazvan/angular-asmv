@@ -1,8 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../../models/Project';
-import { HttpClient } from '@angular/common/http';
 import { projectEnvironment } from '../../environment';
+import { AuthService } from '../auth/auth.service'; // Import AuthService
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +11,32 @@ import { projectEnvironment } from '../../environment';
 export class ProjectsService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService // Inject AuthService
   ) { }
 
-  getOneProject = (id: number): Observable<Project> => {
+  // Public endpoints
+  getAllProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(projectEnvironment.getAll);
+  }
+
+  getOneProject(id: number): Observable<Project> {
     return this.http.get<Project>(projectEnvironment.getOne + id);
+  }
+
+  // Authenticated requests
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getUserToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
   getProjectImage(id: number): Observable<Blob> {
     return this.http.get<Blob>(`${projectEnvironment.getImage}/${id}/image`, { responseType: 'blob' as 'json' });
   }
   
-  getAllProjects = (): Observable<Project[]> => {
-    return this.http.get<Project[]>(projectEnvironment.getAll);
-  }
-  
-  addProject = (project: Project, imageFile?: File): Observable<Project> => {
+  addProject(project: Project, imageFile?: File): Observable<Project> {
     const formData = new FormData();
     formData.append('title', project.title);
     formData.append('content', project.content);
@@ -37,7 +48,9 @@ export class ProjectsService {
       console.warn('Image is a string URL, not sending in form data.');
     }
 
-    return this.http.post<Project>(projectEnvironment.add, formData);
+    return this.http.post<Project>(projectEnvironment.add, formData, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   updateProject(id: number, project: Project, imageFile: File | null): Observable<Project> {
@@ -46,19 +59,20 @@ export class ProjectsService {
     formData.append('content', project.content);
     formData.append('summary', project.summary);
     
-    // Include the image only if imageFile is not null
     if (imageFile) {
       formData.append('image', imageFile);
     }
-  
-    // Log the formData to verify its contents
+
     console.log('Updating project with FormData:', formData);
-  
-    // Send the FormData to the backend
-    return this.http.put<Project>(`${projectEnvironment.update}${id}`, formData);
+
+    return this.http.put<Project>(`${projectEnvironment.update}${id}`, formData, {
+      headers: this.getAuthHeaders()
+    });
   }
 
-  deleteProject = (id: number): Observable<any> => {
-    return this.http.delete<any>(projectEnvironment.delete + id);
+  deleteProject(id: number): Observable<any> {
+    return this.http.delete<any>(projectEnvironment.delete + id, {
+      headers: this.getAuthHeaders()
+    });
   }
 }

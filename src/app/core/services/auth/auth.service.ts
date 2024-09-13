@@ -13,7 +13,7 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<string> {
     return this.http.post<string>(authEnvironement.login, { email, password }, { responseType: 'text' as 'json' });
   }  
 
@@ -21,71 +21,48 @@ export class AuthService {
     return this.http.post<boolean>(authEnvironement.register, { firstname, lastname, email, password, role, createdAt, accessKey });
   }
 
-  getUserToken() : string {
+  getUserToken(): string {
     return localStorage.getItem('token') || '';
   }
 
-  setUserToken(token: string) {
+  setUserToken(token: string): void {
     localStorage.setItem('token', token);
-
-    this.setUserEmail(token);
-    this.setUserUsername(token);
-    this.setUserRole(token);
-    this.setUserId(token);
+    this.setUserDetails(token);
   }
 
-  setUserEmail(token: string) {
+  private setUserDetails(token: string): void {
     const decodedToken: any = jwtDecode(token);
-    const email = decodedToken.email; // Utilizează `email` așa cum apare în payload
-    localStorage.setItem('email', email);
+    localStorage.setItem('email', decodedToken.email);
+    localStorage.setItem('username', decodedToken.username);
+    localStorage.setItem('role', decodedToken.roles);
+    localStorage.setItem('userId', decodedToken.sub);
   }
 
   getUserEmail(): string {
-    return localStorage.getItem('email')!;
-  }
-
-  setUserUsername(token: string) {
-    const decodedToken: any = jwtDecode(token);
-    const username = decodedToken.username; // Utilizează `username` așa cum apare în payload
-    localStorage.setItem('username', username);
+    return localStorage.getItem('email') || '';
   }
 
   getUserUsername(): string {
-    return localStorage.getItem('username')!;
-  }
-
-  setUserRole(token: string) {
-    const decodedToken: any = jwtDecode(token);
-    const role = decodedToken.roles; // Utilizează `roles` așa cum apare în payload
-    localStorage.setItem('role', role);
+    return localStorage.getItem('username') || '';
   }
 
   getUserRole(): string {
-    const role = localStorage.getItem('role') || '';
-    console.log('Retrieved Role:', role); // Verifică valoarea returnată
-    return role;
+    return localStorage.getItem('role') || '';
   }
 
-  setUserId(token: string) {
-    const decodedToken: any = jwtDecode(token);
-    const id = decodedToken.sub; 
-    localStorage.setItem('userId', id);
+  getUserId(): number {
+    return Number(localStorage.getItem('userId')) || 0;
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getUserToken();
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     localStorage.removeItem('username');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
-    localStorage.clear();
-  }
-
-  getUserId() : number {
-    return Number(localStorage.getItem('userId'));
   }
 }

@@ -73,60 +73,59 @@ export const routes: Routes = [
   {
     path: 'dashboard', 
     loadComponent : () => import('./shared/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
-    canActivate: [authGuard],
     children: [
-      { path: 'mesaje', loadComponent: () => import('./dashboard/manage-messages/manage-messages.component').then(m => m.ManageMessagesComponent), canActivate: [authGuard] },
-      { path: 'statistici', loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent), canActivate: [authGuard] },
-      { path: 'proiecte', loadComponent: () => import('./dashboard/manage-projects/manage-projects.component').then(m => m.ManageProjectsComponent), canActivate: [authGuard] }, 
-      { path: 'voluntari', loadComponent: () => import('./dashboard/manage-volunteers/manage-volunteers.component').then(m => m.ManageVolunteersComponent), canActivate: [authGuard] },
-      { path: 'utilizatori', loadComponent: () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent), canActivate: [authGuard] }, 
-      { path: 'cereri-voluntariat', loadComponent: () => import('./dashboard/manage-requests/manage-requests.component').then(m => m.ManageRequestsComponent), canActivate: [authGuard] },
+      { path: 'mesaje', loadComponent: () => import('./dashboard/manage-messages/manage-messages.component').then(m => m.ManageMessagesComponent),  },
+      { path: 'statistici', loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),  },
+      { path: 'proiecte', loadComponent: () => import('./dashboard/manage-projects/manage-projects.component').then(m => m.ManageProjectsComponent),  }, 
+      { path: 'voluntari', loadComponent: () => import('./dashboard/manage-volunteers/manage-volunteers.component').then(m => m.ManageVolunteersComponent),  },
+      { path: 'utilizatori', loadComponent: () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent),  }, 
+      { path: 'cereri-voluntariat', loadComponent: () => import('./dashboard/manage-requests/manage-requests.component').then(m => m.ManageRequestsComponent),  },
       { path: 'profil', loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent) }, 
       
       { 
         path: 'vezi-mesaj/:id', 
         loadComponent: () => import('./dashboard/manage-messages/view-message/view-message.component').then(m => m.ViewMessageComponent),
-        canActivate: [authGuard]
+        
       },
       {
         path: 'vezi-cerere/:id', 
         loadComponent: () => import('./dashboard/manage-requests/view-request/view-request.component').then(m => m.ViewRequestComponent),
-        canActivate: [authGuard]
+        
       }, 
       {
         path: 'vezi-voluntar/:id', 
         loadComponent: () => import('./dashboard/manage-volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
-        canActivate: [authGuard]
+        
       }, 
       {
         path: 'adauga-voluntar', 
         loadComponent: () => import('./dashboard/manage-volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
-        canActivate: [authGuard]
+        
       }, 
       {
         path: 'vezi-utilizator/:id', 
         loadComponent: () => import('./dashboard/manage-users/view-user/view-user.component').then(m => m.ViewUserComponent),
-        canActivate: [authGuard]
+        
       },     
       {
         path: '', 
         loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),
-        canActivate: [authGuard]
+        
       },
       {
         path: 'vezi-proiect/:id', 
         loadComponent: () => import('./dashboard/manage-projects/view-project/view-project.component').then(m => m.ViewProjectComponent),
-        canActivate: [authGuard]
+        
       }, 
       {
         path: 'adauga-proiect', 
         loadComponent: () => import('./dashboard/manage-projects/add-project/add-project.component').then(m => m.AddProjectComponent),
-        canActivate: [authGuard]
+        
       },
       {
         path: 'editeaza-utilizator/:id', 
         loadComponent: () => import('./dashboard/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent),
-        canActivate: [authGuard]
+        
       }
     ]
   },
