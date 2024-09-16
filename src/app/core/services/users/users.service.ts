@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../models/User';
-import { adminEnvironment, userEnvironment } from '../../environment';
+import { usersEnvironment } from '../../environment'; // Corrected import
 import { AuthService } from '../auth/auth.service'; // Import AuthService
 
 @Injectable({
@@ -24,43 +24,37 @@ export class UsersService {
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(userEnvironment.getAll, {
+    return this.http.get<User[]>(usersEnvironment.getAllUsers, {
       headers: this.getAuthHeaders()
     });
   }
 
   getOneUser(id: number): Observable<User> {
-    return this.http.get<User>(userEnvironment.getOne + id, {
+    return this.http.get<User>(usersEnvironment.getUser(id), {
       headers: this.getAuthHeaders()
     });
   }  
 
   deleteUser(id: number): Observable<User> {
-    return this.http.delete<User>(userEnvironment.deleteOne + id, {
+    return this.http.delete<User>(usersEnvironment.deleteUser(id), {
       headers: this.getAuthHeaders()
     });
   }
 
   updateUser(id: number, user: User): Observable<User> {
-    return this.http.put<User>(userEnvironment.update + id, user, {
+    return this.http.put<User>(usersEnvironment.updateUser(id), user, {
       headers: this.getAuthHeaders()
     });
   }
 
   userChangeEmail(id: number, newEmail: string, oldEmail: string): Observable<boolean> {
-    return this.http.patch<boolean>(userEnvironment.userChangeEmail + id, { newEmail, oldEmail }, {
+    return this.http.patch<boolean>(usersEnvironment.updateEmail(id), { newEmail, oldEmail }, {
       headers: this.getAuthHeaders()
     });
   }
 
   userChangePassword(id: number, newPassword: string, oldPassword: string): Observable<boolean> {
-    return this.http.patch<boolean>(userEnvironment.userChangePassword + id, { newPassword, oldPassword }, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  adminChangePassword(email: string, password: string, accesskey: string): Observable<boolean> {
-    return this.http.patch<boolean>(adminEnvironment.changeEmailUser, { email, password, accessKey: accesskey }, {
+    return this.http.patch<boolean>(usersEnvironment.updatePassword(id), { newPassword, oldPassword }, {
       headers: this.getAuthHeaders()
     });
   }

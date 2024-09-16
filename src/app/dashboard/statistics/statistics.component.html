@@ -1,63 +1,125 @@
 <div class="container mt-4">
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let stat of statistics">
-        <mat-card class="stats-card">
-          <mat-card-content class="stats-content">
-            <div class="d-flex align-items-center">
-              <div class="icon-container">
-                <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
-              </div>
-              <div>
-                <h3 class="stats-data">{{ stat.data }}</h3>
-                <p class="stats-title">{{ stat.title }}</p>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+      <!-- Carduri -->
+      <div class="col-md-3 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Voluntari</h5>
+            <h2 class="card-text">{{ totalVoluntari }}</h2>
+            <i class="bi bi-person-check fs-3"></i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Proiecte</h5>
+            <h2 class="card-text">{{ totalProiecte }}</h2>
+            <i class="bi bi-briefcase fs-3"></i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Mesaje</h5>
+            <h2 class="card-text">{{ totalMesaje }}</h2>
+            <i class="bi bi-envelope fs-3"></i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Utilizatori</h5>
+            <h2 class="card-text">{{ totalUtilizatori }}</h2>
+            <i class="bi bi-people fs-3"></i>
+          </div>
+        </div>
       </div>
     </div>
   
     <div class="row">
-      <div class="col-md-6">
-        <mat-card class="table-card">
-          <div class="table-title">Proiecte Recente</div>
-          <table mat-table [dataSource]="dataSourceProjects">
-            <ng-container matColumnDef="title">
-              <th mat-header-cell *matHeaderCellDef> Titlu </th>
-              <td mat-cell *matCellDef="let project"> {{project.title}} </td>
-            </ng-container>
-  
-            <ng-container matColumnDef="summary">
-              <th mat-header-cell *matHeaderCellDef> Rezumat </th>
-              <td mat-cell *matCellDef="let project"> {{project.summary}} </td>
-            </ng-container>
-  
-            <tr mat-header-row *matHeaderRowDef="['title', 'summary']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['title', 'summary'];"></tr>
-          </table>
-          <mat-paginator #projectPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </mat-card>
+      <!-- Tabele -->
+      <div class="col-md-6 mb-4 d-flex">
+        <div class="w-100 d-flex flex-column">
+          <h5 class="mb-3">Voluntari</h5>
+          <div class="table-responsive flex-grow-1 d-flex flex-column">
+            <table class="table table-hover table-bordered flex-grow-1">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>Număr</th>
+                  <th>Nume</th>
+                  <th>Acțiune</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let voluntar of paginatedVoluntari">
+                  <td>{{ voluntar.id }}</td>
+                  <td>{{ voluntar.numar }}</td>
+                  <td>{{ voluntar.nume }}</td>
+                  <td><button class="btn btn-outline-primary btn-sm">Editare</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav aria-label="Voluntari Pagination">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item" [class.disabled]="currentPageVoluntari === 1">
+                <a class="page-link" (click)="changePageVoluntari(currentPageVoluntari - 1)">«</a>
+              </li>
+              <li *ngFor="let page of [].constructor(totalVoluntariPages); let i = index" class="page-item" [class.active]="i + 1 === currentPageVoluntari">
+                <a class="page-link" (click)="changePageVoluntari(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPageVoluntari === totalVoluntariPages">
+                <a class="page-link" (click)="changePageVoluntari(currentPageVoluntari + 1)">»</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
   
-      <div class="col-md-6">
-        <mat-card class="table-card">
-          <div class="table-title">Voluntari Recenți</div>
-          <table mat-table [dataSource]="dataSourceVolunteers">
-            <ng-container matColumnDef="firstname">
-              <th mat-header-cell *matHeaderCellDef> Nume Intreg </th>
-              <td mat-cell *matCellDef="let volunteer"> {{volunteer.firstname + " " + volunteer.lastname}} </td>
-            </ng-container>
-  
-            <ng-container matColumnDef="joined_date">
-              <th mat-header-cell *matHeaderCellDef> Data Înscrierii </th>
-              <td mat-cell *matCellDef="let volunteer"> {{volunteer.joined_date}} </td>
-            </ng-container>
-  
-            <tr mat-header-row *matHeaderRowDef="['firstname', 'joined_date']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['firstname', 'joined_date'];"></tr>
-          </table>
-          <mat-paginator #volunteerPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </mat-card>
+      <div class="col-md-6 mb-4 d-flex">
+        <div class="w-100 d-flex flex-column">
+          <h5 class="mb-3">Mesaje</h5>
+          <div class="table-responsive flex-grow-1 d-flex flex-column">
+            <table class="table table-hover table-bordered flex-grow-1">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>Număr</th>
+                  <th>Expeditor</th>
+                  <th>Mesaj</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mesaj of paginatedMesaje">
+                  <td>{{ mesaj.id }}</td>
+                  <td>{{ mesaj.numar }}</td>
+                  <td>{{ mesaj.expeditor }}</td>
+                  <td>{{ mesaj.mesaj }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav aria-label="Mesaje Pagination">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item" [class.disabled]="currentPageMesaje === 1">
+                <a class="page-link" (click)="changePageMesaje(currentPageMesaje - 1)">«</a>
+              </li>
+              <li *ngFor="let page of [].constructor(totalMesajePages); let i = index" class="page-item" [class.active]="i + 1 === currentPageMesaje">
+                <a class="page-link" (click)="changePageMesaje(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPageMesaje === totalMesajePages">
+                <a class="page-link" (click)="changePageMesaje(currentPageMesaje + 1)">»</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </div>

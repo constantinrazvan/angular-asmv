@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/dashboard/statistici']">
+      <strong>ASMV</strong>
+    </a>
+    <div class="dropdown ms-auto">
+      <button class="btn btn-transparent dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        John Doe
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" [routerLink]="['/dashboard/profil']">Profil</a></li>
+        <li><a class="dropdown-item" href="/logout">Ieși din cont</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="shadow-sm">
+  <div class="container">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/statistici'), 'text-secondary': !isActive('/dashboard/statistici')}" [routerLink]="['/dashboard/statistici']">
+          <i class="bi bi-bar-chart"></i>
+          <span class="ms-2">Statistici</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/postari'), 'text-secondary': !isActive('/dashboard/postari')}" [routerLink]="['/dashboard/postari']">
+          <i class="bi bi-briefcase"></i>
+          <span class="ms-2">Proiecte</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/mesaje'), 'text-secondary': !isActive('/dashboard/mesaje')}" [routerLink]="['/dashboard/mesaje']">
+          <i class="bi bi-envelope"></i>
+          <span class="ms-2">Mesaje</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/voluntari'), 'text-secondary': !isActive('/dashboard/voluntari')}" [routerLink]="['/dashboard/voluntari']">
+          <i class="bi bi-person"></i>
+          <span class="ms-2">Voluntari</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/cereri'), 'text-secondary': !isActive('/dashboard/cereri')}" [routerLink]="['/dashboard/cereri']">
+          <i class="bi bi-file-earmark-text"></i>
+          <span class="ms-2">Cereri</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

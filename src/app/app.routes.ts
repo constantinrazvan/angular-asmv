@@ -11,6 +11,7 @@ import { LoginComponent } from './auth-dashboard/login/login.component';
 import { RegisterComponent } from './auth-dashboard/register/register.component';
 import { authGuard } from './core/guards/auth.guard';
 import { loggedinGuard } from './core/guards/loggedin.guard';
+import { DashboardLayoutComponent } from './shared/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
   { 
@@ -66,68 +67,25 @@ export const routes: Routes = [
     title: 'ASMV - Politica de confidentialitate'
   },
   {
-    path: 'schimba-parola', 
-    loadComponent: () => import('./auth-dashboard/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
-    title: 'ASMV - Schimba parola',
-  },
-  {
-    path: 'dashboard', 
-    loadComponent : () => import('./shared/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
     children: [
-      { path: 'mesaje', loadComponent: () => import('./dashboard/manage-messages/manage-messages.component').then(m => m.ManageMessagesComponent),  },
-      { path: 'statistici', loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),  },
-      { path: 'proiecte', loadComponent: () => import('./dashboard/manage-projects/manage-projects.component').then(m => m.ManageProjectsComponent),  }, 
-      { path: 'voluntari', loadComponent: () => import('./dashboard/manage-volunteers/manage-volunteers.component').then(m => m.ManageVolunteersComponent),  },
-      { path: 'utilizatori', loadComponent: () => import('./dashboard/manage-users/manage-users.component').then(m => m.ManageUsersComponent),  }, 
-      { path: 'cereri-voluntariat', loadComponent: () => import('./dashboard/manage-requests/manage-requests.component').then(m => m.ManageRequestsComponent),  },
-      { path: 'profil', loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent) }, 
-      
-      { 
-        path: 'vezi-mesaj/:id', 
-        loadComponent: () => import('./dashboard/manage-messages/view-message/view-message.component').then(m => m.ViewMessageComponent),
-        
-      },
       {
-        path: 'vezi-cerere/:id', 
-        loadComponent: () => import('./dashboard/manage-requests/view-request/view-request.component').then(m => m.ViewRequestComponent),
-        
-      }, 
-      {
-        path: 'vezi-voluntar/:id', 
-        loadComponent: () => import('./dashboard/manage-volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
-        
-      }, 
-      {
-        path: 'adauga-voluntar', 
-        loadComponent: () => import('./dashboard/manage-volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
-        
-      }, 
-      {
-        path: 'vezi-utilizator/:id', 
-        loadComponent: () => import('./dashboard/manage-users/view-user/view-user.component').then(m => m.ViewUserComponent),
-        
-      },     
-      {
-        path: '', 
+        path: 'statistici',
         loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),
-        
+        title: 'Statistici'
       },
       {
-        path: 'vezi-proiect/:id', 
-        loadComponent: () => import('./dashboard/manage-projects/view-project/view-project.component').then(m => m.ViewProjectComponent),
-        
-      }, 
-      {
-        path: 'adauga-proiect', 
-        loadComponent: () => import('./dashboard/manage-projects/add-project/add-project.component').then(m => m.AddProjectComponent),
-        
+        path: 'postari',
+        loadComponent: () => import('./dashboard/projects/projects.component').then(m => m.ProjectsComponent),
+        title: 'Proiecte'
       },
       {
-        path: 'editeaza-utilizator/:id', 
-        loadComponent: () => import('./dashboard/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent),
-        
+        path: '',
+        redirectTo: 'statistici',
+        pathMatch: 'full'
       }
     ]
-  },
+  },  
   { path: '**', redirectTo: '' } // This should be the last route
 ];

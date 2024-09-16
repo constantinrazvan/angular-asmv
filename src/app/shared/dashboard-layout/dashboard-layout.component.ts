@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { DashboardSidebarComponent } from '../dashboard-sidebar/dashboard-sidebar.component';
+import { DashboardNavComponent } from "../dashboard-nav/dashboard-nav.component";
 
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, DashboardSidebarComponent],
+  imports: [CommonModule, RouterModule, DashboardNavComponent],
   template: `
-    <app-dashboard-sidebar>
+    <app-dashboard-nav></app-dashboard-nav>
+    <div class="dashboard-content">
       <router-outlet></router-outlet>
-    </app-dashboard-sidebar>
+    </div>
   `,
 })
 export class DashboardLayoutComponent {}

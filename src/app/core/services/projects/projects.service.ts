@@ -17,11 +17,15 @@ export class ProjectsService {
 
   // Public endpoints
   getAllProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(projectEnvironment.getAll);
+    return this.http.get<Project[]>(projectEnvironment.getAllProjects);
   }
 
   getOneProject(id: number): Observable<Project> {
-    return this.http.get<Project>(projectEnvironment.getOne + id);
+    return this.http.get<Project>(projectEnvironment.getProjectById(id));
+  }
+
+  getProjectImage(id: number): Observable<Blob> {
+    return this.http.get<Blob>(`${projectEnvironment.getProjectById(id)}/image`, { responseType: 'blob' as 'json' });
   }
 
   // Authenticated requests
@@ -32,10 +36,6 @@ export class ProjectsService {
     });
   }
 
-  getProjectImage(id: number): Observable<Blob> {
-    return this.http.get<Blob>(`${projectEnvironment.getImage}/${id}/image`, { responseType: 'blob' as 'json' });
-  }
-  
   addProject(project: Project, imageFile?: File): Observable<Project> {
     const formData = new FormData();
     formData.append('title', project.title);
@@ -48,7 +48,7 @@ export class ProjectsService {
       console.warn('Image is a string URL, not sending in form data.');
     }
 
-    return this.http.post<Project>(projectEnvironment.add, formData, {
+    return this.http.post<Project>(projectEnvironment.newProject, formData, {
       headers: this.getAuthHeaders()
     });
   }
@@ -65,13 +65,13 @@ export class ProjectsService {
 
     console.log('Updating project with FormData:', formData);
 
-    return this.http.put<Project>(`${projectEnvironment.update}${id}`, formData, {
+    return this.http.put<Project>(projectEnvironment.updateProject(id), formData, {
       headers: this.getAuthHeaders()
     });
   }
 
   deleteProject(id: number): Observable<any> {
-    return this.http.delete<any>(projectEnvironment.delete + id, {
+    return this.http.delete<any>(projectEnvironment.deleteProject(id), {
       headers: this.getAuthHeaders()
     });
   }

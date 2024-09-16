@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BecomeVolunteer } from '../../models/BecomeVolunteer';
-import { becomeVolunteerEnvironment } from '../../environment';
+import { becomeVolunteersEnvironment } from '../../environment'; // Corrected import
 import { AuthService } from '../auth/auth.service'; // Import AuthService
 
 @Injectable({
@@ -17,7 +17,7 @@ export class RequestsService {
 
   // Public endpoint
   addRequest(becomeVolunteer: BecomeVolunteer): Observable<BecomeVolunteer> {
-    return this.http.post<BecomeVolunteer>(becomeVolunteerEnvironment.add, becomeVolunteer);
+    return this.http.post<BecomeVolunteer>(becomeVolunteersEnvironment.addVolunteerApplication, becomeVolunteer);
   }
 
   // Authenticated requests
@@ -29,31 +29,31 @@ export class RequestsService {
   }
 
   getRequests(): Observable<BecomeVolunteer[]> {
-    return this.http.get<BecomeVolunteer[]>(becomeVolunteerEnvironment.getAll, {
+    return this.http.get<BecomeVolunteer[]>(becomeVolunteersEnvironment.getAllVolunteers, {
       headers: this.getAuthHeaders()
     });
   }
 
   getOne(id: number): Observable<BecomeVolunteer> {
-    return this.http.get<BecomeVolunteer>(`${becomeVolunteerEnvironment.getOne}${id}`, {
+    return this.http.get<BecomeVolunteer>(becomeVolunteersEnvironment.getOneVolunteer(id), {
       headers: this.getAuthHeaders()
     });
   }
 
   updateRequest(id: number, becomeVolunteer: BecomeVolunteer): Observable<BecomeVolunteer> {
-    return this.http.put<BecomeVolunteer>(`${becomeVolunteerEnvironment.update}/${id}`, becomeVolunteer, {
+    return this.http.put<BecomeVolunteer>(becomeVolunteersEnvironment.updateVolunteer(id), becomeVolunteer, {
       headers: this.getAuthHeaders()
     });
   }
 
   deleteRequest(id: number): Observable<BecomeVolunteer> {
-    return this.http.delete<BecomeVolunteer>(`${becomeVolunteerEnvironment.delete}/${id}`, {
+    return this.http.delete<BecomeVolunteer>(becomeVolunteersEnvironment.getOneVolunteer(id), {
       headers: this.getAuthHeaders()
     });
   }
 
-  markAsRead(id: number): Observable<boolean> {
-    return this.http.patch<boolean>(`${becomeVolunteerEnvironment.markAsRead}${id}`, null, {
+  markAsRead(id: number): Observable<void> {
+    return this.http.patch<void>(becomeVolunteersEnvironment.markAsRead(id), {}, {
       headers: this.getAuthHeaders()
     });
   }

@@ -1,9 +1,0 @@
-.project-image { 
-    width: 300px;
-}
-
-@media screen and (max-width: 600px) {
-    .project-image { 
-       width: 100%;
-    }
-}

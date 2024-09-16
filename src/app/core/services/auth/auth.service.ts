@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { authEnvironement } from '../../environment';
+import { authEnvironment } from '../../environment';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -14,11 +14,15 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string): Observable<string> {
-    return this.http.post<string>(authEnvironement.login, { email, password }, { responseType: 'text' as 'json' });
+    return this.http.post<string>(authEnvironment.login, { email, password }, { responseType: 'text' as 'json' });
   }  
 
   register(firstname: string, lastname: string, email: string, password: string, role: string, createdAt: string, accessKey: string): Observable<boolean> {
-    return this.http.post<boolean>(authEnvironement.register, { firstname, lastname, email, password, role, createdAt, accessKey });
+    return this.http.post<boolean>(authEnvironment.register, { firstname, lastname, email, password, role, createdAt, accessKey });
+  }
+
+  getProfile(id: number): Observable<any> {
+    return this.http.get<any>(authEnvironment.getProfile(id));
   }
 
   getUserToken(): string {

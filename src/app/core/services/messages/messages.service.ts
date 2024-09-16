@@ -16,8 +16,8 @@ export class MessagesService {
   ) { }
 
   // Public endpoint to add a new message
-  addMessage(message: Message): Observable<Message> {
-    return this.http.post<Message>(messageEnvironment.add, message);
+  addMessage(message: Message): Observable<boolean> {
+    return this.http.post<boolean>(messageEnvironment.addMessage, message);
   }
 
   // Authenticated requests
@@ -29,31 +29,13 @@ export class MessagesService {
   }
 
   getAllMessages(): Observable<Message[]> {
-    return this.http.get<Message[]>(messageEnvironment.getAll, {
+    return this.http.get<Message[]>(messageEnvironment.getAllMessages, {
       headers: this.getAuthHeaders()
     });
   }
 
   getOneMessage(id: number): Observable<Message> {
-    return this.http.get<Message>(messageEnvironment.getOne + id, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  updateMessage(id: number, message: Message): Observable<Message> {
-    return this.http.put<Message>(messageEnvironment.update + id, message, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  deleteMessage(id: number): Observable<boolean> { 
-    return this.http.delete<boolean>(messageEnvironment.delete + id, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  markAsRead(id: number): Observable<void> {
-    return this.http.patch<void>(`${messageEnvironment.markAsRead}/${id}`, {}, {
+    return this.http.get<Message>(messageEnvironment.getMessageById(id), {
       headers: this.getAuthHeaders()
     });
   }

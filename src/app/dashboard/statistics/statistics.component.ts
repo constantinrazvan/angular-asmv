@@ -1,154 +1,68 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { StatisticsService } from '../../core/services/statistics/statistics.service';
 import { CommonModule } from '@angular/common';
-import { Volunteer } from '../../core/models/Volunteer';
-import { Project } from '../../core/models/Project';
-import { ProjectsService } from '../../core/services/projects/projects.service';
-import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-
-interface Data {
-  title: string;
-  data: number;
-  icon: string;
-}
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatTableModule, MatPaginator],
+  imports: [CommonModule],
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrl: './statistics.component.css'
 })
-export class StatisticsComponent implements OnInit, AfterViewInit {
-  messages: number = 0;
-  volunteers: number = 0;
-  becomeVolunteers: number = 0;
-  projects: number = 0;
-  users: number = 0;
+export class StatisticsComponent implements OnInit {
 
-  statistics: Data[] = [];
-  projectsStack: Project[] = [];
-  volunteerStack: Volunteer[] = [];
+  totalVoluntari: number = 150; // Exemplu de date
+  totalProiecte: number = 45;   // Exemplu de date
+  totalMesaje: number = 120;    // Exemplu de date
+  totalUtilizatori: number = 75; // Exemplu de date
 
-  projectDisplayedColumns: string[] = ['title', 'summary'];
-  volunteerDisplayedColumns: string[] = ['firstname', 'joined_date'];
+  // Exemple de date
+  voluntariData = [
+    { id: 1, numar: '123', nume: 'Ion Popescu' },
+    { id: 2, numar: '456', nume: 'Maria Ionescu' },
+    { id: 3, numar: '789', nume: 'Andrei Georgescu' },
+    { id: 4, numar: '101', nume: 'Elena Radu' },
+    { id: 5, numar: '202', nume: 'George Marin' },
+    { id: 6, numar: '303', nume: 'Ana Popa' }
+  ];
 
-  dataSourceProjects = new MatTableDataSource<Project>(this.projectsStack);
-  dataSourceVolunteers = new MatTableDataSource<Volunteer>(this.volunteerStack);
+  mesajeData = [
+    { id: 1, numar: '789', expeditor: 'Andrei Georgescu', mesaj: 'Mesaj important!' },
+    { id: 2, numar: '101', expeditor: 'Elena Radu', mesaj: 'Întrebare despre proiect.' },
+    { id: 3, numar: '202', expeditor: 'George Marin', mesaj: 'Solicitare de informații.' },
+    { id: 4, numar: '303', expeditor: 'Ana Popa', mesaj: 'Feedback pozitiv.' },
+    { id: 5, numar: '404', expeditor: 'Ioana Bălan', mesaj: 'Recomandare proiect.' },
+    { id: 6, numar: '505', expeditor: 'Mihai Ionescu', mesaj: 'Întrebare despre eveniment.' }
+  ];
 
-  @ViewChild('projectPaginator') paginatorProject!: MatPaginator;
-  @ViewChild('volunteerPaginator') paginatorVolunteer!: MatPaginator;
+  currentPageVoluntari = 1;
+  currentPageMesaje = 1;
+  rowsPerPage = 5;
 
-  constructor(
-    private service: StatisticsService,
-    private projectsService: ProjectsService,
-    private volunteersService: VolunteersService
-  ) {}
-
-  ngOnInit() {
-    this.getMessages();
-    this.getVolunteers();
-    this.getBecomeVolunteers();
-    this.getProjects();
-    this.getUsers();
-    this.getVolunteersStack();
-    this.getProjectsStack();
+  get totalVoluntariPages() {
+    return Math.ceil(this.voluntariData.length / this.rowsPerPage);
   }
 
-  ngAfterViewInit() {
-    this.dataSourceProjects.paginator = this.paginatorProject;
-    this.dataSourceVolunteers.paginator = this.paginatorVolunteer;
+  get totalMesajePages() {
+    return Math.ceil(this.mesajeData.length / this.rowsPerPage);
   }
 
-  updateStatistics() {
-    this.statistics = [
-      { title: 'Mesaje', data: this.messages, icon: 'email' },
-      { title: 'Voluntari', data: this.volunteers, icon: 'group' },
-      { title: 'Cereri Voluntariat', data: this.becomeVolunteers, icon: 'volunteer_activism' },
-      { title: 'Proiecte', data: this.projects, icon: 'folder_open' },
-      { title: 'Utilizatori', data: this.users, icon: 'people' },
-    ];
+  get paginatedVoluntari() {
+    const start = (this.currentPageVoluntari - 1) * this.rowsPerPage;
+    return this.voluntariData.slice(start, start + this.rowsPerPage);
   }
 
-  getMessages() {
-    this.service.getMessages().subscribe({
-      next: (data) => {
-        this.messages = data;
-        this.updateStatistics();
-      },
-      error: (e) => console.error(e),
-    });
+  get paginatedMesaje() {
+    const start = (this.currentPageMesaje - 1) * this.rowsPerPage;
+    return this.mesajeData.slice(start, start + this.rowsPerPage);
   }
 
-  getVolunteers() {
-    this.service.getVolunteers().subscribe({
-      next: (data) => {
-        this.volunteers = data;
-        this.updateStatistics();
-      },
-      error: (e) => console.error(e),
-    });
+  ngOnInit(): void { }
+
+  changePageVoluntari(page: number) {
+    this.currentPageVoluntari = page;
   }
 
-  getBecomeVolunteers() {
-    this.service.getBecomeVolunteers().subscribe({
-      next: (data) => {
-        this.becomeVolunteers = data;
-        this.updateStatistics();
-      },
-      error: (e) => console.error(e),
-    });
+  changePageMesaje(page: number) {
+    this.currentPageMesaje = page;
   }
-
-  getProjects() {
-    this.service.getProjects().subscribe({
-      next: (data) => {
-        this.projects = data;
-        this.updateStatistics();
-      },
-      error: (e) => console.error(e),
-    })
-  }
-
-  getUsers() {
-    this.service.getUsers().subscribe({
-      next: (data) => {
-        this.users = data;
-        this.updateStatistics();
-      },
-      error: (e) => console.error(e),
-    });
-  }
-
-  getVolunteersStack() {
-    this.volunteersService.getAll().subscribe({
-      next: (data) => {
-        const reversedVolunteerStack: Volunteer[] = [];
-        for (let i = data.length - 1; i >= 0; i--) {
-          reversedVolunteerStack.push(data[i]);
-        }
-        this.volunteerStack = reversedVolunteerStack;
-        this.dataSourceVolunteers.data = this.volunteerStack;
-      },
-      error: (e) => console.error(e),
-    });
-  }
-  
-  getProjectsStack() {
-    this.projectsService.getAllProjects().subscribe({
-      next: (data) => {
-        const reversedProjectStack: Project[] = [];
-        for (let i = data.length - 1; i >= 0; i--) {
-          reversedProjectStack.push(data[i]);
-        }
-        this.projectsStack = reversedProjectStack;
-        this.dataSourceProjects.data = this.projectsStack;
-      },
-      error: (e) => console.error(e),
-    });
-  }    
 }
