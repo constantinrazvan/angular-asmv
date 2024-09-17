@@ -96,6 +96,11 @@ export const routes: Routes = [
         title: 'Cereri de Voluntariat'
       },
       {
+        path: 'profil',
+        loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent),
+        title: 'Profil'
+      },
+      {
         path: '',
         redirectTo: 'statistici',
         pathMatch: 'full'
