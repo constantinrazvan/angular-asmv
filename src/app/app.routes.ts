@@ -81,6 +81,21 @@ export const routes: Routes = [
         title: 'Proiecte'
       },
       {
+        path: 'mesaje',
+        loadComponent: () => import('./dashboard/messages/messages.component').then(m => m.MessagesComponent),
+        title: 'Mesaje'
+      },
+      {
+        path: 'voluntari',
+        loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent), 
+        title: 'Voluntari'
+      },
+      {
+        path: 'cereri',
+        loadComponent: () => import('./dashboard/requests/requests.component').then(m => m.RequestsComponent), 
+        title: 'Cereri de Voluntariat'
+      },
+      {
         path: '',
         redirectTo: 'statistici',
         pathMatch: 'full'

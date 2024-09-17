@@ -1,10 +1,9 @@
 <div class="container my-4">
     <div class="mb-4">
-      <h1><b>Mesaje</b></h1>
+      <h1><b>Solicitări Voluntariat</b></h1>
       <div>
-        <button class="btn btn-secondary btn-sm">
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
+        <button class="btn btn-primary btn-sm me-2">Adaugă</button>
+        <button class="btn btn-secondary btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
       </div>
     </div>
   
@@ -12,17 +11,25 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>Nume întreg</th>
+            <th>Nume complet</th>
             <th>Email</th>
-            <th>Mesaj</th>
+            <th>Telefon</th>
+            <th>Facultate</th>
+            <th>Motiv</th>
+            <th>Status citire</th>
+            <th>Data înscrierii</th>
             <th>Acțiuni</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let message of paginatedMessages">
-            <td>{{ message.fullname }}</td>
-            <td>{{ message.email }}</td>
-            <td>{{ message.text }}</td>
+          <tr *ngFor="let volunteer of paginatedVolunteers">
+            <td>{{ volunteer.fullname }}</td>
+            <td>{{ volunteer.email }}</td>
+            <td>{{ volunteer.phone }}</td>
+            <td>{{ volunteer.faculty }}</td>
+            <td>{{ volunteer.reason }}</td>
+            <td>{{ volunteer.readed ? 'Citiți' : 'Necitit' }}</td>
+            <td>{{ volunteer.joinedDate }}</td>
             <td>
               <button class="btn btn-warning btn-sm me-2">
                 <i class="bi bi-pencil"></i>
@@ -43,11 +50,7 @@
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li
-          class="page-item"
-          *ngFor="let page of [].constructor(totalPages); let i = index"
-          [class.active]="currentPage === i + 1"
-        >
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
           <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
         </li>
         <li class="page-item" [class.disabled]="currentPage === totalPages">
