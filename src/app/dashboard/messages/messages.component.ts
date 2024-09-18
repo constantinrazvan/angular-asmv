@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Message } from '../../core/models/Message';
+import { MessagesService } from '../../core/services/messages/messages.service';
 
 @Component({
   selector: 'app-messages',
@@ -9,17 +11,37 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent {
-  messages = [
-    { fullname: 'John Doe', email: 'johndoe@example.com', text: 'This is the first message.' },
-    { fullname: 'Jane Smith', email: 'janesmith@example.com', text: 'Here is a message from Jane.' },
-    { fullname: 'Alice Johnson', email: 'alice.j@example.com', text: 'Alice has left a message here.' },
-    { fullname: 'Bob Williams', email: 'bob.w@example.com', text: 'Message from Bob.' },
-    { fullname: 'Charlie Brown', email: 'charlieb@example.com', text: 'Charlie Brown says hi.' },
-    { fullname: 'Dana White', email: 'dana.white@example.com', text: 'Dana sent this message.' }
-  ];
+  messages : Message[] = [];
 
-  itemsPerPage = 3; // Changed for easier testing
+  constructor(
+    private service: MessagesService
+  ){}
+
+  itemsPerPage = 3; 
   currentPage = 1;
+
+  fetchMessages() {
+    this.service.getAllMessages().subscribe({
+      next: (data: Message[]) => { 
+        for(let i = 0; i < data.length; i++) { 
+          this.messages.push(data[i]);
+        }
+      },
+      error: (error: string | null) => { 
+        console.log("Eroare la aducerea mesajelor!");
+        console.log(error);
+      }
+    })
+  }
+
+  reloadData() { 
+    this.service.getAllMessages().subscribe({
+      next: (data: Message[]) => { 
+        this.messages = []; 
+        this.messages.push(...data);
+      }
+    })
+  }
 
   get totalItems() {
     return this.messages.length;

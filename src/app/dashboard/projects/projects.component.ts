@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProjectsService } from '../../core/services/projects/projects.service';
+import { Project } from '../../core/models/Project';
 
 @Component({
   selector: 'app-projects',
@@ -8,15 +10,17 @@ import { Component } from '@angular/core';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
-export class ProjectsComponent {
-  projects = [
-    { title: 'Proiectul A', summary: 'Sumar despre Proiectul A. Acest proiect are ca obiectiv dezvoltarea unei aplicații mobile.' },
-    { title: 'Proiectul B', summary: 'Sumar despre Proiectul B. Acest proiect se axează pe crearea unei platforme web pentru managementul voluntarilor.' },
-    { title: 'Proiectul C', summary: 'Sumar despre Proiectul C. Acest proiect este dedicat organizării evenimentelor și campaniilor de promovare.' },
-    { title: 'Proiectul D', summary: 'Sumar despre Proiectul D. Acest proiect implică dezvoltarea unei aplicații de e-commerce.' },
-    { title: 'Proiectul E', summary: 'Sumar despre Proiectul E. Acest proiect vizează crearea unei soluții de CRM.' },
-    { title: 'Proiectul F', summary: 'Sumar despre Proiectul F. Acest proiect se concentrează pe integrarea unui sistem de plăți online.' }
-  ];
+export class ProjectsComponent implements OnInit {
+
+  constructor(
+    private service: ProjectsService
+  ){}
+
+  ngOnInit(): void {
+    this.fetchProjects();
+  }
+
+  projects : Project[] = [];
 
   itemsPerPage = 5;
   currentPage = 1;
@@ -36,7 +40,34 @@ export class ProjectsComponent {
   }
 
   changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return; // Previne selectarea paginilor invalide
+    if (page < 1 || page > this.totalPages) return; 
     this.currentPage = page;
+  }
+
+  fetchProjects() : void { 
+    this.service.getAllProjects().subscribe({
+      next: (data: Project[]) => { 
+        for(let i = 0; i < data.length; i++) { 
+          this.projects.push(data[i]);
+        }
+      },
+      error: (error: string | null) => { 
+        console.log("Eroare la aducerea proiectelor!");
+        console.log(error);
+      }
+    })
+  }
+
+  onDelete(id: number): void {
+    if (confirm('Esti sigur ca vrei sa stergi acest proiect?')) {
+      this.service.deleteProject(id).subscribe({
+        next: (response: string) => { 
+          console.log("Proiectul a fost sters cu succes!");
+        }, 
+        error: (error: string | null) => { 
+          console.log("Eroare la stergerea proiectului");
+        }
+      })
+    }
   }
 }

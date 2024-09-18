@@ -104,6 +104,21 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'statistici',
         pathMatch: 'full'
+      }, 
+      {
+        path: 'proiect/nou',
+        loadComponent: () => import('./dashboard/projects/add-project/add-project.component').then(m => m.AddProjectComponent),
+        title: 'Nou proiect'
+      },
+      {
+        path: 'proiect/edit/:id',
+        loadComponent: () => import('./dashboard/projects/edit-project/edit-project.component').then(m => m.EditProjectComponent),
+        title: 'Editeaza proiect'
+      }, 
+      {
+        path: 'mesaje/:id', 
+        loadComponent: () => import('./dashboard/messages/view-message/view-message.component').then(m => m.ViewMessageComponent), 
+        title: 'Mesaj'
       }
     ]
   },  

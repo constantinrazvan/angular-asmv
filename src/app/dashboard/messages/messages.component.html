@@ -12,7 +12,7 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>Nume întreg</th>
+            <th>Nume</th>
             <th>Email</th>
             <th>Mesaj</th>
             <th>Acțiuni</th>
@@ -20,15 +20,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let message of paginatedMessages">
-            <td>{{ message.fullname }}</td>
+            <td>{{ message.name }}</td>
             <td>{{ message.email }}</td>
             <td>{{ message.text }}</td>
             <td>
               <button class="btn btn-warning btn-sm me-2">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="btn btn-danger btn-sm">
-                <i class="bi bi-trash"></i>
+                <i class="bi bi-eye"></i>
               </button>
             </td>
           </tr>
