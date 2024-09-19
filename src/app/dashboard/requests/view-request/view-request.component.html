@@ -1,0 +1,40 @@
+<div class="edit-form-volunteer">
+    <div class="container mt-5">
+      <h1 class="mb-4">Editează Cerere Voluntar</h1>
+  
+      <form *ngIf="request" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="requestId" class="form-label">ID Cerere</label>
+          <input type="text" [value]="request.id" class="form-control" id="requestId" readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="requestFullname" class="form-label">Nume Complet</label>
+          <input type="text" [(ngModel)]="request.fullname" name="fullname" class="form-control" id="requestFullname">
+        </div>
+  
+        <div class="mb-3">
+          <label for="requestEmail" class="form-label">Email</label>
+          <input type="email" [(ngModel)]="request.email" name="email" class="form-control" id="requestEmail">
+        </div>
+  
+        <div class="mb-3">
+          <label for="requestPhone" class="form-label">Telefon</label>
+          <input type="tel" [(ngModel)]="request.phone" name="phone" class="form-control" id="requestPhone">
+        </div>
+  
+        <div class="mb-3">
+          <label for="requestFaculty" class="form-label">Facultate</label>
+          <input type="text" [(ngModel)]="request.faculty" name="faculty" class="form-control" id="requestFaculty">
+        </div>
+  
+        <div class="mb-3">
+          <label for="requestReason" class="form-label">Motiv</label>
+          <textarea [(ngModel)]="request.reason" name="reason" class="form-control" id="requestReason" rows="4"></textarea>
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Salvează Modificările</button>
+      </form>
+    </div>
+  </div>
+  

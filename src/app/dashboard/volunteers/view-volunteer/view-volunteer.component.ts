@@ -31,7 +31,7 @@ export class ViewVolunteerComponent implements OnInit {
   fetchUser(id: number): void {
     this.service.getOne(id).subscribe({
       next: (data: Volunteer) => {
-        console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data, null, 2));
         this.volunteer = data;
       },
       error: (err) => {

@@ -32,7 +32,7 @@ export class BecomeVolunteerComponent implements OnInit {
     faculty: '',
     phone: '',
     reason: '',
-    newRequest: true
+    readed: true
   };
   error: string = '';
   formSent: boolean = false;

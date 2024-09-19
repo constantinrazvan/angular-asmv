@@ -124,6 +124,11 @@ export const routes: Routes = [
         path: 'voluntar/:id',
         loadComponent: () => import('./dashboard/volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
         title: 'Voluntar'
+      },
+      {
+        path: 'cerere/:id',
+        loadComponent: () => import('./dashboard/requests/view-request/view-request.component').then(m => m.ViewRequestComponent),
+        title: 'Cerere'
       }
     ]
   },  

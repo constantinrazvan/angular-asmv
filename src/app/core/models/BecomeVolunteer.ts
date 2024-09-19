@@ -5,5 +5,5 @@ export interface BecomeVolunteer {
     phone: string, 
     faculty: string, 
     reason: string, 
-    newRequest?: boolean
+    readed?: boolean
 }
