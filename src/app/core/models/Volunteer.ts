@@ -6,5 +6,5 @@ export interface Volunteer {
   phone: string, 
   city: string, 
   status: string, 
-  joined_date: string
+  joinedDate: string
 }

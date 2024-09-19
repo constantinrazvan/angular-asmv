@@ -1,27 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { Volunteer } from '../../core/models/Volunteer';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-volunteers',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './volunteers.component.html',
   styleUrl: './volunteers.component.css'
 })
-export class VolunteersComponent {
-  roles = [
-    "Membru Adunarea Generala", 
-    "Membru Consiliu Directorial", 
-    "Membru Voluntar"
-  ];
+export class VolunteersComponent implements OnInit {
 
-  volunteers = [
-    { id: 1, firstname: 'John', lastname: 'Doe', email: 'john.doe@example.com', phone: '1234567890', city: 'Bucharest', status: this.roles[2], joinedDate: '2023-05-12' },
-    { id: 2, firstname: 'Jane', lastname: 'Smith', email: 'jane.smith@example.com', phone: '9876543210', city: 'Cluj', status: this.roles[1], joinedDate: '2023-06-20' },
-    { id: 3, firstname: 'Robert', lastname: 'Johnson', email: 'robert.johnson@example.com', phone: '1122334455', city: 'Timisoara', status: this.roles[0], joinedDate: '2023-04-05' },
-    { id: 4, firstname: 'Emily', lastname: 'Williams', email: 'emily.williams@example.com', phone: '6677889900', city: 'Iasi', status: this.roles[2], joinedDate: '2023-07-14' },
-    { id: 5, firstname: 'Michael', lastname: 'Brown', email: 'michael.brown@example.com', phone: '9988776655', city: 'Constanta', status: this.roles[1], joinedDate: '2023-03-29' }
-  ];
+  constructor(
+    private service: VolunteersService
+  ) {}
+
+  ngOnInit(): void {
+      this.fetchData();
+  }
+
+  fetchData(): void {
+    this.service.getAll().subscribe({
+      next: (data: Volunteer[]) => {
+        console.log('Data retrieved:');
+        console.log(JSON.stringify(data, null, 2));
+        this.volunteers = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  volunteers : Volunteer[] = [];
 
   itemsPerPage = 5;
   currentPage = 1;
@@ -43,5 +56,18 @@ export class VolunteersComponent {
   changePage(page: number) {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
+  }
+
+  onDelete(id : number) {
+    if(confirm("Esti sigur ca vrei sa stergi acest voluntar?")) {
+      this.service.deleteVolunteer(id).subscribe({
+        next: (res) => { 
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
   }
 }

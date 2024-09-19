@@ -1,1 +1,40 @@
-<p>view-message works!</p>
+<div class="edit-form-message">
+    <div class="container mt-5">
+      <h1 class="mb-4">Editează Mesaj</h1>
+  
+      <form *ngIf="message">
+        <div class="mb-3">
+          <label for="messageId" class="form-label">ID Mesaj</label>
+          <input type="text" [value]="message.id" class="form-control" id="messageId" readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="messageFullname" class="form-label">Nume Complet</label>
+          <input type="text" [(ngModel)]="message.fullname" name="fullname" class="form-control" id="messageFullname" readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="messageEmail" class="form-label">Email</label>
+          <input type="email" [(ngModel)]="message.email" name="email" class="form-control" id="messageEmail" readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="messageText" class="form-label">Mesaj</label>
+          <textarea [(ngModel)]="message.text" name="text" class="form-control" id="messageText" rows="4" readonly></textarea>
+        </div>
+  
+        <div class="mb-3">
+          <label for="messageStatus" class="form-label">Mesaj Nou</label>
+          <select [(ngModel)]="message.newRequest" name="newRequest" class="form-select" id="messageStatus" readonly>
+            <option [value]="true">Da</option>
+            <option [value]="false">Nu</option>
+          </select>
+        </div>
+  
+        <!-- Butonul care marchează mesajul ca citit sau necitit -->
+        <button type="button" class="btn btn-primary" (click)="toggleReadStatus()">
+          {{ message.newRequest ? 'Marchează ca citit' : 'Marchează ca necitit' }}
+        </button>
+      </form>
+    </div>
+  </div>  

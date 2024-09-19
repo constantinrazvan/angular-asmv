@@ -1,46 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Message } from '../../core/models/Message';
+import { Component, OnInit } from '@angular/core';
+import { Message } from '../../core/models/Message'; // Ensure this matches the backend DTO
 import { MessagesService } from '../../core/services/messages/messages.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent {
-  messages : Message[] = [];
+export class MessagesComponent implements OnInit {
+  messages: Message[] = [];
 
-  constructor(
-    private service: MessagesService
-  ){}
+  constructor(private service: MessagesService) {}
 
-  itemsPerPage = 3; 
+  itemsPerPage = 3;
   currentPage = 1;
+
+  ngOnInit(): void {
+    this.fetchMessages();
+  }
 
   fetchMessages() {
     this.service.getAllMessages().subscribe({
-      next: (data: Message[]) => { 
-        for(let i = 0; i < data.length; i++) { 
-          this.messages.push(data[i]);
-        }
+      next: (data: Message[]) => {
+        console.log(data); // Check the structure of the data in the console
+        this.messages = data; // Directly assign the fetched data
       },
-      error: (error: string | null) => { 
-        console.log("Eroare la aducerea mesajelor!");
+      error: (error: string | null) => {
+        console.log('Eroare la aducerea mesajelor!');
         console.log(error);
       }
-    })
-  }
-
-  reloadData() { 
-    this.service.getAllMessages().subscribe({
-      next: (data: Message[]) => { 
-        this.messages = []; 
-        this.messages.push(...data);
-      }
-    })
+    });
   }
 
   get totalItems() {

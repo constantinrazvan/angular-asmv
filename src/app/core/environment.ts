@@ -3,16 +3,16 @@ export const authEnvironment = {
     register: "http://localhost:5235/api/auth/register",
     getProfile: (id: number) => `http://localhost:5235/api/auth/profile/${id}`
 };
-  
+
 export const becomeVolunteersEnvironment = {
     getOneVolunteer: (id: number) => `http://localhost:5235/api/becomevolunteers/volunteer/${id}`,
     addVolunteerApplication: "http://localhost:5235/api/becomevolunteers/new-application",
     getAllVolunteers: "http://localhost:5235/api/becomevolunteers/all-volunteers",
     updateVolunteer: (id: number) => `http://localhost:5235/api/becomevolunteers/update/${id}`,
     markAsRead: (id: number) => `http://localhost:5235/api/becomevolunteers/mark-as-read/${id}`,
-    countRequests: (id: number) => 'http://localhost:5235/api/becomevolunteers/countRequests'
+    countRequests: () => 'http://localhost:5235/api/becomevolunteers/countRequests' // Updated to not require an id
 };
-  
+
 export const projectEnvironment = {
     getAllProjects: 'http://localhost:5235/api/projects/all-projects',
     getProjectById: (id: number) => `http://localhost:5235/api/projects/project/${id}`,
@@ -26,7 +26,8 @@ export const messageEnvironment = {
     addMessage: 'http://localhost:5235/api/message/new-message',
     getMessageById: (id: number) => `http://localhost:5235/api/message/message/${id}`,
     getAllMessages: 'http://localhost:5235/api/message/all-messages',
-    countMessages: (id: number) => `http://localhost:5235/api/messages/countMessages`
+    countMessages: () => 'http://localhost:5235/api/messages/countMessages', // Updated to not require an id
+    markAsRead: (id: number) => `http://localhost:5235/api/messages/markAsRead/${id}`
 };
 
 export const usersEnvironment = {
@@ -37,4 +38,12 @@ export const usersEnvironment = {
     updatePassword: (id: number) => `http://localhost:5235/api/users/update-password/${id}`,
     updateUser: (id: number) => `http://localhost:5235/api/users/update-user/${id}`,
     countUsers: 'http://localhost:5235/api/users/users-count'
+};
+
+export const volunteerEnvironment = {
+    addVolunteer: () => "http://localhost:5235/api/volunteers/new-volunteer",
+    getAllVolunteers: () => "http://localhost:5235/api/volunteers", // Ensure this matches
+    getVolunteer: (id: number) => `http://localhost:5235/api/volunteers/volunteer/${id}`,
+    updateVolunteer: (id: number) => `http://localhost:5235/api/volunteers/update-volunteer/${id}`,
+    deleteVolunteer: (id: number) => `http://localhost:5235/api/volunteers/delete-volunteer/${id}`
 };

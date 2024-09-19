@@ -39,4 +39,10 @@ export class MessagesService {
       headers: this.getAuthHeaders()
     });
   }
+
+  markAsRead(id: number) : Observable<Message> {
+    return this.http.put<Message>(messageEnvironment.markAsRead(id), {
+      headers: this.getAuthHeaders()
+    })
+  }
 }

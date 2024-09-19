@@ -1,6 +1,6 @@
 export interface Message { 
     id?: number, 
-    name: string, 
+    fullname: string, 
     email: string, 
     text: string, 
     newRequest: boolean

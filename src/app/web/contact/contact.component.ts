@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
   ){}
 
   message : Message = {
-    name: "",
+    fullname: "",
     email: "",
     text: "", 
     newRequest: true
@@ -33,14 +33,14 @@ export class ContactComponent implements OnInit {
   error: string = "";
 
   ngOnInit(): void {
-    this.message.name = "";
+    this.message.fullname = "";
     this.message.email = "";
     this.message.text = "";
     this.message.newRequest = true;
   }
 
   postMessage() { 
-    if(this.message.name == "" || this.message.email == "" || this.message.text == "") {
+    if(this.message.fullname == "" || this.message.email == "" || this.message.text == "") {
       this.error = "Completati toate campurile!";
       return;
     }

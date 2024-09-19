@@ -2,15 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Volunteer } from '../../models/Volunteer';
-import { volunteerEnvironmet } from '../../environment';
+import { volunteerEnvironment } from '../../environment';
 import { AuthService } from '../auth/auth.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class VolunteersService {
-
-  private baseUrl = 'http://localhost:8080/api/volunteers/';
 
   constructor(
     private http: HttpClient,
@@ -26,35 +24,36 @@ export class VolunteersService {
   }
 
   getAll(): Observable<Volunteer[]> {
-    return this.http.get<Volunteer[]>(volunteerEnvironmet.getAll, {
+    return this.http.get<Volunteer[]>('http://localhost:5235/volunteers', {
       headers: this.getAuthHeaders()
     });
   }
 
   getOne(id: number): Observable<Volunteer> {
-    if (!id) {
+    if (!id || id <= 0) {
       throw new Error('Invalid ID');
     }
-    const url = `${this.baseUrl}${id}`;
-    return this.http.get<Volunteer>(url, {
+  
+    return this.http.get<Volunteer>(`http://localhost:5235/volunteer/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
+  
 
   addVolunteer(volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.post<Volunteer>(volunteerEnvironmet.add, volunteer, {
+    return this.http.post<Volunteer>(volunteerEnvironment.addVolunteer(), volunteer, {
       headers: this.getAuthHeaders()
     });
   }
 
   deleteVolunteer(id: number): Observable<boolean> { 
-    return this.http.delete<boolean>(volunteerEnvironmet.delete + id, {
+    return this.http.delete<boolean>(volunteerEnvironment.deleteVolunteer(id), {
       headers: this.getAuthHeaders()
     });
   }
 
   updateVolunteer(id: number, volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.put<Volunteer>(volunteerEnvironmet.update + id, volunteer, {
+    return this.http.put<Volunteer>(volunteerEnvironment.updateVolunteer(id), volunteer, {
       headers: this.getAuthHeaders()
     });
   }

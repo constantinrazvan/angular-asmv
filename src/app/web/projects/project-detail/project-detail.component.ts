@@ -40,7 +40,7 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
   }
 
   getProject(): void { 
-    this.service.getOneProject(this.id).subscribe({
+    this.service.getProject(this.id).subscribe({
       next: (data => { 
         this.project = data;
       }), 

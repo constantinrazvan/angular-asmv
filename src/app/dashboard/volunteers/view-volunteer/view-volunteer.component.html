@@ -1,0 +1,50 @@
+<div class="edit-form-volunteer">
+    <div class="container mt-5">
+      <h1 class="mb-4">Editează Voluntar</h1>
+  
+      <form *ngIf="volunteer" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="volunteerId" class="form-label">ID Voluntar</label>
+          <input type="text" [value]="volunteer.id" class="form-control" id="volunteerId" readonly>
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerFirstname" class="form-label">Prenume</label>
+          <input type="text" [(ngModel)]="volunteer.firstname" name="firstname" class="form-control" id="volunteerFirstname">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerLastname" class="form-label">Nume</label>
+          <input type="text" [(ngModel)]="volunteer.lastname" name="lastname" class="form-control" id="volunteerLastname">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerEmail" class="form-label">Email</label>
+          <input type="email" [(ngModel)]="volunteer.email" name="email" class="form-control" id="volunteerEmail">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerPhone" class="form-label">Telefon</label>
+          <input type="tel" [(ngModel)]="volunteer.phone" name="phone" class="form-control" id="volunteerPhone">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerCity" class="form-label">Oraș</label>
+          <input type="text" [(ngModel)]="volunteer.city" name="city" class="form-control" id="volunteerCity">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerStatus" class="form-label">Status</label>
+          <input type="text" [(ngModel)]="volunteer.status" name="status" class="form-control" id="volunteerStatus">
+        </div>
+  
+        <div class="mb-3">
+          <label for="volunteerJoinedDate" class="form-label">Data Aderării</label>
+          <input type="string" [(ngModel)]="volunteer.joinedDate" name="joined_date" class="form-control" id="volunteerJoinedDate">
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Salvează Modificările</button>
+      </form>
+    </div>
+  </div>
+  

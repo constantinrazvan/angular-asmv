@@ -25,7 +25,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Presedinte Adunarea Generala', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -35,7 +35,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Vicepresedinte Adunarea Generala', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -45,7 +45,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '',
       phone: '',
       status: 'Secretar Adunarea Generala',
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }
   ];
@@ -57,7 +57,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Presedinte', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -67,7 +67,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Vicepresedinte', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     },
     {
@@ -77,7 +77,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Activ - Debutant Prim Ajutor - Aj. Instructor Prim Ajutor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -87,7 +87,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -97,7 +97,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -107,7 +107,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Activ - Debutant Prim Ajutor - Instructor Prim Ajutor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }
   ];
@@ -120,7 +120,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -130,7 +130,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -140,7 +140,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -150,7 +150,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -160,7 +160,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     },
     {
@@ -170,7 +170,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     },
     {
@@ -180,7 +180,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -190,7 +190,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -200,7 +200,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -210,7 +210,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -220,7 +220,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -230,7 +230,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''  
     }, 
     {
@@ -240,7 +240,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -250,7 +250,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar - Aj. Instructor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -260,7 +260,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar - Aj. Instructor', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     },
     {
@@ -270,7 +270,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Aj. Instructor PA', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     },
     {
@@ -280,7 +280,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Aj. Instructor PA', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -290,7 +290,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Aj. Instructor PA', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -300,7 +300,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Aj. Instructor PA', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }, 
     {
@@ -310,7 +310,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       email: '', 
       phone: '', 
       status: 'Membru Voluntar - Aj. Instructor PA', 
-      joined_date: '22-05-2025',
+      joinedDate: '22-05-2025',
       city: ''
     }
   ];

@@ -27,6 +27,7 @@
     "@ng-icons/core": "^28.1.0",
     "@popperjs/core": "^2.11.8",
     "@tinymce/tinymce-angular": "^8.0.1",
+    "angular-asmv": "file:",
     "angular-quill": "^0.3.0",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.52.0",
