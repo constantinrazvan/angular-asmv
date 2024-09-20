@@ -1,1 +1,109 @@
-<p>profile works!</p>
+<div class="container mt-5">
+    <div class="row">
+      <!-- Cardul utilizatorului -->
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="row g-0">
+            <div class="col-md-4 bg-primary text-center text-white d-flex flex-column justify-content-center py-5">
+                <div class="avatar mb-3">
+                    <h1 class="mb-0" style="line-height: 60px;">{{ user.firstname.slice(0, 1) }}</h1>
+                  </div>                                  
+              <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+              <p>{{ user.role }}</p>
+            </div>
+            <div class="col-md-8 d-flex align-items-center">
+                <div class="card-body text-left">
+                  <h4 class="card-title mb-3">Detalii Profil</h4>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Email:</strong>
+                      <input type="text" class="form-control-plaintext" value="{{ user.email }}" readonly>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Rol:</strong>
+                      <input type="text" class="form-control-plaintext" value="{{ user.role }}" readonly>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Înscris:</strong>
+                      <input type="text" class="form-control-plaintext" value="{{ formattedDate }}" readonly>
+                    </li>
+                  </ul>
+                </div>
+              </div>                           
+          </div>
+        </div>      
+      </div>
+  
+      <!-- Cardul pentru Editarea Informațiilor Profilului -->
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h5 class="pt-2">Editează Informațiile Profilului</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Prenume</label>
+                <input type="text" class="form-control" id="firstname" [(ngModel)]="user.firstname" name="firstname">
+              </div>
+              <div class="mb-3">
+                <label for="lastname" class="form-label">Nume</label>
+                <input type="text" class="form-control" id="lastname" [(ngModel)]="user.lastname" name="lastname">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Adresă de email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email">
+              </div>
+              <button type="submit" class="btn btn-primary">Salvează Modificările</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Cardul cu tab-uri pentru Setările Contului și Gestionarea Securității -->
+      <div class="col-md-12">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-primary text-white">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="true">Setări Cont</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Gestionare Securitate</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <!-- Tab Setări Cont -->
+                    <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <h5>Setări Cont</h5>
+                        <p>Gestionează setările contului tău aici.</p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle" [(ngModel)]="isDarkMode" (change)="toggleTheme()">
+                            <label class="form-check-label" for="darkModeToggle">Mod Întunecat</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab Gestionare Securitate -->
+                    <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                        <h5>Gestionare Securitate</h5>
+                        <p>Gestionează setările de securitate și schimbă parola.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Parola Curentă</label>
+                                <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">Parola Nouă</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Actualizează Parola</button>
+                        </form>
+                    </div>
+                </div>              
+            </div>
+        </div>
+    </div>        
+    </div>
+</div>  

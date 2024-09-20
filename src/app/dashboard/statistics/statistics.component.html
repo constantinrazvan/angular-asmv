@@ -1,6 +1,5 @@
 <div class="container mt-4">
     <div class="row">
-      <!-- Carduri -->
       <div class="col-md-3 mb-4">
         <div class="card text-center">
           <div class="card-body">
@@ -16,7 +15,7 @@
           <div class="card-body">
             <h5 class="card-title">Proiecte</h5>
             <h2 class="card-text">{{ totalProiecte }}</h2>
-            <i class="bi bi-briefcase fs-3"></i>
+            <i class="bi bi-file-earmark-post fs-3"></i>
           </div>
         </div>
       </div>
@@ -51,18 +50,16 @@
             <table class="table table-hover table-bordered flex-grow-1">
               <thead class="table-light">
                 <tr>
-                  <th>#</th>
-                  <th>Număr</th>
                   <th>Nume</th>
+                  <th>Status</th>
                   <th>Acțiune</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let voluntar of paginatedVoluntari">
-                  <td>{{ voluntar.id }}</td>
-                  <td>{{ voluntar.numar }}</td>
-                  <td>{{ voluntar.nume }}</td>
-                  <td><button class="btn btn-outline-primary btn-sm">Editare</button></td>
+                  <td>{{ voluntar.firstname + ' ' + voluntar.lastname }}</td>
+                  <td>{{ voluntar.status }}</td>
+                  <td><button class="btn btn-outline-primary btn-sm" [routerLink]="['/dashboard/voluntar/', voluntar.id]" routerLinkActive="router-link-active" >Editare</button></td>
                 </tr>
               </tbody>
             </table>
@@ -90,18 +87,16 @@
             <table class="table table-hover table-bordered flex-grow-1">
               <thead class="table-light">
                 <tr>
-                  <th>#</th>
-                  <th>Număr</th>
-                  <th>Expeditor</th>
-                  <th>Mesaj</th>
+                  <th>Nume</th>
+                  <th>Email</th>
+                  <th>Actiune</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let mesaj of paginatedMesaje">
-                  <td>{{ mesaj.id }}</td>
-                  <td>{{ mesaj.numar }}</td>
-                  <td>{{ mesaj.expeditor }}</td>
-                  <td>{{ mesaj.mesaj }}</td>
+                  <td>{{ mesaj.fullname }}</td>
+                  <td>{{ mesaj.email }}</td>
+                  <td><button class="btn btn-outline-primary btn-sm" [routerLink]="['/dashboard/mesaje/', mesaj.id]" routerLinkActive="router-link-active" >Vezi</button></td>
                 </tr>
               </tbody>
             </table>

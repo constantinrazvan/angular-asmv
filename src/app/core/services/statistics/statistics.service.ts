@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { countEnvironment } from '../../environment';
+import { statistics } from '../../environment';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'; // Import AuthService
 
@@ -35,31 +35,31 @@ export class StatisticsService {
   }
 
   getMessages(): Observable<number> {
-    return this.http.get<number>(countEnvironment.getMessages, {
+    return this.http.get<number>(statistics.countMessages, {
       headers: this.getAuthHeaders()
     });
   }
 
   getVolunteers(): Observable<number> {
-    return this.http.get<number>(countEnvironment.getVolunteers, {
+    return this.http.get<number>(statistics.countVolunteers, {
       headers: this.getAuthHeaders()
     });
   }
   
   getProjects(): Observable<number> {
-    return this.http.get<number>(countEnvironment.getProjects, {
+    return this.http.get<number>(statistics.countProjects, {
       headers: this.getAuthHeaders()
     });
   }
   
   getBecomeVolunteers(): Observable<number> {
-    return this.http.get<number>(countEnvironment.getBecomeVolunteers, {
+    return this.http.get<number>(statistics.countRequests, {
       headers: this.getAuthHeaders()
     });
   }
 
   getUsers(): Observable<number> {
-    return this.http.get<number>(countEnvironment.getUsers, {
+    return this.http.get<number>(statistics.countUsers, {
       headers: this.getAuthHeaders()
     });
   }

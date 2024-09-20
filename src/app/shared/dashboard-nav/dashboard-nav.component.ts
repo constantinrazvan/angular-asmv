@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-nav',
@@ -13,7 +14,10 @@ import { filter } from 'rxjs/operators';
 export class DashboardNavComponent implements OnInit {
   currentRoute: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router, 
+    private authService: AuthService 
+  ) {}
 
   ngOnInit(): void {
     this.currentRoute = this.router.url;
@@ -25,5 +29,9 @@ export class DashboardNavComponent implements OnInit {
 
   isActive(route: string): boolean {
     return this.currentRoute === route;
+  }
+
+  logout() : void { 
+    this.authService.logout();
   }
 }

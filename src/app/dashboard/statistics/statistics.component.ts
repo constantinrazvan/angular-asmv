@@ -1,38 +1,35 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Message } from '../../core/models/Message';
+import { Volunteer } from '../../core/models/Volunteer';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { MessagesService } from '../../core/services/messages/messages.service';
+import { StatisticsService } from '../../core/services/statistics/statistics.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.css'
+  styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
 
-  totalVoluntari: number = 150; // Exemplu de date
-  totalProiecte: number = 45;   // Exemplu de date
-  totalMesaje: number = 120;    // Exemplu de date
-  totalUtilizatori: number = 75; // Exemplu de date
+  constructor(
+    private volunteerService: VolunteersService,
+    private messageService: MessagesService, 
+    private statisticsService: StatisticsService
+  ){}
 
-  // Exemple de date
-  voluntariData = [
-    { id: 1, numar: '123', nume: 'Ion Popescu' },
-    { id: 2, numar: '456', nume: 'Maria Ionescu' },
-    { id: 3, numar: '789', nume: 'Andrei Georgescu' },
-    { id: 4, numar: '101', nume: 'Elena Radu' },
-    { id: 5, numar: '202', nume: 'George Marin' },
-    { id: 6, numar: '303', nume: 'Ana Popa' }
-  ];
+  totalVoluntari: number = 0;
+  totalProiecte: number = 0;  
+  totalMesaje: number = 0;   
+  totalUtilizatori: number = 0;
+  totalCereri: number = 0;
 
-  mesajeData = [
-    { id: 1, numar: '789', expeditor: 'Andrei Georgescu', mesaj: 'Mesaj important!' },
-    { id: 2, numar: '101', expeditor: 'Elena Radu', mesaj: 'Întrebare despre proiect.' },
-    { id: 3, numar: '202', expeditor: 'George Marin', mesaj: 'Solicitare de informații.' },
-    { id: 4, numar: '303', expeditor: 'Ana Popa', mesaj: 'Feedback pozitiv.' },
-    { id: 5, numar: '404', expeditor: 'Ioana Bălan', mesaj: 'Recomandare proiect.' },
-    { id: 6, numar: '505', expeditor: 'Mihai Ionescu', mesaj: 'Întrebare despre eveniment.' }
-  ];
+  voluntariData : Volunteer[] = [];
+  mesajeData : Message[] = [];
 
   currentPageVoluntari = 1;
   currentPageMesaje = 1;
@@ -56,7 +53,16 @@ export class StatisticsComponent implements OnInit {
     return this.mesajeData.slice(start, start + this.rowsPerPage);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.fetchMessages();
+    this.fetchVolunteers();
+
+    this.fetchStatisticsBecomeVolunteer();
+    this.fetchStatisticsMessages();
+    this.fetchStatisticsProjects();
+    this.fetchStatisticsUsers();
+    this.fetchStatisticsVolunteers();
+  }
 
   changePageVoluntari(page: number) {
     this.currentPageVoluntari = page;
@@ -64,5 +70,89 @@ export class StatisticsComponent implements OnInit {
 
   changePageMesaje(page: number) {
     this.currentPageMesaje = page;
+  }
+
+  fetchVolunteers() : void {
+    this.volunteerService.getAll().subscribe({
+      next: (data: Volunteer[]) => { 
+        console.log("Volunteers data retrieved: ", JSON.stringify(data, null, 2));
+        this.voluntariData = data;
+      },
+      error: (err) => { 
+        console.log("Error fetching volunteers: ", err);
+      }
+    });
+  }
+
+  fetchMessages() : void { 
+    this.messageService.getAllMessages().subscribe({
+      next: (data: Message[]) => { 
+        console.log("Messages data retrieved: ", JSON.stringify(data, null, 2));
+        this.mesajeData = data;
+      },
+      error: (err) => { 
+        console.log("Error fetching messages: ", err);
+      }
+    });
+  }
+
+  fetchStatisticsVolunteers() : void { 
+    this.statisticsService.getVolunteers().subscribe({
+      next: (data: number) => { 
+        console.log("Total volunteers count: ", data);
+        this.totalVoluntari = data;
+      }, 
+      error: (err) => { 
+        console.log("Error fetching volunteer statistics: ", err);
+      }
+    });
+  }
+
+  fetchStatisticsUsers() : void { 
+    this.statisticsService.getUsers().subscribe({
+      next: (data: number) => { 
+        console.log("Total users count: ", data);
+        this.totalUtilizatori = data;
+      }, 
+      error: (err) => { 
+        console.log("Error fetching user statistics: ", err);
+      }
+    });
+  }
+
+  fetchStatisticsMessages() : void {
+    this.statisticsService.getMessages().subscribe({
+      next: (data: number) => { 
+        console.log("Total messages count: ", data);
+        this.totalMesaje = data;
+      }, 
+      error: (err) => { 
+        console.log("Error fetching message statistics: ", err);
+      }
+    });
+  }
+
+  fetchStatisticsProjects(): void {
+    this.statisticsService.getProjects().subscribe({
+      next: (data: number) => { 
+        console.log("Total projects count: ", data);
+        this.totalProiecte = data;
+      }, 
+      error: (err) => { 
+        console.log("Error fetching project statistics: ", err);
+      }
+    });
+  }
+
+  fetchStatisticsBecomeVolunteer(): void {
+    this.statisticsService.getBecomeVolunteers().subscribe({
+      next: (data: number) => { 
+        console.log("Total 'Become a Volunteer' requests count: ", data);
+        this.totalCereri = data;
+      }, 
+      error: (err) => { 
+        console.log("Error fetching 'Become a Volunteer' statistics: ", err);
+      }
+    });
   }
 }

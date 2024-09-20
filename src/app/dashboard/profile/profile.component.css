@@ -1,0 +1,29 @@
+.card {
+    border-radius: 10px;
+}
+
+.rounded-circle {
+    border: 4px solid #ffffff;
+}
+
+.avatar { 
+    margin: 0 auto;
+    background-color: white;
+    color: #0D6EFD;
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    font-size: 24px;
+}
+
+.nav-link {
+    color: white; /* Bootstrap primary color */
+}
+
+.nav-link:hover {
+    color: white; /* Keep primary color on hover */
+}
+
+.nav-link.active {
+    color: #0D6EFD; /* Keep primary color for the active tab */
+}

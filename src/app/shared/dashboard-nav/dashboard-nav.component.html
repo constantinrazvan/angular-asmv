@@ -8,8 +8,8 @@
         John Doe
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-        <li><a class="dropdown-item" [routerLink]="['/dashboard/profil']">Profil</a></li>
-        <li><a class="dropdown-item" href="/logout">Ieși din cont</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/dashboard/profil']"><i class="bi bi-person-circle"></i> Profil</a></li>
+        <li><a class="dropdown-item text-danger" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Ieși din cont</a></li>
       </ul>
     </div>
   </div>

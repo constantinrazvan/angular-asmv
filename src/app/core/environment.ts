@@ -47,3 +47,11 @@ export const volunteerEnvironment = {
     updateVolunteer: (id: number) => `http://localhost:5235/api/volunteers/update-volunteer/${id}`,
     deleteVolunteer: (id: number) => `http://localhost:5235/api/volunteers/delete-volunteer/${id}`
 };
+
+export const statistics = { 
+    countUsers: 'http://localhost:5235/api/Users/users-count',
+    countMessages: 'http://localhost:5235/countMessages', // Updated to not require an id
+    countProjects: 'http://localhost:5235/api/Projects/count-projects',
+    countRequests: 'http://localhost:5235/countRequests', // Updated to not require an id
+    countVolunteers: 'http://localhost:5235/count-volunteers'
+}
