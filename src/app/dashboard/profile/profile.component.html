@@ -17,15 +17,15 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <strong>Email:</strong>
-                      <input type="text" class="form-control-plaintext" value="{{ user.email }}" readonly>
+                      <input type="text" class="form-control-plaintext ms-2" value="{{ user.email }}" readonly>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <strong>Rol:</strong>
-                      <input type="text" class="form-control-plaintext" value="{{ user.role }}" readonly>
+                      <input type="text" class="form-control-plaintext ms-2" value="{{ user.role }}" readonly>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <strong>Înscris:</strong>
-                      <input type="text" class="form-control-plaintext" value="{{ formattedDate }}" readonly>
+                      <input type="text" class="form-control-plaintext ms-2" value="{{ formattedDate }}" readonly>
                     </li>
                   </ul>
                 </div>
@@ -43,19 +43,21 @@
           <div class="card-body">
             <form>
               <div class="mb-3">
-                <label for="firstname" class="form-label">Prenume</label>
-                <input type="text" class="form-control" id="firstname" [(ngModel)]="user.firstname" name="firstname">
+                  <label for="firstname" class="form-label">Prenume</label>
+                  <input type="text" class="form-control" id="firstname" [(ngModel)]="user.firstname" name="firstname" [readonly]="!isEditMode">
               </div>
               <div class="mb-3">
-                <label for="lastname" class="form-label">Nume</label>
-                <input type="text" class="form-control" id="lastname" [(ngModel)]="user.lastname" name="lastname">
+                  <label for="lastname" class="form-label">Nume</label>
+                  <input type="text" class="form-control" id="lastname" [(ngModel)]="user.lastname" name="lastname" [readonly]="!isEditMode">
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">Adresă de email</label>
-                <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email">
+                  <label for="email" class="form-label">Adresă de email</label>
+                  <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" [readonly]="!isEditMode">
               </div>
-              <button type="submit" class="btn btn-primary">Salvează Modificările</button>
-            </form>
+              <button type="button" class="btn btn-primary" *ngIf="!isEditMode" (click)="isEditMode = true">Modifică</button>
+              <button type="submit" class="btn btn-success" *ngIf="isEditMode">Actualizează</button>
+              <button type="button" class="btn btn-danger ms-2" *ngIf="isEditMode" (click)="isEditMode = false">Anulare</button>
+          </form>                
           </div>
         </div>
       </div>

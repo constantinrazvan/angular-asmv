@@ -25,12 +25,13 @@ export class ProfileComponent {
     firstname: 'John',
     lastname: 'Doe',
     email: 'john.doe@example.com',
-    password: '********',
+    password: '',
     role: 'Admin',
     created_at: new Date('2023-03-15')
   };
 
   isDarkMode = false;
+  isEditMode = false;
 
   constructor(private renderer: Renderer2) {}
 
