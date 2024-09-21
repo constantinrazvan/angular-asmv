@@ -40,6 +40,11 @@ export class ProjectsComponent implements OnInit {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
+  refresh(): void { 
+    this.fetchProjects();
+    window.location.reload();
+  }
+
   changePage(page: number) {
     if (page < 1 || page > this.totalPages) return; 
     this.currentPage = page;
@@ -48,9 +53,8 @@ export class ProjectsComponent implements OnInit {
   fetchProjects() : void { 
     this.service.getAllProjects().subscribe({
       next: (data: Project[]) => { 
-        for(let i = 0; i < data.length; i++) { 
-          this.projects.push(data[i]);
-        }
+        console.log(data);
+        this.projects = data.reverse();
       },
       error: (error: string | null) => { 
         console.log("Eroare la aducerea proiectelor!");

@@ -3,7 +3,7 @@
     <h1><b>Mesaje</b></h1>
     <div>
       <button class="btn btn-secondary btn-sm" (click)="fetchMessages()">
-        <i class="bi bi-arrow-clockwise"></i>
+        <i class="bi bi-arrow-clockwise" (click)="refresh()"></i>
       </button>
     </div>
   </div>
@@ -14,7 +14,7 @@
         <tr>
           <th>Nume</th>
           <th>Email</th>
-          <th>Mesaj</th>
+          <th>Citit</th>
           <th>Acțiuni</th>
         </tr>
       </thead>
@@ -22,7 +22,7 @@
         <tr *ngFor="let message of paginatedMessages">
           <td>{{ message.fullname }}</td>
           <td>{{ message.email }}</td>
-          <td>{{ message.text }}</td>
+          <td>{{ message.newRequest ? 'Necitit' : 'Citit' }}</td>
           <td>
             <button 
               class="btn btn-warning btn-sm me-2" 
@@ -30,11 +30,17 @@
               routerLinkActive="router-link-active">
               <i class="bi bi-eye"></i>
             </button>
+            <button  
+              class="btn btn-sm me-2" 
+              [ngClass]="message.newRequest ? 'btn-success' : 'btn-danger'" 
+              (click)="markAsRead(message.id!)">
+              <i [ngClass]="message.newRequest ? 'bi bi-check' : 'bi bi-x'"></i>
+            </button>
           </td>          
         </tr>
       </tbody>
     </table>
-  </div>
+</div>  
 
   <nav aria-label="Page navigation">
     <ul class="pagination">

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-volunteers',
@@ -14,7 +14,8 @@ import { RouterLink } from '@angular/router';
 export class VolunteersComponent implements OnInit {
 
   constructor(
-    private service: VolunteersService
+    private service: VolunteersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class VolunteersComponent implements OnInit {
       next: (data: Volunteer[]) => {
         console.log('Data retrieved:');
         console.log(JSON.stringify(data, null, 2));
-        this.volunteers = data;
+        this.volunteers = data.reverse();
       },
       error: (err) => {
         console.log(err);
@@ -34,6 +35,11 @@ export class VolunteersComponent implements OnInit {
     })
   }
 
+  refresh(): void { 
+    this.fetchData();
+    window.location.reload();
+  }
+  
   volunteers : Volunteer[] = [];
 
   itemsPerPage = 5;
@@ -58,11 +64,13 @@ export class VolunteersComponent implements OnInit {
     this.currentPage = page;
   }
 
+
   onDelete(id : number) {
     if(confirm("Esti sigur ca vrei sa stergi acest voluntar?")) {
       this.service.deleteVolunteer(id).subscribe({
         next: (res) => { 
           console.log(res);
+          window.location.reload();
         },
         error: (err) => {
           console.log(err);

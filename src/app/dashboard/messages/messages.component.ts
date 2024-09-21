@@ -28,7 +28,7 @@ export class MessagesComponent implements OnInit {
     this.service.getAllMessages().subscribe({
       next: (data: Message[]) => {
         console.log(data); // Check the structure of the data in the console
-        this.messages = data; // Directly assign the fetched data
+        this.messages = data.reverse(); // Directly assign the fetched data
       },
       error: (error: string | null) => {
         console.log('Eroare la aducerea mesajelor!');
@@ -54,5 +54,25 @@ export class MessagesComponent implements OnInit {
   changePage(page: number) {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
+  }
+
+  refresh(): void { 
+    this.fetchMessages();
+    window.location.reload();
+  }
+
+  markAsRead(id: number) { 
+    this.service.markAsRead(id).subscribe({
+      next: (res) => { 
+        console.log("Stare modificată:");
+        console.log(JSON.stringify(res, null, 2)); 
+        window.location.reload(); 
+        
+      }, 
+      error: (error) => { 
+        console.log('Eroare la actualizarea stării mesajului!');
+        console.log(error);
+      }
+    });
   }
 }

@@ -27,7 +27,7 @@ export const messageEnvironment = {
     getMessageById: (id: number) => `http://localhost:5235/api/message/message/${id}`,
     getAllMessages: 'http://localhost:5235/api/message/all-messages',
     countMessages: () => 'http://localhost:5235/api/messages/countMessages', // Updated to not require an id
-    markAsRead: (id: number) => `http://localhost:5235/api/messages/markAsRead/${id}`
+    markAsRead: (id: number) => `http://localhost:5235/api/Message/markAsRead/${id}`
 };
 
 export const usersEnvironment = {
@@ -41,7 +41,7 @@ export const usersEnvironment = {
 };
 
 export const volunteerEnvironment = {
-    addVolunteer: () => "http://localhost:5235/api/volunteers/new-volunteer",
+    addVolunteer: () => "http://localhost:5235/new-volunteer",
     getAllVolunteers: () => "http://localhost:5235/api/volunteers", // Ensure this matches
     getVolunteer: (id: number) => `http://localhost:5235/api/volunteers/volunteer/${id}`,
     updateVolunteer: (id: number) => `http://localhost:5235/api/volunteers/update-volunteer/${id}`,

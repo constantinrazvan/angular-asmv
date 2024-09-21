@@ -41,7 +41,7 @@ export class MessagesService {
   }
 
   markAsRead(id: number) : Observable<Message> {
-    return this.http.put<Message>(messageEnvironment.markAsRead(id), {
+    return this.http.patch<Message>(messageEnvironment.markAsRead(id), {
       headers: this.getAuthHeaders()
     })
   }

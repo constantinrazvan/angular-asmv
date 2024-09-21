@@ -47,7 +47,7 @@ export class VolunteersService {
   }
 
   deleteVolunteer(id: number): Observable<boolean> { 
-    return this.http.delete<boolean>(volunteerEnvironment.deleteVolunteer(id), {
+    return this.http.delete<boolean>(`http://localhost:5235/delete-volunteer/${id}`, {
       headers: this.getAuthHeaders()
     });
   }

@@ -49,12 +49,17 @@ export class RequestsComponent implements OnInit{
       next: (data: BecomeVolunteer[]) => {
         console.log("Data retrieved");
         console.log(JSON.stringify(data, null, 2));
-        this.requests = data;
+        this.requests = data.reverse();
       },
       error: (err) => {
         console.log(err)
       }
     })
+  }
+
+  refresh(): void { 
+    this.fetchData();
+    window.location.reload();
   }
 
   markAsRead(id: number) {
