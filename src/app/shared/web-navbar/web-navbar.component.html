@@ -25,10 +25,16 @@
                         <a [ngClass]="{'active-link': activeRoute === '/contact'}" class="nav-link px-2" href="/contact">Contact</a>
                     </li>
                 </ul>
-                
-                <div class="mt-3 mt-lg-0">
-                    <a href="/doneaza" class="btn btn-primary text-white me-2 inter" style="background-color: #038ED1; font-size: 12px; padding: 12px 20px; border:none;"><b>Sponsorizeaza-ne!</b></a>
-                    <a href="/haiInEchipa" class="btn btn-primary text-white ms-2 inter" style="background-color: #038ED1; font-size: 12px; padding: 12px 20px; border:none;"><b>Devino Voluntar!</b></a>
+
+                <div class="mt-3 mt-lg-0 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="/doneaza" class="btn btn-primary text-white me-md-2 btn-sm w-100 w-md-auto inter" 
+                       style="background-color: #038ED1; padding: 8px 16px; font-size: 14px; border:none; white-space: nowrap;">
+                        <b>Sponsorizează-ne!</b>
+                    </a>
+                    <a href="/haiInEchipa" class="btn btn-primary text-white ms-md-2 btn-sm w-100 w-md-auto inter" 
+                       style="background-color: #038ED1; padding: 8px 16px; font-size: 14px; border:none; white-space: nowrap;">
+                        <b>Devino Voluntar!</b>
+                    </a>
                 </div>
             </div>
         </div>
