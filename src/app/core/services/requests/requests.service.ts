@@ -52,9 +52,10 @@ export class RequestsService {
     });
   }
 
-  markAsRead(id: number): Observable<void> {
-    return this.http.patch<void>(becomeVolunteersEnvironment.markAsRead(id), {}, {
-      headers: this.getAuthHeaders()
+  markAsRead(id: number): Observable<string> {
+    return this.http.patch<string>(becomeVolunteersEnvironment.markAsRead(id), {}, {
+      headers: this.getAuthHeaders(),
+      responseType: 'text' as 'json'  // Expecting a text response from the server
     });
-  }
+  }  
 }

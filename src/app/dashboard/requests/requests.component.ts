@@ -48,7 +48,7 @@ export class RequestsComponent implements OnInit{
     this.service.getRequests().subscribe({
       next: (data: BecomeVolunteer[]) => {
         console.log("Data retrieved");
-        console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data, null, 2));
         this.requests = data;
       },
       error: (err) => {
@@ -60,12 +60,13 @@ export class RequestsComponent implements OnInit{
   markAsRead(id: number) {
     this.service.markAsRead(id).subscribe({
       next: (res) => {
-        console.log(res);
+        console.log("Data retrived:")
+        console.log(JSON.stringify(res, null, 2));  // Now logs 'Marked as unread.' or the server message
         window.location.reload();
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       }
-    })
-  }
+    });
+  }  
 }

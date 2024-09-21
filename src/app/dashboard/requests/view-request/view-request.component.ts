@@ -50,7 +50,15 @@ export class ViewRequestComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    // Empty function - to be implemented
+  onSubmit(id: number): void {
+    this.service.updateRequest(id, this.request).subscribe({
+      next: (data) => { 
+        console.log(data);
+        this.router.navigate(['/dashboard/cereri']);  // Navigate after successful request
+      }, 
+      error: (error) => { 
+        console.log(error);
+      }
+    });  
   }
 }

@@ -2,7 +2,7 @@
     <div class="container mt-5">
       <h1 class="mb-4">Editează Cerere Voluntar</h1>
   
-      <form *ngIf="request" (ngSubmit)="onSubmit()">
+      <form *ngIf="request" (ngSubmit)="onSubmit(request.id!)">
         <div class="mb-3">
           <label for="requestId" class="form-label">ID Cerere</label>
           <input type="text" [value]="request.id" class="form-control" id="requestId" readonly>
@@ -32,9 +32,13 @@
           <label for="requestReason" class="form-label">Motiv</label>
           <textarea [(ngModel)]="request.reason" name="reason" class="form-control" id="requestReason" rows="4"></textarea>
         </div>
+
+        <div class="mb-3">
+          <label for="requestFaculty" class="form-label">Citit</label>
+          <input type="text" [value]="request.readed ? 'Citit' : 'Necitit'" name="faculty" class="form-control" id="requestFaculty" readonly>
+        </div>        
   
         <button type="submit" class="btn btn-primary">Salvează Modificările</button>
       </form>
     </div>
   </div>
-  
