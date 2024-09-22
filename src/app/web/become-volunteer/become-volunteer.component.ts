@@ -68,8 +68,9 @@ export class BecomeVolunteerComponent implements OnInit {
   becomeVolunteerPost() {
     if (this.validator()) {
       this.service.addRequest(this.becomeVolunteer).subscribe({
-        next: (data: any) => {
+        next: (data) => {
           console.log('Răspuns primit:', data);
+          alert("Cerere trimisa cu succes");
           this.router.navigate(['/']);
         },
         error: (error) => console.error('There was an error!', error)
