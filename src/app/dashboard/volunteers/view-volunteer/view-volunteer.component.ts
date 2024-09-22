@@ -49,7 +49,7 @@ export class ViewVolunteerComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.service.updateVolunteer(this.id, this.volunteer).subscribe({
       next: () => {
         console.log("Updated!");
@@ -62,4 +62,14 @@ export class ViewVolunteerComponent implements OnInit {
     });
   }
   
+  onDelete(): void { 
+    this.service.deleteVolunteer(this.volunteer.id!).subscribe({
+      next: () => { 
+        window.location.reload();
+      },
+      error: () => { 
+        alert("Ceva nu a mers bine!");
+      }
+    })
+  }
 }

@@ -47,7 +47,7 @@ export class RequestsService {
   }
 
   deleteRequest(id: number): Observable<BecomeVolunteer> {
-    return this.http.delete<BecomeVolunteer>(becomeVolunteersEnvironment.getOneVolunteer(id), {
+    return this.http.delete<BecomeVolunteer>(becomeVolunteersEnvironment.deleteRequest(id), {
       headers: this.getAuthHeaders()
     });
   }

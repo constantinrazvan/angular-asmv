@@ -43,7 +43,8 @@
           <input type="string" [(ngModel)]="volunteer.joinedDate" name="joined_date" class="form-control" id="volunteerJoinedDate">
         </div>
   
-        <button type="submit" class="btn btn-primary">Salvează Modificările</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvează Modificările</button>
+        <button type="delete" class="btn btn-danger" (click)="onDelete()"> Sterge</button>
       </form>
     </div>
   </div>

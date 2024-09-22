@@ -22,8 +22,8 @@ export class ProjectsService {
   }
 
   getProject(id: number): Observable<Project> {
-    return this.http.get<Project>(`http://localhost:5235/api/projects/project/${id}`);
-  }  
+    return this.http.get<Project>(`${this.apiUrl}/api/projects/project/${id}`);
+  }
 
   getProjectImage(projectId: number): Observable<Blob> {
     const url = `${this.apiUrl}/uploaded_images/${projectId}`; // Adjust to your image path
@@ -37,16 +37,7 @@ export class ProjectsService {
     });
   }
 
-  addProject(project: Project, imageFile?: File): Observable<Project> {
-    const formData = new FormData();
-    formData.append('title', project.title);
-    formData.append('content', project.content);
-    formData.append('summary', project.summary);
-
-    if (imageFile) {
-      formData.append('image', imageFile);
-    }
-
+  addProject(formData: FormData): Observable<Project> {
     return this.http.post<Project>(projectEnvironment.newProject, formData, {
       headers: this.getAuthHeaders()
     });
@@ -59,7 +50,7 @@ export class ProjectsService {
     formData.append('summary', project.summary);
     
     if (imageFile) {
-      formData.append('image', imageFile);
+      formData.append('image', imageFile, imageFile.name);
     }
 
     return this.http.put<Project>(projectEnvironment.updateProject(id), formData, {

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Project } from '../../../core/models/Project';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectsService } from '../../../core/services/projects/projects.service';
 
 @Component({
@@ -12,11 +11,17 @@ import { ProjectsService } from '../../../core/services/projects/projects.servic
   styleUrls: ['./add-project.component.css']
 })
 export class AddProjectComponent {
-  project: Project = {} as Project;  
+  projectForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
-  selectedFile: File | null = null;  
+  selectedFile: File | null = null;
 
-  constructor(private service: ProjectsService) {}
+  constructor(private fb: FormBuilder, private service: ProjectsService) {
+    this.projectForm = this.fb.group({
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+      summary: ['', Validators.required],
+    });
+  }
 
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
@@ -25,7 +30,7 @@ export class AddProjectComponent {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.imagePreview = reader.result;  
+        this.imagePreview = reader.result;
       };
       reader.readAsDataURL(this.selectedFile);
     }
@@ -33,19 +38,24 @@ export class AddProjectComponent {
 
   onRemoveImage(): void {
     this.selectedFile = null;
-    this.imagePreview = null; 
+    this.imagePreview = null;
   }
 
-  onSubmit(): void {
-    const imageToSend: File | undefined = this.selectedFile || undefined;
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('projectDto', new Blob([JSON.stringify(this.projectForm.value)], { type: 'application/json' }));
+    if (this.selectedFile) {
+      formData.append('photo', this.selectedFile, this.selectedFile.name);
+    }
 
-    this.service.addProject(this.project, imageToSend).subscribe({
-      next: (data) => {
-        console.log("Proiect adăugat cu succes!");
+    this.service.addProject(formData).subscribe(
+      response => {
+        console.log('Project added successfully', response);
+        // Optionally, reset the form or redirect
       },
-      error: (error) => {
-        console.log("Eroare la adăugarea proiectului:", error);
+      error => {
+        console.error('Error adding project', error);
       }
-    });
+    );
   }
 }

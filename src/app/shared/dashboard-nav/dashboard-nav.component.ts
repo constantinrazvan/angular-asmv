@@ -19,6 +19,8 @@ export class DashboardNavComponent implements OnInit {
     private authService: AuthService 
   ) {}
 
+  username: string = this.authService.getUserUsername();
+
   ngOnInit(): void {
     this.currentRoute = this.router.url;
 
@@ -33,5 +35,6 @@ export class DashboardNavComponent implements OnInit {
 
   logout() : void { 
     this.authService.logout();
+    window.location.reload();
   }
 }

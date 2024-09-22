@@ -49,7 +49,7 @@ export const volunteerEnvironment = {
     getAllVolunteers: () => "http://localhost:5235/volunteers", // Ensure this matches
     getVolunteer: (id: number) => `http://localhost:5235/volunteer/${id}`,
     updateVolunteer: (id: number) => `http://localhost:5235/update-volunteer/${id}`,
-    deleteVolunteer: (id: number) => `http://localhost:5235/delete-volunteer${id}`
+    deleteVolunteer: (id: number) => `http://localhost:5235/delete-volunteer/${id}`
 };
 
 export const statistics = { 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { BecomeVolunteer } from '../../core/models/BecomeVolunteer';
 import { RequestsService } from '../../core/services/requests/requests.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-requests',
@@ -15,7 +15,8 @@ export class RequestsComponent implements OnInit{
   requests : BecomeVolunteer[] = [];
 
   constructor(
-    private service: RequestsService
+    private service: RequestsService,
+    private router: Router
   ){}
 
   itemsPerPage = 5;
@@ -66,7 +67,7 @@ export class RequestsComponent implements OnInit{
     this.service.markAsRead(id).subscribe({
       next: (res) => {
         console.log("Data retrived:")
-        console.log(JSON.stringify(res, null, 2));  // Now logs 'Marked as unread.' or the server message
+        console.log(JSON.stringify(res, null, 2));
         window.location.reload();
       },
       error: (err) => {
@@ -74,4 +75,19 @@ export class RequestsComponent implements OnInit{
       }
     });
   }  
+
+  onDelete(id: number): void { 
+    if(confirm("Esti sigur ca vrei sa stergi cererea?")) {
+      this.service.deleteRequest(id).subscribe({
+        next: () => { 
+          console.log("Cerere stearsa cu succes!");
+          window.location.reload();
+        }, 
+        error: (err) => { 
+          console.log(err);
+          alert("Ceva nu a mers!");
+        }
+      })
+    }
+  }
 }

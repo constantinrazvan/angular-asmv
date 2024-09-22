@@ -1,29 +1,60 @@
 <div class="add-project mt-5 mx-5">
     <div class="container-fluid add-project-form">
         <h1 class="text-center">Adaugă proiect</h1>
-        <form class="form" (submit)="onSubmit()">
+        <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
             <div class="control mb-3">
                 <label for="title" class="form-label">Titlu</label>
-                <input type="text" id="title" class="form-control" placeholder="Titlu" [(ngModel)]="project.title" name="title" />
+                <input 
+                    type="text" 
+                    id="title" 
+                    class="form-control" 
+                    placeholder="Titlu" 
+                    formControlName="title" 
+                />
+                <div *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="text-danger">
+                    Titlul este obligatoriu.
+                </div>
             </div>
             <div class="control mb-3">
                 <label for="summary" class="form-label">Sumar</label>
-                <input type="text" id="summary" class="form-control" placeholder="Sumar" [(ngModel)]="project.summary" name="summary" />
+                <input 
+                    type="text" 
+                    id="summary" 
+                    class="form-control" 
+                    placeholder="Sumar" 
+                    formControlName="summary" 
+                />
+                <div *ngIf="projectForm.get('summary')?.invalid && projectForm.get('summary')?.touched" class="text-danger">
+                    Sumarul este obligatoriu.
+                </div>
             </div>
             <div class="control mb-3">
                 <label for="content" class="form-label">Conținut</label>
-                <input type="text" id="content" class="form-control" placeholder="Conținut" [(ngModel)]="project.content" name="content" />
+                <textarea 
+                    id="content" 
+                    class="form-control" 
+                    placeholder="Conținut" 
+                    formControlName="content" 
+                ></textarea>
+                <div *ngIf="projectForm.get('content')?.invalid && projectForm.get('content')?.touched" class="text-danger">
+                    Conținutul este obligatoriu.
+                </div>
             </div>
             <div class="control mb-3">
                 <label for="image" class="form-label">Imagine</label>
-                <input type="file" id="image" class="form-control" (change)="onFileSelected($event)" />
+                <input 
+                    type="file" 
+                    id="image" 
+                    class="form-control" 
+                    (change)="onFileSelected($event)" 
+                />
             </div>
             <!-- Secțiunea pentru previzualizarea imaginii -->
             <div *ngIf="imagePreview" class="text-center mb-3">
                 <img [src]="imagePreview" alt="Preview" class="img-fluid" style="max-width: 50%; height: auto;" /> <br />
                 <button type="button" class="btn btn-danger mt-2" (click)="onRemoveImage()">Șterge imaginea</button>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Adaugă Proiect</button>
+            <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="projectForm.invalid">Adaugă Proiect</button>
         </form>
     </div>
 </div>

@@ -73,67 +73,79 @@ export const routes: Routes = [
       {
         path: 'statistici',
         loadComponent: () => import('./dashboard/statistics/statistics.component').then(m => m.StatisticsComponent),
-        title: 'Statistici'
+        title: 'Statistici',
+        canActivate: [authGuard]
       },
       {
         path: 'postari',
         loadComponent: () => import('./dashboard/projects/projects.component').then(m => m.ProjectsComponent),
-        title: 'Proiecte'
+        title: 'Proiecte',
+        canActivate: [authGuard]
       },
       {
         path: 'mesaje',
         loadComponent: () => import('./dashboard/messages/messages.component').then(m => m.MessagesComponent),
-        title: 'Mesaje'
+        title: 'Mesaje',
+        canActivate: [authGuard]
       },
       {
         path: 'voluntari',
         loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent), 
-        title: 'Voluntari'
+        title: 'Voluntari',
+        canActivate: [authGuard]
       },
       {
         path: 'cereri',
         loadComponent: () => import('./dashboard/requests/requests.component').then(m => m.RequestsComponent), 
-        title: 'Cereri de Voluntariat'
+        title: 'Cereri de Voluntariat',
+        canActivate: [authGuard]
       },
       {
         path: 'profil',
         loadComponent: () => import('./dashboard/profile/profile.component').then(m => m.ProfileComponent),
-        title: 'Profil'
+        title: 'Profil',
+        canActivate: [authGuard]
       },
       {
         path: '',
         redirectTo: 'statistici',
-        pathMatch: 'full'
+        pathMatch: 'full' // elimină canActivate de aici
       }, 
       {
         path: 'proiect/nou',
         loadComponent: () => import('./dashboard/projects/add-project/add-project.component').then(m => m.AddProjectComponent),
-        title: 'Nou proiect'
+        title: 'Nou proiect',
+        canActivate: [authGuard]
       },
       {
         path: 'proiect/edit/:id',
         loadComponent: () => import('./dashboard/projects/edit-project/edit-project.component').then(m => m.EditProjectComponent),
-        title: 'Editeaza proiect'
+        title: 'Editeaza proiect',
+        canActivate: [authGuard]
       }, 
       {
         path: 'mesaje/:id', 
         loadComponent: () => import('./dashboard/messages/view-message/view-message.component').then(m => m.ViewMessageComponent), 
-        title: 'Mesaj'
+        title: 'Mesaj',
+        canActivate: [authGuard]
       },  
       {
         path: 'voluntar/:id',
         loadComponent: () => import('./dashboard/volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
-        title: 'Voluntar'
+        title: 'Voluntar',
+        canActivate: [authGuard]
       },
       {
         path: 'cerere/:id',
         loadComponent: () => import('./dashboard/requests/view-request/view-request.component').then(m => m.ViewRequestComponent),
-        title: 'Cerere'
+        title: 'Cerere',
+        canActivate: [authGuard]
       },
       {
         path: 'adauga-voluntar',
         loadComponent: () => import('./dashboard/volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
-        title: 'Adauga Voluntar'
+        title: 'Adauga Voluntar',
+        canActivate: [authGuard]
       }
     ]
   },  
