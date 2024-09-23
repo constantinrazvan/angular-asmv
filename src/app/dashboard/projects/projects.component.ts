@@ -50,17 +50,17 @@ export class ProjectsComponent implements OnInit {
     this.currentPage = page;
   }
 
-  fetchProjects() : void { 
+  fetchProjects(): void { 
     this.service.getAllProjects().subscribe({
-      next: (data: Project[]) => { 
-        console.log(data);
-        this.projects = data.reverse();
-      },
-      error: (error: string | null) => { 
-        console.log("Eroare la aducerea proiectelor!");
-        console.log(error);
-      }
-    })
+        next: (response: any) => { 
+            console.log('Projects received:', response);
+            // Access the `$values` array directly from the response
+            this.projects = response.$values.reverse(); // Reverse if needed
+        },
+        error: (error: string | null) => { 
+            console.error("Eroare la aducerea proiectelor!", error);
+        }
+    });
   }
 
   onDelete(id: number): void {

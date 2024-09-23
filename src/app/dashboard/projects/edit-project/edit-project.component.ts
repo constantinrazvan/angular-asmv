@@ -1,11 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ProjectsService } from '../../../core/services/projects/projects.service';
-import { Project } from '../../../core/models/Project';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+interface ProjectResponse {
+  id: number;
+  title: string;
+  content: string;
+  summary: string;
+  imageUrl: string; // Assuming this is the structure of your response
+}
 
 @Component({
   selector: 'app-edit-project',
@@ -17,7 +24,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class EditProjectComponent implements OnInit, OnDestroy {
   private id: number = 0;
   private subscription: Subscription | null = null;
-  project: Project = {} as Project;
+  project: ProjectResponse | null = null; // Changed to match the response type
   projectImage: string | null = null;
   selectedFile: File | null = null;
 
@@ -29,8 +36,8 @@ export class EditProjectComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.activeRoute.params.subscribe(params => {
-      this.id = params['id'];
-      this.fetchData(this.id);
+      this.id = +params['id']; // Convert string to number
+      this.fetchProjectData(this.id); // Fetch project data
     });
   }
 
@@ -40,36 +47,25 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  fetchData(id: number): Observable<Project> {
-    return this.http.get<Project>(`http://localhost:5235/api/projects/project/${id}`);
-  }
-  
-  
-  
-
-  fetchImage(id: number): void {
-    this.service.getProjectImage(id).subscribe(
-      (imageBlob: Blob) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.projectImage = reader.result as string;
-        };
-        reader.onerror = (error) => {
-          console.error('Error reading image:', error);
-        };
-        reader.readAsDataURL(imageBlob);
+  fetchProjectData(id: number): void {
+    console.log(`Fetching project data for ID: ${id}`); // Log ID-ul cererii
+    this.http.get<ProjectResponse>(`http://localhost:5235/api/projects/project/${id}`).subscribe(
+      (projectData) => {
+        console.log('Response received:', projectData); // Log răspunsul complet
+        this.project = projectData; // Setează direct proiectul
+        this.projectImage = projectData.imageUrl || null; // Setează URL-ul imaginii
       },
       (error) => {
-        console.error('Error loading image from server:', error);
+        console.error('Error fetching project data:', error);
       }
     );
   }
-  
+
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
+      this.selectedFile = file; // Store the selected file
     }
   }
 
@@ -82,7 +78,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     this.service.updateProject(this.id, this.project, this.selectedFile).subscribe({
       next: (updatedProject) => {
         console.log('Project updated successfully:', updatedProject);
-        this.fetchData(this.id); // Re-fetch project data to update the image
+        this.fetchProjectData(this.id); // Re-fetch project data to update the image
       },
       error: (error: string | null) => {
         console.log('Error updating project:', error);

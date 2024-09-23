@@ -66,14 +66,14 @@ export class ProjectsComponent implements OnInit {
             const reader = new FileReader();
             return new Observable<void>(observer => {
               reader.onload = () => {
-                project.image = reader.result as string;
+                project.imageUrl = reader.result as string;
                 observer.next();
                 observer.complete();
               };
               reader.readAsDataURL(blob);
             });
           } else {
-            project.image = this.defaultImage;  // Use default image if the fetch fails
+            project.imageUrl = this.defaultImage;  // Use default image if the fetch fails
             return of(null);
           }
         })
