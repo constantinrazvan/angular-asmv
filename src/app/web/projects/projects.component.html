@@ -25,7 +25,7 @@
       <ng-container *ngFor="let project of dataSource.data">
         <div class="col-md-4 mb-4">
           <mat-card class="project-card">
-            <img mat-card-image [src]="project.image" alt="{{project.title}}">
+            <img mat-card-image [src]="project.imageUrl" alt="{{project.title}}">
             <mat-card-header>
               <mat-card-title>{{project.title}}</mat-card-title>
             </mat-card-header>

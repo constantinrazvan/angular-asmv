@@ -146,6 +146,12 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
         title: 'Adauga Voluntar',
         canActivate: [authGuard]
+      }, 
+      {
+        path: 'utilizatori', 
+        loadComponent: () => import('./dashboard/users/users.component').then(m => m.UsersComponent),
+        title: 'Utilizatori', 
+        canActivate: [authGuard]
       }
     ]
   },  

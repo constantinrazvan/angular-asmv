@@ -14,9 +14,10 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./project-detail.component.css']
 })
 export class ProjectDetailComponent implements OnInit, AfterViewInit {
-  project: Project = {} as Project;
-  projectImage: string | null = null;
+  project: Project = {} as Project; // Initialize with empty Project
+  projectImage: string | null = null; // Keep as string | null
   defaultImage = '../../../../assets/defaultImage.jpeg'; // Path to the default image
+  errorMessage: string | null = null; // To store error messages
 
   constructor(
     private route: ActivatedRoute,
@@ -24,46 +25,45 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
     private router: Router
   ) { }
 
-  id = this.route.snapshot.params['id'];
-
   ngOnInit(): void {
-    this.getProject();
-    this.getProjectImage(this.id);
+    // Accessing the id parameter from the route
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.getProject(+id);
+      }
+    });
   }
 
   ngAfterViewInit() {
+    // Scroll to top on navigation end
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0); // Scroll to top when navigation ends
+        window.scrollTo(0, 0);
       }
     });
   }
 
-  getProject(): void { 
-    this.service.getProject(this.id).subscribe({
-      next: (data => { 
-        this.project = data;
-      }), 
-      error: (error) => console.error(error)
-    });
-  } 
-
-  getProjectImage(id: number): void {
-    this.service.getProjectImage(id).pipe(
-      catchError(err => {
-        console.error(err);
-        return of(null); // Handle error by returning null
+  // Method to get the project by id
+  // Method to get the project by id
+  getProject(id: number): void {
+    this.service.getProject(id).pipe(
+      catchError(error => {
+        console.error(error);
+        this.errorMessage = 'Failed to load project. Please try again later.'; // User-friendly error message
+        return of(null); // Return null or a fallback value
       })
-    ).subscribe(blob => {
-      if (blob) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.projectImage = reader.result as string;
-        };
-        reader.readAsDataURL(blob);
-      } else {
-        this.projectImage = this.defaultImage; // Use default image if the fetch fails
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.project = data;
+
+          // Set project image from the URL
+          this.projectImage = data.imageUrl as string || this.defaultImage; // Ensure it's treated as a string
+        } else {
+          this.errorMessage = 'Project not found.'; // Handle non-existing project
+        }
       }
     });
-  }  
+  }
 }

@@ -22,7 +22,7 @@ export class ProjectsService {
   }
 
   getProject(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}/api/projects/project/${id}`);
+    return this.http.get<Project>(`http://localhost:5235/api/Projects/project/${id}`);
   }
 
   getProjectImage(projectId: number): Observable<Blob> {

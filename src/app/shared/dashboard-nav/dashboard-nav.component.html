@@ -48,6 +48,12 @@
           <span class="ms-2">Cereri</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/utilizatori'), 'text-secondary': !isActive('/dashboard/utilizatori')}" [routerLink]="['/dashboard/utilizatori']">
+          <i class="bi bi-person-plus"></i>
+          <span class="ms-2">Utilizatori</span>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

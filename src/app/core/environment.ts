@@ -18,7 +18,7 @@ export const becomeVolunteersEnvironment = {
 
 export const projectEnvironment = {
     getAllProjects: 'http://localhost:5235/api/Projects/all-projects',
-    getProjectById: (id: number) => `http://localhost:5235/api/projects/project/${id}`,
+    getProjectById: (id: number) => `http://localhost:5235/api/Projects/project/${id}`,
     newProject: 'http://localhost:5235/api/Projects/new-project',
     updateProject: (id: number) => `http://localhost:5235/api/Projects/update-project/${id}`,
     deleteProject: (id: number) => `http://localhost:5235/api/Projects/delete-project/${id}`,
