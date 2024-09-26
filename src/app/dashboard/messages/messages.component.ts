@@ -26,16 +26,20 @@ export class MessagesComponent implements OnInit {
 
   fetchMessages() {
     this.service.getAllMessages().subscribe({
-      next: (data: Message[]) => {
-        console.log(data); // Check the structure of the data in the console
-        this.messages = data.reverse(); // Directly assign the fetched data
+      next: (data: any) => {
+        console.log(data); // Check the structure of the data
+        if (data && Array.isArray(data.$values)) {
+          this.messages = data.$values.reverse(); // Access and reverse the array of messages
+        } else {
+          console.log('Data does not contain an array of messages');
+        }
       },
       error: (error: string | null) => {
         console.log('Eroare la aducerea mesajelor!');
         console.log(error);
       }
     });
-  }
+  }  
 
   get totalItems() {
     return this.messages.length;

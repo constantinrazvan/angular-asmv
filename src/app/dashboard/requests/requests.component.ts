@@ -47,16 +47,22 @@ export class RequestsComponent implements OnInit{
 
   fetchData(): void {
     this.service.getRequests().subscribe({
-      next: (data: BecomeVolunteer[]) => {
+      next: (data: any) => {
         console.log("Data retrieved");
         console.log(JSON.stringify(data, null, 2));
-        this.requests = data.reverse();
+  
+        // Check if $values is an array and reverse it
+        if (data && Array.isArray(data.$values)) {
+          this.requests = data.$values.reverse(); // Access the array and reverse it
+        } else {
+          console.log('Data does not contain a valid $values array');
+        }
       },
       error: (err) => {
-        console.log(err)
+        console.log(err);
       }
-    })
-  }
+    });
+  }  
 
   refresh(): void { 
     this.fetchData();

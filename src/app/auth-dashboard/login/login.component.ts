@@ -19,8 +19,9 @@ import { AuthService } from '../../core/services/auth/auth.service';
 export class LoginComponent {
 
   /*
+    ** Parola actualiazata pe data de 27/09/2024**
     razvan20@email.com
-    razvan20
+    razvan
   */
 
   /*
@@ -50,7 +51,7 @@ export class LoginComponent {
       }, 
       error: (error: string) => {
         console.log(error);
-        this.error = "Email sau parola incorecte";
+        this.error = "Email sau parola incorecte! Incercati mai tarziu!";
       }
     });
   }
