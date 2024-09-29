@@ -1,13 +1,12 @@
 <div class="container mt-5">
     <div class="row">
-      <!-- Cardul utilizatorului -->
       <div class="col-md-12">
         <div class="card mb-4">
           <div class="row g-0">
             <div class="col-md-4 bg-primary text-center text-white d-flex flex-column justify-content-center py-5">
                 <div class="avatar mb-3">
-                    <h1 class="mb-0" style="line-height: 60px;">{{ user.firstname.slice(0, 1) }}</h1>
-                  </div>                                  
+                  <h1 class="mb-0" style="line-height: 60px;">{{ user.firstname.slice(0, 1) }}</h1>
+                </div>                                  
               <h3>{{ user.firstname }} {{ user.lastname }}</h3>
               <p>{{ user.role }}</p>
             </div>
@@ -25,7 +24,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <strong>Înscris:</strong>
-                      <input type="text" class="form-control-plaintext ms-2" value="{{ formattedDate }}" readonly>
+                      <input type="text" class="form-control-plaintext ms-2" value="{{ createdAt }}" readonly>
                     </li>
                   </ul>
                 </div>
@@ -34,7 +33,6 @@
         </div>      
       </div>
   
-      <!-- Cardul pentru Editarea Informațiilor Profilului -->
       <div class="col-md-12">
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
@@ -62,7 +60,6 @@
         </div>
       </div>
   
-      <!-- Cardul cu tab-uri pentru Setările Contului și Gestionarea Securității -->
       <div class="col-md-12">
         <div class="card shadow-lg mb-4">
             <div class="card-header bg-primary text-white">
@@ -77,7 +74,6 @@
             </div>
             <div class="card-body">
                 <div class="tab-content" id="myTabContent">
-                    <!-- Tab Setări Cont -->
                     <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                         <h5>Setări Cont</h5>
                         <p>Gestionează setările contului tău aici.</p>
@@ -87,7 +83,6 @@
                         </div>
                     </div>
                     
-                    <!-- Tab Gestionare Securitate -->
                     <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                         <h5>Gestionare Securitate</h5>
                         <p>Gestionează setările de securitate și schimbă parola.</p>
@@ -106,6 +101,6 @@
                 </div>              
             </div>
         </div>
-    </div>        
+      </div>        
     </div>
 </div>  

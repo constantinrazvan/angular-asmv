@@ -15,7 +15,7 @@ export class CookieModalDialogComponent {
   constructor(public dialogRef: MatDialogRef<CookieModalDialogComponent>) {}
 
   onAccept(): void {
-    localStorage.setItem('cookiesAccepted', 'true');
+    document.cookie = "cookiesAccepted=true"
     this.dialogRef.close();
   }
 

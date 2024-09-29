@@ -12,11 +12,7 @@ import { User } from '../../core/models/User';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = [
-    { id: 1, firstname: 'Ion', lastname: 'Popescu', email: 'ion.popescu@example.com', password: '123456', role: 'Membru', created_at: new Date('2023-01-15') },
-    { id: 2, firstname: 'Maria', lastname: 'Ionescu', email: 'maria.ionescu@example.com', password: '123456', role: 'Membru', created_at: new Date('2023-03-22') },
-    // Poți adăuga alți utilizatori aici
-  ];
+  users: User[] = [];
   
   role: string = '';
   hasAccess: boolean = false;
@@ -35,13 +31,13 @@ export class UsersComponent implements OnInit {
   }
 
   checkUserRole(role: string): boolean {
-    return role === "Membru Adunarea Generala" || role === "Membru Consiliu Directorial";
+    return role === "Membru Adunarea Generala" || role === "Membru Consiliu Directorial" || role === "admin";
   }
 
   deleteUser(id: number): void { 
     this.usersService.deleteUser(id).subscribe({
       next: () => { 
-        this.users = this.users.filter(user => user.id !== id); // Elimină utilizatorul din listă
+        this.users = this.users.filter(user => user.id !== id);
       },
       error: (err) => {
         console.error('Eroare la ștergerea utilizatorului:', err);
@@ -51,14 +47,21 @@ export class UsersComponent implements OnInit {
 
   getUsers(): void { 
     this.usersService.getAllUsers().subscribe({
-      next: (data: User[]) => { 
+      next: (data: any) => { 
         console.log(data); 
         this.users.length = 0; 
-        this.users.push(...data);
+        if (data.$values && Array.isArray(data.$values)) {
+          this.users.push(...data.$values.map((user: any) => ({
+            ...user,
+            created_at: user.createdAt ? new Date(user.createdAt) : null // Transformă în Date sau lasă null
+          })));
+        } else {
+          console.error('Răspunsul nu conține un array valid:', data);
+        }
       }, 
       error: (err) => { 
         console.error(err);
       }
     });
-  } 
+  }  
 }

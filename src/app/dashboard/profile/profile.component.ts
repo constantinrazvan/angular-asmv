@@ -1,6 +1,7 @@
 import { Component, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 export interface User {
   id?: number;
@@ -22,18 +23,20 @@ export interface User {
 export class ProfileComponent {
 
   user: User = {
-    firstname: 'John',
-    lastname: 'Doe',
-    email: 'john.doe@example.com',
+    firstname: localStorage.getItem('firstname')!,
+    lastname: localStorage.getItem('lastname')!,
+    email: localStorage.getItem('email')!,
     password: '',
-    role: 'Admin',
-    created_at: new Date('2023-03-15')
+    role: localStorage.getItem('role')!,
+    created_at: new Date(localStorage.getItem('joined_date')!)
   };
 
   isDarkMode = false;
   isEditMode = false;
 
-  constructor(private renderer: Renderer2) {}
+  createdAt: string = this.service.getUserJoinedDate();
+
+  constructor(private renderer: Renderer2, private service: AuthService) {}
 
   get formattedDate() {
     return this.user.created_at ? this.user.created_at.toLocaleDateString() : 'N/A';

@@ -44,9 +44,18 @@ export class AuthService {
   private setUserDetails(token: string): void {
     const decodedToken: any = jwtDecode(token);
     localStorage.setItem('email', decodedToken.email);
-    localStorage.setItem('username', decodedToken.firstname); // Verifică dacă această cheie există
+    localStorage.setItem('username', decodedToken.firstname + ' ' + decodedToken.lastname);
     localStorage.setItem('role', decodedToken.role);
-    localStorage.setItem('userId', decodedToken.userId); // Asigură-te că aceasta există
+    localStorage.setItem('userId', decodedToken.userId);
+    localStorage.setItem('firstname', decodedToken.firstname);
+    localStorage.setItem('lastname', decodedToken.lastname);
+    
+    // Formatează joinedDate în formatul dd/mm/yyyy
+    const joinedDate = new Date(decodedToken.joinedDate);
+    const formattedDate = `${joinedDate.getDate().toString().padStart(2, '0')}/${(joinedDate.getMonth() + 1).toString().padStart(2, '0')}/${joinedDate.getFullYear()}`;
+    
+    // Salvează data formatată în localStorage
+    localStorage.setItem('joinedDate', formattedDate);
   }
 
   getUserEmail(): string {
@@ -65,6 +74,10 @@ export class AuthService {
     return Number(localStorage.getItem('userId')) || 0;
   }
 
+  getUserJoinedDate(): string {
+    return localStorage.getItem('joinedDate') || '';
+  }  
+
   isLoggedIn(): boolean {
     return !!this.getUserToken();
   }
@@ -77,5 +90,7 @@ export class AuthService {
     localStorage.removeItem('userId');
 
     window.location.reload();
+
+    localStorage.clear();
   }
 }

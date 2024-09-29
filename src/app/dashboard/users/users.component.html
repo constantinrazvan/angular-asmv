@@ -1,37 +1,36 @@
 <div class="container mt-4">
-    <h1><strong>Utilizatori</strong></h1>
-    <div *ngIf="hasAccess; else noAccess">
-      <table class="table table-bordered">
-        <thead class="thead-light">
-          <tr>
-            <th>Nume Prenume</th>
-            <th>Email</th>
-            <th>Data Înscrierii</th>
-            <th>Acțiuni</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.firstname }} {{ user.lastname }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.created_at| date: 'dd/MM/yyyy' }}</td>
-            <td>
-              <button class="btn btn-warning me-2 btn-sm">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="btn btn-danger btn-sm">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <ng-template #noAccess>
-      <div class="alert alert-danger" role="alert">
-        Nu aveți acces.
-      </div>
-    </ng-template>
+  <h1><strong>Utilizatori</strong></h1>
+  <div *ngIf="hasAccess; else noAccess">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Nume Prenume</th>
+          <th>Email</th>
+          <th>Data Înscrierii</th>
+          <th>Acțiuni</th> <!-- Elimină condiția de aici -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstname }} {{ user.lastname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.created_at | date: 'dd/MM/yyyy' }}</td>
+          <td *ngIf="user.role !== 'admin'"> <!-- Verifică rolul fiecărui utilizator -->
+            <button class="btn btn-warning me-2 btn-sm">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+
+  <ng-template #noAccess>
+    <div class="alert alert-danger" role="alert">
+      Nu aveți acces.
+    </div>
+  </ng-template>
+</div>
