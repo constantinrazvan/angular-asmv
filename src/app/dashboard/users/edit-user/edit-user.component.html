@@ -1,0 +1,77 @@
+<div class="edit-user mt-5 mx-5">
+    <div class="container-fluid edit-user-form">
+        <h1 class="text-center">Editează utilizator</h1>
+        <form class="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="userid" class="form-label">Id</label>
+                <input 
+                    type="text" 
+                    id="userid" 
+                    class="form-control" 
+                    placeholder="Id" 
+                    [(ngModel)]="user.id" 
+                    name="id" 
+                    [readonly]="!isEdit"
+                />
+            </div>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">Prenume</label>
+                <input 
+                    type="text" 
+                    id="firstname" 
+                    class="form-control" 
+                    placeholder="Prenume" 
+                    [(ngModel)]="user.firstname" 
+                    name="firstname" 
+                    [readonly]="!isEdit"
+                />
+            </div>
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Nume</label>
+                <input 
+                    type="text" 
+                    id="lastname" 
+                    class="form-control" 
+                    placeholder="Nume" 
+                    [(ngModel)]="user.lastname" 
+                    name="lastname" 
+                    [readonly]="!isEdit"
+                />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    class="form-control" 
+                    placeholder="Email" 
+                    [(ngModel)]="user.email" 
+                    name="email" 
+                    [readonly]="!isEdit"
+                />
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Rol</label>
+                <input 
+                    type="text" 
+                    id="role" 
+                    class="form-control" 
+                    placeholder="Rol" 
+                    [(ngModel)]="user.role" 
+                    name="role" 
+                    [readonly]="!isEdit"
+                />
+            </div>
+            <div class=" mt-4">
+                <button 
+                    class="btn btn-md me-1" 
+                    [ngClass]="isEdit ? 'btn-success' : 'btn-primary'" 
+                    (click)="toggleEdit()">
+                    {{ isEdit ? 'Modifică acum' : 'Actualizează' }} 
+                </button>
+                <button ngClass="btn btn-md btn-danger" *ngIf="isEdit" (click)="cancelEdit()">Anulare</button>
+            </div>
+            
+        </form>
+    </div>
+</div>

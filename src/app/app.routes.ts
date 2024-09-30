@@ -152,6 +152,12 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/users/users.component').then(m => m.UsersComponent),
         title: 'Utilizatori', 
         canActivate: [authGuard]
+      }, 
+      {
+        path: 'editeaza-utilizator/:id', 
+        loadComponent: () => import('./dashboard/users/edit-user/edit-user.component').then(m => m.EditUserComponent), 
+        title: 'Editeaza utilizator', 
+        canActivate: [authGuard]
       }
     ]
   },  

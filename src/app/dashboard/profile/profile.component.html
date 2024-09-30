@@ -53,7 +53,7 @@
                   <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" [readonly]="!isEditMode">
               </div>
               <button type="button" class="btn btn-primary" *ngIf="!isEditMode" (click)="isEditMode = true">Modifică</button>
-              <button type="submit" class="btn btn-success" *ngIf="isEditMode">Actualizează</button>
+              <button type="submit" class="btn btn-success" *ngIf="isEditMode" (click)="updateUser($event)">Actualizează</button>
               <button type="button" class="btn btn-danger ms-2" *ngIf="isEditMode" (click)="isEditMode = false">Anulare</button>
           </form>                
           </div>
@@ -89,13 +89,13 @@
                         <form>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Parola Curentă</label>
-                                <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password">
+                                <input type="password" class="form-control" id="password" [(ngModel)]="oldPassword" name="password">
                             </div>
                             <div class="mb-3">
                                 <label for="newPassword" class="form-label">Parola Nouă</label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                <input type="password" class="form-control" id="newPassword" [(ngModel)]="newPassword" name="newPassword">
                             </div>
-                            <button type="submit" class="btn btn-primary">Actualizează Parola</button>
+                            <button type="submit" class="btn btn-primary" (click)="updatePassword($event)">Actualizează Parola</button>
                         </form>
                     </div>
                 </div>              

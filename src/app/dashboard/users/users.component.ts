@@ -3,11 +3,12 @@ import { AuthService } from '../../core/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../core/services/users/users.service';
 import { User } from '../../core/models/User';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
@@ -35,14 +36,16 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number): void { 
-    this.usersService.deleteUser(id).subscribe({
-      next: () => { 
-        this.users = this.users.filter(user => user.id !== id);
-      },
-      error: (err) => {
-        console.error('Eroare la ștergerea utilizatorului:', err);
-      }
-    });
+    if(confirm("Esti sigur ca vrei sa stergi utilizatorul?")) {
+      this.usersService.deleteUser(id).subscribe({
+        next: () => { 
+          this.users = this.users.filter(user => user.id !== id);
+        },
+        error: (err) => {
+          console.error('Eroare la ștergerea utilizatorului:', err);
+        }
+      });
+    }
   }
 
   getUsers(): void { 
