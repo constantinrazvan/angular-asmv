@@ -116,4 +116,10 @@ export class ProfileComponent implements OnInit{
     });
   }
   
+  logout() : void { 
+    if(confirm("Esti sigur ca vrei sa parasesti platforma?")) {
+      this.service.logout();
+    }
+  }
+
 }
