@@ -67,6 +67,11 @@ export const routes: Routes = [
     title: 'ASMV - Politica de confidentialitate'
   },
   {
+    path: 'voluntar',
+    loadComponent: () => import('./web/volunteer-profile/volunteer-profile.component').then(m => m.VolunteerProfileComponent),
+    title: 'Voluntar'
+  },
+  {
     path: 'dashboard',
     component: DashboardLayoutComponent,
     children: [

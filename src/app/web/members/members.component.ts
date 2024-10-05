@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Volunteer } from '../../core/models/Volunteer';
 import { now } from 'jquery';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [WebNavbarComponent, WebFooterComponent, CommonModule, MatProgressSpinnerModule],
+  imports: [WebNavbarComponent, WebFooterComponent, CommonModule, MatProgressSpinnerModule, RouterLink],
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css']
 })

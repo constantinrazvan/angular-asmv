@@ -1,0 +1,38 @@
+<app-web-navbar></app-web-navbar>
+
+<div class="container mt-5 mb-5">
+    <div class="text-center">
+        <img src="https://via.placeholder.com/150" alt="Profile Image" class="rounded-circle shadow mb-3" width="150" height="150">
+        <h2 class="mb-1 fw-bold text-dark">John Doe</h2>
+        <p class="text-muted fs-5">Membru Voluntar | Student</p>
+    </div>
+
+    <div class="mt-5 p-4 border rounded-3 bg-light shadow-sm">
+        <h4 class="fw-bold text-secondary">Detalii Profil</h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong><i class="bi bi-envelope-fill"></i> Email:</strong> <span class="text-dark">{{ 'johndoe@example.com' | lowercase }}</span></p>
+                <p><strong><i class="bi bi-person-circle"></i> Ocupație:</strong> <span class="text-dark">Student</span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong><i class="bi bi-clock-fill"></i> Timp de activitate:</strong> <span class="text-dark">1 an și 3 luni</span></p>
+                <p><strong><i class="bi bi-people-fill"></i> Rol:</strong> <span class="text-dark">Membru Voluntar</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-5">
+        <a href="https://facebook.com/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none">
+            <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://twitter.com/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none" >
+            <i class="bi bi-twitter"></i>
+        </a>
+        <a href="https://linkedin.com/in/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none" >
+            <i class="bi bi-linkedin"></i>
+        </a>
+    </div>
+</div>
+
+<app-web-footer></app-web-footer>
