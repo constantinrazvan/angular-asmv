@@ -72,6 +72,11 @@ export const routes: Routes = [
     title: 'Voluntar'
   },
   {
+    path: 'ecuson-digital',
+    loadComponent: () => import('./web/ecuson-digital/ecuson-digital.component').then(m => m.EcusonDigitalComponent),
+    title: 'Ecuson digital'
+  },
+  {
     path: 'dashboard',
     component: DashboardLayoutComponent,
     children: [
