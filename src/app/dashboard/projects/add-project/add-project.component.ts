@@ -79,18 +79,18 @@ export class AddProjectComponent {
       formData.append('photo', this.selectedFile, this.selectedFile.name);
     }
 
-    this.service.addProject(formData).subscribe(
-      response => {
+    this.service.addProject(formData).subscribe({
+      next: (response: any) => {
         console.log('Project added successfully', response);
         this.projectForm.reset();
         this.imagePreview = null;
         this.loading = false;
         this.router.navigate(['/dashboard/proiecte'])
       },
-      error => {
+      error: (error) => {
         console.error('Error adding project', error);
         this.loading = false;
       }
-    );
+    });
   }  
 }

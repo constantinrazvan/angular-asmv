@@ -40,8 +40,14 @@ export class VolunteersService {
   }
   
 
-  addVolunteer(volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.post<Volunteer>(volunteerEnvironment.addVolunteer(), volunteer, {
+  // addVolunteer(volunteer: Volunteer): Observable<Volunteer> {
+  //   return this.http.post<Volunteer>(volunteerEnvironment.addVolunteer(), volunteer, {
+  //     headers: this.getAuthHeaders()
+  //   });
+  // }
+
+  addVolunteer(formData: FormData): Observable<Volunteer> {
+    return this.http.post<Volunteer>(volunteerEnvironment.addVolunteer(), formData, {
       headers: this.getAuthHeaders()
     });
   }
@@ -52,8 +58,14 @@ export class VolunteersService {
     });
   }
 
-  updateVolunteer(id: number, volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.put<Volunteer>(volunteerEnvironment.updateVolunteer(id), volunteer, {
+  // updateVolunteer(id: number, volunteer: Volunteer): Observable<Volunteer> {
+  //   return this.http.put<Volunteer>(volunteerEnvironment.updateVolunteer(id), volunteer, {
+  //     headers: this.getAuthHeaders()
+  //   });
+  // }
+
+  updateVolunteer(id: number, formData: FormData): Observable<Volunteer> {
+    return this.http.put<Volunteer>(volunteerEnvironment.updateVolunteer(id), formData, {
       headers: this.getAuthHeaders()
     });
   }

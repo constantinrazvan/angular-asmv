@@ -15,24 +15,27 @@ import { VolunteersService } from '../../../core/services/volunteers/volunteers.
 export class ViewVolunteerComponent implements OnInit {
   volunteer: Volunteer = {} as Volunteer;
   id: number = 0;
+  volunteerImage: string | null = null; // Pentru afișarea URL-ului imaginii
+  selectedFile: File | null = null; // Proprietate separată pentru upload-ul fișierului
+  imageDeleted: boolean = false; // Variabilă pentru ștergerea imaginii
 
   constructor(
     private service: VolunteersService,
     private route: ActivatedRoute,
     private router: Router
-  ){}
-
-  getId(): void {
-    this.route.params.subscribe(params => {
-      this.id = +params['id']; 
-    });
-  }
+  ) { }
 
   fetchUser(id: number): void {
     this.service.getOne(id).subscribe({
-      next: (data: Volunteer) => {
-        console.log(JSON.stringify(data, null, 2));
+      next: (data: any) => {
         this.volunteer = data;
+
+        // Parsarea URL-ului imaginii din răspuns
+        if (data.volunteerImage && data.volunteerImage.url) {
+          this.volunteerImage = data.volunteerImage.url; // Atribuire URL imagine
+        } else {
+          this.volunteerImage = null; // Nicio imagine
+        }
       },
       error: (err) => {
         console.log(err);
@@ -42,7 +45,7 @@ export class ViewVolunteerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = +params['id'];  
+      this.id = +params['id'];
       if (this.id) {
         this.fetchUser(this.id);
       }
@@ -50,7 +53,27 @@ export class ViewVolunteerComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.service.updateVolunteer(this.id, this.volunteer).subscribe({
+    const formData = new FormData();
+
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+    }
+
+    if (this.imageDeleted) {
+      // Trimite un câmp gol pentru imagine
+      formData.append('volunteerImage', '');
+    }
+
+    // Adaugă restul datelor voluntarului în formData
+    formData.append('firstname', this.volunteer.firstname);
+    formData.append('lastname', this.volunteer.lastname);
+    formData.append('email', this.volunteer.email);
+    formData.append('phone', this.volunteer.phone);
+    formData.append('city', this.volunteer.city);
+    formData.append('status', this.volunteer.status);
+    formData.append('joinedDate', this.volunteer.joinedDate);
+
+    this.service.updateVolunteer(this.id, formData).subscribe({
       next: () => {
         console.log("Updated!");
         this.router.navigate(['/dashboard/voluntari']);
@@ -61,15 +84,34 @@ export class ViewVolunteerComponent implements OnInit {
       }
     });
   }
-  
-  onDelete(): void { 
+
+  onDelete(): void {
     this.service.deleteVolunteer(this.volunteer.id!).subscribe({
-      next: () => { 
+      next: () => {
         window.location.reload();
       },
-      error: () => { 
+      error: () => {
         alert("Ceva nu a mers bine!");
       }
-    })
+    });
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.imageDeleted = false; // Resetăm ștergerea imaginii
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.volunteerImage = e.target.result; // Afișare imagine selectată
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onRemoveImage(): void {
+    this.volunteerImage = null; // Șterge imaginea din preview
+    this.selectedFile = null; // Resetează fișierul selectat
+    this.imageDeleted = true; // Marcăm imaginea ca ștearsă
   }
 }
