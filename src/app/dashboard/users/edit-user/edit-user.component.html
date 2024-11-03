@@ -52,26 +52,26 @@
             </div>
             <div class="mb-3">
                 <label for="role" class="form-label">Rol</label>
-                <input 
-                    type="text" 
+                <select 
                     id="role" 
                     class="form-control" 
-                    placeholder="Rol" 
                     [(ngModel)]="user.role" 
                     name="role" 
-                    [readonly]="!isEdit"
-                />
+                    [disabled]="!isEdit">
+                    <option value="Adunarea Generala">Adunarea Generala</option>
+                    <option value="Membru Activ">Membru Activ</option>
+                    <option value="Membru Voluntar">Membru Voluntar</option>
+                </select>
             </div>
-            <div class=" mt-4">
+            <div class="mt-4">
                 <button 
                     class="btn btn-md me-1" 
                     [ngClass]="isEdit ? 'btn-success' : 'btn-primary'" 
                     (click)="toggleEdit()">
                     {{ isEdit ? 'Modifică acum' : 'Actualizează' }} 
                 </button>
-                <button ngClass="btn btn-md btn-danger" *ngIf="isEdit" (click)="cancelEdit()">Anulare</button>
+                <button class="btn btn-md btn-danger" *ngIf="isEdit" (click)="cancelEdit()">Anulare</button>
             </div>
-            
         </form>
     </div>
 </div>

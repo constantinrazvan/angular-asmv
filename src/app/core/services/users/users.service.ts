@@ -36,7 +36,7 @@ export class UsersService {
   }  
 
   deleteUser(id: number): Observable<User> {
-    return this.http.delete<User>(usersEnvironment.deleteUser(id), {
+    return this.http.delete<User>(`http://localhost:5235/api/Users/delete-user/${id}`, {
       headers: this.getAuthHeaders()
     });
   }

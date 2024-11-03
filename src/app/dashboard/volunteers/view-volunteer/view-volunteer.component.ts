@@ -1,117 +1,107 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Volunteer } from '../../../core/models/Volunteer';
 import { VolunteersService } from '../../../core/services/volunteers/volunteers.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-view-volunteer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './view-volunteer.component.html',
   styleUrls: ['./view-volunteer.component.css']
 })
 export class ViewVolunteerComponent implements OnInit {
   volunteer: Volunteer = {} as Volunteer;
-  id: number = 0;
-  volunteerImage: string | null = null; // Pentru afișarea URL-ului imaginii
-  selectedFile: File | null = null; // Proprietate separată pentru upload-ul fișierului
-  imageDeleted: boolean = false; // Variabilă pentru ștergerea imaginii
+  volunteerId = this.activatedRoute.snapshot.paramMap.get('id');
+  isEdit: boolean = false;
+  showReplaceInput: boolean = false;
 
   constructor(
-    private service: VolunteersService,
-    private route: ActivatedRoute,
+    private service: VolunteersService, 
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
-  fetchUser(id: number): void {
-    this.service.getOne(id).subscribe({
-      next: (data: any) => {
-        this.volunteer = data;
-
-        // Parsarea URL-ului imaginii din răspuns
-        if (data.volunteerImage && data.volunteerImage.url) {
-          this.volunteerImage = data.volunteerImage.url; // Atribuire URL imagine
-        } else {
-          this.volunteerImage = null; // Nicio imagine
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
-
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      if (this.id) {
-        this.fetchUser(this.id);
+    this.loadVolunteer();
+  }
+
+  loadVolunteer(): void {
+    this.service.getVolunteer(Number(this.volunteerId)).subscribe({
+      next: (volunteer: Volunteer) => { 
+        this.volunteer = volunteer;
+        console.log("Loaded volunteer:", volunteer);
+      }, 
+      error: (error: any) => {
+        console.error("Failed to load volunteer:", error);
       }
     });
   }
 
-  onSubmit(): void {
-    const formData = new FormData();
+  editModeOn(): void { 
+    this.isEdit = true;
+  }
 
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
+  cancelEdit(): void {
+    this.isEdit = false;
+    this.loadVolunteer(); 
+  }
 
-    if (this.imageDeleted) {
-      // Trimite un câmp gol pentru imagine
-      formData.append('volunteerImage', '');
-    }
-
-    // Adaugă restul datelor voluntarului în formData
-    formData.append('firstname', this.volunteer.firstname);
-    formData.append('lastname', this.volunteer.lastname);
-    formData.append('email', this.volunteer.email);
-    formData.append('phone', this.volunteer.phone);
-    formData.append('city', this.volunteer.city);
-    formData.append('status', this.volunteer.status);
-    formData.append('joinedDate', this.volunteer.joinedDate);
-
-    this.service.updateVolunteer(this.id, formData).subscribe({
+  saveChanges(): void {
+    this.service.updateVolunteer(Number(this.volunteerId), this.volunteer).subscribe({
       next: () => {
-        console.log("Updated!");
-        this.router.navigate(['/dashboard/voluntari']);
+        console.log('Modificările au fost salvate.');
+        this.isEdit = false;
       },
-      error: (err) => {
-        console.log(err);
-        alert("Ceva nu a mers corect! Incercati mai tarziu!");
+      error: (error: any) => {
+        console.log('Eroare la salvarea modificărilor:', error);
       }
     });
   }
 
-  onDelete(): void {
-    this.service.deleteVolunteer(this.volunteer.id!).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: () => {
-        alert("Ceva nu a mers bine!");
-      }
-    });
-  }
-
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      this.selectedFile = file;
-      this.imageDeleted = false; // Resetăm ștergerea imaginii
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.volunteerImage = e.target.result; // Afișare imagine selectată
+      reader.onload = () => {
+        this.volunteer.volunteerImage = { url: reader.result as string };
       };
       reader.readAsDataURL(file);
     }
   }
 
-  onRemoveImage(): void {
-    this.volunteerImage = null; // Șterge imaginea din preview
-    this.selectedFile = null; // Resetează fișierul selectat
-    this.imageDeleted = true; // Marcăm imaginea ca ștearsă
+  removeImage(): void {
+    this.volunteer.volunteerImage = null;
+  }
+
+  openDeleteModal(): void {
+    const modalElement = document.getElementById('deleteModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
+  confirmDelete(): void {
+    this.service.deleteVolunteer(Number(this.volunteerId)).subscribe({
+      next: () => {
+        console.log('Voluntar șters cu succes.');
+        this.router.navigate(['/volunteers']); 
+      },
+      error: (error: any) => {
+        console.log('Eroare la ștergerea voluntarului:', error);
+      }
+    });
+  }
+
+  getImageUrl(): string | null {
+    if (typeof this.volunteer.volunteerImage === 'string') {
+      return this.volunteer.volunteerImage;
+    } else if (typeof this.volunteer.volunteerImage === 'object' && this.volunteer.volunteerImage && 'url' in this.volunteer.volunteerImage) {
+      return this.volunteer.volunteerImage.url;
+    }
+    return null;
   }
 }

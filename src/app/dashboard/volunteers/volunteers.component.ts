@@ -1,87 +1,83 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { CommonModule } from '@angular/common';
 import { Volunteer } from '../../core/models/Volunteer';
-import { Router, RouterLink } from '@angular/router';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-volunteers',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
   templateUrl: './volunteers.component.html',
   styleUrl: './volunteers.component.css'
 })
 export class VolunteersComponent implements OnInit {
-
-  constructor(
-    private service: VolunteersService,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-      this.fetchData();
-  }
-
-  fetchData(): void {
-    this.service.getAll().subscribe({
-      next: (data: any) => {
-        console.log('Data retrieved:');
-        console.log(JSON.stringify(data, null, 2));
-        
-        // Check if $values is an array and reverse it
-        if (data && Array.isArray(data.$values)) {
-          this.volunteers = data.$values.reverse(); // Access the actual array
-        } else {
-          console.log('Data does not contain a valid $values array');
+    volunteers: Volunteer[] = [];
+  
+    constructor(private service: VolunteersService) {}
+  
+    itemsPerPage = 10;
+    currentPage = 1;
+  
+    ngOnInit(): void {
+      this.fetchVolunteers();
+    }
+  
+    fetchVolunteers() {
+      this.service.getAllVolunteers().subscribe({
+        next: (data: Volunteer[]) => {
+          console.log(data); // Verifică structura datelor
+          if (data && Array.isArray(data)) {
+            this.volunteers = data.reverse(); // Accesează lista direct și o inversează
+          } else {
+            console.log('Datele nu conțin o listă de voluntari');
+          }
+        },
+        error: (error: any) => {
+          console.log('Eroare la aducerea voluntarilor!');
+          console.log(error);
         }
-      },
-      error: (err) => {
-        console.log(err);
+      });
+    }
+    
+    get totalItems() {
+      return this.volunteers.length;
+    }
+  
+    get paginatedVolunteers() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.volunteers.slice(start, end);
+    }
+  
+    get totalPages() {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    }
+  
+    changePage(page: number) {
+      if (page < 1 || page > this.totalPages) return;
+      this.currentPage = page;
+    }
+  
+    refresh(): void {
+      this.fetchVolunteers();
+      window.location.reload();
+    }
+  
+    deleteVolunteer(id: number) {
+      if (confirm('Ești sigur că vrei să ștergi acest voluntar?')) {
+        this.service.deleteVolunteer(id).subscribe({
+          next: () => {
+            console.log("Voluntar șters cu succes");
+            this.fetchVolunteers();
+          },
+          error: (error) => {
+            console.error('Eroare la ștergerea voluntarului!', error);
+          }
+        });
       }
-    });
-  }  
-
-  refresh(): void { 
-    this.fetchData();
-    window.location.reload();
+    }
+    
   }
   
-  volunteers : Volunteer[] = [];
-
-  itemsPerPage = 5;
-  currentPage = 1;
-
-  get totalItems() {
-    return this.volunteers.length;
-  }
-
-  get paginatedVolunteers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.volunteers.slice(start, end);
-  }
-
-  get totalPages() {
-    return Math.ceil(this.totalItems / this.itemsPerPage);
-  }
-
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-  }
-
-
-  onDelete(id : number) {
-    if(confirm("Esti sigur ca vrei sa stergi acest voluntar?")) {
-      this.service.deleteVolunteer(id).subscribe({
-        next: (res) => { 
-          console.log(res);
-          window.location.reload();
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
-    }
-  }
-}

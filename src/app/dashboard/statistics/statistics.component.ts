@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../core/models/Message';
 import { Volunteer } from '../../core/models/Volunteer';
-import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+// import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
 import { MessagesService } from '../../core/services/messages/messages.service';
 import { StatisticsService } from '../../core/services/statistics/statistics.service';
 import { RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
 export class StatisticsComponent implements OnInit {
 
   constructor(
-    private volunteerService: VolunteersService,
+    // private volunteerService: VolunteersService,
     private messageService: MessagesService, 
     private statisticsService: StatisticsService
   ){}
@@ -55,7 +55,7 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchMessages();
-    this.fetchVolunteers();
+    // this.fetchVolunteers();
 
     this.fetchStatisticsBecomeVolunteer();
     this.fetchStatisticsMessages();
@@ -72,19 +72,19 @@ export class StatisticsComponent implements OnInit {
     this.currentPageMesaje = page;
   }
 
-  fetchVolunteers(): void {
-    this.volunteerService.getAll().subscribe({
-      next: (data: any) => { 
-        console.log("Volunteers data retrieved:", JSON.stringify(data, null, 2));
+  // fetchVolunteers(): void {
+  //   this.volunteerService.getAll().subscribe({
+  //     next: (data: any) => { 
+  //       console.log("Volunteers data retrieved:", JSON.stringify(data, null, 2));
 
-        // If data has $values property, use it
-        this.voluntariData = Array.isArray(data.$values) ? data.$values : data;
-      },
-      error: (err) => { 
-        console.log("Error fetching volunteers:", err);
-      }
-    });
-  }
+  //       // If data has $values property, use it
+  //       this.voluntariData = Array.isArray(data.$values) ? data.$values : data;
+  //     },
+  //     error: (err : any)  => { 
+  //       console.log("Error fetching volunteers:", err);
+  //     }
+  //   });
+  // }
 
   fetchMessages(): void { 
     this.messageService.getAllMessages().subscribe({

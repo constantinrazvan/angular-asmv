@@ -28,7 +28,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Presedinte Adunarea Generala', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 2, 
@@ -39,7 +40,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Vicepresedinte Adunarea Generala', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 3,
@@ -50,7 +52,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Secretar Adunarea Generala',
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }
   ];
   membersConsiliuDirectorial: Volunteer[] = [
@@ -63,7 +66,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Presedinte', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 2,
@@ -74,7 +78,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Vicepresedinte', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     },
     {
       id: 3, 
@@ -85,7 +90,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Activ - Debutant Prim Ajutor - Aj. Instructor Prim Ajutor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 4, 
@@ -96,7 +102,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 5, 
@@ -107,7 +114,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 6, 
@@ -118,7 +126,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Activ - Debutant Prim Ajutor - Instructor Prim Ajutor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }
   ];
 
@@ -132,7 +141,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 2, 
@@ -143,7 +153,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 3, 
@@ -154,7 +165,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 4, 
@@ -165,7 +177,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 5, 
@@ -176,7 +189,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     },
     {
       id: 6, 
@@ -187,7 +201,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     },
     {
       id: 7, 
@@ -198,7 +213,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 8, 
@@ -209,7 +225,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 9, 
@@ -220,7 +237,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 10, 
@@ -231,7 +249,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 11, 
@@ -242,7 +261,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 12, 
@@ -253,7 +273,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''  
+      city: '',
+      department: ''  
     }, 
     {
       id: 13, 
@@ -264,7 +285,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 14, 
@@ -275,7 +297,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar - Aj. Instructor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 15, 
@@ -286,7 +309,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar - Aj. Instructor', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     },
     {
       id: 16, 
@@ -297,7 +321,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Aj. Instructor PA', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     },
     {
       id: 17, 
@@ -308,7 +333,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Aj. Instructor PA', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 18, 
@@ -319,7 +345,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Aj. Instructor PA', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 19, 
@@ -330,7 +357,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Aj. Instructor PA', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }, 
     {
       id: 20, 
@@ -341,7 +369,8 @@ export class MembersComponent implements OnInit, AfterViewInit {
       status: 'Membru Voluntar - Aj. Instructor PA', 
       ocupation: '',
       joinedDate: '22-05-2025',
-      city: ''
+      city: '',
+      department: ''
     }
   ];
 

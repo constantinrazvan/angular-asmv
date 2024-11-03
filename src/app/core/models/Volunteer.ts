@@ -8,5 +8,8 @@ export interface Volunteer {
   status: string;
   ocupation: string; 
   joinedDate: string;
-  imageUrl?: string | File | null; // Keep this for upload
+  president?: boolean;
+  vicepresident?: boolean;
+  volunteerImage?: { url: string } | File | string | null; 
+  department: string;
 }
