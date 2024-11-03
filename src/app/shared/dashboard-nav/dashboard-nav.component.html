@@ -54,6 +54,12 @@
           <span class="ms-2">Utilizatori</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/activitati'), 'text-secondary': !isActive('/dashboard/activitati')}" [routerLink]="['/dashboard/activitati']">
+          <i class="bi bi-calendar-week"></i>
+          <span class="ms-2">Activitati</span>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

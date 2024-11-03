@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectsService } from '../../../core/services/projects/projects.service';
 import { Router } from '@angular/router';
+import { Project } from '../../../core/models/Project';
 
 @Component({
   selector: 'app-add-project',
@@ -17,12 +18,15 @@ export class AddProjectComponent {
   selectedFile: File | null = null;
   loading = false;
 
-  constructor(private fb: FormBuilder, private service: ProjectsService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private service: ProjectsService,
+    private router: Router
+  ) {
     this.projectForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
-      summary: ['', Validators.required],
-      imageUrl: ['']
+      summary: ['', Validators.required]
     });
   }
 
@@ -49,7 +53,7 @@ export class AddProjectComponent {
       reader.onload = () => {
         this.imagePreview = reader.result;
       };
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(file);
     }
   }
 
@@ -58,11 +62,11 @@ export class AddProjectComponent {
     this.imagePreview = null;
     const fileInput = document.getElementById('image') as HTMLInputElement;
     if (fileInput) {
-      fileInput.value = ''; // Reset the file input field
+      fileInput.value = ''; 
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.projectForm.invalid) {
       this.projectForm.markAllAsTouched();
       return;
@@ -70,27 +74,31 @@ export class AddProjectComponent {
 
     this.loading = true;
 
-    const formData = new FormData();
-    formData.append('title', this.projectForm.value.title);
-    formData.append('content', this.projectForm.value.content);
-    formData.append('summary', this.projectForm.value.summary);
+    const newProject: Project = {
+      id: 0, 
+      title: this.projectForm.value.title,
+      content: this.projectForm.value.content,
+      summary: this.projectForm.value.summary,
+      imageUrl: '' 
+    };
 
     if (this.selectedFile) {
-      formData.append('photo', this.selectedFile, this.selectedFile.name);
+      this.service.addProject(newProject, this.selectedFile).subscribe({
+        next: (response) => {
+          console.log('Project added successfully', response);
+          this.projectForm.reset();
+          this.imagePreview = null;
+          this.loading = false;
+          this.router.navigate(['/dashboard/postari']);
+        },
+        error: (error) => {
+          console.error('Error adding project', error);
+          this.loading = false;
+        }
+      });
+    } else {
+      alert('Please select an image file.');
+      this.loading = false;
     }
-
-    this.service.addProject(formData).subscribe({
-      next: (response: any) => {
-        console.log('Project added successfully', response);
-        this.projectForm.reset();
-        this.imagePreview = null;
-        this.loading = false;
-        this.router.navigate(['/dashboard/proiecte'])
-      },
-      error: (error) => {
-        console.error('Error adding project', error);
-        this.loading = false;
-      }
-    });
-  }  
+  }
 }

@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ProjectsService } from '../../core/services/projects/projects.service';
+import { ProjectsService, ProjectResponse } from '../../core/services/projects/projects.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,7 +27,7 @@ interface Project {
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  projects: Project[] = [];
+  projects: Project[] = [].reverse();
   dataSource = new MatTableDataSource<Project>([]);
   isLoading = true;
 
@@ -41,17 +41,17 @@ export class ProjectsComponent implements OnInit {
 
   getProjects(): void {
     this.service.getAllProjects().subscribe({
-      next: (response: any) => {
-        this.projects = response.$values.map((item: any) => ({
+      next: (response: ProjectResponse[]) => {
+        this.projects = response.map((item: ProjectResponse) => ({
           id: item.id,
           title: item.title,
           summary: item.summary,
-          imageUrl: item.imageUrl,
+          imageUrl: item.imageUrl ?? '', 
           content: item.content
-        }));
-        
-        this.dataSource.data = this.projects.reverse();
-        this.isLoading = false; 
+        })).reverse(); 
+  
+        this.dataSource.data = this.projects; 
+        this.isLoading = false;
         this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
@@ -59,5 +59,5 @@ export class ProjectsComponent implements OnInit {
         this.isLoading = false;
       }
     });
-  }
+  }  
 }

@@ -1,0 +1,136 @@
+/* Stilizare pentru containerul principal */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  /* Stilizare pentru antetul calendarului */
+  .calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #007bff;
+  }
+  
+  .header-cell {
+    font-size: 1rem;
+    color: #007bff;
+  }
+  
+  /* Stilizare pentru grila de zile din calendar */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: #ddd;
+  }
+  
+  .day-cell {
+    background-color: #fff;
+    padding: 10px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    border: 1px solid #ddd;
+  }
+  
+  .day-cell .day-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .empty {
+    background-color: #f9f9f9;
+  }
+  
+  /* Stilizare pentru activități */
+  .list-unstyled .badge {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    margin-bottom: 5px;
+  }
+  
+  .list-unstyled .badge:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+  }
+  
+  .small {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Buton de adăugare activitate */
+  .btn-link {
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  .btn-link:hover {
+    color: #0056b3;
+  }
+  
+  /* Stil pentru modale */
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+  }
+  
+  .modal-header {
+    border-bottom: none;
+  }
+  
+  .modal-footer {
+    border-top: none;
+  }
+  
+  .modal-title {
+    font-weight: bold;
+  }
+  
+  /* Stilizare pentru lista de persoane asignate */
+  .list-group-item {
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    padding: 6px 12px;
+  }
+  
+  .list-group-item .btn-sm {
+    font-size: 0.75rem;
+  }
+
+  /* Stil pentru activitatea badge */
+.badge-activity {
+    background-color: #007bff; /* Albastru Bootstrap */
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .badge-activity:hover {
+    background-color: #0056b3; /* Albastru închis pentru hover */
+  }
+  

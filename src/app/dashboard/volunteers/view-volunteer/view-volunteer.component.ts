@@ -16,7 +16,7 @@ declare var bootstrap: any;
 })
 export class ViewVolunteerComponent implements OnInit {
   volunteer: Volunteer = {} as Volunteer;
-  volunteerId = this.activatedRoute.snapshot.paramMap.get('id');
+  volunteerId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   isEdit: boolean = false;
   showReplaceInput: boolean = false;
 
@@ -31,15 +31,17 @@ export class ViewVolunteerComponent implements OnInit {
   }
 
   loadVolunteer(): void {
-    this.service.getVolunteer(Number(this.volunteerId)).subscribe({
-      next: (volunteer: Volunteer) => { 
-        this.volunteer = volunteer;
-        console.log("Loaded volunteer:", volunteer);
-      }, 
-      error: (error: any) => {
-        console.error("Failed to load volunteer:", error);
-      }
-    });
+    if (this.volunteerId) {
+      this.service.getVolunteer(Number(this.volunteerId)).subscribe({
+        next: (volunteer: Volunteer) => { 
+          this.volunteer = volunteer;
+          console.log("Loaded volunteer:", volunteer);
+        }, 
+        error: (error: any) => {
+          console.error("Failed to load volunteer:", error);
+        }
+      });
+    }
   }
 
   editModeOn(): void { 
@@ -52,16 +54,30 @@ export class ViewVolunteerComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.service.updateVolunteer(Number(this.volunteerId), this.volunteer).subscribe({
-      next: () => {
-        console.log('Modificările au fost salvate.');
-        this.isEdit = false;
-      },
-      error: (error: any) => {
-        console.log('Eroare la salvarea modificărilor:', error);
-      }
-    });
+    if (this.volunteerId) {
+      const formData = new FormData();
+  
+      Object.entries(this.volunteer).forEach(([key, value]) => {
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else if (typeof value === 'object' && value && 'url' in value) {
+        } else {
+          formData.append(key, value as string); 
+        }
+      });
+  
+      this.service.updateVolunteer(Number(this.volunteerId), formData).subscribe({
+        next: () => {
+          console.log('Modificările au fost salvate.');
+          this.isEdit = false;
+        },
+        error: (error: any) => {
+          console.log('Eroare la salvarea modificărilor:', error);
+        }
+      });
+    }
   }
+  
 
   onImageSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -85,21 +101,24 @@ export class ViewVolunteerComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    this.service.deleteVolunteer(Number(this.volunteerId)).subscribe({
-      next: () => {
-        console.log('Voluntar șters cu succes.');
-        this.router.navigate(['/volunteers']); 
-      },
-      error: (error: any) => {
-        console.log('Eroare la ștergerea voluntarului:', error);
-      }
-    });
+    if (this.volunteerId) {
+      this.service.removeVolunteer(Number(this.volunteerId)).subscribe({
+        next: () => {
+          console.log('Voluntar șters cu succes.');
+          this.router.navigate(['/volunteers']); 
+        },
+        error: (error: any) => {
+          console.log('Eroare la ștergerea voluntarului:', error);
+        }
+      });
+    }
   }
 
+  // Retrieves the image URL if available
   getImageUrl(): string | null {
     if (typeof this.volunteer.volunteerImage === 'string') {
       return this.volunteer.volunteerImage;
-    } else if (typeof this.volunteer.volunteerImage === 'object' && this.volunteer.volunteerImage && 'url' in this.volunteer.volunteerImage) {
+    } else if (this.volunteer.volunteerImage && 'url' in this.volunteer.volunteerImage) {
       return this.volunteer.volunteerImage.url;
     }
     return null;

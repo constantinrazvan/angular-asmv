@@ -168,6 +168,12 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/volunteers/new-volunteer/new-volunteer.component').then(m => m.NewVolunteerComponent),
         title: "Adauga Voluntar", 
         canActivate: [authGuard]
+      }, 
+      {
+        path: 'activitati',
+        loadComponent : () => import('./dashboard/schedule/schedule.component').then(m => m.ScheduleComponent),
+        title: "Activitati", 
+        canActivate: [authGuard]
       }
     ]
   },  

@@ -2,33 +2,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../../models/Project';
-import { projectEnvironment } from '../../environment';
 import { AuthService } from '../auth/auth.service';
+
+export interface ProjectResponse {
+  id: number;
+  title: string;
+  summary: string;
+  imageUrl: string | null;
+  content: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
 
-  apiUrl: string = "http://localhost:5253"; // Adjust if needed
+  private baseUrl: string = 'http://localhost:5235/api/Projects';
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
-  ) { }
-
-  getAllProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(projectEnvironment.getAllProjects);
-  }
-
-  getProject(id: number): Observable<Project> {
-    return this.http.get<Project>(`http://localhost:5235/api/Projects/project/${id}`);
-  }
-
-  getProjectImage(projectId: number): Observable<Blob> {
-    const url = `${this.apiUrl}/uploaded_images/${projectId}`; // Adjust to your image path
-    return this.http.get(url, { responseType: 'blob' });
-  }
+  ) {}
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.getUserToken();
@@ -37,29 +31,58 @@ export class ProjectsService {
     });
   }
 
-  addProject(formData: FormData): Observable<Project> {
-    return this.http.post<Project>(projectEnvironment.newProject, formData, {
+  getAllProjects(): Observable<ProjectResponse[]> {
+    return this.http.get<ProjectResponse[]>(`${this.baseUrl}/all-projects`, {
       headers: this.getAuthHeaders()
     });
   }
 
-  updateProject(id: number, project: Project, imageFile: File | null): Observable<Project> {
+  getProject(id: number): Observable<Project> {
+    return this.http.get<Project>(`http://localhost:5235/api/projects/project/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+  
+  getProjectImage(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/project/${id}/image`, {
+      headers: this.getAuthHeaders(),
+      responseType: 'blob'
+    });
+  }
+
+  addProject(project: Project, photo: File): Observable<any> {
     const formData = new FormData();
     formData.append('title', project.title);
     formData.append('content', project.content);
     formData.append('summary', project.summary);
-    
-    if (imageFile) {
-      formData.append('image', imageFile, imageFile.name);
-    }
+    formData.append('photo', photo);
 
-    return this.http.put<Project>(projectEnvironment.updateProject(id), formData, {
+    return this.http.post(`${this.baseUrl}/new-project`, formData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  updateProject(id: number, project: Project, photo?: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('title', project.title);
+    formData.append('content', project.content);
+    formData.append('summary', project.summary);
+    if (photo) formData.append('photo', photo);
+
+    return this.http.put(`${this.baseUrl}/update-project/${id}`, formData, {
       headers: this.getAuthHeaders()
     });
   }
 
   deleteProject(id: number): Observable<any> {
-    return this.http.delete<any>(projectEnvironment.deleteProject(id), {
+    return this.http.delete(`${this.baseUrl}/delete-project/${id}`, {
+      headers: this.getAuthHeaders(),
+      responseType: 'text'
+    });
+  }
+
+  countProjects(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/count-projects`, {
       headers: this.getAuthHeaders()
     });
   }

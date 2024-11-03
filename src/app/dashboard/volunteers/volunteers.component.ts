@@ -10,74 +10,69 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
   templateUrl: './volunteers.component.html',
-  styleUrl: './volunteers.component.css'
+  styleUrls: ['./volunteers.component.css'] // Fixed typo here
 })
 export class VolunteersComponent implements OnInit {
-    volunteers: Volunteer[] = [];
+  volunteers: Volunteer[] = [];
+  itemsPerPage = 10;
+  currentPage = 1;
   
-    constructor(private service: VolunteersService) {}
+  constructor(private service: VolunteersService) {}
   
-    itemsPerPage = 10;
-    currentPage = 1;
+  ngOnInit(): void {
+    this.fetchVolunteers();
+  }
+
+  fetchVolunteers(): void {
+    this.service.getVolunteers().subscribe({
+      next: (data: Volunteer[]) => {
+        console.log(data); // Verify data structure
+        if (data && Array.isArray(data)) {
+          this.volunteers = data.reverse(); // Reverse the order of the list
+        } else {
+          console.log('Data does not contain a list of volunteers');
+        }
+      },
+      error: (error: any) => {
+        console.error('Error fetching volunteers!', error);
+      }
+    });
+  }
   
-    ngOnInit(): void {
-      this.fetchVolunteers();
-    }
-  
-    fetchVolunteers() {
-      this.service.getAllVolunteers().subscribe({
-        next: (data: Volunteer[]) => {
-          console.log(data); // Verifică structura datelor
-          if (data && Array.isArray(data)) {
-            this.volunteers = data.reverse(); // Accesează lista direct și o inversează
-          } else {
-            console.log('Datele nu conțin o listă de voluntari');
-          }
+  get totalItems(): number {
+    return this.volunteers.length;
+  }
+
+  get paginatedVolunteers(): Volunteer[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.volunteers.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
+
+  refresh(): void {
+    this.fetchVolunteers(); // Reloads the volunteer list
+  }
+
+  deleteVolunteer(id: number): void {
+    if (confirm('Are you sure you want to delete this volunteer?')) {
+      this.service.removeVolunteer(id).subscribe({
+        next: () => {
+          console.log("Volunteer successfully deleted");
+          this.fetchVolunteers();
         },
         error: (error: any) => {
-          console.log('Eroare la aducerea voluntarilor!');
-          console.log(error);
+          console.error('Error deleting volunteer!', error);
         }
       });
     }
-    
-    get totalItems() {
-      return this.volunteers.length;
-    }
-  
-    get paginatedVolunteers() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      return this.volunteers.slice(start, end);
-    }
-  
-    get totalPages() {
-      return Math.ceil(this.totalItems / this.itemsPerPage);
-    }
-  
-    changePage(page: number) {
-      if (page < 1 || page > this.totalPages) return;
-      this.currentPage = page;
-    }
-  
-    refresh(): void {
-      this.fetchVolunteers();
-      window.location.reload();
-    }
-  
-    deleteVolunteer(id: number) {
-      if (confirm('Ești sigur că vrei să ștergi acest voluntar?')) {
-        this.service.deleteVolunteer(id).subscribe({
-          next: () => {
-            console.log("Voluntar șters cu succes");
-            this.fetchVolunteers();
-          },
-          error: (error) => {
-            console.error('Eroare la ștergerea voluntarului!', error);
-          }
-        });
-      }
-    }
-    
   }
-  
+}

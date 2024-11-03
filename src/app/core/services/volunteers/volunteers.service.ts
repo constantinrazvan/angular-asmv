@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { volunteerEnvironment } from '../../environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Volunteer } from '../../models/Volunteer';
 
@@ -8,28 +7,32 @@ import { Volunteer } from '../../models/Volunteer';
   providedIn: 'root'
 })
 export class VolunteersService {
+  private baseUrl = 'http://localhost:5235/api/volunteers';
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
-  addVolunteer(formData: FormData): Observable<Volunteer> {
-    return this.http.post<Volunteer>(`${volunteerEnvironment.addVolunteer}`, formData);
-  }  
-
-  getAllVolunteers(): Observable<Volunteer[]> { 
-    return this.http.get<Volunteer[]>('http://localhost:5235/api/Volunteers');
-  }  
-
-  getVolunteer(id: number): Observable<Volunteer> { 
-    return this.http.get<Volunteer>(`http://localhost:5235/api/Volunteers/${id}`);
-  }  
-
-  updateVolunteer(id: number, volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.put<Volunteer>(`${volunteerEnvironment.updateVolunteer}/${id}`, volunteer);
+  // 1. Add a new volunteer
+  addVolunteer(volunteer: FormData): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/new-volunteer`, volunteer);
   }
 
-  deleteVolunteer(id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:5235/api/Volunteers/${id}`);
-  }  
+  // 2. Get all volunteers
+  getVolunteers(): Observable<Volunteer[]> {
+    return this.http.get<Volunteer[]>(`${this.baseUrl}`);
+  }
+
+  // 3. Get a single volunteer by ID
+  getVolunteer(id: number): Observable<Volunteer> {
+    return this.http.get<Volunteer>(`${this.baseUrl}/${id}`);
+  }
+
+  // 4. Update an existing volunteer by ID
+  updateVolunteer(id: number, volunteer: FormData): Observable<boolean> {
+    return this.http.put<boolean>(`${this.baseUrl}/${id}`, volunteer);
+  }
+
+  // 5. Delete a volunteer by ID
+  removeVolunteer(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

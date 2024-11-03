@@ -1,0 +1,76 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4">Calendar de Activități</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button class="btn btn-outline-primary" (click)="schimbaLuna(-1)">← Luna anterioară</button>
+        <h4 class="text-primary">{{ numeLuna }} {{ anulCurent }}</h4>
+        <button class="btn btn-outline-primary" (click)="schimbaLuna(1)">Luna următoare →</button>
+    </div>
+
+    <!-- Buton de adăugare activitate -->
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" (click)="deschideFormularAdaugare()">+ Adaugă activitate</button>
+    </div>
+
+    <div class="calendar-header">
+        <div *ngFor="let zi of zileleSaptamanii" class="header-cell">{{ zi }}</div>
+    </div>
+
+    <div class="calendar-grid">
+        <div *ngFor="let empty of emptyDays" class="day-cell empty"></div>
+        <div *ngFor="let zi of zileLunaCurenta" class="day-cell">
+            <div class="day-number">{{ zi.numarZi }}</div>
+            <ul class="list-unstyled mt-2">
+                <li *ngFor="let activitate of zi.activitati" class="badge-activity" (click)="editeazaActivitate(zi, activitate)">
+                    {{ activitate.nume }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal pentru Adăugarea/Modificarea Activității -->
+    <div *ngIf="modalDeschis" class="modal fade show d-block modal-overlay" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ activitateEditata ? 'Modifică Activitate' : 'Adaugă Activitate' }}</h5>
+                    <button type="button" class="btn-close" (click)="inchideFormular()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="numeActivitate" class="form-label">Nume Activitate</label>
+                        <input type="text" [(ngModel)]="activitateNoua.nume" class="form-control" id="numeActivitate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="coordonator" class="form-label">Coordonator</label>
+                        <select [(ngModel)]="activitateNoua.coordonator" class="form-control" id="coordonator">
+                            <option *ngFor="let utilizator of utilizatori" [value]="utilizator.numeComplet">{{ utilizator.numeComplet }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="persoaneAsignate" class="form-label">Persoane Asignate</label>
+                        <select class="form-control" [(ngModel)]="persoanaTemporara" (change)="adaugaPersoana()" id="persoaneAsignate">
+                            <option [ngValue]="null">Selectează o persoană</option>
+                            <option *ngFor="let utilizator of utilizatori" [value]="utilizator.numeComplet">{{ utilizator.numeComplet }}</option>
+                        </select>
+                        <ul class="list-group mt-2">
+                            <li *ngFor="let persoana of activitateNoua.persoane; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ persoana }}</span>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="stergePersoana(i)">Șterge</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataActivitate" class="form-label">Data Activității</label>
+                        <input type="date" [(ngModel)]="activitateNoua.data" class="form-control" id="dataActivitate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="inchideFormular()">Închide</button>
+                    <button *ngIf="activitateEditata" type="button" class="btn btn-danger" (click)="stergeActivitate()">Șterge</button>
+                    <button type="button" class="btn btn-primary" (click)="salveazaActivitate()">{{ activitateEditata ? 'Actualizează' : 'Salvează' }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
