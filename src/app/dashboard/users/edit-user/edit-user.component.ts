@@ -37,7 +37,7 @@ export class EditUserComponent implements OnInit {
   createdAt: string = '';
 
   getUserProfile(): void { 
-      this.userService.getOneUser(this.id).subscribe({
+      this.userService.getUser(this.id).subscribe({
           next: (res: User) => {
               this.user = res;  // Directly assign the fetched user
               console.log(`User details fetched: { Id: ${res.id}, First Name: ${res.firstname}, Last Name: ${res.lastname}, Email: ${res.email}, Role: ${res.role} }`);

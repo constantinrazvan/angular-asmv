@@ -20,8 +20,8 @@ export class LoginComponent {
 
   /*
     ** Parola actualiazata pe data de 27/09/2024**
-    razvan20@email.com
-    razvan
+    razvanpana30@gmail.com
+    Razvan20.
   */
 
   /*

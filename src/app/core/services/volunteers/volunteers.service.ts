@@ -1,60 +1,38 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Volunteer } from '../../models/Volunteer';
-import { volunteerEnvironment } from '../../environment';
-import { AuthService } from '../auth/auth.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class VolunteersService {
+  private baseUrl = 'http://localhost:5235/api/volunteers';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) { }
+  constructor(private http: HttpClient) {}
 
-  // Method to get authentication headers
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.authService.getUserToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+  // 1. Add a new volunteer
+  addVolunteer(volunteer: FormData): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/new-volunteer`, volunteer);
   }
 
-  getAll(): Observable<Volunteer[]> {
-    return this.http.get<Volunteer[]>('http://localhost:5235/volunteers', {
-      headers: this.getAuthHeaders()
-    });
+  // 2. Get all volunteers
+  getVolunteers(): Observable<Volunteer[]> {
+    return this.http.get<Volunteer[]>(`${this.baseUrl}`);
   }
 
-  getOne(id: number): Observable<Volunteer> {
-    if (!id || id <= 0) {
-      throw new Error('Invalid ID');
-    }
-  
-    return this.http.get<Volunteer>(`http://localhost:5235/volunteer/${id}`, {
-      headers: this.getAuthHeaders()
-    });
-  }
-  
-
-  addVolunteer(volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.post<Volunteer>(volunteerEnvironment.addVolunteer(), volunteer, {
-      headers: this.getAuthHeaders()
-    });
+  // 3. Get a single volunteer by ID
+  getVolunteer(id: number): Observable<Volunteer> {
+    return this.http.get<Volunteer>(`${this.baseUrl}/${id}`);
   }
 
-  deleteVolunteer(id: number): Observable<boolean> { 
-    return this.http.delete<boolean>(`http://localhost:5235/delete-volunteer/${id}`, {
-      headers: this.getAuthHeaders()
-    });
+  // 4. Update an existing volunteer by ID
+  updateVolunteer(id: number, volunteer: FormData): Observable<boolean> {
+    return this.http.put<boolean>(`${this.baseUrl}/${id}`, volunteer);
   }
 
-  updateVolunteer(id: number, volunteer: Volunteer): Observable<Volunteer> {
-    return this.http.put<Volunteer>(volunteerEnvironment.updateVolunteer(id), volunteer, {
-      headers: this.getAuthHeaders()
-    });
+  // 5. Delete a volunteer by ID
+  removeVolunteer(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

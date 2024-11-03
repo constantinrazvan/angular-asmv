@@ -4,15 +4,8 @@ import { Subscription } from 'rxjs';
 import { ProjectsService } from '../../../core/services/projects/projects.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-interface ProjectResponse {
-  id: number;
-  title: string;
-  content: string;
-  summary: string;
-  imageUrl: string; // Assuming this is the structure of your response
-}
+import { HttpClientModule } from '@angular/common/http';
+import { Project } from '../../../core/models/Project'; 
 
 @Component({
   selector: 'app-edit-project',
@@ -24,20 +17,20 @@ interface ProjectResponse {
 export class EditProjectComponent implements OnInit, OnDestroy {
   private id: number = 0;
   private subscription: Subscription | null = null;
-  project: ProjectResponse | null = null; // Changed to match the response type
+  project: Project | null = null;
   projectImage: string | null = null;
   selectedFile: File | null = null;
+  imageToDelete: boolean = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private service: ProjectsService,
-    private http: HttpClient
+    private service: ProjectsService
   ) {}
 
   ngOnInit() {
     this.subscription = this.activeRoute.params.subscribe(params => {
-      this.id = +params['id']; // Convert string to number
-      this.fetchProjectData(this.id); // Fetch project data
+      this.id = +params['id'];
+      this.fetchProjectData(this.id);
     });
   }
 
@@ -48,25 +41,37 @@ export class EditProjectComponent implements OnInit, OnDestroy {
   }
 
   fetchProjectData(id: number): void {
-    console.log(`Fetching project data for ID: ${id}`); // Log ID-ul cererii
-    this.http.get<ProjectResponse>(`http://localhost:5235/api/projects/project/${id}`).subscribe(
-      (projectData) => {
-        console.log('Response received:', projectData); // Log răspunsul complet
-        this.project = projectData; // Setează direct proiectul
-        this.projectImage = projectData.imageUrl || null; // Setează URL-ul imaginii
+    this.service.getProject(id).subscribe({
+      next: (projectData: Project) => {
+        this.project = projectData;
+        this.projectImage = projectData.imageUrl 
+          ? `http://localhost:5235${projectData.imageUrl}` 
+          : null;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching project data:', error);
       }
-    );
+    });
   }
-
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
-      this.selectedFile = file; // Store the selected file
+      this.selectedFile = file;
+      this.imageToDelete = false; 
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.projectImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
+  }
+
+  deleteImage(): void {
+    this.imageToDelete = true;
+    this.projectImage = null;
+    this.selectedFile = null;
   }
 
   onSubmit(): void {
@@ -75,12 +80,20 @@ export class EditProjectComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.service.updateProject(this.id, this.project, this.selectedFile).subscribe({
+    const updatedProjectData: Project = {
+      ...this.project,
+      title: this.project.title,
+      content: this.project.content,
+      summary: this.project.summary,
+      imageUrl: this.imageToDelete ? null : this.project.imageUrl
+    };
+
+    this.service.updateProject(this.id, updatedProjectData, this.selectedFile || undefined).subscribe({
       next: (updatedProject) => {
         console.log('Project updated successfully:', updatedProject);
-        this.fetchProjectData(this.id); // Re-fetch project data to update the image
+        this.fetchProjectData(this.id);
       },
-      error: (error: string | null) => {
+      error: (error) => {
         console.log('Error updating project:', error);
       }
     });

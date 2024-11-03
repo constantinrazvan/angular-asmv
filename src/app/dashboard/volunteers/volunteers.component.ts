@@ -1,87 +1,78 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { CommonModule } from '@angular/common';
 import { Volunteer } from '../../core/models/Volunteer';
-import { Router, RouterLink } from '@angular/router';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-volunteers',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
   templateUrl: './volunteers.component.html',
-  styleUrl: './volunteers.component.css'
+  styleUrls: ['./volunteers.component.css'] // Fixed typo here
 })
 export class VolunteersComponent implements OnInit {
-
-  constructor(
-    private service: VolunteersService,
-    private router: Router
-  ) {}
-
+  volunteers: Volunteer[] = [];
+  itemsPerPage = 10;
+  currentPage = 1;
+  
+  constructor(private service: VolunteersService) {}
+  
   ngOnInit(): void {
-      this.fetchData();
+    this.fetchVolunteers();
   }
 
-  fetchData(): void {
-    this.service.getAll().subscribe({
-      next: (data: any) => {
-        console.log('Data retrieved:');
-        console.log(JSON.stringify(data, null, 2));
-        
-        // Check if $values is an array and reverse it
-        if (data && Array.isArray(data.$values)) {
-          this.volunteers = data.$values.reverse(); // Access the actual array
+  fetchVolunteers(): void {
+    this.service.getVolunteers().subscribe({
+      next: (data: Volunteer[]) => {
+        console.log(data); // Verify data structure
+        if (data && Array.isArray(data)) {
+          this.volunteers = data.reverse(); // Reverse the order of the list
         } else {
-          console.log('Data does not contain a valid $values array');
+          console.log('Data does not contain a list of volunteers');
         }
       },
-      error: (err) => {
-        console.log(err);
+      error: (error: any) => {
+        console.error('Error fetching volunteers!', error);
       }
     });
-  }  
-
-  refresh(): void { 
-    this.fetchData();
-    window.location.reload();
   }
   
-  volunteers : Volunteer[] = [];
-
-  itemsPerPage = 5;
-  currentPage = 1;
-
-  get totalItems() {
+  get totalItems(): number {
     return this.volunteers.length;
   }
 
-  get paginatedVolunteers() {
+  get paginatedVolunteers(): Volunteer[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     return this.volunteers.slice(start, end);
   }
 
-  get totalPages() {
+  get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
-  changePage(page: number) {
+  changePage(page: number): void {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
   }
 
+  refresh(): void {
+    this.fetchVolunteers(); // Reloads the volunteer list
+  }
 
-  onDelete(id : number) {
-    if(confirm("Esti sigur ca vrei sa stergi acest voluntar?")) {
-      this.service.deleteVolunteer(id).subscribe({
-        next: (res) => { 
-          console.log(res);
-          window.location.reload();
+  deleteVolunteer(id: number): void {
+    if (confirm('Are you sure you want to delete this volunteer?')) {
+      this.service.removeVolunteer(id).subscribe({
+        next: () => {
+          console.log("Volunteer successfully deleted");
+          this.fetchVolunteers();
         },
-        error: (err) => {
-          console.log(err);
+        error: (error: any) => {
+          console.error('Error deleting volunteer!', error);
         }
-      })
+      });
     }
   }
 }

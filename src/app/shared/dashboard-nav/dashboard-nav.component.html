@@ -50,8 +50,14 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/utilizatori'), 'text-secondary': !isActive('/dashboard/utilizatori')}" [routerLink]="['/dashboard/utilizatori']">
-          <i class="bi bi-person-plus"></i>
+          <i class="bi bi-people"></i>
           <span class="ms-2">Utilizatori</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': isActive('/dashboard/activitati'), 'text-secondary': !isActive('/dashboard/activitati')}" [routerLink]="['/dashboard/activitati']">
+          <i class="bi bi-calendar-week"></i>
+          <span class="ms-2">Activitati</span>
         </a>
       </li>
     </ul>

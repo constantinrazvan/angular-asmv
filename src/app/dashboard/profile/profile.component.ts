@@ -105,15 +105,7 @@ export class ProfileComponent implements OnInit{
   oldPassword: string = "";
 
   updatePassword(event: Event): void { 
-    this.userService.userChangePassword(this.id, this.newPassword, this.oldPassword).subscribe({
-      next: () => { 
-        this.service.logout();
-      }, 
-      error: (err) => { 
-        console.log(err); 
-        alert("Ceva nu a mers corect! Incercati mai tarziu!");
-      }
-    });
+  //add logic
   }
   
   logout() : void { 

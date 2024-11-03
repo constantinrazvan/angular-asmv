@@ -54,8 +54,7 @@ export class ProjectsComponent implements OnInit {
     this.service.getAllProjects().subscribe({
         next: (response: any) => { 
             console.log('Projects received:', response);
-            // Access the `$values` array directly from the response
-            this.projects = response.$values.reverse(); // Reverse if needed
+            this.projects = (response || []).reverse();
         },
         error: (error: string | null) => { 
             console.error("Eroare la aducerea proiectelor!", error);
@@ -66,15 +65,17 @@ export class ProjectsComponent implements OnInit {
   onDelete(id: number): void {
     if (confirm('Esti sigur ca vrei sa stergi acest proiect?')) {
       this.service.deleteProject(id).subscribe({
-        next: (response: string) => { 
+        next: () => { 
           console.log("Proiectul a fost sters cu succes!");
+          this.projects = this.projects.filter(project => project.id !== id);
         }, 
         error: (error: string | null) => { 
-          console.log("Eroare la stergerea proiectului");
+          console.error("Eroare la stergerea proiectului:", error);
+          alert("A apărut o eroare la ștergerea proiectului.");
         }
-      })
+      });
     }
-  }
+  }  
 
   logProjectId(id: number) {
     console.log("Navigating to edit project with ID:", id);

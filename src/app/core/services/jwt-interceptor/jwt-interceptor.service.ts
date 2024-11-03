@@ -1,16 +1,23 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { HttpRequest, HttpHandlerFn, HttpEvent, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
-export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token');
+export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  const authService = inject(AuthService);
 
-  if (token) {
-    const clonedRequest = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
+  return next(req).pipe(
+    tap(event => {
+      if (event instanceof HttpResponse) {
+        if (event.headers.get('Token-Expired') === 'true') {
+          authService.logout();
+        }
       }
-    });
-    return next(clonedRequest);  // Continue with the cloned request
-  }
-
-  return next(req);  // Proceed without modifying the request if no token is found
+    }, error => {
+      if (error.status === 401) {
+        authService.logout();
+      }
+    })
+  );
 };

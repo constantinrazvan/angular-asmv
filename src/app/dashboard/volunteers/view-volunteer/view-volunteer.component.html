@@ -1,51 +1,75 @@
-<div class="edit-form-volunteer">
-    <div class="container mt-5">
-      <h1 class="mb-4">Editează Voluntar</h1>
-  
-      <form *ngIf="volunteer" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label for="volunteerId" class="form-label">ID Voluntar</label>
-          <input type="text" [value]="volunteer.id" class="form-control" id="volunteerId" readonly>
+<div class="container d-flex justify-content-center">
+    <form class="mx-auto p-3" style="width: 100%; max-width: 600px;">
+        
+        <div class="form-group mb-3">
+            <label for="firstname" class="form-label">Nume</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="volunteer.firstname" required [disabled]="!isEdit">
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerFirstname" class="form-label">Prenume</label>
-          <input type="text" [(ngModel)]="volunteer.firstname" name="firstname" class="form-control" id="volunteerFirstname">
+
+        <div class="form-group mb-3">
+            <label for="lastname" class="form-label">Prenume</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="volunteer.lastname" required [disabled]="!isEdit">
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerLastname" class="form-label">Nume</label>
-          <input type="text" [(ngModel)]="volunteer.lastname" name="lastname" class="form-control" id="volunteerLastname">
+
+        <div class="form-group mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="volunteer.email" required [disabled]="!isEdit">
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerEmail" class="form-label">Email</label>
-          <input type="email" [(ngModel)]="volunteer.email" name="email" class="form-control" id="volunteerEmail">
+
+        <div class="form-group mb-3">
+            <label for="joinedDate" class="form-label">Data aderare</label>
+            <input type="date" class="form-control" id="joinedDate" name="joinedDate" [(ngModel)]="volunteer.joinedDate" [disabled]="!isEdit">
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerPhone" class="form-label">Telefon</label>
-          <input type="tel" [(ngModel)]="volunteer.phone" name="phone" class="form-control" id="volunteerPhone">
+
+        <div class="form-group mb-3">
+            <label class="form-label">Președinte / Vicepreședinte?</label>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="president" name="president" [(ngModel)]="volunteer.president" [disabled]="!isEdit">
+                <label class="form-check-label" for="president">Președinte</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="vicePresident" name="vicePresident" [(ngModel)]="volunteer.vicepresident" [disabled]="!isEdit">
+                <label class="form-check-label" for="vicePresident">Vicepreședinte</label>
+            </div>
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerCity" class="form-label">Oraș</label>
-          <input type="text" [(ngModel)]="volunteer.city" name="city" class="form-control" id="volunteerCity">
+
+        <div class="form-group mb-3">
+            <label for="department" class="form-label">Departament</label>
+            <select class="form-control" id="department" name="department" [(ngModel)]="volunteer.department" required [disabled]="!isEdit">
+                <option value="Adunarea Generala">Adunarea Generala</option>
+                <option value="Membru Activ">Membru Activ</option>
+                <option value="Membru Voluntar">Membru Voluntar</option>
+            </select>
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerStatus" class="form-label">Status</label>
-          <input type="text" [(ngModel)]="volunteer.status" name="status" class="form-control" id="volunteerStatus">
+
+        <div class="form-group mb-3">
+            <label class="form-label">Imagine Voluntar</label>
+
+            <ng-container *ngIf="getImageUrl(); else editImageSection">
+                <div class="d-flex flex-column align-items-start">
+                    <img [src]="getImageUrl()" alt="Imagine Voluntar" class="img-thumbnail mb-2" style="max-width: 200px;">
+                    
+                    <div *ngIf="isEdit" class="d-flex flex-column align-items-start">
+                        <button type="button" class="btn btn-danger btn-sm my-1" (click)="removeImage()">Șterge Imagine</button>
+                        <button type="button" class="btn btn-primary btn-sm my-1" (click)="showReplaceInput = true">Schimbă Imagine</button>
+                    </div>
+                    
+                    <input *ngIf="showReplaceInput" type="file" (change)="onImageSelected($event)" accept="image/*" class="form-control mt-2">
+                </div>
+            </ng-container>
+
+            <ng-template #editImageSection>
+                <ng-container *ngIf="isEdit">
+                    <input type="file" (change)="onImageSelected($event)" accept="image/*" class="form-control">
+                </ng-container>
+            </ng-template>
         </div>
-  
-        <div class="mb-3">
-          <label for="volunteerJoinedDate" class="form-label">Data Aderării</label>
-          <input type="string" [(ngModel)]="volunteer.joinedDate" name="joined_date" class="form-control" id="volunteerJoinedDate">
+
+        <div class="buttons mt-4">
+            <button type="button" class="btn me-2 btn-sm" [ngClass]="isEdit ? 'btn-success' : 'btn-warning'" (click)="isEdit ? saveChanges() : editModeOn()">
+                {{ isEdit ? 'Salvează' : 'Editează' }}
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal()">Șterge</button>
         </div>
-  
-        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvează Modificările</button>
-        <button type="delete" class="btn btn-danger" (click)="onDelete()"> Sterge</button>
-      </form>
-    </div>
-  </div>
-  
+    </form>
+</div>

@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
     this.role = this.authService.getUserRole();
     this.hasAccess = this.checkUserRole(this.role);
     if (this.hasAccess) {
-      this.getUsers(); // Obține utilizatorii doar dacă ai acces
+      this.getUsers(); 
     }
   }
 
@@ -53,10 +53,12 @@ export class UsersComponent implements OnInit {
       next: (data: any) => { 
         console.log(data); 
         this.users.length = 0; 
-        if (data.$values && Array.isArray(data.$values)) {
-          this.users.push(...data.$values.map((user: any) => ({
+        
+        if (Array.isArray(data)) {
+          // Directly use data as it’s already an array
+          this.users.push(...data.map((user: any) => ({
             ...user,
-            created_at: user.createdAt ? new Date(user.createdAt) : null // Transformă în Date sau lasă null
+            created_at: user.createdAt ? new Date(user.createdAt) : null // Transform into Date or leave as null
           })));
         } else {
           console.error('Răspunsul nu conține un array valid:', data);

@@ -99,12 +99,6 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'voluntari',
-        loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent), 
-        title: 'Voluntari',
-        canActivate: [authGuard]
-      },
-      {
         path: 'cereri',
         loadComponent: () => import('./dashboard/requests/requests.component').then(m => m.RequestsComponent), 
         title: 'Cereri de Voluntariat',
@@ -140,23 +134,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },  
       {
-        path: 'voluntar/:id',
-        loadComponent: () => import('./dashboard/volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
-        title: 'Voluntar',
-        canActivate: [authGuard]
-      },
-      {
         path: 'cerere/:id',
         loadComponent: () => import('./dashboard/requests/view-request/view-request.component').then(m => m.ViewRequestComponent),
         title: 'Cerere',
         canActivate: [authGuard]
       },
-      {
-        path: 'adauga-voluntar',
-        loadComponent: () => import('./dashboard/volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
-        title: 'Adauga Voluntar',
-        canActivate: [authGuard]
-      }, 
       {
         path: 'utilizatori', 
         loadComponent: () => import('./dashboard/users/users.component').then(m => m.UsersComponent),
@@ -168,8 +150,32 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/users/edit-user/edit-user.component').then(m => m.EditUserComponent), 
         title: 'Editeaza utilizator', 
         canActivate: [authGuard]
+      }, 
+      {
+        path: 'vezi-voluntar/:id', 
+        loadComponent: () => import('./dashboard/volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
+        title: "Voluntar", 
+        canActivate: [authGuard]
+      },
+      {
+        path: 'voluntari', 
+        loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent),
+        title: "Voluntari", 
+        canActivate: [authGuard]
+      },
+      {
+        path: 'adauga-voluntar', 
+        loadComponent: () => import('./dashboard/volunteers/new-volunteer/new-volunteer.component').then(m => m.NewVolunteerComponent),
+        title: "Adauga Voluntar", 
+        canActivate: [authGuard]
+      }, 
+      {
+        path: 'activitati',
+        loadComponent : () => import('./dashboard/schedule/schedule.component').then(m => m.ScheduleComponent),
+        title: "Activitati", 
+        canActivate: [authGuard]
       }
     ]
   },  
-  { path: '**', redirectTo: '' } // This should be the last route
+  { path: '**', redirectTo: '' }
 ];
