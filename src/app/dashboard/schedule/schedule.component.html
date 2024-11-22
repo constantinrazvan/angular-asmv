@@ -12,11 +12,11 @@
         <button class="btn btn-primary" (click)="deschideFormularAdaugare()">+ Adaugă activitate</button>
     </div>
 
-    <div class="calendar-header">
+    <div class="calendar-header mb-3">
         <div *ngFor="let zi of zileleSaptamanii" class="header-cell">{{ zi }}</div>
     </div>
 
-    <div class="calendar-grid">
+    <div class="calendar-grid mb-5" style="margin-bottom: 5px;">
         <div *ngFor="let empty of emptyDays" class="day-cell empty"></div>
         <div *ngFor="let zi of zileLunaCurenta" class="day-cell">
             <div class="day-number">{{ zi.numarZi }}</div>

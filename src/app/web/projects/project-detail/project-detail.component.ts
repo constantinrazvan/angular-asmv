@@ -59,7 +59,10 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
           this.project = data;
 
           // Set project image from the URL
-          this.projectImage = data.imageUrl as string || this.defaultImage; // Ensure it's treated as a string
+          this.projectImage = this.project.imageUrl ? `http://localhost:5235${this.project.imageUrl}` : this.defaultImage;
+          
+          console.log(this.project.imageUrl);
+          console.log(`http://localhost:5235${this.project.imageUrl}`);
         } else {
           this.errorMessage = 'Project not found.'; // Handle non-existing project
         }

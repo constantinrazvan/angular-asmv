@@ -14,26 +14,14 @@
         <hr>
         <div class="row">
             <div class="col-md-6">
-                <p><strong><i class="bi bi-envelope-fill"></i> Email:</strong> <span class="text-dark">{{ 'johndoe@example.com' | lowercase }}</span></p>
-                <p><strong><i class="bi bi-person-circle"></i> Ocupație:</strong> <span class="text-dark">Student</span></p>
+                <p><strong><i class="bi bi-envelope-fill"></i> Email:</strong> <span class="text-dark">{{ volunteer.email }}</span></p>
+                <p><strong><i class="bi bi-person-circle"></i> Ocupație:</strong> <span class="text-dark">{{ volunteer.ocupation }}</span></p>
             </div>
             <div class="col-md-6">
-                <p><strong><i class="bi bi-clock-fill"></i> Timp de activitate:</strong> <span class="text-dark">1 an și 3 luni</span></p>
-                <p><strong><i class="bi bi-people-fill"></i> Rol:</strong> <span class="text-dark">Membru Voluntar</span></p>
+                <p><strong><i class="bi bi-clock-fill"></i> Timp de activitate:</strong> <span class="text-dark">{{ volunteer.joinedDate }}</span></p>
+                <p><strong><i class="bi bi-people-fill"></i> Rol:</strong> <span class="text-dark">{{ volunteer.status }}</span></p>
             </div>
         </div>
-    </div>
-
-    <div class="d-flex justify-content-center mt-5">
-        <a href="https://facebook.com/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none">
-            <i class="bi bi-facebook"></i>
-        </a>
-        <a href="https://twitter.com/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none" >
-            <i class="bi bi-twitter"></i>
-        </a>
-        <a href="https://linkedin.com/in/johndoe" target="_blank" class="social-box mx-3 d-flex justify-content-center align-items-center text-decoration-none" >
-            <i class="bi bi-linkedin"></i>
-        </a>
     </div>
 </div>
 

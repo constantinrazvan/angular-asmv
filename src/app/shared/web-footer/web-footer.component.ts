@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-web-footer',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './web-footer.component.html',
   styleUrl: './web-footer.component.css',
 })

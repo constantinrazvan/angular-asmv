@@ -55,3 +55,28 @@
     box-shadow: none !important;
     color: #e6e6e6; /* Schimbăm ușor culoarea la hover pentru a indica interacțiunea */
 }
+
+/* Notification menu full-width for mobile */
+@media (max-width: 576px) {
+    .dropdown-menu.notification-menu {
+      width: 100vw !important;  /* Full viewport width */
+      max-width: 100vw !important; /* Enforce max width to viewport */
+      left: 0 !important;  /* Align to the left */
+      right: 0 !important; /* Align to the right */
+      border-radius: 0; /* Remove rounded corners */
+      top: 100%; /* Align just below the navbar */
+      padding: 0; /* Remove padding */
+      margin-top: 0.5rem; /* Optional: add small spacing below navbar */
+    }
+  
+    /* Adjust padding within notification items */
+    .notification-menu .p-3 {
+      padding: 1rem !important;
+    }
+  
+    /* Ensure icons are well-aligned on mobile */
+    .notification-menu .btn-link {
+      padding: 0;
+    }
+  }
+  

@@ -17,8 +17,15 @@ export class CookieModalComponent implements OnInit {
   }
 
   openDialog(): void {
-    if (!localStorage.getItem('cookiesAccepted')) {
-      this.dialog.open(CookieModalDialogComponent);
-    }
+    if (!localStorage.getItem('cookiesAccepted'))
+      this.dialog.open(CookieModalDialogComponent, {
+        width: '500px',    // Ajustează lățimea la 400px sau o altă valoare
+        maxWidth: '90vw',  // Lățimea maximă să fie 90% din lățimea viewport-ului
+        panelClass: 'custom-dialog' // Opțional: pentru alte stilizări
+      });
+  }
+
+  acceptGDPR() {
+    localStorage.setItem('gdprAccepted', 'true');
   }
 }

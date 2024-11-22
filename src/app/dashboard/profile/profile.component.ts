@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit{
 
   createdAt: string = this.service.getUserJoinedDate();
 
+  initialUser: string = this.user.firstname ? this.user.firstname.slice(0, 1) : '';
+
   constructor(
     private renderer: Renderer2, 
     private service: AuthService,

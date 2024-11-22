@@ -3,9 +3,9 @@ import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
 import { Volunteer } from '../../core/models/Volunteer';
-import { now } from 'jquery';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
 
 @Component({
   selector: 'app-members',
@@ -29,7 +29,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       ocupation: '',
       joinedDate: '22-05-2025',
       city: '',
-      department: ''
+      department: 'Adunarea Generala'
     }, 
     {
       id: 2, 
@@ -41,7 +41,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       ocupation: '',
       joinedDate: '22-05-2025',
       city: '',
-      department: ''
+      department: 'Adunarea Generala'
     }, 
     {
       id: 3,
@@ -53,7 +53,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
       ocupation: '',
       joinedDate: '22-05-2025',
       city: '',
-      department: ''
+      department: 'Adunarea Generala'
     }
   ];
   membersConsiliuDirectorial: Volunteer[] = [
@@ -376,7 +376,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
 
   isLoading = true;
 
-  // constructor(private service: VolunteerService) {}
+  constructor(private service: VolunteersService) {}
 
   ngOnInit(): void {
     this.loadMembers();
@@ -399,15 +399,38 @@ export class MembersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getMembersByDepartment(departmentKey: string, targetArray: Volunteer[]): void {
+    this.service.selectByDepartment(departmentKey).subscribe({
+      next: (res: Volunteer[]) => {
+        targetArray.length = 0; 
+        targetArray.push(...res);
+      },
+      error: (error: any) => {
+        console.error(`Error fetching members for ${departmentKey}:`, error);
+      }
+    });
+  }
+  
+  getMembersAdunareaGenerala(): void {
+    this.getMembersByDepartment("Adunarea Generala", this.membersAdunareaGenerala);
+  }
+  
+  getMembersConsiliuDirectorial(): void {
+    this.getMembersByDepartment("Consiliu Directorial", this.membersConsiliuDirectorial);
+  }
+  
+  getMemberVolunteers(): void {
+    this.getMembersByDepartment("Voluntari", this.memberVolunteers);
+  }
+  
+
   loadMembers(): void {
     this.getMembers();
   }
 
   getMembers(): void {
-    // Simulate an async operation, replace with actual data fetching if needed
     setTimeout(() => {
-      // Data is already available, just simulate a delay
-      this.isLoading = false; // Hide spinner when data is ready
-    }, 1000); // Adjust the timeout as needed
+      this.isLoading = false; 
+    }, 1000);
   }
 }

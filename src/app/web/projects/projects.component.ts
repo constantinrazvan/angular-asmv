@@ -46,11 +46,13 @@ export class ProjectsComponent implements OnInit {
           id: item.id,
           title: item.title,
           summary: item.summary,
-          imageUrl: item.imageUrl ?? '', 
+          imageUrl: item.imageUrl 
+            ? `http://localhost:5235${item.imageUrl}` 
+            : '../../../../assets/defaultImage.jpeg', 
           content: item.content
-        })).reverse(); 
+        })).reverse();
   
-        this.dataSource.data = this.projects; 
+        this.dataSource.data = this.projects;
         this.isLoading = false;
         this.dataSource.paginator = this.paginator;
       },
@@ -59,5 +61,6 @@ export class ProjectsComponent implements OnInit {
         this.isLoading = false;
       }
     });
-  }  
+  }
+  
 }

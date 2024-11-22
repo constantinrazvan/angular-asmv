@@ -28,6 +28,14 @@
                     <button class="btn btn-warning btn-sm me-2" title="Edit Project" [routerLink]="['/dashboard/proiect/edit/', project.id]" (click)="logProjectId(project.id)">
                         <i class="bi bi-pencil"></i>
                     </button>
+                    <a 
+                        class="btn btn-info btn-sm me-2" 
+                        title="See Project" 
+                        [routerLink]="['/proiect/', project.id]" 
+                        target="_blank" 
+                        (click)="logProjectId(project.id)">
+                        <i class="bi bi-eye"></i>
+                    </a>
                     <button class="btn btn-danger btn-sm" (click)="onDelete(project.id)">
                         <i class="bi bi-trash"></i>
                     </button>

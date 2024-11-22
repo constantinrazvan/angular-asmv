@@ -35,4 +35,9 @@ export class VolunteersService {
   removeVolunteer(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  // 6. Fetch by department 
+  selectByDepartment(department: string): Observable<Volunteer[]> {
+    return this.http.get<Volunteer[]>(`${this.baseUrl}/${department}`);
+  }
 }

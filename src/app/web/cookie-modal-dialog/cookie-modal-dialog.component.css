@@ -6,3 +6,16 @@
     justify-content: space-between;
   }
   
+  .small-dialog {
+    max-width: 500px; /* sau o valoare mai mică, în funcție de preferințe */
+    width: 100%;
+}
+
+.dialog-content {
+    padding: 16px; /* Ajustează padding-ul dacă este necesar */
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: center;
+}

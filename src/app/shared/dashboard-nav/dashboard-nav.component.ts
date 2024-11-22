@@ -37,4 +37,10 @@ export class DashboardNavComponent implements OnInit {
     this.authService.logout();
     window.location.reload();
   }
+
+  deleteNotification(id: number) {
+    // Implement the logic to remove the notification by its id
+    console.log(`Deleting notification with id: ${id}`);
+    // Example: You might filter out the notification from an array of notifications
+  }  
 }

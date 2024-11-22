@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { volunteers } from '../../core/volunteers';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
+import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
+import { Volunteer } from '../../core/models/Volunteer';
 
 @Component({
   selector: 'app-volunteer-profile',
@@ -12,13 +13,26 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
   templateUrl: './volunteer-profile.component.html',
   styleUrl: './volunteer-profile.component.css'
 })
-export class VolunteerProfileComponent {
+export class VolunteerProfileComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute, 
+    private service: VolunteersService,
   ){}
 
+  volunteer: Volunteer = {} as Volunteer;
   id: string = this.route.snapshot.params['id'];
 
-
+  ngOnInit(): void {
+    if(this.id != null) {
+      this.service.getVolunteer(+this.id).subscribe({
+        next: (response: Volunteer) => {
+          this.volunteer =  response;
+        }, 
+        error: (error) => {  
+          console.log(error);
+        }
+      })
+    }
+  }
 }
