@@ -1,0 +1,74 @@
+<div class="container mt-4">
+    <h1><strong>Editare Voluntar</strong></h1>
+    <form [formGroup]="volunteerForm" (ngSubmit)="saveChanges()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="firstname" class="form-label">Prenume</label>
+          <input type="text" id="firstname" class="form-control" formControlName="firstname" placeholder="Editați prenumele">
+        </div>
+        <div class="col-md-6">
+          <label for="lastname" class="form-label">Nume</label>
+          <input type="text" id="lastname" class="form-control" formControlName="lastname" placeholder="Editați numele">
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="Editați email-ul">
+        </div>
+        <div class="col-md-6">
+          <label for="phoneNumber" class="form-label">Telefon</label>
+          <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" placeholder="Editați numărul de telefon">
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="ocupation" class="form-label">Ocupație</label>
+          <input type="text" id="ocupation" class="form-control" formControlName="ocupation" placeholder="Editați ocupația">
+        </div>
+        <div class="col-md-6">
+          <label for="department" class="form-label">Departament</label>
+          <select id="department" class="form-select" formControlName="department">
+            <option value="Membru Voluntar">Membru Voluntar</option>
+            <option value="Consiliu Directorial">Consiliu Directorial</option>
+            <option value="Adunarea Generala">Adunarea Generala</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="joinedDate" class="form-label">Data Înscrierii</label>
+          <input type="date" id="joinedDate" class="form-control" formControlName="joinedDate">
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="volunteerImage" class="form-label">Imagine Voluntar *</label>
+            <input type="file" id="volunteerImage" class="form-control" (change)="onImageChange($event)" required>
+            <small class="text-danger" *ngIf="!selectedImage && !previewImage">Imaginea este obligatorie.</small>
+        </div>
+        <div class="col-md-6">
+            <img *ngIf="previewImage" [src]="previewImage" alt="Preview Imagine" class="img-fluid img-thumbnail">
+        </div>
+    </div>    
+  
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Președinte?</label>
+          <input type="checkbox" id="president" class="form-check-input" formControlName="president">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Vicepreședinte?</label>
+          <input type="checkbox" id="vicepresident" class="form-check-input" formControlName="vicepresident">
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary me-2">Salvează</button>
+      <button type="button" class="btn btn-secondary" [routerLink]="['/dashboard/voluntari']">Anulează</button>
+    </form>
+  </div>
+  

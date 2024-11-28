@@ -152,27 +152,27 @@ export const routes: Routes = [
         canActivate: [authGuard]
       }, 
       {
-        path: 'vezi-voluntar/:id', 
-        loadComponent: () => import('./dashboard/volunteers/view-volunteer/view-volunteer.component').then(m => m.ViewVolunteerComponent),
-        title: "Voluntar", 
-        canActivate: [authGuard]
-      },
-      {
-        path: 'voluntari', 
-        loadComponent: () => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent),
-        title: "Voluntari", 
-        canActivate: [authGuard]
-      },
-      {
-        path: 'adauga-voluntar', 
-        loadComponent: () => import('./dashboard/volunteers/new-volunteer/new-volunteer.component').then(m => m.NewVolunteerComponent),
-        title: "Adauga Voluntar", 
-        canActivate: [authGuard]
-      }, 
-      {
         path: 'activitati',
         loadComponent : () => import('./dashboard/schedule/schedule.component').then(m => m.ScheduleComponent),
         title: "Activitati", 
+        canActivate: [authGuard]
+      },
+      {
+        path: 'voluntari',
+        loadComponent:  ()  => import('./dashboard/volunteers/volunteers.component').then(m => m.VolunteersComponent),
+        title: "Voluntari",
+        canActivate: [authGuard]
+      },
+      {
+        path: 'edit-voluntar/:id',
+        loadComponent: () => import('./dashboard/volunteers/edit-volunteers/edit-volunteers.component').then(m => m.EditVolunteersComponent),
+        title: 'Editează voluntar',
+        canActivate: [authGuard]
+      }, 
+      {
+        path: 'add-voluntar',
+        loadComponent: () => import('./dashboard/volunteers/add-volunteer/add-volunteer.component').then(m => m.AddVolunteerComponent),
+        title: 'Adauga Voluntar',
         canActivate: [authGuard]
       }
     ]

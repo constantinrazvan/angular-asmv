@@ -21,6 +21,9 @@ export class ProjectsComponent implements OnInit {
     this.fetchProjects();
   }
 
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+
   projects : Project[] = [];
 
   itemsPerPage = 5;
@@ -50,32 +53,63 @@ export class ProjectsComponent implements OnInit {
     this.currentPage = page;
   }
 
-  fetchProjects(): void { 
+  fetchProjects(): void {
     this.service.getAllProjects().subscribe({
-        next: (response: any) => { 
-            console.log('Projects received:', response);
-            this.projects = (response || []).reverse();
-        },
-        error: (error: string | null) => { 
-            console.error("Eroare la aducerea proiectelor!", error);
+      next: (response: any) => {
+        console.log('Projects received:', response);
+        this.projects = (response || []).reverse();
+
+        if(this.projects.length == 0) {
+          this.successMessage = "Proiectele au fost incarcate cu succes dar din pacate nu ai nici un proiect creat!";
+          this.errorMessage = null;
+        } else {
+          this.successMessage = 'Proiectele au fost încărcate cu succes!';
+          this.errorMessage = null;
         }
+  
+        // Ascundem notificarea după 5 secunde
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 5000);
+      },
+      error: (error: string | null) => {
+        this.errorMessage = 'A apărut o eroare la încărcarea proiectelor.';
+        this.successMessage = null;
+  
+        // Ascundem notificarea după 5 secunde
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 5000);
+      }
     });
   }
+  
 
   onDelete(id: number): void {
-    if (confirm('Esti sigur ca vrei sa stergi acest proiect?')) {
+    if (confirm('Ești sigur că vrei să ștergi acest proiect?')) {
       this.service.deleteProject(id).subscribe({
-        next: () => { 
-          console.log("Proiectul a fost sters cu succes!");
+        next: () => {
+          this.successMessage = 'Proiectul a fost șters cu succes!';
+          this.errorMessage = null; // Ascundem mesajele de eroare dacă există
           this.projects = this.projects.filter(project => project.id !== id);
-        }, 
-        error: (error: string | null) => { 
-          console.error("Eroare la stergerea proiectului:", error);
-          alert("A apărut o eroare la ștergerea proiectului.");
+  
+          // Ascundem notificarea după 5 secunde
+          setTimeout(() => {
+            this.successMessage = null;
+          }, 5000);
+        },
+        error: (error: string | null) => {
+          this.errorMessage = 'A apărut o eroare la ștergerea proiectului. Încercați din nou.';
+          this.successMessage = null; // Ascundem mesajele de succes dacă există
+  
+          // Ascundem notificarea după 5 secunde
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 5000);
         }
       });
     }
-  }  
+  }    
 
   logProjectId(id: number) {
     console.log("Navigating to edit project with ID:", id);

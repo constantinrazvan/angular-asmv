@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { WebNavbarComponent } from '../../shared/web-navbar/web-navbar.component';
 import { WebFooterComponent } from '../../shared/web-footer/web-footer.component';
 import { CommonModule } from '@angular/common';
@@ -15,365 +15,11 @@ import { VolunteersService } from '../../core/services/volunteers/volunteers.ser
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit, AfterViewInit {
-
   title = "ASMV - Membri";
 
-  membersAdunareaGenerala: Volunteer[] = [
-    {
-      id: 1, 
-      firstname: 'Dr. Dan', 
-      lastname: 'Pletea', 
-      email: '', 
-      phone: '', 
-      status: 'Presedinte Adunarea Generala', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: 'Adunarea Generala'
-    }, 
-    {
-      id: 2, 
-      firstname: 'Dr. Florin', 
-      lastname: 'Stanimir', 
-      email: '', 
-      phone: '', 
-      status: 'Vicepresedinte Adunarea Generala', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: 'Adunarea Generala'
-    }, 
-    {
-      id: 3,
-      firstname: 'Dr. Florin',
-      lastname: 'Postelnicu',
-      email: '',
-      phone: '',
-      status: 'Secretar Adunarea Generala',
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: 'Adunarea Generala'
-    }
-  ];
-  membersConsiliuDirectorial: Volunteer[] = [
-    {
-      id: 1, 
-      firstname: 'Esra', 
-      lastname: '', 
-      email: '', 
-      phone: '', 
-      status: 'Presedinte', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 2,
-      firstname: 'Berkant', 
-      lastname: 'Güneș', 
-      email: '', 
-      phone: '', 
-      status: 'Vicepresedinte', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    },
-    {
-      id: 3, 
-      firstname: 'Georgiana Cristina', 
-      lastname: 'Iacob', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Activ - Debutant Prim Ajutor - Aj. Instructor Prim Ajutor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 4, 
-      firstname: 'Med.', 
-      lastname: 'Daniela Popa', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 5, 
-      firstname: 'Dr. Roxana', 
-      lastname: 'Stoiciu', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Activ - Sef Echipaj Prim Ajutor - Instructor Prim Ajutor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 6, 
-      firstname: 'Vlad Daniel', 
-      lastname: 'Leu', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Activ - Debutant Prim Ajutor - Instructor Prim Ajutor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }
-  ];
-
-  memberVolunteers: Volunteer[] = [
-    {
-      id: 1, 
-      firstname: 'Ana Maria Gabriela', 
-      lastname: 'Cosma', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 2, 
-      firstname: 'Bianca Maria', 
-      lastname: 'Francu', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 3, 
-      firstname: 'Augustin', 
-      lastname: 'Fricatel', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 4, 
-      firstname: 'Cristina Catalina', 
-      lastname: 'Gradinaru', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 5, 
-      firstname: 'Marina', 
-      lastname: 'Iordan', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    },
-    {
-      id: 6, 
-      firstname: 'Bianca-Andreea', 
-      lastname: 'Matei', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    },
-    {
-      id: 7, 
-      firstname: 'Electra', 
-      lastname: 'Milidonis', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 8, 
-      firstname: 'Zakaria', 
-      lastname: 'Rochdi', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 9, 
-      firstname: 'Andrei Eusebiu', 
-      lastname: 'Valimareanu', // cu diacritice
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 10, 
-      firstname: 'Bianca Maria', 
-      lastname: 'Herenciuc', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 11, 
-      firstname: 'Cristina', 
-      lastname: 'Cravcic', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 12, 
-      firstname: 'Gabriela Irene', 
-      lastname: 'Raicu', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''  
-    }, 
-    {
-      id: 13, 
-      firstname: 'Madalina Cristina', 
-      lastname: 'Manole', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 14, 
-      firstname: 'Maryem Betul', 
-      lastname: 'Dag', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar - Aj. Instructor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 15, 
-      firstname: 'Raluca Florentina', 
-      lastname: 'Smochina', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar - Aj. Instructor', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    },
-    {
-      id: 16, 
-      firstname: 'Bianca', 
-      lastname: 'Ianus', 
-      email: '', 
-      phone: '', 
-      status: 'Aj. Instructor PA', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    },
-    {
-      id: 17, 
-      firstname: 'Elif', 
-      lastname: 'Ibadula', 
-      email: '', 
-      phone: '', 
-      status: 'Aj. Instructor PA', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 18, 
-      firstname: 'Ana-Maria', 
-      lastname: 'Ionascu', 
-      email: '', 
-      phone: '', 
-      status: 'Aj. Instructor PA', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 19, 
-      firstname: 'Ana Maria Gabriela', 
-      lastname: 'Brotea', 
-      email: '', 
-      phone: '', 
-      status: 'Aj. Instructor PA', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }, 
-    {
-      id: 20, 
-      firstname: 'Andreea Cristina', 
-      lastname: 'Barbalau', 
-      email: '', 
-      phone: '', 
-      status: 'Membru Voluntar - Aj. Instructor PA', 
-      ocupation: '',
-      joinedDate: '22-05-2025',
-      city: '',
-      department: ''
-    }
-  ];
-
+  membersAdunareaGenerala: Volunteer[] = [];
+  membersConsiliuDirectorial: Volunteer[] = [];
+  memberVolunteers: Volunteer[] = [];
   isLoading = true;
 
   constructor(private service: VolunteersService) {}
@@ -382,7 +28,7 @@ export class MembersComponent implements OnInit, AfterViewInit {
     this.loadMembers();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.onScroll();
   }
 
@@ -402,35 +48,49 @@ export class MembersComponent implements OnInit, AfterViewInit {
   getMembersByDepartment(departmentKey: string, targetArray: Volunteer[]): void {
     this.service.selectByDepartment(departmentKey).subscribe({
       next: (res: Volunteer[]) => {
-        targetArray.length = 0; 
-        targetArray.push(...res);
+        targetArray.length = 0;
+        targetArray.push(...this.sortMembers(res)); // Sortăm membrii înainte de afișare
+        this.isLoading = false;
       },
       error: (error: any) => {
         console.error(`Error fetching members for ${departmentKey}:`, error);
+        this.isLoading = false;
       }
     });
   }
-  
+
   getMembersAdunareaGenerala(): void {
     this.getMembersByDepartment("Adunarea Generala", this.membersAdunareaGenerala);
   }
-  
+
   getMembersConsiliuDirectorial(): void {
     this.getMembersByDepartment("Consiliu Directorial", this.membersConsiliuDirectorial);
   }
-  
+
   getMemberVolunteers(): void {
     this.getMembersByDepartment("Voluntari", this.memberVolunteers);
   }
-  
 
   loadMembers(): void {
-    this.getMembers();
+    this.service.getVolunteers().subscribe({
+      next: (data: Volunteer[]) => {
+        this.memberVolunteers = this.sortMembers(data);
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        console.error('Eroare la încărcarea voluntarilor:', err);
+        this.isLoading = false;
+      }
+    });
   }
 
-  getMembers(): void {
-    setTimeout(() => {
-      this.isLoading = false; 
-    }, 1000);
+  private sortMembers(members: Volunteer[]): Volunteer[] {
+    return members.sort((a, b) => {
+      if (a.president && !b.president) return -1; // Președintele are prioritate
+      if (!a.president && b.president) return 1;
+      if (a.vicepresident && !b.vicepresident) return -1; // Vicepreședintele are a doua prioritate
+      if (!a.vicepresident && b.vicepresident) return 1;
+      return 0; // Restul păstrează ordinea
+    });
   }
 }

@@ -1,0 +1,126 @@
+<div class="container mt-4">
+    <h1><strong>Adaugă Voluntar</strong></h1>
+    <form [formGroup]="volunteerForm" (ngSubmit)="addVolunteer()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="firstname" class="form-label">Prenume *</label>
+          <input type="text" id="firstname" class="form-control" formControlName="firstname" placeholder="Introduceți prenumele">
+          <div *ngIf="volunteerForm.get('firstname')?.invalid && volunteerForm.get('firstname')?.touched" class="text-danger">
+            Prenumele este obligatoriu și trebuie să aibă maximum 50 de caractere.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="lastname" class="form-label">Nume *</label>
+          <input type="text" id="lastname" class="form-control" formControlName="lastname" placeholder="Introduceți numele">
+          <div *ngIf="volunteerForm.get('lastname')?.invalid && volunteerForm.get('lastname')?.touched" class="text-danger">
+            Numele este obligatoriu și trebuie să aibă maximum 100 de caractere.
+          </div>
+        </div>
+      </div>
+    
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email *</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="Introduceți email-ul">
+          <div *ngIf="volunteerForm.get('email')?.invalid && volunteerForm.get('email')?.touched" class="text-danger">
+            Email-ul este obligatoriu și trebuie să fie valid.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="phoneNumber" class="form-label">Telefon *</label>
+          <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" placeholder="Introduceți numărul de telefon">
+          <div *ngIf="volunteerForm.get('phoneNumber')?.invalid && volunteerForm.get('phoneNumber')?.touched" class="text-danger">
+            Numărul de telefon trebuie să conțină exact 10 cifre.
+          </div>
+        </div>
+      </div>
+    
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="ocupation" class="form-label">Ocupație *</label>
+          <input type="text" id="ocupation" class="form-control" formControlName="ocupation" placeholder="Introduceți ocupația">
+          <div *ngIf="volunteerForm.get('ocupation')?.invalid && volunteerForm.get('ocupation')?.touched" class="text-danger">
+            Ocupația este obligatorie.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="department" class="form-label">Departament *</label>
+          <select id="department" class="form-select" formControlName="department">
+            <option value="">Selectați un departament</option>
+            <option value="Membru Voluntar">Membru Voluntar</option>
+            <option value="Consiliu Directorial">Consiliu Directorial</option>
+            <option value="Adunarea Generala">Adunarea Generala</option>
+          </select>
+          <div *ngIf="volunteerForm.get('department')?.invalid && volunteerForm.get('department')?.touched" class="text-danger">
+            Departamentul este obligatoriu.
+          </div>
+        </div>
+      </div>
+    
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Președinte?</label>
+          <div class="form-check">
+            <input type="radio" id="president-yes" class="form-check-input" value="true" formControlName="president">
+            <label for="president-yes" class="form-check-label">Da</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" id="president-no" class="form-check-input" value="false" formControlName="president">
+            <label for="president-no" class="form-check-label">Nu</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Vicepreședinte?</label>
+          <div class="form-check">
+            <input type="radio" id="vicepresident-yes" class="form-check-input" value="true" formControlName="vicepresident">
+            <label for="vicepresident-yes" class="form-check-label">Da</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" id="vicepresident-no" class="form-check-input" value="false" formControlName="vicepresident">
+            <label for="vicepresident-no" class="form-check-label">Nu</label>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="volunteerImage" class="form-label">Imagine Voluntar *</label>
+          <input
+            type="file"
+            id="volunteerImage"
+            class="form-control"
+            (change)="onImageChange($event)"
+          />
+          <small class="text-muted">
+            Imaginea este obligatorie. Dacă nu alegeți una, logo-ul implicit va fi utilizat.
+          </small>
+        </div>
+        <div class="col-md-6">
+          <img
+            *ngIf="previewImage"
+            [src]="previewImage"
+            alt="Preview Imagine"
+            class="img-fluid img-thumbnail"
+          />
+        </div>
+      </div>      
+    
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Secretar?</label>
+          <div class="form-check">
+            <input type="checkbox" id="secretary" class="form-check-input" formControlName="secretary">
+            <label for="secretary" class="form-check-label">Da</label>
+          </div>
+        </div>
+      </div>
+    
+      <button type="submit" class="btn btn-success me-1" [disabled]="volunteerForm.invalid">
+        <i class="bi bi-plus-circle"></i> Adaugă
+      </button>
+      <button type="button" class="btn btn-secondary ms-1" (click)="volunteerForm.reset()">
+        <i class="bi bi-arrow-left"></i> Anulează
+      </button>
+    </form>
+  </div>
+  

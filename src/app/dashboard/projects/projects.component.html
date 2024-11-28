@@ -11,6 +11,10 @@
       Nu există proiecte.
   </div>
 
+  <div *ngIf="successMessage || errorMessage" class="alert mt-3" [class.alert-success]="successMessage" [class.alert-danger]="errorMessage" role="alert">
+    {{ successMessage || errorMessage }}
+</div>
+
   <div *ngIf="paginatedProjects.length > 0" class="table-responsive">
       <table class="table table-bordered table-striped">
           <thead>

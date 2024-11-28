@@ -1,78 +1,77 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Volunteer } from '../../core/models/Volunteer';
 import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
   selector: 'app-volunteers',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule],
   templateUrl: './volunteers.component.html',
-  styleUrls: ['./volunteers.component.css'] // Fixed typo here
+  styleUrls: ['./volunteers.component.css']
 })
 export class VolunteersComponent implements OnInit {
   volunteers: Volunteer[] = [];
-  itemsPerPage = 10;
-  currentPage = 1;
-  
-  constructor(private service: VolunteersService) {}
-  
+  error: string = "";
+
+  constructor(private volunteersService: VolunteersService, private router: Router) {}
+
   ngOnInit(): void {
     this.fetchVolunteers();
   }
 
   fetchVolunteers(): void {
-    this.service.getVolunteers().subscribe({
+    this.volunteersService.getVolunteers().subscribe({
       next: (data: Volunteer[]) => {
-        console.log(data); // Verify data structure
-        if (data && Array.isArray(data)) {
-          this.volunteers = data.reverse(); // Reverse the order of the list
-        } else {
-          console.log('Data does not contain a list of volunteers');
-        }
+        this.volunteers = data;
+        this.error = "";
       },
-      error: (error: any) => {
-        console.error('Error fetching volunteers!', error);
-      }
+      error: (err: any) => {
+        console.error(err);
+        this.error = "Eroare! Voluntarii nu au putut fi aduși.";
+        this.volunteers = [];
+      },
     });
-  }
-  
-  get totalItems(): number {
-    return this.volunteers.length;
-  }
-
-  get paginatedVolunteers(): Volunteer[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.volunteers.slice(start, end);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.totalItems / this.itemsPerPage);
-  }
-
-  changePage(page: number): void {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
   }
 
   refresh(): void {
-    this.fetchVolunteers(); // Reloads the volunteer list
+    this.volunteers = [];
+    this.fetchVolunteers();
   }
 
-  deleteVolunteer(id: number): void {
-    if (confirm('Are you sure you want to delete this volunteer?')) {
-      this.service.removeVolunteer(id).subscribe({
-        next: () => {
-          console.log("Volunteer successfully deleted");
-          this.fetchVolunteers();
-        },
-        error: (error: any) => {
-          console.error('Error deleting volunteer!', error);
-        }
-      });
+  addVolunteer(): void {
+    this.router.navigate(['/dashboard/add-voluntar']);
+  }
+
+  editVolunteer(volunteer: Volunteer): void {
+    this.router.navigate(['/dashboard/edit-voluntar', volunteer.id]);
+  }
+
+  deleteVolunteer(volunteer: Volunteer): void {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+
+      const allowedRoles = ["admin", "Membru Adunarea Generala", "Membru Consiliu Directorial"];
+      if (allowedRoles.includes(decodedToken.role)) {
+        this.volunteersService.removeVolunteer(Number(volunteer.id)).subscribe({
+          next: () => {
+            console.log(`Voluntar ${volunteer.firstname} ${volunteer.lastname} a fost șters.`);
+            this.fetchVolunteers(); 
+          },
+          error: (err: any) => {
+            console.error("Eroare la ștergerea voluntarului:", err);
+          }
+        });
+      } else {
+        console.warn("Utilizatorul nu are permisiunea de a șterge acest voluntar.");
+        alert("Nu aveți permisiunea de a șterge acest voluntar.");
+      }
+    } else {
+      console.error("Token-ul lipsește. Utilizatorul nu este autentificat.");
+      alert("Nu sunteți autentificat. Autentificați-vă pentru a continua.");
     }
   }
 }
