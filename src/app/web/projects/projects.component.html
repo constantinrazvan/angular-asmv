@@ -1,21 +1,18 @@
-<!-- Full-page spinner -->
-<div *ngIf="isLoading" class="overlay">
-  <mat-spinner></mat-spinner>
-</div>
-
-<!-- Main content including navbar and footer -->
-<div *ngIf="!isLoading">
+<div>
   <app-web-navbar></app-web-navbar>
 
   <div class="container py-5">
     <div class="p-3">
-        <h2 class="inter title text-center" style="font-size: 40px; font-weight: 700; letter-spacing: -1px;">Proiectele cu care ne mândrim!</h2>
-        <p class="text-center small mt-4">
-            De-a lungul timpului, ne-am distins prin numeroase proiecte pe care le-am realizat cu succes. Fiecare dintre acestea
-            a reflectat angajamentul nostru față de excelență și profesionalism, contribuind la crearea unei reputații solide și recunoscute în domeniul nostru de activitate. Prin munca noastră dedicată, am reușit să aducem valoare adăugată și să stabilim
-            standarde înalte în toate inițiativele pe care le-am întreprins. Fiecare proiect finalizat este o mărturie a pasiunii
-            și profesionalismului echipei noastre.
-        </p>
+      <h2 class="inter title text-center" style="font-size: 40px; font-weight: 700; letter-spacing: -1px;">
+        Proiectele cu care ne mândrim!
+      </h2>
+      <p class="text-center small mt-4">
+        De-a lungul timpului, ne-am distins prin numeroase proiecte pe care le-am realizat cu succes. Fiecare dintre acestea
+        a reflectat angajamentul nostru față de excelență și profesionalism, contribuind la crearea unei reputații solide și
+        recunoscute în domeniul nostru de activitate. Prin munca noastră dedicată, am reușit să aducem valoare adăugată și
+        să stabilim standarde înalte în toate inițiativele pe care le-am întreprins. Fiecare proiect finalizat este o
+        mărturie a pasiunii și profesionalismului echipei noastre.
+      </p>
     </div>
     <hr />
   </div>
@@ -33,9 +30,17 @@
               <p>{{project.summary}}</p>
             </mat-card-content>
             <mat-card-actions>
-              <a mat-flat-button color="primary" style="background-color: #038ED1;" [routerLink]="['/proiect', project.id]" class="btn-primary"><i>Citește</i></a>
+              <a
+                mat-flat-button
+                color="primary"
+                style="background-color: #038ED1;"
+                [routerLink]="['/proiect', project.id]"
+                class="btn-primary"
+              >
+                <i>Citește</i>
+              </a>
             </mat-card-actions>
-          </mat-card>        
+          </mat-card>
         </div>
       </ng-container>
     </div>
@@ -43,7 +48,8 @@
     <mat-paginator
       [pageSize]="6"
       [pageSizeOptions]="[6, 12, 24]"
-      aria-label="Select page">
+      aria-label="Select page"
+    >
     </mat-paginator>
   </div>
 
