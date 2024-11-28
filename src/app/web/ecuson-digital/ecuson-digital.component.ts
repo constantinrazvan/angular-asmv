@@ -5,7 +5,6 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { ActivatedRoute } from '@angular/router';
 import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
-import { QRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @Component({
   selector: 'app-ecuson-digital',
