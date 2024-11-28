@@ -32,7 +32,7 @@
               <p class="card-text text-success" *ngIf="member.president">Președinte</p>
               <p class="card-text text-info" *ngIf="member.vicepresident && !member.president">Vicepreședinte</p>
             </div>
-            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar']" routerLinkActive="router-link-active">
+            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar/', member.id]" routerLinkActive="router-link-active">
               <b>Vezi</b>
             </button>
           </div>
@@ -57,7 +57,7 @@
               <p class="card-text text-success" *ngIf="member.president">Președinte</p>
               <p class="card-text text-info" *ngIf="member.vicepresident && !member.president">Vicepreședinte</p>
             </div>
-            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar']" routerLinkActive="router-link-active">
+            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar/', member.id]" routerLinkActive="router-link-active">
               <b>Vezi</b>
             </button>
           </div>
@@ -79,10 +79,10 @@
                 <b>{{ member.firstname + ' ' + member.lastname }}</b>
               </h3>
               <p class="card-text">{{ member.department }}</p>
-              <p class="card-text text-success" *ngIf="member.president">Președinte</p>
-              <p class="card-text text-info" *ngIf="member.vicepresident && !member.president">Vicepreședinte</p>
+              <p class="card-text text-success" *ngIf="member.president">Președinte </p>
+              <p class="card-text text-info" *ngIf="member.vicepresident && !member.president">Vicepreședinte </p>
             </div>
-            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar']" routerLinkActive="router-link-active">
+            <button class="btn btn-sm mb-3" style="color: #038EDA" [routerLink]="['/voluntar/', member.id]" routerLinkActive="router-link-active">
               <b>Vezi</b>
             </button>
           </div>

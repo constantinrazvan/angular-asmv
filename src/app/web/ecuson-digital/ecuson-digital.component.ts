@@ -5,6 +5,7 @@ import { WebFooterComponent } from '../../shared/web-footer/web-footer.component
 import { ActivatedRoute } from '@angular/router';
 import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
 import { Volunteer } from '../../core/models/Volunteer';
+import { QRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @Component({
   selector: 'app-ecuson-digital',
@@ -32,15 +33,24 @@ export class EcusonDigitalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.userId != null || this.userId != 0) {
-      this.service.getVolunteer(+this.userId).subscribe({
-        next: (response) =>  {  
-          this.volunteer = response;
-        }, 
-        error: (error) => { 
-          console.log(error);
-        }
-      });
-    }
+    this.getId();
+    
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.userId = +id; // Setează userId ca număr
+        this.service.getVolunteer(this.userId).subscribe({
+          next: (response) => {
+            this.volunteer = response;
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+      } else {
+        console.error('No ID provided in the route!');
+      }
+    });
   }
+  
 }

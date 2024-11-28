@@ -26,6 +26,7 @@
     "@ng-icons/bootstrap-icons": "^28.1.0",
     "@ng-icons/core": "^28.1.0",
     "@popperjs/core": "^2.11.8",
+    "@techiediaries/ngx-qrcode": "^9.1.0",
     "@tinymce/tinymce-angular": "^8.0.1",
     "angular-asmv": "file:",
     "angular-quill": "^0.3.0",
