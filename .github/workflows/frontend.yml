@@ -32,6 +32,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: dist/angular-asmv/browser/*
         target: /var/www/angular
+        debug: true
 
     - name: Restart Nginx
       uses: appleboy/ssh-action@v0.1.1
