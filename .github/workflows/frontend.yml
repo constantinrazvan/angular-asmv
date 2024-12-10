@@ -3,7 +3,7 @@ name: Frontend CI/CD
 on:
   push:
     branches:
-      - master
+      - master  # Asigură-te că branch-ul este corect (main/master)
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 18.13  # Versiunea minimă compatibilă cu Angular CLI
 
     - name: Install dependencies
       run: npm install
@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to VPS
       uses: appleboy/scp-action@v0.1.1
       with:
-        host: <IP-VPS>
+        host: 89.40.72.64
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: dist/angular-asmv/browser/*
@@ -36,7 +36,7 @@ jobs:
     - name: Restart Nginx
       uses: appleboy/ssh-action@v0.1.1
       with:
-        host: <IP-VPS>
+        host: 89.40.72.64
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
