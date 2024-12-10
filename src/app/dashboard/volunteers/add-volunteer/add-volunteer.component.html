@@ -1,6 +1,20 @@
 <div class="container mt-4">
     <h1><strong>Adaugă Voluntar</strong></h1>
     <form [formGroup]="volunteerForm" (ngSubmit)="addVolunteer()">
+
+      <div *ngIf="volunteerForm.invalid && volunteerForm.touched" class="alert alert-danger">
+        <strong>Formularul nu este valid!</strong>
+        <ul>
+          <li *ngIf="volunteerForm.get('firstname')?.invalid">Prenumele este obligatoriu.</li>
+          <li *ngIf="volunteerForm.get('lastname')?.invalid">Numele este obligatoriu.</li>
+          <li *ngIf="volunteerForm.get('email')?.invalid">Email-ul este obligatoriu și trebuie să fie valid.</li>
+          <li *ngIf="volunteerForm.get('phoneNumber')?.invalid">Numărul de telefon este obligatoriu.</li>
+          <li *ngIf="volunteerForm.get('ocupation')?.invalid">Ocupația este obligatorie.</li>
+          <li *ngIf="volunteerForm.get('department')?.invalid">Departamentul este obligatoriu.</li>
+          <li *ngIf="volunteerForm.get('joinedDate')?.invalid">Data este obligatorie.</li>
+        </ul>
+      </div>
+
       <div class="row mb-3">
         <div class="col-md-6">
           <label for="firstname" class="form-label">Prenume *</label>
@@ -31,6 +45,24 @@
           <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" placeholder="Introduceți numărul de telefon">
           <div *ngIf="volunteerForm.get('phoneNumber')?.invalid && volunteerForm.get('phoneNumber')?.touched" class="text-danger">
             Numărul de telefon trebuie să conțină exact 10 cifre.
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="joinedDate" class="form-label">Data Alăturării *</label>
+          <input
+            type="date"
+            id="joinedDate"
+            class="form-control"
+            formControlName="joinedDate"
+          />
+          <div
+            *ngIf="volunteerForm.get('joinedDate')?.invalid && volunteerForm.get('joinedDate')?.touched"
+            class="text-danger"
+          >
+            Data este obligatorie.
           </div>
         </div>
       </div>
@@ -111,6 +143,10 @@
           <div class="form-check">
             <input type="checkbox" id="secretary" class="form-check-input" formControlName="secretary">
             <label for="secretary" class="form-check-label">Da</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="secretary" class="form-check-input" formControlName="secretary">
+            <label for="secretary" class="form-check-label">Nu</label>
           </div>
         </div>
       </div>

@@ -24,13 +24,13 @@ export class AddVolunteerComponent {
     private router: Router
   ) {
     this.volunteerForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.maxLength(50)]],
-      lastname: ['', [Validators.required, Validators.maxLength(100)]],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.pattern('\\d{10}')]],
+      phoneNumber: ['', Validators.required],
       ocupation: ['', Validators.required],
-      department: ['', [Validators.required, Validators.maxLength(100)]],
-      joinedDate: ['', [Validators.required]],
+      department: ['', Validators.required],
+      joinedDate: ['', Validators.required],
       president: [false],
       vicepresident: [false],
       volunteerImage: [null],
@@ -60,9 +60,9 @@ export class AddVolunteerComponent {
   }
 
   addVolunteer(): void {
-    const formData = new FormData();
-
     if (this.volunteerForm.valid) {
+      const formData = new FormData();
+
       Object.keys(this.volunteerForm.value).forEach((key) => {
         const value = this.volunteerForm.value[key];
         if (value !== null && value !== undefined) {
@@ -88,6 +88,18 @@ export class AddVolunteerComponent {
       });
     } else {
       console.warn('Formularul nu este valid!');
+      this.logValidationErrors();
     }
+  }
+
+  // Metodă pentru afișarea erorilor de validare
+  logValidationErrors(): void {
+    const invalidControls = Object.keys(this.volunteerForm.controls).filter((key) =>
+      this.volunteerForm.get(key)?.invalid
+    );
+
+    invalidControls.forEach((controlName) => {
+      console.warn(`${controlName} este invalid.`);
+    });
   }
 }
