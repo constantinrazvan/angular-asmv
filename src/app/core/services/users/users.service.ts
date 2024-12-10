@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class UsersService {
 
-  private baseUrl: string = 'http://localhost:5235/api/Users';
+  private baseUrl: string = 'http://asmv-ong.ro:5000/api/Users';
 
   constructor(
     private http: HttpClient,

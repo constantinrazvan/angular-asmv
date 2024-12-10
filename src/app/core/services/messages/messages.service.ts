@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MessagesService {
 
-  private readonly baseUrl = 'http://localhost:5235/api/Message';
+  private readonly baseUrl = 'http://asmv-ong.ro:5000/api/Message';
 
   constructor(
     private http: HttpClient, 

@@ -7,7 +7,7 @@ import { Volunteer } from '../../models/Volunteer';
   providedIn: 'root'
 })
 export class VolunteersService {
-  private baseUrl = 'http://localhost:5235/api/volunteers';
+  private baseUrl = 'http://asmv-ong.ro:5000/api/volunteers';
 
   constructor(private http: HttpClient) {}
 

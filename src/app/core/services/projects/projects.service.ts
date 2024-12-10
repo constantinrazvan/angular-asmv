@@ -17,7 +17,7 @@ export interface ProjectResponse {
 })
 export class ProjectsService {
 
-  private baseUrl: string = 'http://localhost:5235/api/Projects';
+  private baseUrl: string = 'http://asmv-ong.ro:5000/api/Projects';
 
   constructor(
     private http: HttpClient,
@@ -38,7 +38,7 @@ export class ProjectsService {
   }
 
   getProject(id: number): Observable<Project> {
-    return this.http.get<Project>(`http://localhost:5235/api/projects/project/${id}`, {
+    return this.http.get<Project>(`http://asmv-ong.ro:5000/api/projects/project/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
