@@ -33,6 +33,7 @@ jobs:
         source: dist/angular-asmv/browser/*
         target: /var/www/angular
         debug: true
+        port: 2222
 
     - name: Restart Nginx
       uses: appleboy/ssh-action@v0.1.1
