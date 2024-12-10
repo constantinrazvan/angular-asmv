@@ -10,36 +10,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Checkout repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 2. Set up Node.js (cu versiunea corectă pentru Angular CLI)
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 18.13  # Versiunea minimă compatibilă cu Angular CLI
 
+    # 3. Instalează dependențele
     - name: Install dependencies
       run: npm install
 
+    # 4. Construiește aplicația Angular
     - name: Build Angular application
       run: npm run build -- --configuration production
 
+    # 5. Deploy pe VPS
     - name: Deploy to VPS
       uses: appleboy/scp-action@v0.1.1
       with:
-        host: 89.40.72.64
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: dist/angular-asmv/browser/*
-        target: /var/www/angular
-        debug: true
-        port: 2222
+        host: 89.40.72.64             # Adresa IP a serverului tău
+        username: root                # Utilizatorul folosit pe VPS
+        key: ${{ secrets.SSH_FRONTEND_KEY }}
 
+        source: dist/angular-asmv/browser/* # Sursele de pe GitHub
+        target: /var/www/angular      # Destinația pe VPS
+        port: 2222                   # Portul SSH corect
+        debug: true                  # Activează debug pentru a vedea detalii suplimentare
+
+    # 6. Restart Nginx pentru a servi aplicația actualizată
     - name: Restart Nginx
       uses: appleboy/ssh-action@v0.1.1
       with:
-        host: 89.40.72.64
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: 89.40.72.64             # Adresa IP a serverului
+        username: root                # Utilizatorul VPS
+       key: ${{ secrets.SSH_FRONTEND_KEY }}
+
+        port: 2222                   # Portul SSH
         script: |
           sudo systemctl restart nginx
