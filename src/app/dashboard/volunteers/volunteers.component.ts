@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Volunteer } from '../../core/models/Volunteer';
 import { VolunteersService } from '../../core/services/volunteers/volunteers.service';
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from "jwt-decode"
 
 @Component({
   selector: 'app-volunteers',
