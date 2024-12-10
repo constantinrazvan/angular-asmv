@@ -34,7 +34,7 @@ export class AddVolunteerComponent {
       president: [false],
       vicepresident: [false],
       volunteerImage: [null],
-      secretary: [false]
+      // secretary: [false]
     });
 
     // Setăm imaginea implicită pentru preview
