@@ -36,7 +36,7 @@ jobs:
     - name: Restart Nginx
       uses: appleboy/ssh-action@v0.1.1
       with:
-        host: <IP-VPS>
+        host: 89.40.72.64
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
